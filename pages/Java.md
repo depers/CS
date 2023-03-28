@@ -1,4 +1,5 @@
 - Java语言
+  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1514,6 +1515,7 @@
 				  collapsed:: true
 					- [Java SPI机制：ServiceLoader实现原理及应用剖析](https://juejin.cn/post/6844903891746684941)
 		- XML
+		  collapsed:: true
 			- XML文档的定义文件
 				- DTD（此类文件的后缀名为 dtd）
 				- XML Schema（此类文件的后缀名为 xsd）
@@ -1595,6 +1597,7 @@
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 集合框架是在Java 1.2之后推出的，之前对Java对象进行集合操作的类是Array，Vectors或是HashTable，这些集合类都没有公共接口，尽管所有集合的主要目标是相同的，但所有这些集合的实现都是独立定义的，它们之间没有相关性。而且，用户很难记住每个集合类中出现的所有不同的方法、语法和构造函数。
@@ -1751,6 +1754,7 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
+				  collapsed:: true
 					- 介绍
 						- 使用双向链表来存储元素
 						- 实现了List和Deque接口，实现了所有的List可选的列表操作，继承了AbstractSequentialList类
@@ -1800,10 +1804,12 @@
 						- 搜索未排序的list需要 O(n) 的时间，二分搜索排序的list需要 O(logn) 的时间
 					- 使用
 						- 创建一个ArrayList
+						  collapsed:: true
 							- 默认无参构造函数
 							- 构造函数接受初始容量
 							- 构造函数接受 Collection
 						- 添加一个元素到ArrayList
+						  collapsed:: true
 							- 添加一个元素：add()
 							- 一次插入一个Collection或一些元素：addAll()
 						- 迭代ArrayList
@@ -1821,15 +1827,16 @@
 								- 先排序：Collections.sort(copy)
 								- 后搜索：Collections.binarySearch(copy, "f")
 						- 从ArrayList中移除元素
-						  collapsed:: true
 							- 从list中移除元素
 							- 通过迭代器去移除元素
 							- 通过使用Java8 Stream API
 					- 参考文章：
+					  collapsed:: true
 						- Baeldung：Guide to the Java ArrayList
 						- javatpoint：Java ArrayList
 					- 代码实现：cn.bravedawn.collection.list.arraylist
 					- Imutable ArryaList
+					  collapsed:: true
 						- 五种实现
 							- 一、使用JDK提供了可以从现有集合中获取不可修改集合的方法：Collections.unmodifiableList(list)
 							- 二、在Java9中提供了List<E>.of(E… elements)静态工厂方法，来创建不可变列表
@@ -1844,7 +1851,6 @@
 					  collapsed:: true
 						- CopyOnWriteArrayList适合在迭代遍历场景较多，频繁修改场景较少的情况。读多写少。
 					- CopyOnWriteArrayList的迭代遍历
-					  collapsed:: true
 						- 介绍
 						  collapsed:: true
 							- CopyOnWriteArrayList允许以线程安全的方式迭代列表而不需要显示进行同步
@@ -1853,10 +1859,8 @@
 							- CopyOnWriteArrayList在修改元素时，比如新增add()或是删除remove()操作时，并不直接操作元数据，操作的是副本数据（CopyOnWriteArrayList 的全部内容被复制到新的内部副本中）
 							- 在 CopyOnWriteArrayList 上调用 iterator()方法时，我们会返回一个由 CopyOnWriteArrayList 内容的不可变快照备份的迭代器
 						- 在遍历CopyOnWriteArrayList允许插入元素
-						  collapsed:: true
 							- 在遍历CopyOnWriteArrayList时插入元素，不影响之前创建的迭代器
 						- 在遍历CopyOnwriteArrayList不允许移除元素
-						  collapsed:: true
 							- 由于复制机制，不允许对返回的 Iterator执行 remove() 操作，否则就会报错 UnsupportedOperationException
 						- 参考文章：https://www.baeldung.com/java-copy-on-write-arraylist
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
@@ -2295,23 +2299,19 @@
 							- TreeMap不允许空键，但可能包含许多空值。
 					- 性能分析
 						- HashMap
-						  collapsed:: true
 							- HashMap为大多数操作(如add()、remove()和contains())提供了预期的恒定时间性能O(1)。因此，它明显比TreeMap快。
 							- 我们大概知道在我们的集合中要维护多少项，不希望以自然顺序提取项。在这种情况下，HashMap是我们的最佳选择，因为它提供恒定的插入、搜索和删除时间。
 						- TreeMap
-						  collapsed:: true
 							- 对于大多数操作，如add()，remove()和contains()， TreeMap提供了O(log(n))的性能。
 							- TreeMap可以节省内存(与HashMap相比)，因为它只使用保存项目所需的内存量，而不像HashMap使用连续的内存区域。
 							- 为了保持预期的性能，树应该保持它的平衡，这需要相当多的努力，因此使实现复杂化。
 							- 我们应该在以下情况使用TreeMap：
-							  collapsed:: true
 								- 必须考虑到内存限制
 								- 我们不知道要在内存中存储多少项
 								- 我们希望以自然顺序提取对象
 								- 如果需要不断进行添加和删除操作
 								- 我们愿意接受O(log n)的搜索时间
 					- 相同点
-					  collapsed:: true
 						- 键唯一性
 						  collapsed:: true
 							- TreeMap和HashMap都不支持重复键。如果添加，它将覆盖前一个元素(没有错误或异常)。
@@ -2321,7 +2321,6 @@
 							- 当多个线程并发访问它们并且其中至少有一个线程修改它们时，两者都必须在外部同步。
 							- 我们必须显式地使用Collections.synchronizedMap(mapName)来获得所提供映射的同步视图。
 						- Fail-Fast Iterators
-						  collapsed:: true
 							- 迭代器创建后，如果Map以任何方式和任何时间被修改，迭代器将抛出ConcurrentModificationException异常。
 							- 此外，我们可以使用迭代器的remove方法在迭代过程中更改Map。
 					- 如何选择
@@ -2386,6 +2385,27 @@
 						- `of()`：可以添加多对键值构造map
 						- 特点：生成的不可变map，即不能直接修改也不能间接修改
 			- Queue
+			- Fail-fast and Fail-safe
+			  collapsed:: true
+				- Fail-fast
+				  collapsed:: true
+					- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 ConcurrentModificationException。
+					- 案例
+						- HashMap 中的迭代器
+						- ArrayList 中的迭代器
+				- Fail-safe（Non-Fail-fast）
+				  collapsed:: true
+					- 如果线程在迭代集合时从集合中不抛出ConcurrentModificationException异常，我们称为Non-Fail-fast或者是Fail-safe。
+					- Fail-safe迭代器会创建原始集合或对象数组的副本，并迭代该复制的集合。 在迭代器中所做的任何结构修改都会影响复制的集合，而不是原始集合。 因此，原始集合在结构上保持不变。
+					- 案例
+						- ConcurrentHashMap 上的迭代器
+						- CopyOnWriteArrayList 上的迭代器
+				- 具体实践
+				  collapsed:: true
+					- JavaTrain/src/main/java/cn/bravedawn/collection/failsafe
+				- 参考文章
+				  collapsed:: true
+					- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 		- 并发
 		- IO
 		  collapsed:: true
@@ -4218,6 +4238,7 @@
 		- 参考教程
 			- [JDBC Database Access](https://docs.oracle.com/javase/tutorial/jdbc/index.html)
 	- JSP
+	  collapsed:: true
 		- 参考文章
 			- [JSP tutorial](https://www.javatpoint.com/jsp-tutorial)
 	- JPA
@@ -4378,21 +4399,24 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
-  collapsed:: true
 	- Java.util.logging
 	- Log4j2
-	  collapsed:: true
-		- 参考文章：https://www.javacodegeeks.com/java-logging-tutorials
+		- 参考文章
+			- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
+			- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)
+			- [Apache Log4j 2 Tutorials](https://mkyong.com/logging/apache-log4j-2-tutorials/)
+			- [Log4j2实现不同线程不同级别日志输出到不同的文件中](http://codepub.cn/2016/12/18/Log4j2-to-achieve-different-levels-of-different-threads-log-output-to-a-different-file/)
 		- 主要的三个组件
 			- Logger：用于记录消息。
 			- Appender：用于将日志信息发布到目标，如文件、数据库、控制台等。
 			- Layout：用于以不同的风格格式化日志信息。
 		- Log4j2的最佳实践
+		  collapsed:: true
 			- 为LogManager对象使用静态修饰符：当开发人员在代码中声明任何变量时，都会带来开销。开发人员可以通过如下所示声明静态Logger引用来克服这种开销。
 			  ```java
 			  private static final Logger log = Logger.getLogger(YourClassName.class);
 			  ```
-			- 使用`isDebugEnabled()`将调试日志放在Java中，因为它将节省大量的字符串连接活动。下面是Java中调试模式的示例。
+			- 使用`isDebugEnabled()`将调试日志放在Java中，因为它将节省大量的字符串连接活动。下面是Java中调试模式的示例。在Java8中我们可以不用做日志登记的判断，具体可以参考 [Java8不需要校验日志等级](https://logging.apache.org/log4j/2.0/manual/api.html#Java_8_lambda_support_for_lazy_logging) 
 			  ```java
 			  if(logger.isDebugEnabled()) { 
 			       logger.debug("java logging level is DEBUG Enabled"); 
@@ -4401,15 +4425,159 @@
 			- 通过使用log4j2.xml，开发人员可以为不同的Java类提供不同的Logger配置。开发人员可以让一些类处于INFO模式，一些类处于WARN模式或ERROR模式。
 			- 制作定制的Log4j2 Appenders。如果开发人员想做一些标准Appenders不支持的事情，他们可以在线搜索或编写自己的定制Appenders。例如，开发人员可以通过扩展`AppenderSkeleton`类来制作他们自己的自定义Log4j2 Appender。
 			- 如果给定的记录器没有分配级别，那么它将从最接近的祖先继承一个级别。这就是为什么开发人员总是将日志级别分配给配置文件中的根日志记录器，即log4j2.rootLogger=DEBUG。
+			- 参考文章： [Log4j 2 Best Practices Example](https://examples.javacodegeeks.com/java-development/enterprise-java/log4j/log4j-2-best-practices-example/)
+		- 简单自定义Log4j2的配置
+		  collapsed:: true
+			- 简单配置
+			  ```xml
+			  <?xml version="1.0" encoding="UTF-8"?>
+			  <Configuration status="WARN">
+			      <Appenders>
+			          <Console name="Console" target="SYSTEM_OUT">
+			              <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+			          </Console>
+			      </Appenders>
+			      <Loggers>
+			          <Root level="INFO">
+			              <AppenderRef ref="Console"/>
+			          </Root>
+			      </Loggers>
+			  </Configuration>
+			  ```
+			- Configuration
+			  collapsed:: true
+				- Log4j2配置文件的根元素; **status** 属性表示应该记录内部 log4j 事件的级别。
+			- Appdenders
+				- 这个元素包含一个追加器列表; 在上面的示例中，定义了一个对应于系统控制台的追加器。
+			- Loggers
+			  collapsed:: true
+				- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
+			- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
+		- Log4j2 Appenders
+			- ConsoleAppender
+				- 功能：将日志输出到系统控制台。
+			- FileAppender
+				- 功能：将日志写入文件。
+			- RollingFileAppender
+				- 功能：将日志写入滚动日志文件。
+				- 解决的问题：将所有内容都记录到一个文件中并不理想。定期滚动活动日志文件通常要好得多。也就是说他会在某个条件被触发的时候将现有的日志文件存档，新起一个文件进行日志记录。
+				- 配置滚动策略
+				  collapsed:: true
+					- 配置滚动策略意味着确认如何滚动日志，或者说是何时创建一个新的文件。
+					- `OnStartupTriggeringPolicy`：每次 JVM 启动时都会创建一个新的日志文件
+					  `TimeBasedTriggeringPolicy`：日志文件根据日期/时间模式滚动
+					  `SizeBasedTriggeringPolicy`：当文件达到一定大小时滚动
+				- 参考配置
+				  :LOGBOOK:
+				  CLOCK: [2023-03-24 Fri 21:35:46]
+				  :END:
+				  下面的滚动策略是每天滚动日志或是文件大于10MB时滚动。
+				  ```xml
+				  <Configuration status="DEBUG">
+				      <Appenders>
+				          <Console name="LogToConsole" target="SYSTEM_OUT">
+				              <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+				          </Console>
+				          <RollingFile name="LogToRollingFile" fileName="logs/app.log"
+				                      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+				  			<PatternLayout>
+				  				<Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+				  			</PatternLayout>
+				  			<Policies>
+				  				<TimeBasedTriggeringPolicy />
+				  				<SizeBasedTriggeringPolicy size="10 MB"/>
+				  			</Policies>
+				  		</RollingFile>
+				      </Appenders>
+				  	
+				      <Loggers>
+				          <!-- avoid duplicated logs with additivity=false -->
+				          <Logger name="com.mkyong" level="debug" additivity="false">
+				              <AppenderRef ref="LogToRollingFile"/>
+				          </Logger>
+				          <Root level="error">
+				              <AppenderRef ref="LogToConsole"/>
+				          </Root>
+				      </Loggers>
+				  </Configuration>
+				  ```
+				- DefaultRolloverStrategy
+			- RollingRandomAccessFileAppender
+				- RollingFileAppender相似，但速度更快。
+			- AsyncAppender
+				- 功能：异步记录日志，提高性能。
+			- SMTPAppender
+			- JDBCAppender
+				- 功能：将日志记录到数据库
+			- FailoverAppender
+				- 功能：配置一个故障转移策略Appender，在配置的主Appender失败时，就可以使用这个故障转移Appender做备份。
+				- 例如，可以配置一个主 JDBCAppender，如果无法建立数据库连接，可以配置一个辅助的 RollingFile 和 Console appender：
+				  ```xml
+				  <Failover name="FailoverAppender" primary="JDBCAppender">
+				      <Failovers>
+				          <AppenderRef ref="RollingFileAppender" />
+				          <AppenderRef ref="Console" />
+				      </Failovers>
+				  </Failover>
+				  ```
+		- 配置布局
+		  collapsed:: true
+			- 通过使用布局来定义日志消息的格式。
+			- Log4j2提供的常用布局：
+			  collapsed:: true
+				- *PatternLayout*：根据字符串规则配置消息格式
+					- 该机制主要由包含转换说明符的转换模式驱动。每个说明符以% 符号开始，后面跟着控制消息的宽度和颜色等内容的修饰符，以及表示内容的转换字符，如日期或线程名称。
+					- 关于说明符的含义的解释参考： [PatternLayout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout)
+				- *JsonLayout*：为日志消息定义JSON格式
+				- *CsvLayout*：可用于创建CSV格式的消息
+		- 配置过滤器
+		  collapsed:: true
+			- Log4j2中的筛选器用于确定是否应处理或跳过日志消息。
+			- 可以为**整个配置**或在**日志记录器**或**追加器**三个级别上配置筛选器。
+			- 过滤器类型
+				- `BurstFilter`：控制允许的日志事件数。
+				  collapsed:: true
+					- 例如控制日志输出的速率
+					  下面的配置中level="info"说明将有选择地忽略 INFO 级别及以下级别消息的流量控制，同时确保您不会丢失任何高于 INFO 的更重要的消息。
+					  rate 定义每秒应处理的平均日志消息数。
+					  maxBurst 控制过滤器开始消除日志条目之前流量突发的总体大小。
+					  ```xml
+					  <Filters>
+					      <BurstFilter level="INFO" rate="10" maxBurst="100"/>
+					  </Filters>
+					  ```
+				- `DynamicThresholdFilter`：基于特定属性的过滤器日志行
+				- `RegexFilter`：根据消息是否与正则表达式匹配来筛选消息
+		- 配置Loggers
+		  collapsed:: true
+			- 属性
+				- `name`：记录器名称
+				- `level`：记录器记录的日志级别，默认为ERROR
+				- `additivity`：是否支持与Root记录器叠加使用，默认为true
+				- `AppenderRef`：一个记录器（Logger）可以配置多个追加器（Appender），如果配置了多个追加器，在处理日志记录事件的时候将分别调用每一个追加器。
+			- 必须配置一个Root记录器
+			- Root记录器与其他记录器的区别
+				- 根记录器没有名称属性。
+				- 根记录器不支持additivity属性，因为它没有父记录器。
+		- 异步日志
 		- Pattern Layouts format配置
-			- `%5p`：它在日志中写入级别。`%5p`中的5将字段的宽度设置为5个字符。
-			- `%d{yyyy-MM-dd HH:mm:ss.SSS}`：它以给定的日期-时间格式写入日期。
-			- `%t`：它在日志中写入方法名
-			- `%c`：它在日志中写入绝对类名(例如com.jcg.log4j2.demo)
-			- `%m%n`：将消息写入日志
-			- `%L`：它在日志中写入行号
-			- `%F`：它在日志中写入类名
+		  collapsed:: true
+			- 以下面这段配置为例，更多具体的配置参考： [Pattern Layout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout) 
+			  collapsed:: true
+			  ```
+			  %date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%level{length=5}] %logger{36}.%M(%line) - %msg %n
+			  ```
+				- `%date{yyyy-MM-dd HH:mm:ss.SSS}`：它以给定的日期-时间格式写入日期。
+				- `%thread`：它在日志中写入线程名称。
+				- `%level{length=5}`：它在日志中写入级别。`length=5`中的5将字段的宽度设置为5个字符。
+				- `%logger{36}`：它在日志中写入日志记录器的名称(例如com.jcg.log4j2.demo)，36是指记录日记记录器的精度，先固定写成36。
+				- `%M`：记录日志输出所在的方法。
+				- `%line`：记录日志输出所在的代码行号。
+				- `%line`：它在日志中写入行号。
+				- `%msg`：将消息写入日志。
+				- `%n`：换行，输出与平台相关的行分隔符字符。
 		- 实践
+		  collapsed:: true
 			- Log4j2的简单实战
 			  collapsed:: true
 				- 项目：Log4j2Example
