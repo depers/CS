@@ -4455,10 +4455,13 @@
 			- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 		- Log4j2 Appenders
 			- ConsoleAppender
+			  collapsed:: true
 				- 功能：将日志输出到系统控制台。
 			- FileAppender
+			  collapsed:: true
 				- 功能：将日志写入文件。
 			- RollingFileAppender
+			  collapsed:: true
 				- 功能：将日志写入滚动日志文件。
 				- 解决的问题：将所有内容都记录到一个文件中并不理想。定期滚动活动日志文件通常要好得多。也就是说他会在某个条件被触发的时候将现有的日志文件存档，新起一个文件进行日志记录。
 				- 配置滚动策略
@@ -4503,13 +4506,17 @@
 				  ```
 				- DefaultRolloverStrategy
 			- RollingRandomAccessFileAppender
+			  collapsed:: true
 				- RollingFileAppender相似，但速度更快。
 			- AsyncAppender
+			  collapsed:: true
 				- 功能：异步记录日志，提高性能。
 			- SMTPAppender
 			- JDBCAppender
+			  collapsed:: true
 				- 功能：将日志记录到数据库
 			- FailoverAppender
+			  collapsed:: true
 				- 功能：配置一个故障转移策略Appender，在配置的主Appender失败时，就可以使用这个故障转移Appender做备份。
 				- 例如，可以配置一个主 JDBCAppender，如果无法建立数据库连接，可以配置一个辅助的 RollingFile 和 Console appender：
 				  ```xml
@@ -4520,6 +4527,8 @@
 				      </Failovers>
 				  </Failover>
 				  ```
+			- RoutingAppender
+				-
 		- 配置布局
 		  collapsed:: true
 			- 通过使用布局来定义日志消息的格式。
