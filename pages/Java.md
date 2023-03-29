@@ -1,5 +1,4 @@
 - Java语言
-  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1593,7 +1592,6 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2562,28 +2560,31 @@
 		- JVM
 		  collapsed:: true
 			- Java的内存区域
-			  collapsed:: true
+				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
+				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
-				  collapsed:: true
 					- 程序计数器
-					  collapsed:: true
 						- 作用
 						  collapsed:: true
 							- 执行字节码的行号指示器。
 							- 通过改变计数器的值，来选取下一条需要执行的字节码指令。
 					- Java虚拟机栈
-					  collapsed:: true
 						- 作用
-						  collapsed:: true
 							- Java虚拟机栈描述的是Java方法执行的内存模型。说通俗点就是存储栈帧的。
 							- Java中每个方法执行的同时会创建一个栈帧（Stack Frame）用于存储局部变量比表、操作数栈、动态链接、方法返回值等信息。
 							- 每一个方法调用直至执行完成的过程，就对应着一个栈帧在虚拟机中入栈和出栈的过程。
 					- 本地方法栈
-					  collapsed:: true
 						- 作用：与Java虚拟机栈不同，本地方法栈描述的是native方法执行的内存模型。
 					- Java堆
-					  collapsed:: true
 						- 作用：用来存储应用系统创建的对象和数组。
+						- 区域划分
+							- 区域图
+							  ![JVM堆的区域划分.webp](../assets/JVM堆的区域划分_1680093136228_0.webp)
+							- 元空间（Metadata Space，JDK1.8之前叫永久代）：像一些方法中的操作临时对象等，JDK1.8之前是占用JVM内存，JDK1.8之后直接使用物理内存
+							- 新生代（年轻代）：新对象和没达到一定年龄的对象都在年轻代
+								- Eden Space：也叫伊甸区
+								- Servivor：两个存活区
+							- 老年代：被长时间使用的对象，老年代的内存空间应该要比年轻代更大
 					- 方法区
 					  collapsed:: true
 						- 作用：用来保存加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据
@@ -2612,19 +2613,15 @@
 					- `-Xlog:gc*`：打印GC详细信息。
 					- `-XX:+UseSerialGC`：虚拟机运行在Clint模式下的默认值，打开此开关后，使用Serial + Serial Old的收集器组合进行内存回收。
 				- 虚拟机对象
-				  collapsed:: true
 					- 对象的创建
-					  collapsed:: true
-						- 创建时机：在类加载检查通过之后，虚拟机将为新生对象分配内存。
+						- **类加载检查**：虚拟机遇到一条new指令时，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行相应的类加载过程。
+						- **创建时机**：在类加载检查通过后，接下来虚拟机将为新生对象分配内存。对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。
 						- 内存空间分配的方式
-						  collapsed:: true
 							- 分配方式选择的原则：是由Java堆是否规整决定的。
 							- 指针碰撞
-							  collapsed:: true
 								- 适用场景：适用于Java堆的内存是规整的
 								- 具体实现：Java堆的内存已经使用过的放一边，还没用的放另一边，中间则是一个指针，若要为新的对象分配内存，则只需要将指针移动相应的位置即可。
 							- 空闲列表
-							  collapsed:: true
 								- 适用场景：适用于Java对的内存是不规整的
 								- 具体实现：使用一个列表来登记内存的使用情况，如果要为新的内存分配空间，只需要在列表上面找到一块大小合适的内存空间分配给这个对象，并更新列表上的记录。
 						- 内存分配的原子性问题
@@ -2653,17 +2650,13 @@
 							- 对齐填充
 								- 作用：因为JVM要求对象的起始地址必须是8字节的整数倍，也就是说对象的大小必须是8字节的整数倍，主要存储的是占位符，用来补全空间。
 						- 对象的访问定位
-						  collapsed:: true
 							- 访问和定位堆中对象具体位置的方法
-							  collapsed:: true
 								- 使用句柄
-								  collapsed:: true
 									- 使用句柄，Java堆中会划分出一块内存来作为句柄池，reference中存储句柄的地址，句柄中存储对象的实例数据和类型数据的具体地址信息
 									  ![通过句柄访问对象.png](../assets/通过句柄访问对象_1677675705329_0.png)
 									- 优点：reference中存储的是稳定的句柄，对象被移动（垃圾回收时会移动对象）时只会改变句柄中的实例数据指针，而reference本身不需要修改。
 									- 缺点：访问对象需要经过两次指针定位，速度慢。
 								- 使用指针
-								  collapsed:: true
 									- Java堆中会直接存放访问类元数据的地址，reference存储的就直接是对象的地址
 									  ![通过指针访问对象.png](../assets/通过指针访问对象_1677675777115_0.png)
 									- 优点：速度快，节省了一次指针定位的时间开销。
@@ -2703,7 +2696,6 @@
 					  collapsed:: true
 						- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
 			- 垃圾回收器
-			  collapsed:: true
 				- 相关概念
 					- 根据对象的存活周期不同将内存分为新生代、老年代
 					- 新生代
@@ -2731,7 +2723,6 @@
 					- Survivor区
 						- **Survivor Space**幸存者区，用于保存在eden space内存区域中经过垃圾回收后没有被回收的对象。
 						- Survivor有两个，分别为To Survivor、 From Survivor，这个两个区域的空间大小是一样的。
-						-
 					- Full GC/Major GC
 						- 是指发生在老年代的GC，出现了Major GC，经常伴随着一次Minor GC，回收速度比较慢。
 					- Minor GC
@@ -2966,19 +2957,20 @@
 							- [深入理解G1的GC日志](https://juejin.cn/post/6844903893906751501)
 					- 垃圾收集器的参数配置
 				- 内存分配与回收策略
-					- 年轻代
+					- 普遍的内存分配规则
+						- 对象优先分配到Eden区
+							- 大多数情况下，对象在新生代Eden区中分配。当Eden区没有足够空间进行分配时，虚拟机将会发起一次Minor GC。
+						- 大对象直接进入老年代
+							-
 			- 内存分配策略
-			  collapsed:: true
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 			- 类文件结构
 			- 虚拟机类的加载机制
 				- 类加载的时机
-				  collapsed:: true
 					- 主动使用
 						- 主动引用的时机
 					- 被动使用
 				- 类加载的过程
-				  collapsed:: true
 					- 加载
 					- 连接
 						- 验证
@@ -3177,18 +3169,14 @@
 					- 具体实践
 						- JavaTrain：cn/bravedawn/java8/stream/peek
 	- 命令行工具
-	  collapsed:: true
 		- java
-		  collapsed:: true
 			- `-cp`：`java -cp`和`-classpath`一样，是指定类运行所依赖其他类的路径，通常是类库，jar包之类。用于启动JVM时设置`classpath`。
 		- javap
-		  collapsed:: true
 			- 介绍
 				- javap是jdk自带的反解析工具。它的作用就是根据class字节码文件，反解析出当前类对应的code区（汇编指令）、本地变量表、异常表和代码行偏移量映射表、常量池等等信息。
 			- 常用选项
 				- `javap -v`：不仅会输出行号、本地变量表信息、反编译汇编代码，还会输出当前类用到的常量池等信息。
 		- javac
-		  collapsed:: true
 			- `-source`：指定使用什么版本的JDK语法编译源代码
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - 设计模式
@@ -4454,6 +4442,7 @@
 				- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 			- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 		- Log4j2 Appenders
+		  collapsed:: true
 			- ConsoleAppender
 			  collapsed:: true
 				- 功能：将日志输出到系统控制台。
@@ -4558,17 +4547,21 @@
 				- `DynamicThresholdFilter`：基于特定属性的过滤器日志行
 				- `RegexFilter`：根据消息是否与正则表达式匹配来筛选消息
 		- 配置Loggers
-		  collapsed:: true
 			- 属性
 				- `name`：记录器名称
 				- `level`：记录器记录的日志级别，默认为ERROR
 				- `additivity`：是否支持与Root记录器叠加使用，默认为true
 				- `AppenderRef`：一个记录器（Logger）可以配置多个追加器（Appender），如果配置了多个追加器，在处理日志记录事件的时候将分别调用每一个追加器。
+				- includeLocation：
 			- 必须配置一个Root记录器
 			- Root记录器与其他记录器的区别
 				- 根记录器没有名称属性。
 				- 根记录器不支持additivity属性，因为它没有父记录器。
+		- 使用MDC增强日志
+			- 参考文章
+				- [Improved Java Logging with Mapped Diagnostic Context (MDC)](https://www.baeldung.com/mdc-in-log4j-2-logback)
 		- 异步日志
+			-
 		- Pattern Layouts format配置
 		  collapsed:: true
 			- 以下面这段配置为例，更多具体的配置参考： [Pattern Layout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout) 
