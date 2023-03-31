@@ -1,4 +1,5 @@
 - Java语言
+  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1592,6 +1593,7 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -3169,6 +3171,7 @@
 					- 具体实践
 						- JavaTrain：cn/bravedawn/java8/stream/peek
 	- 命令行工具
+	  collapsed:: true
 		- java
 			- `-cp`：`java -cp`和`-classpath`一样，是指定类运行所依赖其他类的路径，通常是类库，jar包之类。用于启动JVM时设置`classpath`。
 		- javap
@@ -4387,9 +4390,12 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
+  collapsed:: true
 	- Java.util.logging
 	- Log4j2
+	  collapsed:: true
 		- 参考文章
+			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
 			- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
 			- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)
 			- [Apache Log4j 2 Tutorials](https://mkyong.com/logging/apache-log4j-2-tutorials/)
@@ -4552,7 +4558,7 @@
 				- `level`：记录器记录的日志级别，默认为ERROR
 				- `additivity`：是否支持与Root记录器叠加使用，默认为true
 				- `AppenderRef`：一个记录器（Logger）可以配置多个追加器（Appender），如果配置了多个追加器，在处理日志记录事件的时候将分别调用每一个追加器。
-				- includeLocation：
+				- `includeLocation`：关闭日志记录的行号信息，也就是说打印的日志不显示行号
 			- 必须配置一个Root记录器
 			- Root记录器与其他记录器的区别
 				- 根记录器没有名称属性。
@@ -4561,11 +4567,14 @@
 			- 参考文章
 				- [Improved Java Logging with Mapped Diagnostic Context (MDC)](https://www.baeldung.com/mdc-in-log4j-2-logback)
 		- 异步日志
-			-
+			- 使用异步日志的好处
+				-
+			- 全异步
+				- 特点：提供最佳性能
+			- 同步异步混合
+				- 特点：提供最大的灵活性
 		- Pattern Layouts format配置
-		  collapsed:: true
 			- 以下面这段配置为例，更多具体的配置参考： [Pattern Layout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout) 
-			  collapsed:: true
 			  ```
 			  %date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%level{length=5}] %logger{36}.%M(%line) - %msg %n
 			  ```
@@ -4574,7 +4583,6 @@
 				- `%level{length=5}`：它在日志中写入级别。`length=5`中的5将字段的宽度设置为5个字符。
 				- `%logger{36}`：它在日志中写入日志记录器的名称(例如com.jcg.log4j2.demo)，36是指记录日记记录器的精度，先固定写成36。
 				- `%M`：记录日志输出所在的方法。
-				- `%line`：记录日志输出所在的代码行号。
 				- `%line`：它在日志中写入行号。
 				- `%msg`：将消息写入日志。
 				- `%n`：换行，输出与平台相关的行分隔符字符。
