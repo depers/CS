@@ -4390,17 +4390,17 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
-  collapsed:: true
 	- Java.util.logging
 	- Log4j2
-	  collapsed:: true
 		- 参考文章
+		  collapsed:: true
 			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
 			- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
 			- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)
 			- [Apache Log4j 2 Tutorials](https://mkyong.com/logging/apache-log4j-2-tutorials/)
 			- [Log4j2实现不同线程不同级别日志输出到不同的文件中](http://codepub.cn/2016/12/18/Log4j2-to-achieve-different-levels-of-different-threads-log-output-to-a-different-file/)
 		- 主要的三个组件
+		  collapsed:: true
 			- Logger：用于记录消息。
 			- Appender：用于将日志信息发布到目标，如文件、数据库、控制台等。
 			- Layout：用于以不同的风格格式化日志信息。
@@ -4553,6 +4553,7 @@
 				- `DynamicThresholdFilter`：基于特定属性的过滤器日志行
 				- `RegexFilter`：根据消息是否与正则表达式匹配来筛选消息
 		- 配置Loggers
+		  collapsed:: true
 			- 属性
 				- `name`：记录器名称
 				- `level`：记录器记录的日志级别，默认为ERROR
@@ -4564,16 +4565,40 @@
 				- 根记录器没有名称属性。
 				- 根记录器不支持additivity属性，因为它没有父记录器。
 		- 使用MDC增强日志
+		  collapsed:: true
 			- 参考文章
 				- [Improved Java Logging with Mapped Diagnostic Context (MDC)](https://www.baeldung.com/mdc-in-log4j-2-logback)
-		- 异步日志
-			- 使用异步日志的好处
-				-
-			- 全异步
-				- 特点：提供最佳性能
-			- 同步异步混合
-				- 特点：提供最大的灵活性
+		- 日志记录方式
+		  collapsed:: true
+			- 方式
+				- 同步
+					- 我们正常定义的Appender和Logger都是同步的。
+				- 异步
+					- AsyncAppender
+						- AsyncAppender是通过引用别的Appender来实现的，当有日志事件到达时，会开启另外一个线程来处理它们。
+						- 在配置文件中，AsyncAppender应该在它引用的Appender之后配置，默认使用 java.util.concurrent.ArrayBlockingQueue实现而不需要其它外部的类库。
+						- 当使用此Appender的时候，在多线程的环境下需要注意，阻塞队列容易受到锁争用的影响，这可能会对性能产生影响。这时候，我们应该考虑使用无锁的异步记录器（AsyncLogger）。
+					- AsyncLogger
+						- 定义：所有的日志都异步的记录，在配置文件上不用做任何改动，只需要在jvm启动的时候增加一个参数
+						- 全异步
+							- 特点：提供最佳性能
+						- 混合异步
+							- 定义：在应用中同时使用同步日志和异步日志
+							- 特点：提供最大灵活性
+			- 异步日志的实现
+				- 会有两个后台线程，您的应用程序将日志消息传递给线程 A，线程 A 将消息传递给线程 B，最后将消息记录到磁盘。 线程间消息的传递是通过Disruptor实现的。
+				- 异步日志记录可以通过在单独的线程中执行 I/O 操作来提高应用程序的性能，也就是上面提到的线程B。
+			- 异步日志的优缺点
+				- 优点
+					- **更高的峰值吞吐量**。 使用异步记录器，您的应用程序记录消息的速度是同步记录器的 6 到 68 倍。
+					- 异步日志记录可以通过缩短等待时间来帮助**防止或抑制延迟峰值**，直到可以记录下一条消息。这里的延迟是指在记录突发消息的时候，第一条突发消息的日志记录和第二条消息的日志记录之间的间隔时间。而Log4j2可以减少这种情况的延迟。
+					- **更低的日志记录响应时间延迟**。 响应时间延迟是在给定工作负载下调用 Logger.log 返回所需的时间。 异步记录器的延迟始终低于同步记录器甚至基于队列的异步附加程序（AsyncAppender）。
+				- 缺点
+					- **错误处理**，如果在日志记录的过程中出现问题并抛出异常，log4j2无法向应用程序通知这个问题。这可以通过配置 ExceptionHandler 来部分缓解，但这可能仍然无法涵盖所有情况。所以针对比较重要的日志，例如审计日记，可以采用同步日志来记录。
+					- **极少数情况下，包含可变对象的日志记录可能不是准确的**，你可能在日志输出中看到对象修改前或是修改后的可变对象数据。所以针对这种情况，一不要在异步日志打印后再去修改可变对象，二**自定义 Message 实现**在设计时应考虑到异步使用，并在构造时对其参数进行快照，或记录其线程安全特性。
+					- **若应用程序运行在CPU稀缺的环境中**，例如一台机器只有一个CPU的单核机器，这种情况不建议使用异步日志。
 		- Pattern Layouts format配置
+		  collapsed:: true
 			- 以下面这段配置为例，更多具体的配置参考： [Pattern Layout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout) 
 			  ```
 			  %date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%level{length=5}] %logger{36}.%M(%line) - %msg %n
