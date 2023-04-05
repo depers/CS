@@ -3238,9 +3238,7 @@
 				- 这种方式在框架代码中比较常见。
 		- 类型：结构型
 - Java EE
-  collapsed:: true
 	- Servlet
-	  collapsed:: true
 		- Java web application介绍
 		  collapsed:: true
 			- 静态和动态网站的区别
@@ -3950,7 +3948,6 @@
 					- cn.bravedawn.servlet.session.urlrewriting.LoginServlet
 					- cn.bravedawn.servlet.session.urlrewriting.LogoutServlet
 		- Servlet中的过滤器
-		  collapsed:: true
 			- 背景
 				- 在上一节中我们通过HttpSession实现会话管理时，我们通过判断session属性来判断用户是否登录（或者说会话是否有效），这个方式实现简单但是如果我们有大量的Servlet和jsp页面那该怎么办，如果在将来我们修改这个session属性，那我们的工作量就更大了。
 			- Servelt常见的使用场景
@@ -4248,7 +4245,6 @@
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
 	- IDEA
-	  collapsed:: true
 		- 快捷键
 			- MAC
 				- 全局查找：`command`+`shift`+`F`
@@ -4396,7 +4392,6 @@
   collapsed:: true
 	- Java.util.logging
 	- Log4j2
-	  collapsed:: true
 		- 参考文章
 		  collapsed:: true
 			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
@@ -4630,6 +4625,7 @@
 				- `%msg`：将消息写入日志。
 				- `%n`：换行，输出与平台相关的行分隔符字符。
 		- Policy触发策略
+		  collapsed:: true
 			- Policy是用来控制日志文件何时(When)进行滚动的。
 			- 如果配置的是RollingFile或RollingRandomAccessFile，则必须配置一个Policy。
 			- 触发策略
@@ -4647,6 +4643,7 @@
 						- **interval**：日记压缩的时间间隔，这个配置与filePattern属性的精确时间相关，上面配置的是`%d{yyyy-MM-dd}-%i.log.gz`，结尾时间是dd，也就是按照天作为时间间隔配置的单位
 						- **modulate**：是否对压缩时间进行调制。比如说我们配置interval="4"，filePattern配置的单位是小时，也就是每两个小时做一次压缩备份。 那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00， 之后的封存时间依次为08:00，12:00，16:00
 		- Strategy策略
+		  collapsed:: true
 			- Strategy是用来控制日志文件如何(How)进行滚动的。
 			- DefaultRolloverStrategy
 			  collapsed:: true
@@ -4661,7 +4658,6 @@
 						- max参数不是需要保留的文件的最大个数，而是**当前目录下**日记归档的一个**计数器**。
 						- 若计数器大小大于max时，他会删除之前的计数器为1的归档日志，然后对后续日志按照计数器从小到大依次进行重命名。
 			- 日志归档的保留策略：Delete on Rollove（滚动删除）
-			  collapsed:: true
 				- 配置参数
 					- basePath：删除匹配到的过期备份文件
 					- maxDepth：由于备份文件保存在`${LOG_HOME}/$${date:yyyy-MM}`，所以目录深度设置为2
@@ -4707,20 +4703,8 @@
 		- 参考文章
 			- [Spring Boot 基于 JUnit 5 实现单元测试](https://www.jianshu.com/p/4648fd55830e)
 - 开发框架
-  collapsed:: true
 	- Spring
-		- Spring Test
-		  collapsed:: true
-			- 在单元测试中如果依赖Spring的RequestContext，怎么办
-				- 先看代码：
-				  ```Java
-				  // Spring-test 有一个灵活的请求模拟，称为 MockHttpServletRequest。
-				  MockHttpServletRequest request = new MockHttpServletRequest();
-				  RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-				  ```
-				- 参考文章
-					- [How to Mock HttpServletRequest](https://www.baeldung.com/java-httpservletrequest-mock)
-		- Spring core
+		- spring-core
 		  collapsed:: true
 			- IOC
 				- 对IOC的理解
@@ -4760,15 +4744,50 @@
 						- `session`：对于每次HTTP Session，使用session定义的Bean都将产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效。
 						- `globalsession`：每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，该作用域才有效。
 					- 自定义作用域。
-		- Spring Web
-		  collapsed:: true
-			- @RequestBody中的required默认是true，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将required设置为false。
+		- spring-web
+			- 过滤器
+				- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
+					- 如下图
+					  ![10.png](../assets/10_1680702279599_0.png)
+				- 过滤器-Filter
+					- Filter是Servlet提供的过滤器，与Spring无关
+					- 是所有过滤组件中最外层的，从粒度来说是最大的
+					- 使用场景
+						- 可以获取到Http的请求和响应信息
+						- 将请求参数记录到日志文件
+						- 资源请求的认证和授权
+						- 在将请求正文（body）或报头（header）发送到servlet之前进行格式化
+						- 压缩发送给客户端的响应数据
+						- 通过添加一些cookie，标题信息等来更改响应
+						- 设置请求或响应的报文编码
+						- 可以在日志中统计请求处理的耗时
+					- 不足
+						- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
+				- 拦截器-Intercepter
+					- Interceptor是Spring提供的过滤器
+					- 在自定义Interceptor的时候需要实现`org.springframework.web.servlet.HandlerInterceptor`接口
+					- 不足
+						- 通过preHandle方法的handle方法，我们可以**获取请求调用的Controller类和方法名**。但是并**不能获取请求的调用方法的具体参数**
+					- 使用场景
+						- 可以在日志中统计请求处理的耗时
+				- Controller增强-ControllerAdvice
+				- 切面-aspect
+			- 错误记录
+			  collapsed:: true
+				- @RequestBody中的required默认是true，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将required设置为false。
+				- Spring Boot请求(状态码是406)Could not find acceptable representation原因
+					- 有可能是你的响应对象的属性没有写get/set方法导致的
+		- spring-tx
+			- Spring对事务管理的支持
+				- 事务管理的关键抽象
+					-
 		- Spring Boot
 		  collapsed:: true
 			- 依赖管理
 			  collapsed:: true
 				- Spring Boot 的每个版本都提供了它支持的依赖项列表，因此，我们在引入其他的依赖时不需要在配置中指定依赖项的版本，Spring Boot会自行管理。具体可以参考文章：[springboot依赖的一些配置：spring-boot-dependencies、spring-boot-starter-parent、io.spring.platform](https://www.cnblogs.com/leeego-123/p/12665279.html)
 			- 上传文件
+			  collapsed:: true
 				- 在Spring Boot上传文件的时候，如果你上传的文件是0kb，spring是会报错的，报的错是：`Error parsing HTTP request header java.io.EOFException: null`
 			- 重要接口
 			  collapsed:: true
@@ -4783,8 +4802,10 @@
 						- https://www.baeldung.com/running-setup-logic-on-startup-in-spring
 					-
 			- 日志
+			  collapsed:: true
 				- Spring Boot 默认使用 SLF4J+Logback 记录日志，其中SLF4J提供了日志接口，Logback提供的日志实现。
 				- 日志配置的级别
+				  collapsed:: true
 					- 使用root级别，即项目的所有日志
 					  collapsed:: true
 						- 例如：
@@ -4798,8 +4819,20 @@
 						  logging.level.cn.bravedawn=trace
 						  ```
 				- 参考
+				  collapsed:: true
 					- [使用SLF4J和Logback-廖雪峰](https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176)
 					- [Spring Boot日志配置及输出](http://c.biancheng.net/spring_boot/log-config.html)
+		- Spring Test
+		  collapsed:: true
+			- 在单元测试中如果依赖Spring的RequestContext，怎么办
+				- 先看代码：
+				  ```Java
+				  // Spring-test 有一个灵活的请求模拟，称为 MockHttpServletRequest。
+				  MockHttpServletRequest request = new MockHttpServletRequest();
+				  RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+				  ```
+				- 参考文章
+					- [How to Mock HttpServletRequest](https://www.baeldung.com/java-httpservletrequest-mock)
 		- Spring Cloud
 		  collapsed:: true
 			- [spring-cloud-release](https://github.com/spring-cloud/spring-cloud-release)
