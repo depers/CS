@@ -1,6 +1,7 @@
 - Java语言
   collapsed:: true
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1596,7 +1597,6 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2413,14 +2413,11 @@
 		- IO
 		  collapsed:: true
 			- 字节流
-			  collapsed:: true
 				- 特点
-				  collapsed:: true
 					- 所有字节流类都继承于 `InputStream` 和 `OutputStream` 。
 					- 不同类型字节流的使用方式差别不大，主要是构造方法有区别。
 					- 字节流应该用于最原始的I/O，其他流都是建立在字节流之上的。
 				- 派生类
-				  collapsed:: true
 					- 专门用于文件I/O的字节流类：*FileInputStream**和**FileOutputStream*
 				- 具体实践
 					- JavaTrain/src/main/java/cn/bravedawn/io/bytestreams/CopyBytes.java
@@ -2519,6 +2516,7 @@
 				- 使用新的**File() API**来构造文件路径
 				- 检查系统操作系统并手动创建文件路径
 			- 文件权限
+			  collapsed:: true
 				- 检查文件的权限
 				  collapsed:: true
 					- file.canExecute(); – return true, file is executable; false is not.
@@ -2560,6 +2558,7 @@
 				  URL resource = ClassLoader.getSystemClassLoader().getResource(filename);
 				  ```
 			- Java InputStream to String
+			  collapsed:: true
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
 		- JVM
@@ -3497,6 +3496,7 @@
 					- 可以通过ServletConfig的getServletContext()方法获取ServletContext对象
 					- Servlet引擎还可以提供上下文对象，这些对象对于一组Servlet是唯一的，并且与主机的URL路径名称空间的特定部分绑定在一起。
 				- 方法
+				  collapsed:: true
 					- getContext(String uripath)
 					  collapsed:: true
 						- 该方法返回特定uri路径的ServletContext对象，如果对servlet不可用或不可见，则返回null。
@@ -3516,6 +3516,7 @@
 					  collapsed:: true
 						- 返回给定名称的对象属性。我们可以使用公共抽象enumeration <String> getAttributeNames()方法获取所有属性的枚举。
 					- setAttribute(String paramString, Object paramObject)
+					  collapsed:: true
 						- 此方法用于设置具有应用程序范围的属性。所有其他访问这个ServletContext的servlet都可以访问这个属性。我们可以使用公共抽象方法void removeAttribute(String paramString)删除属性
 					- getInitParameter(String name)
 					  collapsed:: true
@@ -3534,6 +3535,7 @@
 					- Servlet容器根据客户端请求创建ServletRequest对象，并将其传递给Servlet service()方法进行处理。
 					- ServletRequest的子接口是HttpServletRequest，它包含一些用于会话管理、cookie和请求授权的其他方法。
 				- 方法
+				  collapsed:: true
 					- Object getAttribute(String name)
 					  collapsed:: true
 						- 此方法将指定属性的值返回为Object，如果不存在则返回null。
@@ -3552,6 +3554,13 @@
 					- getParameterValues(String name)
 					  collapsed:: true
 						- 若你的请求参数会有多个值时，调用这个方法会返回一个数组。
+			- ServletInputStream class
+			  collapsed:: true
+				- `ServletInputStream` 类提供从请求对象读取二进制数据(如图像等)的流。它是一个抽象类。
+				- `ServletRequest` 接口的 `getInputStream()`方法返回 `ServletInputStream` 类的实例。
+				  ```java
+				  ServletInputStream sin=request.getInputStream();  
+				  ```
 			- ServletResponse interface
 			  collapsed:: true
 				- 介绍
@@ -3560,7 +3569,6 @@
 					- Servlet容器创建ServletResponse对象，并将其传递给Servlet service()方法，然后使用响应对象为客户机生成HTML响应。
 					- ServletResponse的子接口是HttpServletResponse
 				- 方法
-				  collapsed:: true
 					- addCookie(Cookie cookie)
 					  collapsed:: true
 						- 用于在响应中添加cookie。
@@ -3602,6 +3610,7 @@
 					- 附一张图
 					  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
 					- 参考文章：[HttpServletRequest Path Decoding](https://agiletribe.purplehillsbooks.com/2016/02/23/httpservletrequest-path-decoding/)
+				- HttpServletRequest 是一个接口，它的`getInputStream()`方法来读取主体。默认情况下，来自这个 `InputStream` 的数据只能读取一次。
 			- sendRediret
 			  collapsed:: true
 				- 介绍
@@ -3705,6 +3714,7 @@
 					- 当web容器调用init()方法之后，Servlet进入ready状态，Servlet去执行它的所有任务
 					- 当web容器调用destory()方法之后，Servlet进入end状态
 				- 生命周期的五个阶段
+				  collapsed:: true
 					- Servlet class is loaded
 					  collapsed:: true
 						- 类加载器负责加载 servlet 类。当 Web 容器接收到对 servlet 的第一个请求时，将加载 servlet 类。
@@ -3721,6 +3731,7 @@
 					  collapsed:: true
 						- Web 容器在从服务中删除 servlet 实例之前调用destory()方法。它让 servlet 有机会清理任何资源，例如内存、线程等。Servlet 接口的destory()方法的语法如下：public void destroy()
 				- 生命周期的三个核心方法
+				  collapsed:: true
 					- init()
 					  collapsed:: true
 						- 这个方法有两个实现
@@ -3799,14 +3810,18 @@
 			  collapsed:: true
 				- 定义：war(web archive)文件 包含一个web项目的文件。它可能有 servlet、xml、jsp、image、html、css、js 等文件。
 				- 优势
+				  collapsed:: true
 					- 节省时间：war 文件将所有文件组合成一个单元。因此，将文件从客户端传输到服务器所需的时间更少。
 				- 创建war文件
+				  collapsed:: true
 					- 进入项目目录（WEB-INF同级目录）执行命令：jar -cvf projectname.war *
 					- 其中配置参数：-c 用于创建文件，-v 用于生成详细输出，-f 用于指定 archive 文件名，*（星号）符号表示该目录（包括子目录）的所有文件
 				- 部署war文件的两种方式
+				  collapsed:: true
 					- 通过服务器的控制面板
 					- 收单将war包放到Tomcat服务器的webapps目录，将war文件粘贴到这里
 				- 提取war包中的文件
+				  collapsed:: true
 					- 使用命令：jar -xvf projectname.war
 					- 其中配置参数：-x从档案中提取指定的 (或所有) 文件，-v 用于生成详细输出，-f 用于指定 archive 文件名
 			- web.xml中的welcome-file-list标签
@@ -3814,6 +3829,7 @@
 				- web-app 的welcome-file-list元素，用于定义欢迎文件列表。 它的子元素是welcome-file，用于定义欢迎文件。
 				- 欢迎文件是服务器自动调用的文件，如果您未指定任何文件名。
 				- 默认情况下，服务器按以下顺序查找欢迎文件（如果没有找到这些文件，服务器将呈现 404 错误）：
+				  collapsed:: true
 					- welcome-file-list in web.xml
 					- index.html
 					- index.htm
@@ -3821,11 +3837,14 @@
 			- web.xml中的load-on-startup标签
 			  collapsed:: true
 				- 作用
+				  collapsed:: true
 					- 如果值为正，web-app 的 load-on-startup 元素会在部署或服务器启动时加载 servlet。也称为 servlet 的预初始化。
 				- 优势
+				  collapsed:: true
 					- Servlet会在第一次请求时被加载，这意味着第一次请求会花费更多的时间
 					- 如果在web.xml中指定load-on-startup，则Servlet将会在项目部署时或是服务器启动时加载。因此，第一个请求会花费更少的时间
 				- 传递正值
+				  collapsed:: true
 					- 若传递正值，数字越小的Servlet会优先被加载
 				- 传递负值
 				  collapsed:: true
@@ -3948,9 +3967,12 @@
 					- cn.bravedawn.servlet.session.urlrewriting.LoginServlet
 					- cn.bravedawn.servlet.session.urlrewriting.LogoutServlet
 		- Servlet中的过滤器
+		  collapsed:: true
 			- 背景
+			  collapsed:: true
 				- 在上一节中我们通过HttpSession实现会话管理时，我们通过判断session属性来判断用户是否登录（或者说会话是否有效），这个方式实现简单但是如果我们有大量的Servlet和jsp页面那该怎么办，如果在将来我们修改这个session属性，那我们的工作量就更大了。
 			- Servelt常见的使用场景
+			  collapsed:: true
 				- 将请求参数记录到日志文件
 				- 资源请求的认证和授权
 				- 在将请求正文（body）或报头（header）发送到servlet之前进行格式化
@@ -3958,9 +3980,11 @@
 				- 通过添加一些cookie，标题信息等来更改响应
 				- 设置请求或响应的报文编码
 			- 实现
+			  collapsed:: true
 				- 1.实现javax.servlet.Filter接口
 				- 2.在web.xml中声明或是使用@WebFilter注解
 			- Servlet Filter interface
+			  collapsed:: true
 				- init(FilterConfig filterConfig)，web应用程序启动时创建Filter对象实例并调用该方法，Filter对象只会创建一次，init方法只会执行一次。可通过FilterConfig对象获取配置信息
 				- doFilter()，执行实际的拦截工作
 				- destory()，Servlet容器在销毁过滤器实例前调用该方法，在该方法中释放Servlet过滤器占用的资源
@@ -3970,16 +3994,18 @@
 				- cn.bravedawn.filter.RequestLoggingFilter
 			- 过滤器的执行顺序：web.xml 中的filter-mapping 元素的顺序决定了 Web 容器应用过滤器到 Servlet 的顺序
 			- web.xml配置节点说明
+			  collapsed:: true
 				- <dispatcher>子元素可以设置的值及其意义
+				  collapsed:: true
 					- REQUEST：当用户直接访问页面时，Web容器将会调用过滤器。如果目标资源是通过RequestDispatcher的include()或forward()方法访问时，那么该过滤器就不会被调用。
 					- INCLUDE
 					- FORWARD
 					- ERROR
 			- 参考教程
+			  collapsed:: true
 				- https://www.journaldev.com/1933/java-servlet-filter-example-tutorial
 				- https://www.runoob.com/servlet/servlet-writing-filters.html
 		- Servlet中的监听器
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 如果我们想在用户登录入口为数据库连接设置一个属性，如果只有一个入口我们可以直接在Servlet中进行实现，若我们有多个登录入口，就会造成大量的冗余代码。这是一个登录的请求事件，类似的事件还有程序的初始化，客户端请求，程序的销毁，创建和销毁一个会话，会话属性的修改等事件。我们都可以通过监听器去实现。
@@ -3987,6 +4013,7 @@
 			  collapsed:: true
 				- 监听器和事件的关系：Servlet为不同的事件提供了不同的监听器，监听器的每一个方法都以事件作为入参，进而根据事件的状态去做不同的处理
 				- Servlet中的事件
+				  collapsed:: true
 					- javax.servlet.AsyncEvent
 					- javax.servlet.http.HttpSessionBindingEvent
 					- javax.servlet.http.HttpSessionEvent
@@ -3995,6 +4022,7 @@
 					- javax.servlet.ServletRequestEvent
 					- javax.servlet.ServletRequestAttributeEvent
 				- Servlet中的监听器
+				  collapsed:: true
 					- javax.servlet.AsyncListener：监听ServletRequest发起的异步操作
 					- javax.servlet.ServletContextListener：接收关于ServletContext生命周期更改的通知事件
 					- javax.servlet.ServletContextAttributeListener：接收ServletContext属性更改的通知事件
@@ -4005,12 +4033,15 @@
 					- javax.servlet.http.HttpSessionAttributeListener：接收关于HttpSession属性更改的通知事件
 					- javax.servlet.http.HttpSessionActivationListener
 			- Servlet监听器的配置
+			  collapsed:: true
 				- 注解@WebListener
 				- 在web.xml中配置
 			- Servlet 监听器Listener 的执行顺序
+			  collapsed:: true
 				- 在 `ServletContext` 创建之前，Listener监听器（包括其他类型监听器）会先按配置顺序初始化；
 				- 然后 `ServletContext` 初始化完成后会按照监听器配置的顺序回调相应的方法，比如 `ServletContextListener` 的 `contextInitialized()` 方法。
 			- 具体实现参考mall项目下的子项目Servlet/servlet-demo
+			  collapsed:: true
 				- 包：cn.bravedawn.listener
 		- Servlet Cookies Example
 		  collapsed:: true
@@ -4389,9 +4420,9 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
-  collapsed:: true
 	- Java.util.logging
 	- Log4j2
+	  collapsed:: true
 		- 参考文章
 		  collapsed:: true
 			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
@@ -4564,8 +4595,7 @@
 			- Root记录器与其他记录器的区别
 				- 根记录器没有名称属性。
 				- 根记录器不支持additivity属性，因为它没有父记录器。
-		- 使用MDC增强日志
-		  collapsed:: true
+		- 使用MDC（Mapped Diagnostic Context）增强日志
 			- 参考文章
 				- [Improved Java Logging with Mapped Diagnostic Context (MDC)](https://www.baeldung.com/mdc-in-log4j-2-logback)
 		- 日志记录方式
@@ -4707,6 +4737,7 @@
 		- spring-core
 		  collapsed:: true
 			- IOC
+			  collapsed:: true
 				- 对IOC的理解
 				  collapsed:: true
 					- 称为Inverse of Control，控制反转。也被叫做DI（Dependency Injection），依赖注入
@@ -4730,29 +4761,37 @@
 				- 方法一：在 setter 方法中使用@Autowired
 				- 方法二：构造函数注入
 				- 参考文章
+				  collapsed:: true
 					- [Using @Autowired in Abstract Classes](https://www.baeldung.com/spring-autowired-abstract-class)
 			- 注解@Scope
 			  collapsed:: true
 				- 作用
+				  collapsed:: true
 					- Scope，也称作用域，在 Spring IoC 容器是指其创建的 Bean 对象相对于其他 Bean 对象的请求可见范围。
 				- Spring IoC容器的作用域
+				  collapsed:: true
 					- 基本作用域
+					  collapsed:: true
 						- `singleton`：单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例。
 						- `prototype`：原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例。
 					- Web 作用域
+					  collapsed:: true
 						- `reqeust`：对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效。
 						- `session`：对于每次HTTP Session，使用session定义的Bean都将产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效。
 						- `globalsession`：每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，该作用域才有效。
 					- 自定义作用域。
-		- spring-web
+		- spring MVC
 			- 过滤器
 				- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
+				  collapsed:: true
 					- 如下图
 					  ![10.png](../assets/10_1680702279599_0.png)
 				- 过滤器-Filter
+				  collapsed:: true
 					- Filter是Servlet提供的过滤器，与Spring无关
 					- 是所有过滤组件中最外层的，从粒度来说是最大的
 					- 使用场景
+					  collapsed:: true
 						- 可以获取到Http的请求和响应信息
 						- 将请求参数记录到日志文件
 						- 资源请求的认证和授权
@@ -4763,23 +4802,43 @@
 						- 可以在日志中统计请求处理的耗时
 					- 不足
 						- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
+				- Spring的OncePreRequestFilter
+					- 与Servlet Filter的区别
 				- 拦截器-Intercepter
+				  collapsed:: true
 					- Interceptor是Spring提供的过滤器
 					- 在自定义Interceptor的时候需要实现`org.springframework.web.servlet.HandlerInterceptor`接口
 					- 不足
+					  collapsed:: true
 						- 通过preHandle方法的handle方法，我们可以**获取请求调用的Controller类和方法名**。但是并**不能获取请求的调用方法的具体参数**
 					- 使用场景
+					  collapsed:: true
 						- 可以在日志中统计请求处理的耗时
-				- Controller增强-ControllerAdvice
+				- Controller增强-`@ControllerAdvice`
+				  collapsed:: true
+					- 使用场景
+						- 全局异常处理
+						- 全局数据绑定
+						- 全局数据预处理
 				- 切面-aspect
-			- 错误记录
+			- 如何多次读取HttpServletRequest
+			  collapsed:: true
+				- 具体实现
+					- jasper:cn/bravedawn/web/config/cachedrequest
+				- 参考文章
+					- [Reading HttpServletRequest Multiple Times in Spring](https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times)
+			- 异常处理
+			- 开发过程中的错误记录
 			  collapsed:: true
 				- @RequestBody中的required默认是true，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将required设置为false。
 				- Spring Boot请求(状态码是406)Could not find acceptable representation原因
 					- 有可能是你的响应对象的属性没有写get/set方法导致的
 		- spring-tx
+		  collapsed:: true
 			- Spring对事务管理的支持
+			  collapsed:: true
 				- 事务管理的关键抽象
+				  collapsed:: true
 					-
 		- Spring Boot
 		  collapsed:: true
@@ -4825,6 +4884,7 @@
 		- Spring Test
 		  collapsed:: true
 			- 在单元测试中如果依赖Spring的RequestContext，怎么办
+			  collapsed:: true
 				- 先看代码：
 				  ```Java
 				  // Spring-test 有一个灵活的请求模拟，称为 MockHttpServletRequest。
@@ -4832,6 +4892,7 @@
 				  RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 				  ```
 				- 参考文章
+				  collapsed:: true
 					- [How to Mock HttpServletRequest](https://www.baeldung.com/java-httpservletrequest-mock)
 		- Spring Cloud
 		  collapsed:: true
@@ -4840,9 +4901,13 @@
 				- 该项目的作用就是管理SpringCloud版本的发布，主要做了二件事，一个是分布版本的规则，二是管理各个发布版本的子项目的版本的映射关系。
 				- 参考文章： https://www.cnblogs.com/hzhuxin/p/12393456.html
 			- Open Feign
+			  collapsed:: true
 				- 配置规则
+				  collapsed:: true
 					- 第一种：自定义配置类
+					  collapsed:: true
 						- 自定义FeignClientsConfiguration配置类
+						  collapsed:: true
 							- openFeign允许我们为每个Feign客户端定制一套组件
 							  collapsed:: true
 								- 设置@FeignClinet的Configuration属性
@@ -4879,6 +4944,7 @@
 						- 若在三种场景都配置了拦截器，则执行顺序是：专属FeignClient在配置文件中配置->全局配置文件中配置->配置类中配置。
 						- 若在三种场景都配置了同一个拦截器，则这个拦截器就会被重复执行三次。
 				- 数据压缩
+				  collapsed:: true
 					- 请求压缩配置
 					  collapsed:: true
 						- 配置代码
@@ -4900,6 +4966,7 @@
 						  feign.compression.response.useGzipDecoder=true
 						  ```
 				- 参考文章
+				  collapsed:: true
 					- [OpenFeign / SpringBoot 响应使用gzip压缩（含例子）](https://blog.csdn.net/Jokers_lin/article/details/126342022)
 					- [SpringBoot 使用 Feign 无废话 All-in-one 指南](https://juejin.cn/post/7169549885723639838)
 					- [openFeign夺命连环9问，这谁受得了？](https://www.cnblogs.com/cbvlog/p/15322926.html)
