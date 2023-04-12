@@ -4773,7 +4773,9 @@
 						- `globalsession`：每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，该作用域才有效。
 					- 自定义作用域。
 		- spring MVC
+		  collapsed:: true
 			- 过滤器
+			  collapsed:: true
 				- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
 				  collapsed:: true
 					- 如下图
@@ -4823,6 +4825,7 @@
 				- 参考文章
 					- [Reading HttpServletRequest Multiple Times in Spring](https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times)
 			- 异常处理
+			  collapsed:: true
 				- 方法一：为每一个controller添加一个@ExceptionHandler注解的方法
 				  collapsed:: true
 					- 代码
@@ -4842,7 +4845,6 @@
 				- 方法二：定义一个HandlerExceptionResolver，为Rest API实现统一的异常处理机制
 				  collapsed:: true
 					- 现有的实现
-					  collapsed:: true
 						- `SimpleMappingExceptionResolver`
 						  collapsed:: true
 							- SimpleMappingExceptionResolver可以根据需要轻松地将任何异常映射到默认的错误视图。
@@ -4879,10 +4881,8 @@
 							  }
 							  ```
 							- 缺点
-							  collapsed:: true
 								- 与DefaultHandlerExceptionResolver一样，该解析器在处理响应体的方式上受到限制——可以映射状态码到响应上，但响应体仍然为空。
 					- 自定义HandlerExceptionResolver
-					  collapsed:: true
 						- 要实现的功能：希望能够输出JSON或XML到响应体中，这取决于客户端要求的格式（通过Accept报头）
 						- 代码
 						  ```java
@@ -4924,11 +4924,37 @@
 					- 这是一种新的机制，脱离了旧的MVC模型，并利用了ResponseEntity以及@ExceptionHandler的类型安全性和灵活性。
 					- @ControllerAdvice注释允许我们将之前分散的多个@ExceptionHandler合并为单个的全局错误处理组件。
 					- 代码
+					  ```java
+					  @ControllerAdvice
+					  public class RestResponseEntityExceptionHandler 
+					    extends ResponseEntityExceptionHandler {
+					  
+					      @ExceptionHandler(value 
+					        = { IllegalArgumentException.class, IllegalStateException.class })
+					      protected ResponseEntity<Object> handleConflict(
+					        RuntimeException ex, WebRequest request) {
+					          String bodyOfResponse = "This should be application specific";
+					          return handleExceptionInternal(ex, bodyOfResponse, 
+					            new HttpHeaders(), HttpStatus.CONFLICT, request);
+					      }
+					  }
 					  ```
-					  ```
+					- 优点
+						- 能够自定义响应body体和状态代码
+						- 提供了多个异常映射到同一个方法，以便一起处理
+						- 可以很好的新的RESTful ResponseEntity响应
+					- 缺点
+						- 用@ExceptionHandler处理的异常应与其方法参数的异常声明相匹配。如果他们不匹配，编译器不会报错，Spring也不会报错。但是，异常会在运行时实际抛出来时，异常解析机制将失败。
+						  ```
+						  java.lang.IllegalStateException: No suitable resolver for argument [0] [type=...]
+						  HandlerMethod details: ...
+						  ```
 				- 方法四：ResponseStatusException (Spring 5 and Above)
+					- Spring5引入了ResponseStatusException类
+					- 我们可以创建它的一个实例，提供一个HttpStatus，并可选的提供一个reason和cause
+					- 参考文章
+						- [Spring ResponseStatusException](https://www.baeldung.com/spring-response-status-exception)
 				- 参考文章
-				  collapsed:: true
 					- [Error Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
 			- 开发过程中的错误记录
 			  collapsed:: true
