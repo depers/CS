@@ -1407,7 +1407,6 @@
 					- 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取
 					- 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取
 				- Class实例比较和instanceof的差别
-				  collapsed:: true
 					- 用instanceof不但匹配指定类型，还匹配指定类型的子类。
 					- 用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
 				- 通过反射生产对象的方式
@@ -1423,6 +1422,7 @@
 					- `isAnonymous()`：是否是匿名类
 					- `class.newInstance()`： 会直接调用该类的无参构造函数进行实例化
 					- `class.getDeclaredConstructor(Class<?>... parameterTypes).newInstance()`：`getDeclaredConstructor()`方法会根据他的参数对该类的构造函数进行搜索并返回对应的构造函数，没有参数就返回该类的无参构造函数，然后再通过newInstance进行实例化。
+					- `a.isAssignableFrom(b)`：判断a是否是b的父类
 			- 访问字段
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
 					- `Field getField(name)`：根据字段名获取某个public的field（包括父类）
@@ -2568,8 +2568,8 @@
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
 		- JVM
+		  collapsed:: true
 			- Java的内存区域
-			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
@@ -2646,6 +2646,7 @@
 									- 分配给线程的这块空间我们称之为：本地线程分配缓冲（Thread Local Allocation Buffer，简称TLAB）
 						- 对象的内存布局
 							- 对象头
+							  collapsed:: true
 								- 第一部分：存储对象自身的运行时数据
 									- 主要数据（Mark Word）
 										- 哈希码
@@ -2708,7 +2709,6 @@
 						- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
 			- 垃圾回收器
 				- 相关概念
-				  collapsed:: true
 					- 根据对象的存活周期不同将内存分为新生代、老年代
 					- 新生代
 					  collapsed:: true
@@ -2727,7 +2727,6 @@
 							- 没有额外的内存为老年代进行内存分配担保
 					- 永久代
 					  id:: 64045857-a3d0-48e0-b083-94db4c2e7263
-					  collapsed:: true
 						- 定义：永久代不属于堆内存，是方法区的一种实现，用来存放加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据。
 					- 吞吐量（Throughput）
 					  id:: 6405ef3b-98b6-4356-bc2e-85a1a75e8dc0
@@ -3045,6 +3044,7 @@
 							- [深入理解G1的GC日志](https://juejin.cn/post/6844903893906751501)
 					- 垃圾收集器的参数配置
 				- 内存分配与回收策略
+				  collapsed:: true
 					- 对象优先分配到Eden区
 					  collapsed:: true
 						- 大多数情况下，对象在新生代Eden区和中分配。当Eden区没有足够空间进行分配时，虚拟机将会发起一次Minor GC。（针对Serial+Serial Old收集器做的演示）
@@ -3067,6 +3067,59 @@
 					- 空间分配担保
 						- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 						- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
+			- 虚拟机性能监控、故障处理工具
+				- 基础故障处理工具
+					- jps：虚拟机进程状况工具
+						- 功能：可以列出正在运行的虚拟机进程，并显示虚拟机的执行主类名称以及这些进程的本地虚拟机唯一ID（LVMID，Local Virtual Machine Identifier）
+						- 命令格式：`jps [options] [hostid]`
+						- 主要选项
+							- `-q`：只输出LVMID，省略主类的名称
+							- `-m`：输出虚拟机进程启动传递给主类main()函数的参数
+							- `-l`：输出主类的全名，如果进程执行的是JAR包，则输出JAR路径
+							- `-v`：输出虚拟机进程启动时的JVM参数
+						- 值得注意的
+							- LVMID与操作系统的进程ID（PID，Process Identifier）是一致的
+					- jstat：虚拟机统计信息监视工具
+						- 功能
+						  collapsed:: true
+							- 监视虚拟机各种运行状态信息的命令行工具
+							- 可以显示本地或是远程虚拟机进程中的类加载、内存、垃圾收集、即时编译等运行时数据
+							- 没有GUI，只提供纯文本控制台的打印输出
+						- 命令格式：`jstat [option vmid [inteval [s|ms] [count]]`
+							- `option`：主要选项
+							  collapsed:: true
+								- `-gc`
+								  collapsed:: true
+									- S0C：年轻代中第一个Survivor区的容量，单位为KB。
+									- S1C：年轻代中第二个Survivor区的容量，单位为KB。
+									- S0U：年轻代中第一个Survivor区已使用大小，单位为KB。
+									- S1U：年轻代中第二个Survivor区已使用大小，单位为KB。
+									- EC：年轻代中Eden区的容量，单位为KB。
+									- EU：年轻代中Eden区已使用大小，单位为KB。
+									- OC：老年代的容量，单位为KB。
+									- OU：老年代已使用大小，单位为KB。
+									- MC：元空间的容量，单位为KB。
+									- MU：元空间已使用大小，单位为KB。
+									- CCSC：压缩类的容量，单位为KB。
+									- CCSU：压缩类已使用大小，单位为KB。
+									- YGC：Young GC的次数。
+									- YGCT：Young GC所用的时间。
+									- FGC：Full GC的次数。
+									- FGCT：Full GC的所用的时间。
+									- GCT：GC的所用的总时间。
+							- `vmid`
+							  collapsed:: true
+								- 如果是本地虚拟机的话，vmid与LVMID是一致的
+								- 如果是远程虚拟机的话，vmind有特殊的格式
+							- `interval [s|ms]`
+							  collapsed:: true
+								- 查询间隔，默认单位是ms
+							- `count`
+							  collapsed:: true
+								- 查询次数
+							- 例子：`jstat -gc 2576 250 20`，每250毫秒查询一次进程2576的垃圾回收情况，一共查询20次
+						- 参考文章
+							- [Java的jstat命令使用详解](https://cloud.tencent.com/developer/article/1985765)
 			- 内存分配策略
 			  collapsed:: true
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
