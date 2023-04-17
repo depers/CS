@@ -1,23 +1,27 @@
 - Java语言
 	- Java基础
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
+				  collapsed:: true
 					- 整型
+					  collapsed:: true
 						- byte，1个字节
 						- short，2个字节
 						- int，4个字节
 						- long，8个字节
 					- 浮点型
+					  collapsed:: true
 						- float，4个字节
 						- double，8个字节
 					- 布尔类型：boolean，这种数据类型表示一位信息，但它的“大小”并没有得到精确的定义。
 					- 字符类型：char，2个字节，字符类型char表示一个字符。Java的char类型除了可表示标准的ASCII外，还可以表示一个Unicode字符：
 					- 其他：引用类型（所有class和interface类型）
 				- 包装类型
+				  collapsed:: true
 					- 基本类型都对应一个包装类型
+					  collapsed:: true
 						- Java核心库提供的包装类型可以把基本类型包装为class；
 						- 自动装箱和自动拆箱都是在编译期完成的（JDK>=1.5）；
 						- 装箱和拆箱会影响执行效率，且拆箱时可能发生NullPointerException；
@@ -26,6 +30,7 @@
 						- 包装类型提供了大量实用方法；
 						- 所有的包装类型都是不变类；
 					- 基本数据类型和其包装类的对应关系
+					  collapsed:: true
 						- byte-Byte
 						- short-Short
 						- int-Integer
@@ -36,15 +41,18 @@
 						- char-Character
 					- 自动装箱与拆箱
 					- 进制转换
+					  collapsed:: true
 						- 十进制：Integer.toString
 						- 十六进制：Integer.toHexString
 						- 八进制：Integer.toOctalString
 						- 二进制：Integer.toBinaryString
 					- 处理无符号整型
+					  collapsed:: true
 						- Java并没有无符号整型（Unsigned）的基本数据类型
 						- byte、short、int和long都是带符号整型，最高位是符号位
 						- Byte.toUnsignedInt
 				- Java中的具体类型
+				  collapsed:: true
 					- 原始数据类型，例如int，float
 					- 非泛型的类和接口，例如 String 或 Random
 					- 所有类型都是无界通配符的泛型类型，例如 Set<?> 或 Map<?, ?>
@@ -54,10 +62,12 @@
 			- 字符串
 			  collapsed:: true
 				- String的三种主要的声明方式
+				  collapsed:: true
 					- 方式一：直接使用双引号声明出来的`String`对象会直接存储在**常量池**中，这个对象指向的是常量池中的String对象。
 					- 方式二：如果不是用双引号声明的`String`对象，可以使用`String`提供的`intern`方法。intern 方法会从字符串常量池中查询当前字符串是否存在，若不存在就会将当前字符串放入常量池中。
 					- 方式三：`String s = new String("abc")`创建了2个对象，第一个对象是”abc”字符串存储在常量池中，第二个对象在JAVA Heap中的 String 对象。s指向的是Java堆上的对象。
 				- 基本操作
+				  collapsed:: true
 					- 比较：必须使用equals()
 					- 是否包含：contains()
 					- 去除首尾空格
@@ -75,10 +85,12 @@
 						- formatted()
 						- format()
 						- 占位符
+						  collapsed:: true
 							- %s：显示字符串；
 							- %d：显示整数；
 							- %x：显示十六进制整数；
 							- %f：显示浮点数；
+							  collapsed:: true
 								- String.format("value is %f", 32.33434)，显示浮点数
 								- String.format("value is %32.12f", 32.33434)，显示小数点后显示12位，不够填充0，整体显示位32位，不够的地方补充空格
 							- %c：显示Unicode字符；
@@ -87,19 +99,24 @@
 					  collapsed:: true
 						- char[] cs = "Hello".toCharArray(); // String -> char[]
 						- String s = new String(cs); // char[] -> String
+						  collapsed:: true
 							- s不会直接引用char[]，而是复制
 							- 如果修改了char[]，并不会影响s
 					- 返回字符串索引下表字母的ascII十进制码值：codePointAt()
 				- 编码
+				  collapsed:: true
 					- 字符编码笔记：ASCII，Unicode 和 UTF-8
 					- 将字符串转为字节数组：byte[] b2 = "Hello".getBytes("UTF-8"); // 按UTF-8编码转换
 					- 将已知编码的字节数组转为字符串：String s2 = new String(b, StandardCharsets.UTF_8); // 按UTF-8转换
 				- 不可变
+				  collapsed:: true
 					- 概述
+					  collapsed:: true
 						- 在 Java 8 中，String 内部使用 char 数组存储数据
 						- 在 Java 9 之后，String 类的实现改用 byte 数组存储字符串，同时使用 coder 来标识使用了哪种编码
 						- 不可变特性可以参考：https://www.liaoxuefeng.com/wiki/1252599548343744/1255938912141568
 					- 不可变的好处
+					  collapsed:: true
 						- 可以缓存 hash 值
 						- String Pool的需要
 						- 安全性
@@ -107,17 +124,21 @@
 				- Sting-StringBuffer-StringBuilder的比较
 				  collapsed:: true
 					- 可变性
+					  collapsed:: true
 						- String不可变
 						- StringBuffer和StringBuilder可变
 					- 线程安全
+					  collapsed:: true
 						- String不可变，是线程安全的
 						- StringBuilder 不是线程安全的
 						- StringBuffer 是线程安全的，内部使用 synchronized 进行同步
 				- String.intern()
 				  id:: 64043de8-605f-43aa-a7b0-a711a39e4d4a
+				  collapsed:: true
 					- 作用：如果字符串常量池中已经包含一个等于此String对象的字符串，则返回池中这个字符串的**String对象**；否则，将此String对象包含的字符串添加到常量池中，并且返回此**String对象**。
 					- JDK6中，常量池和堆是不同的内存区域，所以使用`new String("a")`是分别创建了两个不同的对象。
 					- JDK7新的变化
+					  collapsed:: true
 						- 将String常量池 从 Perm 区移动到了 Java Heap区
 						- 涉及到从常量池获取对象的时候，若这个对象在堆上已经存在，则不再常量池创建新的对象，而是返回堆上已经存在对象的引用地址。
 					- 可以保证相同内容的字符串变量引用同一的内存对象。
@@ -126,26 +147,31 @@
 			- 运算
 			  collapsed:: true
 				- 参数传递
+				  collapsed:: true
 					- Java的参数传递是：值传递，
 					- 对于基本类型（原始类型），在参数传递中是值传递
 					- 对于引用类型，本质上是将对象的地址以值的方式传递到形参中，修改信息的是同一个对象。
 					- 如果在方法中重置了对象的引用，则修改信息的是不同的对象。
 					- 参考文章
+					  collapsed:: true
 						- [这一次，彻底解决Java的值传递和引用传递](https://segmentfault.com/a/1190000016773324)
 				- 整数运算
 				  collapsed:: true
 					- 整数类型：byte, short, int, long
 					- 溢出：整数由于存在范围限制，如果计算结果超出了范围，就会产生溢出
 					- 加减乘除
+					  collapsed:: true
 						- `+`/`+=`
 						- `-`/`-=`
 						- `*`/`*=`
 						- `/`/`/=`
 					- 自增/自减
+					  collapsed:: true
 						- `++`
 						- `--`
 						- 不建议把上面的运算符写到变量前面
 					- 移位运算
+					  collapsed:: true
 						- `<<`，左移相当于乘2
 						- `>>`，右移相当于除2
 						- `>>>`，无符号右移，也相当于除2，与右移运算符不同的是
@@ -160,24 +186,29 @@
 						- `&&`优先级高于`||`
 					- [运算优先级](https://www.liaoxuefeng.com/wiki/1252599548343744/1255888634635520)
 					- 类型转换
+					  collapsed:: true
 						- [隐式类型转换：++和+=](http://www.cyc2018.xyz/Java/Java%20%E5%9F%BA%E7%A1%80.html#%E9%9A%90%E5%BC%8F%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
 						- 参与运算的两个数类型不一致，那么计算结果为较大类型的整型
 						- 大范围的整数转型为小范围的整数。强制转型使用(类型)。强转的结果可能是错的。
 				- 浮点数运算
 				  collapsed:: true
 					- float与double
+					  collapsed:: true
 						- // float f = 1.1; 是错的，Java 不能隐式执行向下转型，因为这会使得精度降低。
 						- 1.1f 字面量才是 float 类型
 						- 1.1 字面量属于 double 类型
 					- 特点
+					  collapsed:: true
 						- 不能做位运算和移位运算
 						- 浮点数的运算常常存在误差
 					- 类型提升：一个浮点数和一个整数的运算，整型可以自动提升到浮点型
 					- 溢出：浮点数除0时不会报错，会返回特殊值
+					  collapsed:: true
 						- NaN表示Not a Number
 						- Infinity表示无穷大
 						- -Infinity表示负无穷大
 					- 强制转型（将浮点型转为整型）
+					  collapsed:: true
 						- 浮点数的小数部分会被丢掉
 						- 四舍五入需要加0.5
 						- 如果转型后超过了整型能表示的最大范围，将返回整型的最大值
@@ -201,6 +232,7 @@
 					- 移位运算符
 					  collapsed:: true
 						- `<<`
+						  collapsed:: true
 							- 运算规则：**左移位会丢弃左边指定位数，右边补0**。
 							- 左移位操作，相当于乘2。
 							- int类型左移位数大于等于32位操作时，会先求余（%）后再进行左移操作。例如左移40位相当于左移8位（40%32=8）。
@@ -208,13 +240,16 @@
 							- double，float在二进制中的表现比较特殊，因此不能进行位移操作。
 							- 整型byte，short移位前会先转换为int类型（32位）再进行移位。
 						- `>>`
+						  collapsed:: true
 							- 运算规则：**丢弃右边指定位数，左边补上符号位**。符号位0代表的是正数，1代表的是负数。正数右移左侧补0，负数右移左侧补1。
 							- 右移位操作，相当于除2。
 							- 和左移一样，int类型移位大于等于32位时，long类型大于等于64位时，会先做求余处理再位移处理，byte，short移位前会先转换为int类型（32位）再进行移位。
 						- `>>>`
+						  collapsed:: true
 							- 运算规则：**丢弃右边指定位数，左边补上0**。
 							- 对于正数移位来说等同于：`>>`，负数通过此移位运算符能移位成正数。
 						- 参考文章
+						  collapsed:: true
 							- [Java中的移位运算符](https://zhuanlan.zhihu.com/p/30108890)
 					- 其他运算符
 			- 流程控制
@@ -222,13 +257,16 @@
 				- 输入和输出
 				  collapsed:: true
 					- 输出
+					  collapsed:: true
 						- System.out.println()，输出并换行
 						- System.out.print()，输出不换行
 						- System.out.printf()，格式化输出
 					- 格式化输出：
+					  collapsed:: true
 						- printf()
 						- 占位符%?
 					- 输入：
+					  collapsed:: true
 						- Scanner scanner = new Scanner(System.in);
 						- scanner.nextLine()/nextInt()...
 				- if判断
@@ -261,69 +299,91 @@
 				- break和continue
 				  collapsed:: true
 					- 相同点
+					  collapsed:: true
 						- 都用于while循环和for循环
 						- 都通常配合if使用
 					- 不同点
+					  collapsed:: true
 						- break总是跳出最近的一层循环，而continue语句可以提前结束本次循环
 			- 数组操作
 			  collapsed:: true
 				- 初始化数组
+				  collapsed:: true
 					- int[] a = new int[5]; int类型数组初始化之后是0
 					- int[] b = {1, 2, 3, 4, 5};
 				- 数组操作
+				  collapsed:: true
 					- 遍历数组
+					  collapsed:: true
 						- for
 						- for each
 						- 打印数组：Arrays.toString()
 					- 数组排序
+					  collapsed:: true
 						- 使用Arrays.sort()进行排序
 					- 多维数组
+					  collapsed:: true
 						- 二维数组就是数组的数组，三维数组就是二维数组的数组；
 						- 多维数组的每个数组元素（每行数组）长度都不要求相同；
 						- 打印多维数组可以使用Arrays.deepToString()；
 						- 二位数组的长度是行数；
 						- 最常见的多维数组是二维数组，访问二维数组的一个元素使用array[row][col]。
 					- 命令行参数
+					  collapsed:: true
 						- main方法的args字符串数组
 						- $ javac Main.java
 						- $ java Main -version
 				- System.arraycopy
+				  collapsed:: true
 					- 参考博客：https://www.geeksforgeeks.org/system-arraycopy-in-java/
 			- 关键字final和static
 			  collapsed:: true
 				- final
+				  collapsed:: true
 					- 修饰类
+					  collapsed:: true
 						- 如果一个在声明类时用final关键字来修饰，那这个类是不能够被继承的。也就是说这个类时最终的。例如String类。
 						- 类声明中的 final 关键字并不意味着该类的对象是不可变的。我们可以自由改变类对象的字段：
 					- 修饰方法
+					  collapsed:: true
 						- 子类是无法重写基类的private的方法的，private隐式的被指定为final。
 						- 被final修饰的方法，是无法被子类覆盖的。
 						- 如果我们类的某些方法被其他方法调用，我们应该考虑将被调用的方法设为final。否则，覆盖它们会影响调用者的工作并导致令人惊讶的结果。
 						- 将类的所有方法设为最终方法与将类本身标记为最终方法有什么区别？
+						  collapsed:: true
 							- 在第一种情况下，我们可以扩展类并向其添加新方法。
 							- 在第二种情况下，我们不能扩展。
 					- 修饰变量
+					  collapsed:: true
 						- 标记为 final 的变量不能重新分配。 一旦最终变量被初始化，它就不能被改变。
 						- 修饰原始类型变量
 						- 修饰引用变量
 						- 修饰字段
+						  collapsed:: true
 							- 修饰原始类型变量
 							- 修饰引用类型变量
 							- 修饰类字段（类的属性）
+							  collapsed:: true
 								- 声明常量
+								  collapsed:: true
 									- 根据命名约定，类常量应为大写，组件之间用下划线 (“_”) 字符分隔
 								- 必须在构造函数完成之前初始化任何 final 字段
+								  collapsed:: true
 									- static final修饰的类字段的初始化时机
+									  collapsed:: true
 										- 在声明的时候初始化该字段
 										- 在静态代码块中初始化该字段
 									- final修饰的类字段的初始化时机
+									  collapsed:: true
 										- 在声明的时候初始化该字段
 										- 在实例初始化代码块中初始化该字段
 										- 在构造函数中初始化该字段
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/basic/keyword/final_
 				- static
+				  collapsed:: true
 					- 静态变量
 					- 静态方法
+					  collapsed:: true
 						- 只能访问所属类的静态字段和静态方法，方法中不能有 this 和 super 关键字，因为这两个关键字与具体对象关联。
 					- 静态语句块
 					- 静态内部类
@@ -332,14 +392,18 @@
 			- 日期与时间
 			  collapsed:: true
 				- 基本概念
+				  collapsed:: true
 					- 时区
 					- 本地化Locale
 				- Date和Calendar
+				  collapsed:: true
 					- 时间戳：System.currentTimeMillis()
 					- 标准API
+					  collapsed:: true
 						- 旧的：java.util，主要包括Date、Calendar和TimeZone这几个类；
 						- 新的：java.time，主要包括LocalDateTime、ZonedDateTime、ZoneId等；
 					- 格式化时间
+					  collapsed:: true
 						- yyyy：年
 						- MM：月
 						- dd：日
@@ -350,15 +414,21 @@
 						- sss：毫秒
 					- Date
 					- SimpleDateFormat
+					  collapsed:: true
 						- 不是线程安全
 					- Calendar
+					  collapsed:: true
 						- 利用Calendar.getTime()可以将一个Calendar对象转换成Date对象
 						- 相比于Date
+						  collapsed:: true
 							- 多了做简单的日期和时间运算的功能
 							- 提供了时区转换的功能
 				- Java8新的时间API体系
+				  collapsed:: true
 					- 本地日期和时间
+					  collapsed:: true
 						- LocalDateTime
+						  collapsed:: true
 							- 它表示一个本地日期和时间
 							- 按照ISO 8601格式打印
 							- 可以转换为LocalDate和LocalTime
@@ -370,33 +440,44 @@
 							- 判断时间的先后
 							- LocalDateTime无法与时间戳进行转换，因为LocalDateTime没有时区，无法确定某一时刻
 						- LocalDate
+						  collapsed:: true
 							- 它表示一个本地日期
 						- LocalTime
+						  collapsed:: true
 							- 它表示一个本地时间
 					- 带时区的日期和时间
+					  collapsed:: true
 						- ZonedDateTime
+						  collapsed:: true
 							- 创建
 							- 时区转换
 							- 转换为LocalDateTime
 					- 时刻
+					  collapsed:: true
 						- Instant
 					- 时区
+					  collapsed:: true
 						- ZoneId
 						- ZoneOffset
 					- 时间间隔
+					  collapsed:: true
 						- Duration：表示两个时刻之间的时间间隔
 						- Period：表示两个日期之间的天数
 					- 时间格式类
+					  collapsed:: true
 						- DateTimeFormatter
+						  collapsed:: true
 							- 线程安全
 							- 创建
 							- 格式化输出
 					- 互转关系
+					  collapsed:: true
 						- LocalDateTime和ZoneId可以转换为ZonedDateTime
 						- ZonedDateTime可以转为LocalDateTime，丢失时区信息
 						- ZonedDateTime可以转化为Instant和long
 						- Instant和long也可以转换为ZonedDateTime
 				- 最佳实践
+				  collapsed:: true
 					- 旧API转新API
 					- 新API转旧API
 					- 数据库中采用长整型存储时间
@@ -404,25 +485,34 @@
 			  collapsed:: true
 				- 功能：正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。Java标准库java.util.regex内建了正则表达式引擎。
 				- 匹配规则
+				  collapsed:: true
 					- 匹配任意字符：.匹配一个字符且仅限一个任意字符
 					- 匹配数字：\d仅限单个数字字符
 					- 匹配常用字符：\w可以匹配一个字母、数字或下划线
 					- 匹配空格字符：\s可以匹配一个空格字符，注意空格字符不但包括空格，还包括tab字符（在Java中用\t表示）
 					- 匹配非数字：\D则匹配一个非数字
 					- 重复匹配
+					  collapsed:: true
 						- 修饰符*可以匹配任意个字符，包括0个字符
 						- 修饰符+可以匹配至少一个字符
 						- 修饰符?可以匹配0个或一个字符
 				- 匹配复杂规则
+				  collapsed:: true
 					- 匹配开头和结尾
 					- 匹配指定范围
 					- 或规则匹配
 					- 使用括号
+					  collapsed:: true
 						- 提取公共部分，括起子规则
+						  collapsed:: true
+							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.BracketExample
 						- 分组匹配
+						  collapsed:: true
+							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.GroupMatch
 				- 使用Pattern只做一次编译，不建议使用String.matches()
 				- 非贪婪匹配?
 				- 搜索和替换
+				  collapsed:: true
 					- 分割字符串：String.split()
 					- 搜索字符串：Matcher.find()
 					- 替换字符串：String.replaceAll()
@@ -433,6 +523,7 @@
 				- 背景：定义的普通常量类，编译器无法检查每个值的合理性
 				- 枚举的比较：相比equals方法，建议使用==
 				- 枚举的实例方法
+				  collapsed:: true
 					- name()
 					- 空笔记
 				- 枚举的switch
@@ -447,25 +538,32 @@
 					  collapsed:: true
 						- Math 类的 random 方法将返回一个范围从 0.0（包括）到 1.0（不包括）的 double 值
 					- 使用Random.next()生成随机数
+					  collapsed:: true
 						- nextInt(n)，生成一个在0(包括)到n(不包括)之间的一个数，带参数的方法中，n必须大于0，否则就会报IllegalArgumentException
 						- 使用无参的nextInt方法可以获取任何随机数，经常会拿到负数
 						- 使用有参的nextInt方法，可以得到一个范围内的数字
 						- 为Random设置相同的种子之后，每次生成的都是相同的随机数。
 					- 使用ThreadLocalRandom生成随机数
+					  collapsed:: true
 						- ThreadLocalRandom类与Random类有三个重要区别
+						  collapsed:: true
 							- 1. 不需要显式地初始化ThreadLocalRandom的一个新实例。这有助于我们避免创建大量无用的实例和浪费垃圾回收器时间的情况。
 							- 2. 不能为ThreadLocalRandom设置种子。
 							- 3. Random类在多线程环境中表现不好。
 					- 使用SplittableRandom生成随机数
+					  collapsed:: true
 						- Java8新的快速生成器，用于并行计算的生成器。重要的是要知道实例不是线程安全的
 						- 提供了ints()方法，返回IntStream
 					- 使用SecureRandom生成随机数
+					  collapsed:: true
 						- 安全敏感的应用程序，我们应该考虑使用SecureRandom。这是一个密码学上的强生成器
 				- 使用三方API
 				  collapsed:: true
 					- 使用Apache Common Math3生成随机数
+					  collapsed:: true
 						- 在Apache commons项目的公共数学库中提供了很多生成器，RandomDataGenerator使用Well19937c算法进行随机数的生成。
 					- 使用XoRoShiRo128PlusRandom生成随机数
+					  collapsed:: true
 						- 最快的随机数生成器实现之一，它是由米兰大学信息科学系开发的。
 				- 参考文章
 				  collapsed:: true
@@ -473,8 +571,11 @@
 			- JSON
 			  collapsed:: true
 				- jackson
+				  collapsed:: true
 					- 将一个对象转换为json字符串
+					  collapsed:: true
 						- 参考文章
+						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
 		  collapsed:: true
@@ -1483,7 +1584,6 @@
 				- 方法句柄MethodHandle
 					- 类似于反射，可以实现方法的间接调用。
 		- SPI机制
-		  collapsed:: true
 			- 定义
 				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用
 				- 核心思想是解耦
@@ -1512,7 +1612,6 @@
 						- 编写接口实现
 					- 开发人员使用，这里可以参考JavaTrain项目的cn.bravedawn.spi.example.Test
 				- SPI和API之间的区别
-				  collapsed:: true
 					- API是我们直接调用一个方法，以达到某一个目标，代码逻辑组织在实现者的包中
 					- SPI是我们需要拓展和实现，以达到某一个目标，代码逻辑组织在调用者的包中
 				- SPI机制的实现原理
@@ -1520,7 +1619,6 @@
 					- 源码类：java.util.ServiceLoader
 					- 具体阅读笔记参考：cn.bravedawn.spi.example.Test
 				- SPI的缺点
-				  collapsed:: true
 					- 不能按需加载，必须遍历所有实现并实例化，造成浪费
 					- 获取某个实现类的方式不够灵活，只能通过Iterator形式获取
 					- 多线程下使用ServiceLoader类的实例是不安全的
@@ -1584,17 +1682,11 @@
 			  collapsed:: true
 				- 参考 ((641475d2-462e-43b7-a273-77ab40289cde))
 			- Cloneable interfaces
-			  collapsed:: true
-				- Java8
-					- 静态工厂方法：Comparator.comparing()
-				- 参考文章
-					- Comparator and Comparable in Java
 			- Comparable
-			  collapsed:: true
 				- comparable用于我们在编写实体类时比较对象的主要方式。它定义了一种将对象与其他同类对象进行比较的策略。这被称为类的“自然排序”。
 				- Comparable接口是用于定义默认排序的好选择。
+				- 具体在实体类中直接实现Comparable接口compareTo方法。
 			- Comparator
-			  collapsed:: true
 				- omparator 接口定义了一个带有两个参数的 compare(arg1, arg2) 方法，这些参数表示比较对象。
 				- 已经有 Comparable，为什么还要使用 Comparator 呢？
 					- 一：有时我们无法修改要排序的对象的类的源代码，从而导致无法使用 Comparable。
@@ -1602,12 +1694,15 @@
 					- 三：可以定义多种不同的比较策略，这在使用 Comparable 时是不可能的。
 				- 避免使用减法定义比较器
 					- 由于整数溢出，“Integer.MAX_VALUE – (-1)”将小于零。具体代码实现参考：JavaTrain/src/main/java/cn/bravedawn/basic/coreclass/compare/java8/AvoidSubtractionTrick.java
+				- Java8
+					- 静态工厂方法：Comparator.comparing()
+				- 参考文章
+					- [Comparator and Comparable in Java](https://www.baeldung.com/java-comparator-comparable)
 			- AutoCloseable
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
 		- 集合框架
-		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -1709,7 +1804,6 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
-			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -1766,12 +1860,13 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
-				  collapsed:: true
 					- 介绍
+					  collapsed:: true
 						- 使用双向链表来存储元素
 						- 实现了List和Deque接口，实现了所有的List可选的列表操作，继承了AbstractSequentialList类
 						- 实现了所有可选的列表操作并允许所有元素（包括null）
 					- 特点
+					  collapsed:: true
 						- 可以包含重复的元素
 						- 维护插入的顺序
 						- 非同步的，可以通过调用 Collections.synchronizedList 方法来检索它的同步版本
@@ -1799,6 +1894,7 @@
 							- linkedList.pop()，检索第一个元素并从list删除该元素，若list为空，则抛出java.util.NoSuchElementException
 							- linkedList.push(1)，在list头部插入元素
 						- 总结
+						  collapsed:: true
 							- ArrayList 通常是默认的 List 实现，大家常常会使用这个实现
 							- 在恒定时间做插入、删除操作时，采用LinkedList往往是更好的选择。ArrayList更适合恒定的访问时间和有效的内存使用。
 					- 参考文章：
@@ -1808,13 +1904,16 @@
 				- ArrayList
 				  collapsed:: true
 					- 介绍
+					  collapsed:: true
 						- ArrayList是构建在数组之上的List实现之一
 					- 特点
+					  collapsed:: true
 						- 一个值可以重复出现多次
 						- 随机访问的时间复杂度是O(1)
 						- 插入和删除的时间复杂度是O(n)
 						- 搜索未排序的list需要 O(n) 的时间，二分搜索排序的list需要 O(logn) 的时间
 					- 使用
+					  collapsed:: true
 						- 创建一个ArrayList
 						  collapsed:: true
 							- 默认无参构造函数
@@ -1839,6 +1938,7 @@
 								- 先排序：Collections.sort(copy)
 								- 后搜索：Collections.binarySearch(copy, "f")
 						- 从ArrayList中移除元素
+						  collapsed:: true
 							- 从list中移除元素
 							- 通过迭代器去移除元素
 							- 通过使用Java8 Stream API
@@ -1850,6 +1950,7 @@
 					- Imutable ArryaList
 					  collapsed:: true
 						- 五种实现
+						  collapsed:: true
 							- 一、使用JDK提供了可以从现有集合中获取不可修改集合的方法：Collections.unmodifiableList(list)
 							- 二、在Java9中提供了List<E>.of(E… elements)静态工厂方法，来创建不可变列表
 							- 三、Guava提供也提供了创建不可变列表的方法，该操作实际上创建了一个新的副本：ImmutableList.copyOf(list)
@@ -1863,6 +1964,7 @@
 					  collapsed:: true
 						- CopyOnWriteArrayList适合在迭代遍历场景较多，频繁修改场景较少的情况。读多写少。
 					- CopyOnWriteArrayList的迭代遍历
+					  collapsed:: true
 						- 介绍
 						  collapsed:: true
 							- CopyOnWriteArrayList允许以线程安全的方式迭代列表而不需要显示进行同步
@@ -1871,8 +1973,10 @@
 							- CopyOnWriteArrayList在修改元素时，比如新增add()或是删除remove()操作时，并不直接操作元数据，操作的是副本数据（CopyOnWriteArrayList 的全部内容被复制到新的内部副本中）
 							- 在 CopyOnWriteArrayList 上调用 iterator()方法时，我们会返回一个由 CopyOnWriteArrayList 内容的不可变快照备份的迭代器
 						- 在遍历CopyOnWriteArrayList允许插入元素
+						  collapsed:: true
 							- 在遍历CopyOnWriteArrayList时插入元素，不影响之前创建的迭代器
 						- 在遍历CopyOnwriteArrayList不允许移除元素
+						  collapsed:: true
 							- 由于复制机制，不允许对返回的 Iterator执行 remove() 操作，否则就会报错 UnsupportedOperationException
 						- 参考文章：https://www.baeldung.com/java-copy-on-write-arraylist
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
@@ -2398,6 +2502,7 @@
 						- 特点：生成的不可变map，即不能直接修改也不能间接修改
 			- Queue
 			- Fail-fast and Fail-safe
+			  collapsed:: true
 				- Fail-fast
 					- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 ConcurrentModificationException。
 					- 案例
@@ -3069,23 +3174,29 @@
 						- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
 			- 虚拟机性能监控、故障处理工具
 				- 基础故障处理工具
+				  collapsed:: true
 					- jps：虚拟机进程状况工具
+					  collapsed:: true
 						- 功能：可以列出正在运行的虚拟机进程，并显示虚拟机的执行主类名称以及这些进程的本地虚拟机唯一ID（LVMID，Local Virtual Machine Identifier）
 						- 命令格式：`jps [options] [hostid]`
 						- 主要选项
+						  collapsed:: true
 							- `-q`：只输出LVMID，省略主类的名称
 							- `-m`：输出虚拟机进程启动传递给主类main()函数的参数
 							- `-l`：输出主类的全名，如果进程执行的是JAR包，则输出JAR路径
 							- `-v`：输出虚拟机进程启动时的JVM参数
 						- 值得注意的
+						  collapsed:: true
 							- LVMID与操作系统的进程ID（PID，Process Identifier）是一致的
 					- jstat：虚拟机统计信息监视工具
+					  collapsed:: true
 						- 功能
 						  collapsed:: true
 							- 监视虚拟机各种运行状态信息的命令行工具
 							- 可以显示本地或是远程虚拟机进程中的类加载、内存、垃圾收集、即时编译等运行时数据
 							- 没有GUI，只提供纯文本控制台的打印输出
 						- 命令格式：`jstat [option vmid [inteval [s|ms] [count]]`
+						  collapsed:: true
 							- `option`：主要选项
 							  collapsed:: true
 								- `-gc`
@@ -3119,6 +3230,7 @@
 								- 查询次数
 							- 例子：`jstat -gc 2576 250 20`，每250毫秒查询一次进程2576的垃圾回收情况，一共查询20次
 						- 参考文章
+						  collapsed:: true
 							- [Java的jstat命令使用详解](https://cloud.tencent.com/developer/article/1985765)
 			- 内存分配策略
 			  collapsed:: true
@@ -4434,6 +4546,7 @@
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
 	- IDEA
+	  collapsed:: true
 		- 快捷键
 			- MAC
 				- 全局查找：`command`+`shift`+`F`
@@ -4450,7 +4563,6 @@
 - 构建工具
   collapsed:: true
 	- Maven
-	  collapsed:: true
 		- 基础知识
 			- DependencyManagement标签的使用
 			  collapsed:: true
@@ -4480,6 +4592,7 @@
 				- 以上面这段配置来做说明，它将 `spring-boot-dependencies`  中 `DependencyManagement` 下的 `Dependencies` 插入到当前工程的 `DependencyManagement` 中，所以不存在依赖传递。
 				- 当没有 `<scope>import</scope>` 时，意思是将 `spring-boot-dependencies`  的 `Dependencies` 全部插入到当前工程的 `Dependencies` 中，并且会依赖传递。
 			- 指定jdk编译版本号
+			  collapsed:: true
 				- 参见如下代码
 				  ```xml
 				  <build>
@@ -4496,8 +4609,10 @@
 				    </plugins>
 				  </build>
 				  ```
+			- 打包Spring Boot项目
+				- 在maven添加spring-boot-maven-plugin依赖
+				- 使用`mvn -Dmaven.test.skip=true package spring-boot:repackage`进行打包
 		- 插件
-		  collapsed:: true
 			- spring-boot-maven-plugin
 				- 作用
 					- maven项目的pom.xml中，添加了*org.springframework.boot:spring-boot-maven-plugin*插件，当运行`mvn package`进行打包时，会打包成一个可以直接运行的 JAR 文件，使用“Java -jar”命令就可以直接运行。
@@ -4505,12 +4620,9 @@
 				- 参考文章
 					- [spring-boot-maven-plugin插件的作用](https://www.cnblogs.com/acm-bingzi/p/mavenspringbootplugin.html)
 			- maven-compiler-plugin
-			  collapsed:: true
 				- 背景
-				  collapsed:: true
 					- `maven`是个项目管理工具，如果我们不告诉它我们的代码要使用什么样的`jdk`版本编译的话，它就会用`maven-compiler-plugin`默认的`jdk`版本来进行处理，这样就容易出现版本不匹配，以至于可能导致编译不通过的问题。
 				- 作用
-				  collapsed:: true
 					- 使用`maven-compiler-plugin`插件可以指定项目源码的`jdk`版本，编译后的`jdk`版本，以及`编码`。
 			- flatten-maven-plugin
 			  collapsed:: true
