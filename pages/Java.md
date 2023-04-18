@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 			- 数据类型
 			  collapsed:: true
@@ -1703,6 +1704,7 @@
 			- PropertyDescriptor
 	- Java进阶
 		- 集合框架
+		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -2521,6 +2523,11 @@
 				  collapsed:: true
 					- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 		- 并发
+			- Thread
+				- 核心方法
+					- `getAllStackTraces`：用于获取虚拟机中所有线程的StackTraceElement对象
+						- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
+						- 具体实践
 		- IO
 		  collapsed:: true
 			- 字节流
@@ -2675,9 +2682,11 @@
 		- JVM
 		  collapsed:: true
 			- Java的内存区域
+			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
+				  collapsed:: true
 					- 程序计数器
 					  collapsed:: true
 						- 作用
@@ -2685,31 +2694,40 @@
 							- 执行字节码的行号指示器。
 							- 通过改变计数器的值，来选取下一条需要执行的字节码指令。
 					- Java虚拟机栈
+					  collapsed:: true
 						- 作用
+						  collapsed:: true
 							- Java虚拟机栈描述的是Java方法执行的内存模型。说通俗点就是存储栈帧的。
 							- Java中每个方法执行的同时会创建一个栈帧（Stack Frame）用于存储局部变量比表、操作数栈、动态链接、方法返回值等信息。
 							- 每一个方法调用直至执行完成的过程，就对应着一个栈帧在虚拟机中入栈和出栈的过程。
 					- 本地方法栈
+					  collapsed:: true
 						- 作用：与Java虚拟机栈不同，本地方法栈描述的是native方法执行的内存模型。
 					- Java堆
+					  collapsed:: true
 						- 作用：用来存储应用系统创建的对象和数组。
 						- 区域划分
+						  collapsed:: true
 							- 区域图
 							  ![JVM堆的区域划分.webp](../assets/JVM堆的区域划分_1680093136228_0.webp)
 							- 元空间（Metadata Space，JDK1.8之前叫永久代）：像一些方法中的操作临时对象等，JDK1.8之前是占用JVM内存，JDK1.8之后直接使用物理内存
 							- 新生代（年轻代）：新对象和没达到一定年龄的对象都在年轻代
+							  collapsed:: true
 								- Eden Space：也叫伊甸区
 								- ((64375a7f-dd8b-41a8-939d-58a359b6fc4c)) ：两个存活区
 							- 老年代（Tenured Space）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大
 					- 方法区
+					  collapsed:: true
 						- 作用：用来保存加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据
 						- 运行时常量池
 						  collapsed:: true
 							- 是方法区的一部分
 							- 作用：用于存放Class文件中的常量池信息，即存放编译期生成的各种字面量和符号引用。
 					- 直接内存
+					  collapsed:: true
 						- 作用：支持NIO等功能，可以使用Native函数库直接分配堆外内存，用来提高性能。
 				- JVM参数
+				  collapsed:: true
 					- `-Xms`：初始堆大小，默认物理内存的1/64。
 					- `-Xmx`：最大堆大小，默认物理内存的1/4。
 					- `-Xmn`：堆内新生代的大小。通过这个值也可以得到老生代的大小：-Xmx减去-Xmn。
@@ -2728,10 +2746,13 @@
 					- `-XX:+UseSerialGC`：虚拟机运行在Clint模式下的默认值，打开此开关后，使用Serial + Serial Old的收集器组合进行内存回收。
 					- `XX:PretenureSizeThreshold=3145728`：意思是说超过**3M**的对象会直接被分配到老年代，这个参数没有单位，必须换算为字节为单位。这个参数只对Serial和ParNew收集器有用。
 				- 虚拟机对象
+				  collapsed:: true
 					- 对象的创建
+					  collapsed:: true
 						- **类加载检查**：虚拟机遇到一条new指令时，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行相应的类加载过程。
 						- **创建时机**：在类加载检查通过后，接下来虚拟机将为新生对象分配内存。对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。
 						- 内存空间分配的方式
+						  collapsed:: true
 							- 分配方式选择的原则：是由Java堆是否规整决定的。
 							- 指针碰撞
 							  collapsed:: true
@@ -2742,6 +2763,7 @@
 								- 适用场景：适用于Java对的内存是不规整的
 								- 具体实现：使用一个列表来登记内存的使用情况，如果要为新的内存分配空间，只需要在列表上面找到一块大小合适的内存空间分配给这个对象，并更新列表上的记录。
 						- 内存分配的原子性问题
+						  collapsed:: true
 							- 背景：存在一种情况，要给对象A分配内存时，对象B也同时使用了原来要分给对象A的内存
 							- 解决方法
 							  collapsed:: true
@@ -2750,24 +2772,33 @@
 								  collapsed:: true
 									- 分配给线程的这块空间我们称之为：本地线程分配缓冲（Thread Local Allocation Buffer，简称TLAB）
 						- 对象的内存布局
+						  collapsed:: true
 							- 对象头
 							  collapsed:: true
 								- 第一部分：存储对象自身的运行时数据
+								  collapsed:: true
 									- 主要数据（Mark Word）
+									  collapsed:: true
 										- 哈希码
 										- GC分代年龄
 										- 锁状态标志
 										- 线程持有的锁
 								- 第二部分：类型指针，即对象指向它的类元数据的指针
+								  collapsed:: true
 									- 作用：通过这个指针来确定这个对象是那个类的实例
 								- 第三部分：记录数组长度的数据（还部分是**数组对象**特有的）
 							- 实例数据
+							  collapsed:: true
 								- 作用：该部分存储的是程序代码中所定义的各种类型的字段内容，也就是这个对象的属性字段数据
 							- 对齐填充
+							  collapsed:: true
 								- 作用：因为JVM要求对象的起始地址必须是8字节的整数倍，也就是说对象的大小必须是8字节的整数倍，主要存储的是占位符，用来补全空间。
 						- 对象的访问定位
+						  collapsed:: true
 							- 访问和定位堆中对象具体位置的方法
+							  collapsed:: true
 								- 使用句柄
+								  collapsed:: true
 									- 使用句柄，Java堆中会划分出一块内存来作为句柄池，reference中存储句柄的地址，句柄中存储对象的实例数据和类型数据的具体地址信息
 									  ![通过句柄访问对象.png](../assets/通过句柄访问对象_1677675705329_0.png)
 									- 优点：reference中存储的是稳定的句柄，对象被移动（垃圾回收时会移动对象）时只会改变句柄中的实例数据指针，而reference本身不需要修改。
@@ -2814,6 +2845,7 @@
 						- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
 			- 垃圾回收器
 				- 相关概念
+				  collapsed:: true
 					- 根据对象的存活周期不同将内存分为新生代、老年代
 					- 新生代
 					  collapsed:: true
@@ -2832,6 +2864,7 @@
 							- 没有额外的内存为老年代进行内存分配担保
 					- 永久代
 					  id:: 64045857-a3d0-48e0-b083-94db4c2e7263
+					  collapsed:: true
 						- 定义：永久代不属于堆内存，是方法区的一种实现，用来存放加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据。
 					- 吞吐量（Throughput）
 					  id:: 6405ef3b-98b6-4356-bc2e-85a1a75e8dc0
@@ -3170,13 +3203,13 @@
 						- 除了上面提到的“长期存活对象将进入老年代”这种算法外。如果在Survivor空间中相同年龄的所有对象的大小总和大于Survivor空间的一半，则年龄大于或等于这个年龄的对象就可以直接进入老年代，无需等到`MaxTenuringThreshold`设置的阈值。
 						- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.DynamicAgeJudgeDemo
 					- 空间分配担保
+					  collapsed:: true
 						- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 						- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
 			- 虚拟机性能监控、故障处理工具
+			  collapsed:: true
 				- 基础故障处理工具
-				  collapsed:: true
 					- jps：虚拟机进程状况工具
-					  collapsed:: true
 						- 功能：可以列出正在运行的虚拟机进程，并显示虚拟机的执行主类名称以及这些进程的本地虚拟机唯一ID（LVMID，Local Virtual Machine Identifier）
 						- 命令格式：`jps [options] [hostid]`
 						- 主要选项
@@ -3186,21 +3219,16 @@
 							- `-l`：输出主类的全名，如果进程执行的是JAR包，则输出JAR路径
 							- `-v`：输出虚拟机进程启动时的JVM参数
 						- 值得注意的
-						  collapsed:: true
 							- LVMID与操作系统的进程ID（PID，Process Identifier）是一致的
 					- jstat：虚拟机统计信息监视工具
-					  collapsed:: true
 						- 功能
-						  collapsed:: true
 							- 监视虚拟机各种运行状态信息的命令行工具
 							- 可以显示本地或是远程虚拟机进程中的类加载、内存、垃圾收集、即时编译等运行时数据
-							- 没有GUI，只提供纯文本控制台的打印输出
+							- 没有GUI，只提供**纯文本控制台的打印输出**
 						- 命令格式：`jstat [option vmid [inteval [s|ms] [count]]`
 						  collapsed:: true
 							- `option`：主要选项
-							  collapsed:: true
-								- `-gc`
-								  collapsed:: true
+								- `-gc`：监视Java堆状况，包括Eden区，2个Survivor区，老年代，永久代等的容量，已使用空间和垃圾收集时间合计等信息。
 									- S0C：年轻代中第一个Survivor区的容量，单位为KB。
 									- S1C：年轻代中第二个Survivor区的容量，单位为KB。
 									- S0U：年轻代中第一个Survivor区已使用大小，单位为KB。
@@ -3218,20 +3246,41 @@
 									- FGC：Full GC的次数。
 									- FGCT：Full GC的所用的时间。
 									- GCT：GC的所用的总时间。
-							- `vmid`
+							- `vmid(Virtual Machine Identifier)`：如果是本地虚拟机进程，VMID与LVMID是一致的，如果是远程虚拟机进程，那VMID的格式是：`[protocol:][//][@hostname[:port]/servername]`
 							  collapsed:: true
 								- 如果是本地虚拟机的话，vmid与LVMID是一致的
 								- 如果是远程虚拟机的话，vmind有特殊的格式
-							- `interval [s|ms]`
+							- `interval [s|ms]`：每次查询的间隔时间
 							  collapsed:: true
 								- 查询间隔，默认单位是ms
-							- `count`
+							- `count`：查询总次数
 							  collapsed:: true
 								- 查询次数
 							- 例子：`jstat -gc 2576 250 20`，每250毫秒查询一次进程2576的垃圾回收情况，一共查询20次
 						- 参考文章
-						  collapsed:: true
 							- [Java的jstat命令使用详解](https://cloud.tencent.com/developer/article/1985765)
+					- jinfo：Java配置信息工具
+						- 功能：实时查看和调整虚拟机各项参数
+						- 命令格式：`jinfo [option] pid`
+						- 使用示例
+							- 查看虚拟机未被显式指定的参数的系统默认值：`jinfo [pid]`
+						- 值得注意的
+							- jinfo命令的部分功能在windows上是受限的
+					- jmap：Java内存映像工具
+						- 功能：用于生成堆转储快照（一般称为heapdump或者dump文件）
+						- 相同功能的工具
+							- 一是添加VM参数：`-XX:+HeapDumpOnOutOfMemoryError`参数，在发生OOM的时候会生成dump文件
+							- 二是添加VM参数：`-XX:+HeapDumpOnCtrlBreak参数`，可以使用[Ctrl]+[Break]键让虚拟机生成dump文件或者是在Linux系统中使用`kill -3`，发送进程退出信号让虚拟机生成dump文件
+						- 值得注意的
+							- jinfo命令的部分功能在windows上是受限的
+					- jhat：虚拟机堆转储快照分析工具（JVM Heap Analysis Tool）
+						- 功能：与jmap搭配使用，来分析堆转储快照文件，也就是dump文件。jhat内置了一个微型的HTTP/Web的服务器，分析结果可以在浏览器中查看。
+						- 不推荐使用这个软件，因为易用性和分析能力有限
+					- jstack：Java堆栈跟踪工具（Stack Trace for Java）
+					  id:: 643e8e8a-fc31-4ad9-a376-abf958152726
+						- 功能：用于生成虚拟机当前时刻的线程快照（一般称之为threadump或者javacore文件）。
+						- 线程快照：当前虚拟机每一条线程正在执行的方法堆栈的集合，生成线程快照的目的通常是为了定位线程出现长时间停顿的原因，比如线程间死锁、死循环、请求外部资源导致的长时间挂起等。
+					-
 			- 内存分配策略
 			  collapsed:: true
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
@@ -3239,17 +3288,22 @@
 			- 虚拟机类的加载机制
 			  collapsed:: true
 				- 类加载的时机
+				  collapsed:: true
 					- 主动使用
+					  collapsed:: true
 						- 主动引用的时机
 					- 被动使用
 				- 类加载的过程
+				  collapsed:: true
 					- 加载
 					- 连接
+					  collapsed:: true
 						- 验证
 						- 准备
 						- 解析
 					- 初始化
 				- 类加载器
+				  collapsed:: true
 					- 类和类加载器的关系
 					- 自定义类加载器
 					- 双亲委派模型
@@ -3259,38 +3313,49 @@
 						- 第二次：因SPI机制，父的类加载器需要获取子的类加载器，去加载厂商实现的类，提出了线程上下文加载器。
 						- 第三次：实现热部署，OSGi。
 					- 类加载器的应用
+					  collapsed:: true
 						- 获取一个包下面所有的类
+						  collapsed:: true
 							- 具体实现：cn.bravedawn.jvm.classloader.ClassUtil
 							- 参考文章：[Java获取指定package下所有类](https://blog.csdn.net/yuhentian/article/details/110007378)
 			- 虚拟机字节码执行引擎
 			  collapsed:: true
 				- 栈帧
+				  collapsed:: true
 					- 定义
 					- 作用
 					- 结构
 					  collapsed:: true
 						- 局部变量表
+						  collapsed:: true
 							- 定义：一组变量值存储空间。
 							- 作用：用于存放方法参数和方法内部定义的局部变量。
 							- Slot
+							  collapsed:: true
 								- 每个Slot占用32位长度的内存空间。
 								- Java中占用32位以内的数据类型有：boolean, byte, char, short, int, float, reference和returnAddress。
+								  collapsed:: true
 									- reference类型
 									  id:: 64043de7-b2f9-4db7-b4f3-574c88698635
+									  collapsed:: true
 										- 定义：表示对一个对象实例的引用。
 										- 虚拟机通过该引用要做到两点：
+										  collapsed:: true
 											- 一是从此引用中能够直接或间接地查找到对象在Java堆中数据存放的其实地址索引
 											- 二是此引用中直接或间接地查找到对象所属数据类型在方法区中的存储的类型信息，否则无法实现Java语言规范中定义的语法约束。
 								- 对long和double进行分割存储
 								- 局部变量表中**slot**的位置分布
+								  collapsed:: true
 									- 静态方法
 									- 实例方法
+									  collapsed:: true
 										- 索引为0的Slot默认是用来传递方法所属对象实例的引用，也就是`this`。
 								- 对于一个存储64位数据类型的两个相邻Slot，不允许单独访问其中一个。
 							- 特点
 							  collapsed:: true
 								- 局部变量表建立在线程的堆栈上，是线程私有的数据，故对Slot的对写并无原子性的要求，并不会引起数据安全问题。
 						- 操作数栈
+						  collapsed:: true
 							- 定义：是一个先进后出的栈，栈的最大深度定义在Code属性的max_stacks数据项中。
 							- 作用：用来存放方法运行期间各个指令操作的数据。
 							- 特点
@@ -3298,16 +3363,21 @@
 								- 操作数栈中元素的数据类型必须和字节码指令的顺序严格匹配。
 								- 虚拟机在实现栈帧的时候可能会做一些优化，让两个栈帧出现部分重叠的区域，以存放公用数据。
 						- 动态连接
+						  collapsed:: true
 							- 作用：每个栈帧持有一个指向运行时常量池中的该栈帧所属方法的引用，以支持方法调用过程的动态连接。
 							- 内容
+							  collapsed:: true
 								- 静态解析：类加载的时候（连接的解析阶段），符号引用就转化为直接引用。
 								- 动态连接：运行期间转换为直接引用。
 						- 方法返回地址
+						  collapsed:: true
 							- 定义：方法执行后返回的地址，方法退出的过程实际上就是当前栈帧出栈。
 							- 退出方式
+							  collapsed:: true
 								- 正常完成出口
 								- 异常完成出口
 				- 方法调用
+				  collapsed:: true
 					- 背景
 					  collapsed:: true
 						- Class文件的编译过程不包含传统编译过程中的连接步骤，一切方法调用在Class文件里面存储的都只是符号引用，而不是方法在实际运行时内存布局中的**入口地址**（相当于之前说的直接引用）。
@@ -3316,14 +3386,17 @@
 					  collapsed:: true
 						- 定义：方法在程序运行之前就有一个可确定的调用版本，方法的调用版本在运行期是不可改变的，我们称这类方法的调用过程为**解析**（Resolution），解析调用是一个静态的过程。
 						- JVM提供的方法调用的字节码指令
+						  collapsed:: true
 							- invokestatic：调用静态方法
 							- invokespecial：调用实例构造器<init>方法、私有方法、父类方法
 							- invokevirtual
 							- invokeinterface
 							- invokedynamic
 						- 非虚方法
+						  collapsed:: true
 							- 定义：在类加载的时候就会把符号引用解析为直接引用，这些方法称为非虚方法
 							- 分类
+							  collapsed:: true
 								- 使用invokestatic调用的方法
 								- 使用invokespecial调用的方法
 								- 被final修饰的方法
@@ -3332,39 +3405,48 @@
 					  collapsed:: true
 						- 定义：方法的调用版本确认的过程，我们称之为分派。
 						- 名称解释
+						  collapsed:: true
 							- 静态类型：在代码`Human man = new Man()`中，Human称为静态类型，即编译期就可以确认，不会被改变的类型。
 							- 实际类型：在代码`Human man = new Man()`中，Man称为动态类型，即运行期才可以确认的类型。
 							- 宗量：方法的接收者与方法的参数统称为方法的宗量。
 						- 静态分派
+						  collapsed:: true
 							- 定义：所有依赖**静态类型**来定位方法执行版本的分派动作称为**静态分派**。
 							- 静态分派发生在编译阶段。
 							- 典型应用：重载
 							- 重载方法匹配优先级（自动类型转换）
+							  collapsed:: true
 								- 在方法重载时，方法参数的类型会按照char->int->long->float->double->Character->....(相关类型实现的接口或父类)->Object->可变长参数，来进行静态分派。
 								- 在单方法参数中成立的自动转型，在变长参数中是不成立的。
 						- 动态分派
+						  collapsed:: true
 							- 定义：在运行期根据**实际类型**确定方法执行版本的分派过程称为**动态分派**。
 							- 典型应用：重写
 							- 根据分派基于多少种宗量，分为单分派和多分派
 							- 单分派：根据一个宗量对目标方法进行选择
 							- 多分派：根据多于一个宗量对目标方法进行选择
 							- Java语言的静态分派属于**多分派类型**
+							  collapsed:: true
 								- 一是方法接受者
 								- 二是方法参数
 							- Java语言的动态分派属于**单分派类型**，只看方法的接受者。
 						- 虚方法表
+						  collapsed:: true
 							- 背景：动态分派比较消耗性能，大部分的代码实现不会有很多的动态分派
 							- 具体内容：使用虚方法表来代替元数据查找，提高性能
 							- 特点
+							  collapsed:: true
 								- 某个方法如果在子类中没有被重写，方法的入口地址与父类方法的是一致的。
 								- 若子类重写了父类方法，那么子类方法表中的地址会替换为子类实现版本的入口地址。
 						- 动态类型语言支持
+						  collapsed:: true
 							- 背景
 							  collapsed:: true
 								- Java是在编译期就会做类型检查。
 								- 在JDK7，Java为了实现”动态类型语言“而做的改进。
 							- 定义：动态语言的关键特征是他的类型检查的主体过程是在运行期而不是编译期。
 							- 动态类型语言
+							  collapsed:: true
 								- 变量无类型，变量值有类型
 								- 开发效率高
 								- 对开发人员更灵活
@@ -3372,37 +3454,49 @@
 							  collapsed:: true
 								- 与类型相关的问题在编译期就能及时发现，利于代码稳定性，进行大规模代码的开发
 							- MethodHandle机制
+							  collapsed:: true
 								- 背景：Java没有办法单独的把一个函数作为参数进行传递。
 								- 功能：类似于方法指针或者委托的方法别名，从而实现将一个函数作为参数进行传递。
 								- 与Reflection的区别
+								  collapsed:: true
 									- 两者都是在模拟方法调用，Reflection是模拟Java代码层次的方法调用，而MethodHandle是模拟字节码层次的方法调用
 									- Reflection是重量级的，包含了Java对象的全面映像，也就是说能够获取多全量的对象信息；而MethodHandle只包含执行该方法的相关信息
 									- MethodHandle是针对字节码方法执行调用的模拟，可以利用虚拟机实现相关优化
 									- Reflection是站在Java语言角度来看的，而MethodHandle是服务于所有运行在Java虚拟机之上的语言的
 							- invokedynamic指令
+							  collapsed:: true
 								- 动态调用点：包含invokedynamic指令的位置
 								- 功能：该指令的作用与MethodHandle的作用类似。为了解决如何将查找目标方法的决定权从虚拟机转嫁到具体的用户代码之中
 								- invikedynamic与之前四种invoke*方法不同支出在于分派逻辑不是虚拟机决定，而是由程序员决定
 								- INDY工具：将字节码转换为使用invokedynamic的简单工具
 						- 基于栈的字节码解释执行引擎
+						  collapsed:: true
 							- 解释执行：通过解释器执行
 							- 编译执行：通过即时编译器生成本地代码，然后执行
 							- Java是一个半独立的编译器
+							  collapsed:: true
 								- Javac编译期完成了词法分析，语法分析到抽象语法树，接着遍历语法数生成字节码指令是在虚拟机之外进行的。
 								- Java的解释器却在虚拟机内部。
 							- 基于栈的指令集
+							  collapsed:: true
 								- 特点
+								  collapsed:: true
 									- 大部分指令是零地址指令
 								- 优点
+								  collapsed:: true
 									- 可移植性强
 									- 代码紧凑，编译器实现简单
 								- 缺点
+								  collapsed:: true
 									- 运行较慢
 									- 指令数量多于寄存器指令集
 							- 基于寄存器的指令集
+							  collapsed:: true
 								- 缺点
+								  collapsed:: true
 									- 收到硬件的约束
 								- 优点
+								  collapsed:: true
 									- 运行快
 		- 三方类库
 		  collapsed:: true
