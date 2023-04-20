@@ -486,14 +486,12 @@
 			  collapsed:: true
 				- 功能：正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。Java标准库java.util.regex内建了正则表达式引擎。
 				- 匹配规则
-				  collapsed:: true
 					- 匹配任意字符：.匹配一个字符且仅限一个任意字符
 					- 匹配数字：\d仅限单个数字字符
 					- 匹配常用字符：\w可以匹配一个字母、数字或下划线
 					- 匹配空格字符：\s可以匹配一个空格字符，注意空格字符不但包括空格，还包括tab字符（在Java中用\t表示）
 					- 匹配非数字：\D则匹配一个非数字
 					- 重复匹配
-					  collapsed:: true
 						- 修饰符*可以匹配任意个字符，包括0个字符
 						- 修饰符+可以匹配至少一个字符
 						- 修饰符?可以匹配0个或一个字符
@@ -1585,6 +1583,7 @@
 				- 方法句柄MethodHandle
 					- 类似于反射，可以实现方法的间接调用。
 		- SPI机制
+		  collapsed:: true
 			- 定义
 				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用
 				- 核心思想是解耦
@@ -1862,6 +1861,7 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
+				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- 使用双向链表来存储元素
@@ -1915,7 +1915,6 @@
 						- 插入和删除的时间复杂度是O(n)
 						- 搜索未排序的list需要 O(n) 的时间，二分搜索排序的list需要 O(logn) 的时间
 					- 使用
-					  collapsed:: true
 						- 创建一个ArrayList
 						  collapsed:: true
 							- 默认无参构造函数
@@ -2166,12 +2165,9 @@
 					- 两个列表的交集
 					  collapsed:: true
 						- 求两个字符串列表的交集
-						  collapsed:: true
 							- 使用Java8 Stream流操作进行处理
 						- 求两个自定义对象列表的交集
-						  collapsed:: true
 							- 方法
-							  collapsed:: true
 								- 重写自定义类的equals方法，因为列表的contains方法就是基于equals方法实现的
 								- 使用Java8 Stream流进行处理
 						- 参考文章：https://www.baeldung.com/java-lists-intersection
@@ -2189,6 +2185,8 @@
 						- 参考文章：https://www.baeldung.com/java-count-duplicate-elements-arraylist#loop-with-mapmerge
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/countduplicateelements
 					- 查找两个列表的不同
+				- 参考文章
+					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
 			- Map
 			  collapsed:: true
@@ -2523,11 +2521,12 @@
 				  collapsed:: true
 					- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 		- 并发
+		  collapsed:: true
 			- Thread
 				- 核心方法
 					- `getAllStackTraces`：用于获取虚拟机中所有线程的StackTraceElement对象
 						- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
-						- 具体实践
+						- 具体实践：jvm-demo:cn.bravedawn.jvm.tool.ThreadGetAllStackTraces
 		- IO
 		  collapsed:: true
 			- 字节流
@@ -2680,9 +2679,7 @@
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
 		- JVM
-		  collapsed:: true
 			- Java的内存区域
-			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
@@ -2727,7 +2724,6 @@
 					  collapsed:: true
 						- 作用：支持NIO等功能，可以使用Native函数库直接分配堆外内存，用来提高性能。
 				- JVM参数
-				  collapsed:: true
 					- `-Xms`：初始堆大小，默认物理内存的1/64。
 					- `-Xmx`：最大堆大小，默认物理内存的1/4。
 					- `-Xmn`：堆内新生代的大小。通过这个值也可以得到老生代的大小：-Xmx减去-Xmn。
@@ -2845,13 +2841,10 @@
 						- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
 			- 垃圾回收器
 				- 相关概念
-				  collapsed:: true
 					- 根据对象的存活周期不同将内存分为新生代、老年代
 					- 新生代
-					  collapsed:: true
-						- 定义：年轻代用来存放新近创建的对象堆内存空间。
+						- 定义：年轻代用来存放新近创建的对象堆内存空间。由Eden区和两个Survivor区组成。
 						- 特点
-						  collapsed:: true
 							- 每次垃圾回收都会有大量的对象死去，只有少量存活
 							- 有老年代为新生代进行内存分配担保
 					- 老年代
@@ -2892,7 +2885,6 @@
 					  collapsed:: true
 						- 是指发生在老年代的GC，出现了Major GC，经常伴随着一次Minor GC，回收速度比较慢。
 					- Minor GC
-					  collapsed:: true
 						- 也称为新生代GC，**新生代(新生代分为一个 Eden区和两个Survivor区)的垃圾收集叫做 Minor GC**。Minor GC非常频繁，一般回收速度也很快。
 						- 新生代的GC垃圾回收的对象是Eden区和一个Survivor区
 				- 什么是垃圾回收：简单说就是内存中已经不在被使用到的内存空间就是垃圾。
@@ -3182,9 +3174,7 @@
 							- [深入理解G1的GC日志](https://juejin.cn/post/6844903893906751501)
 					- 垃圾收集器的参数配置
 				- 内存分配与回收策略
-				  collapsed:: true
 					- 对象优先分配到Eden区
-					  collapsed:: true
 						- 大多数情况下，对象在新生代Eden区和中分配。当Eden区没有足够空间进行分配时，虚拟机将会发起一次Minor GC。（针对Serial+Serial Old收集器做的演示）
 						- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.MinorGCDemo
 					- 大对象直接进入老年代
@@ -3207,9 +3197,9 @@
 						- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 						- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
 			- 虚拟机性能监控、故障处理工具
-			  collapsed:: true
 				- 基础故障处理工具
 					- jps：虚拟机进程状况工具
+					  collapsed:: true
 						- 功能：可以列出正在运行的虚拟机进程，并显示虚拟机的执行主类名称以及这些进程的本地虚拟机唯一ID（LVMID，Local Virtual Machine Identifier）
 						- 命令格式：`jps [options] [hostid]`
 						- 主要选项
@@ -3219,6 +3209,7 @@
 							- `-l`：输出主类的全名，如果进程执行的是JAR包，则输出JAR路径
 							- `-v`：输出虚拟机进程启动时的JVM参数
 						- 值得注意的
+						  collapsed:: true
 							- LVMID与操作系统的进程ID（PID，Process Identifier）是一致的
 					- jstat：虚拟机统计信息监视工具
 						- 功能
@@ -3228,7 +3219,9 @@
 						- 命令格式：`jstat [option vmid [inteval [s|ms] [count]]`
 						  collapsed:: true
 							- `option`：主要选项
+							  collapsed:: true
 								- `-gc`：监视Java堆状况，包括Eden区，2个Survivor区，老年代，永久代等的容量，已使用空间和垃圾收集时间合计等信息。
+								  collapsed:: true
 									- S0C：年轻代中第一个Survivor区的容量，单位为KB。
 									- S1C：年轻代中第二个Survivor区的容量，单位为KB。
 									- S0U：年轻代中第一个Survivor区已使用大小，单位为KB。
@@ -3258,29 +3251,45 @@
 								- 查询次数
 							- 例子：`jstat -gc 2576 250 20`，每250毫秒查询一次进程2576的垃圾回收情况，一共查询20次
 						- 参考文章
+						  collapsed:: true
 							- [Java的jstat命令使用详解](https://cloud.tencent.com/developer/article/1985765)
 					- jinfo：Java配置信息工具
+					  collapsed:: true
 						- 功能：实时查看和调整虚拟机各项参数
 						- 命令格式：`jinfo [option] pid`
 						- 使用示例
+						  collapsed:: true
 							- 查看虚拟机未被显式指定的参数的系统默认值：`jinfo [pid]`
 						- 值得注意的
+						  collapsed:: true
 							- jinfo命令的部分功能在windows上是受限的
 					- jmap：Java内存映像工具
+					  collapsed:: true
 						- 功能：用于生成堆转储快照（一般称为heapdump或者dump文件）
 						- 相同功能的工具
+						  collapsed:: true
 							- 一是添加VM参数：`-XX:+HeapDumpOnOutOfMemoryError`参数，在发生OOM的时候会生成dump文件
 							- 二是添加VM参数：`-XX:+HeapDumpOnCtrlBreak参数`，可以使用[Ctrl]+[Break]键让虚拟机生成dump文件或者是在Linux系统中使用`kill -3`，发送进程退出信号让虚拟机生成dump文件
 						- 值得注意的
+						  collapsed:: true
 							- jinfo命令的部分功能在windows上是受限的
 					- jhat：虚拟机堆转储快照分析工具（JVM Heap Analysis Tool）
+					  collapsed:: true
 						- 功能：与jmap搭配使用，来分析堆转储快照文件，也就是dump文件。jhat内置了一个微型的HTTP/Web的服务器，分析结果可以在浏览器中查看。
 						- 不推荐使用这个软件，因为易用性和分析能力有限
 					- jstack：Java堆栈跟踪工具（Stack Trace for Java）
 					  id:: 643e8e8a-fc31-4ad9-a376-abf958152726
 						- 功能：用于生成虚拟机当前时刻的线程快照（一般称之为threadump或者javacore文件）。
 						- 线程快照：当前虚拟机每一条线程正在执行的方法堆栈的集合，生成线程快照的目的通常是为了定位线程出现长时间停顿的原因，比如线程间死锁、死循环、请求外部资源导致的长时间挂起等。
-					-
+					- java：java运行工具，用于运行Class文件或JAR文件
+					  collapsed:: true
+						- 命令选项
+						  collapsed:: true
+							- `-cp`：
+							- `-jar`：执行jar文件
+					- javac：用于Java编程语言的编译器
+					- javap：Java字节码分析工具
+					- javadoc：Java的API文档生成工具
 			- 内存分配策略
 			  collapsed:: true
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
@@ -3323,7 +3332,13 @@
 				- 栈帧
 				  collapsed:: true
 					- 定义
+					  collapsed:: true
+						- 是用于支持虚拟机进行方法调用和方法执行的数据结构
+						- 是虚拟机运行时数据区的虚拟机栈（Virtual Machine Stack）的栈元素
 					- 作用
+					  collapsed:: true
+						- 存储方法的局部变量表、操作数栈、动态连接和方法返回地址等信息
+						- 每一个方法从调用开始至执行完成的过程，都对应一个栈帧在虚拟机栈里面从入栈到出栈的过程
 					- 结构
 					  collapsed:: true
 						- 局部变量表
