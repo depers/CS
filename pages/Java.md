@@ -940,83 +940,6 @@
 					- 运行一个java程序
 					  collapsed:: true
 						- 使用命令：java -cp E:\code\mall\JavaTrain\target\javatrain.jar cn.bravedawn.obj.inherit.innerclass.anonymousclass.Test
-				- 模块
-				  collapsed:: true
-					- 背景
-					  collapsed:: true
-						- jar文件就是class文件的容器，但是jar只是用于存放class的容器，它并不关心class之间的依赖。如果我们编写了一个jar，它还引用了多个jar的代码，如果我们要执行这个jar：java -cp app.jar:a.jar:b.jar:c.jar cn.bravedawn.sample.Main，这里我们要写一堆的三方包。如果漏写了某个运行时需要用到的jar，那么在运行期极有可能抛出ClassNotFoundException。
-						- Java 9开始引入的模块，主要是为了解决“依赖”这个问题。让程序在编译和运行的时候能自动定位到b.jar，这种自带“依赖关系”的class容器就是模块。
-					- 模块路径
-					  collapsed:: true
-						- 模块系统使用 **模块路径** 来查找在不同的模块工件（module artifact）中定义的模块。
-						- 在不同的阶段可以使用不同类型的模块路径，如下表所示。在使用`javac`编译时，表中的4个模块路径都可以适用。模块系统会首先检查`--module-source-path`指定的模块路径，其次`--upgrade-module-path`，接着是`--system`，最后是`--module-path`或`-p`。
-						  :LOGBOOK:
-						  CLOCK: [2023-01-09 Mon 21:34:09]--[2023-01-09 Mon 21:34:09] =>  00:00:00
-						  :END:
-						  ![模块路径.jpeg](../assets/模块路径_1673271258276_0.jpeg)
-						- 模块路径使用操作系统上路径分隔符来进行分隔：Windows上是分号（`;`），macOS和Linux上是冒号（`:`）。
-					- 模块的类型
-					  collapsed:: true
-						- 具名模块（Named Module）
-						  collapsed:: true
-							- 具名模块也称为应用模块（Application Module），通常在模块根目录下有module-info.java文件的话，那么这个模块就称为**具名模块**。
-						- 无名模块（Unnamed Module）
-						  collapsed:: true
-							- **无名模块**指的就是不包含module-info.java的jar包，通常这些jar包都是java9之前构建的。值得注意的是：
-							  collapsed:: true
-								- 无名模块可以读取到其他所有的模块，并且会将自己包下的所有类都暴露给外界。
-								- 具名模块不能读取无名模块，因为具名模块无法在module-info.java中声明对无名模块的依赖。
-								- 无名模块导出所有包的目的在于让其他无名模块可以加载这些类。
-						- 自动模块（Automatic Module）
-						  collapsed:: true
-							- 任何无名模块放到模块路径（module path）上会自动变为**自动模块**。
-					- 编写模块
-					  collapsed:: true
-						- 编译：javac -d bin .\src\module-info.java .\src\cn\bravedawn*.java
-						  collapsed:: true
-							- -d：指定放置生成的类文件的位置
-							- 用法: javac <options> <source files>
-						- 生成jar包：jar –create –file hello.jar –main-class cn.bravedawn.Main -C bin .
-						  collapsed:: true
-							- –create(-c)：创建新jar
-							- –file(-f)：指定jar包命名
-							- –main-class(-e)：为捆绑到可执行 jar 文件的独立应用程序指定应用程序入口点，换句话说就是为可执行jar指定启动类
-							- -C 目录 .：更改为指定的目录并包含其中的文件(可以理解为首先cd到指定目录，然后将目录的所有文件归档到jar包中)
-							- 执行完上述命令打出jar文件其实是可以直接运行的，使用：java -jar hello.jar
-						- 创建模块（将jar包转换成模块）：jmod create –class-path .\hello.jar hello.jmod
-						- 运行模块：java –module-path .\hello.jar –module opp.module
-						  collapsed:: true
-							- –module-path：一个;目录分开的列表，每个目录都是一个目录的模块。指的是运行模块jar的目录
-							- –module：指定模块名
-					- 模块描述符
-					  collapsed:: true
-						- 作用
-						  collapsed:: true
-							- 为了描述模块之间的关系，用于定义模块信息，类似于Maven中的pom文件，Java9称之为模块描述符。
-							- 模块描述符是一个固定名称的java文件，所有的模块描述符文件名称固定位 **module-info.java**，其内部存在特定的结构。
-						- 关键字
-						  collapsed:: true
-							- module: 用来定义一个模块，后面紧跟模块名称，在同一个模块路径下，模块名称不允许相同。
-							- exports: 用来指定开放那个包作为API供外部调用，没有开放的api不允许被调用。
-							- requires: 用来执行依赖的模块，依赖必须显示指定。
-					- 打包JRE
-					  collapsed:: true
-						- 目的
-						  collapsed:: true
-							- 要分发我们自己的Java应用程序，只需要把这个jre目录打个包给对方发过去，对方直接运行上述命令即可，既不用下载安装JDK，也不用知道如何配置我们自己的模块，极大地方便了分发和部署。
-						- 步骤
-						  collapsed:: true
-							- 打包生产一个完整的并且带有我们自己opp.module模块的JRE：jlink –module-path hello.jmod –add-modules java.base,java.xml,hello.world –output jre/
-							- 运行jre：jre/bin/java –module opp.module
-					- 访问权限
-					  collapsed:: true
-						- Java的class的四级访问权限在模块中并不适用，class的这些访问权限只在一个模块内有效。
-						- A模块要想访问B模块的某个class，必要条件是B模块要明确地导出了可以访问的包。
-					- 参考文章
-					  collapsed:: true
-						- [Java模块系统介绍](http://ypk1226.com/2019/10/16/java/java9-module/)
-						- [使用JDK9提供的模块化系统，来定义自己的模块](https://blog.csdn.net/gybshen/article/details/116886776)
-						- [Java平台模块系统（3）- JDK工具](https://zhuanlan.zhihu.com/p/97284537)
 				- 序列化
 				  id:: 641475d2-462e-43b7-a273-77ab40289cde
 				  collapsed:: true
@@ -1418,7 +1341,6 @@
 				- 由工具处理.class文件使用的注解，比如有些工具会在加载class的时候，对class做动态修改，实现一些特殊的功能。这类注解会被编译进入.class文件，但加载结束后并不会存在于内存中。这类注解只被一些底层库使用，一般我们不必自己处理。
 				- 跟踪代码依赖性，实现替代配置文件功能。在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解。
 			- 元注解
-			  collapsed:: true
 				- `@Documented`：注解是否将包含在JavaDoc中
 				- `@Retention`： 什么时候使用该注解，定义注解的生命周期
 				  collapsed:: true
@@ -1426,7 +1348,6 @@
 					- `RetentionPolicy.CLASS`: 仅class文件。在类加载的时候丢弃。在字节码文件的处理中有用，它们不会被加载进JVM。注解默认使用这种方式
 					- `RetentionPolicy.RUNTIME` : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。该类型的注解会被加载进JVM，并且在运行期可以被程序读取
 				- `@Target`：注解用于什么地方，默认值为任何元素，表示该注解用于什么地方。可用的ElementType 参数包括：
-				  collapsed:: true
 					- `ElementType.CONSTRUCTOR`：用于描述构造器
 					- `ElementType.FIELD`: 成员变量、对象、属性（包括enum实例）
 					- `ElementType.LOCAL_VARIABLE`: 用于描述局部变量
@@ -1437,8 +1358,8 @@
 					- `ElementType.ANNOTATION_TYPE`：用于描述注解类型
 				- `@Inherited`：是否允许子类继承该注解
 				- `@Repeatable`：定义Annotation是否可重复。这个注解应用不是特别广泛。
+					- 参考：JavaTrain/src/main/java/cn/bravedawn/annotation/repeatable
 			- 常见标准的Annotation
-			  collapsed:: true
 				- @Override，标记类型注解，用作标注方法。它说明了被标注的方法重写了父类的方法，起到了断言的作用。如果我们使用了这种注解在一个没有覆盖父类方法的方法时，java 编译器将以一个编译错误来警示。
 				- @Deprecated，标记类型注解，用于废弃代码。
 				- @SuppressWarnings，非标记类型注解，它的作用是告诉编译器对被注解的作用域内部警告保持静默。
@@ -1446,8 +1367,6 @@
 					- @SuppressWarnings("serial")：某类实现Serializable(序列化)， 但没有定义 serialVersionUID 时的警告
 					- @SuppressWarnings("deprecation")：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
 			- 定义一个注解
-			  
-			    collapsed:: true
 				- 1. 用@interface声明一个注解
 					- Annotation 型定义为@interface，所有的Annotation 会自动继承java.lang.Annotation这一接口，并且不能再去继承别的类或是接口
 				- 2. 定义参数成员和默认值
@@ -1457,8 +1376,6 @@
 					- 以及以上类型的数组
 				- 3. 用元注解配置注解
 			- 处理注解
-			  
-			    collapsed:: true
 				- 使用反射API判断是否有Annotation修饰
 					- Class.isAnnotationPresent(AnnotationClass)
 					- Field.isAnnotationPresent(AnnotationClass)
@@ -1488,11 +1405,13 @@
 			  collapsed:: true
 				- [廖雪峰-处理注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102026065728)
 		- 反射
+		  collapsed:: true
 			- 定义
 			  collapsed:: true
 				- Java的反射是指程序在运行期可以拿到一个对象的所有信息
 				- 反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法
 			- Class类
+			  collapsed:: true
 				- 特点
 				  collapsed:: true
 					- 除基本类型外，Java的其他类型都是Class（包括interface），Class的本质是数据类型
@@ -1526,6 +1445,7 @@
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
 			- 访问字段
+			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
 					- `Field getField(name)`：根据字段名获取某个public的field（包括父类）
 					- `Field getDeclaredField(name)`：根据字段名获取当前类的某个field（不包括父类）
@@ -1552,6 +1472,7 @@
 					- getParameterTypes()：返回方法的参数类型，是一个Class数组，例如：{String.class, int.class}；
 					- getModifiers()：返回方法的修饰符，它是一个int，不同的bit表示不同的含义。
 			- 调用构造方法
+			  collapsed:: true
 				- Class.newInstance()的局限
 					- 只能调用该类的public无参数构造方法
 					- 如果构造方法带有参数，或者不是public，就无法直接通过Class.newInstance()来调用
@@ -1584,6 +1505,82 @@
 			  collapsed:: true
 				- 方法句柄MethodHandle
 					- 类似于反射，可以实现方法的间接调用。
+		- 模块
+		  collapsed:: true
+			- 背景
+				- jar文件就是class文件的容器，但是jar只是用于存放class的容器，它并不关心class之间的依赖。如果我们编写了一个jar，它还引用了多个jar的代码，如果我们要执行这个jar：java -cp app.jar:a.jar:b.jar:c.jar cn.bravedawn.sample.Main，这里我们要写一堆的三方包。如果漏写了某个运行时需要用到的jar，那么在运行期极有可能抛出ClassNotFoundException。
+				- Java 9开始引入的模块，主要是为了解决“依赖”这个问题。让程序在编译和运行的时候能自动定位到b.jar，这种自带“依赖关系”的class容器就是模块。
+			- 实现模块化的关键目标：可配置的封装隔离机制
+				- 解决了两个问题
+					- 一解决了JDK9之前基于类路径（classpath）来查找依赖的可靠性问题。
+						- 原来：如果某个类在类路径上缺失，当程序运行时执行某个类的加载、链接动作时才会报出异常。
+						- 现在：模块在开发时就可以声明对其他模块的显式依赖，在虚拟机启动的时候会验证应用程序在开发阶段设定的依赖关系是否完备，如果缺失虚拟机直接会启动失败。从而避免了程序由于类型依赖引发的运行时异常。
+					- 二解决了原来在类路径上跨JAR文件的public类型的可访问性问题。
+						- 原来：在JDK9之前，public访问权限的类意味着程序所有的代码都可以随意的访问他们。
+						- 现在：
+							- 模块提供了更精细化的可访问控制，一个模块必须声明其中哪些public访问权限的类可以被哪些模块访问。
+							- 这种访问控制实在类的加载过程中完成的。
+			- 模块路径
+				- 模块系统使用 **模块路径** 来查找在不同的模块工件（module artifact）中定义的模块。
+				- 在不同的阶段可以使用不同类型的模块路径，如下表所示。在使用`javac`编译时，表中的4个模块路径都可以适用。模块系统会首先检查`--module-source-path`指定的模块路径，其次`--upgrade-module-path`，接着是`--system`，最后是`--module-path`或`-p`。
+				  :LOGBOOK:
+				  CLOCK: [2023-01-09 Mon 21:34:09]--[2023-01-09 Mon 21:34:09] =>  00:00:00
+				  :END:
+				  ![模块路径.jpeg](../assets/模块路径_1673271258276_0.jpeg)
+				- 模块路径使用操作系统上路径分隔符来进行分隔：Windows上是分号（`;`），macOS和Linux上是冒号（`:`）。
+			- 模块的类型
+				- 具名模块（Named Module）
+					- 具名模块也称为应用模块（Application Module），通常在模块根目录下有module-info.java文件的话，那么这个模块就称为**具名模块**。
+				- 匿名模块（Unnamed Module）
+					- **无名模块**指的就是不包含module-info.java的jar包，通常这些jar包都是java9之前构建的。值得注意的是：
+					  collapsed:: true
+						- 无名模块可以读取到其他所有的模块，并且会将自己包下的所有类都暴露给外界。
+						- 具名模块不能读取无名模块，因为具名模块无法在module-info.java中声明对无名模块的依赖。
+						- 无名模块导出所有包的目的在于让其他无名模块可以加载这些类。
+				- 自动模块（Automatic Module）
+					- 任何匿名模块放到模块路径（module path）上会自动变为**自动模块**。
+			- 模块化系统是如何保证传统类路径依赖的程序运行在JDK9及其以后的JDK上的，规则如下：
+				- JAR文件在类路径的访问规则：所有类路径下的JAR文件及其他资源文件，都被视为自动打包在一个**匿名模块（Unnamed Module）**里，这个匿名模块几乎是没有任何隔离的，它可以看到和使用类路径上所有的包、JDK系统模块中所有的导出包，以及模块路径上所有模块中导出的包。
+				- 模块在模块路径的访问规则：模块路径下的**具名模块（Named Module）**只能访问到它依赖定义中列明依赖的模块和包，匿名模块里所有的内容对具名模块来说都是不可见的，即具名模块看不见传统JAR包的内容。
+				- JAR文件在模块路径的访问规则：如果把一个传统的、不包含模块定义的JAR文件放置到模块路径中，它就会变成一个**自动模块**（Automatic Module）。尽管不包含module-info.class，但自动模块将默认依赖于整个模块路径中的所有模块，因此可以访问到所有模块导出的包。
+			- 编写模块
+				- 编译：javac -d bin .\src\module-info.java .\src\cn\bravedawn*.java
+				  collapsed:: true
+					- -d：指定放置生成的类文件的位置
+					- 用法: javac <options> <source files>
+				- 生成jar包：jar –create –file hello.jar –main-class cn.bravedawn.Main -C bin .
+				  collapsed:: true
+					- –create(-c)：创建新jar
+					- –file(-f)：指定jar包命名
+					- –main-class(-e)：为捆绑到可执行 jar 文件的独立应用程序指定应用程序入口点，换句话说就是为可执行jar指定启动类
+					- -C 目录 .：更改为指定的目录并包含其中的文件(可以理解为首先cd到指定目录，然后将目录的所有文件归档到jar包中)
+					- 执行完上述命令打出jar文件其实是可以直接运行的，使用：java -jar hello.jar
+				- 创建模块（将jar包转换成模块）：jmod create –class-path .\hello.jar hello.jmod
+				- 运行模块：java –module-path .\hello.jar –module opp.module
+				  collapsed:: true
+					- –module-path：一个;目录分开的列表，每个目录都是一个目录的模块。指的是运行模块jar的目录
+					- –module：指定模块名
+			- 模块描述符
+				- 作用
+					- 为了描述模块之间的关系，用于定义模块信息，类似于Maven中的pom文件，Java9称之为模块描述符。
+					- 模块描述符是一个固定名称的java文件，所有的模块描述符文件名称固定位 **module-info.java**，其内部存在特定的结构。
+				- 关键字
+					- module: 用来定义一个模块，后面紧跟模块名称，在同一个模块路径下，模块名称不允许相同。
+					- exports: 用来指定开放那个包作为API供外部调用，没有开放的api不允许被调用。
+					- requires: 用来执行依赖的模块，依赖必须显示指定。
+			- 打包JRE
+				- 目的
+					- 要分发我们自己的Java应用程序，只需要把这个jre目录打个包给对方发过去，对方直接运行上述命令即可，既不用下载安装JDK，也不用知道如何配置我们自己的模块，极大地方便了分发和部署。
+				- 步骤
+					- 打包生产一个完整的并且带有我们自己opp.module模块的JRE：jlink –module-path hello.jmod –add-modules java.base,java.xml,hello.world –output jre/
+					- 运行jre：jre/bin/java –module opp.module
+			- 访问权限
+				- Java的class的四级访问权限在模块中并不适用，class的这些访问权限只在一个模块内有效。
+				- A模块要想访问B模块的某个class，必要条件是B模块要明确地导出了可以访问的包。
+			- 参考文章
+				- [Java模块系统介绍](http://ypk1226.com/2019/10/16/java/java9-module/)
+				- [使用JDK9提供的模块化系统，来定义自己的模块](https://blog.csdn.net/gybshen/article/details/116886776)
+				- [Java平台模块系统（3）- JDK工具](https://zhuanlan.zhihu.com/p/97284537)
 		- SPI机制
 		  collapsed:: true
 			- 定义
@@ -1824,7 +1821,6 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
-			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -1881,14 +1877,12 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
-				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- 使用双向链表来存储元素
 						- 实现了List和Deque接口，实现了所有的List可选的列表操作，继承了AbstractSequentialList类
 						- 实现了所有可选的列表操作并允许所有元素（包括null）
 					- 特点
-					  collapsed:: true
 						- 可以包含重复的元素
 						- 维护插入的顺序
 						- 非同步的，可以通过调用 Collections.synchronizedList 方法来检索它的同步版本
@@ -1924,16 +1918,15 @@
 						- javapoint：https://www.baeldung.com/java-linkedlist
 						- baeldung：https://www.javatpoint.com/java-linkedlist
 				- ArrayList
-				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- ArrayList是构建在数组之上的List实现之一
 					- 特点
-					  collapsed:: true
 						- 一个值可以重复出现多次
 						- 随机访问的时间复杂度是O(1)
 						- 插入和删除的时间复杂度是O(n)
 						- 搜索未排序的list需要 O(n) 的时间，二分搜索排序的list需要 O(logn) 的时间
+						- List中元素的存取是有序的，该数组的输出顺序是跟你存入(add)的顺序是一致的
 					- 使用
 						- 创建一个ArrayList
 						  collapsed:: true
@@ -2003,7 +1996,6 @@
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
 				- List的比较和使用场景
 				- List的应用
-				  collapsed:: true
 					- 多维列表
 					  collapsed:: true
 						- 创建二维数组：ArrayList<ArrayList<Integer>>
@@ -2205,6 +2197,7 @@
 						- 参考文章：https://www.baeldung.com/java-count-duplicate-elements-arraylist#loop-with-mapmerge
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/countduplicateelements
 					- 查找两个列表的不同
+						- 具体实践：JavaTrain/src/main/java/cn/bravedawn/collection/list/judgelistequals
 				- 参考文章
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
@@ -2238,7 +2231,6 @@
 						- 可以在HashMap中使用任何类作为键。为了使映射正常工作，我们需要为equals()和hashCode()提供一个实现
 						- hashCode()和equals()只需要在我们希望用作映射键的类中重写
 					- Java8新增的方法
-					  collapsed:: true
 						- forEach()
 						- getOrDefault()
 						- putIfAbsent()
@@ -2704,11 +2696,11 @@
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
 		- JVM
-		  collapsed:: true
 			- Java的内存区域
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
+				  collapsed:: true
 					- 程序计数器
 					  collapsed:: true
 						- 作用
@@ -2739,6 +2731,7 @@
 								- ((64375a7f-dd8b-41a8-939d-58a359b6fc4c)) ：两个存活区
 							- 老年代（Tenured Space）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大
 					- 方法区
+					  collapsed:: true
 						- 作用：用来保存加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据
 						- 运行时常量池
 							- 是方法区的一部分
@@ -2768,7 +2761,6 @@
 				- 虚拟机对象
 				  collapsed:: true
 					- 对象的创建
-					  collapsed:: true
 						- **类加载检查**：虚拟机遇到一条new指令时，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行相应的类加载过程。
 						- **创建时机**：在类加载检查通过后，接下来虚拟机将为新生对象分配内存。对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。
 						- 内存空间分配的方式
@@ -2814,17 +2806,13 @@
 							  collapsed:: true
 								- 作用：因为JVM要求对象的起始地址必须是8字节的整数倍，也就是说对象的大小必须是8字节的整数倍，主要存储的是占位符，用来补全空间。
 						- 对象的访问定位
-						  collapsed:: true
 							- 访问和定位堆中对象具体位置的方法
-							  collapsed:: true
 								- 使用句柄
-								  collapsed:: true
 									- 使用句柄，Java堆中会划分出一块内存来作为句柄池，reference中存储句柄的地址，句柄中存储对象的实例数据和类型数据的具体地址信息
 									  ![通过句柄访问对象.png](../assets/通过句柄访问对象_1677675705329_0.png)
 									- 优点：reference中存储的是稳定的句柄，对象被移动（垃圾回收时会移动对象）时只会改变句柄中的实例数据指针，而reference本身不需要修改。
 									- 缺点：访问对象需要经过两次指针定位，速度慢。
 								- 使用指针
-								  collapsed:: true
 									- Java堆中会直接存放访问类元数据的地址，reference存储的就直接是对象的地址
 									  ![通过指针访问对象.png](../assets/通过指针访问对象_1677675777115_0.png)
 									- 优点：速度快，节省了一次指针定位的时间开销。
@@ -2866,6 +2854,7 @@
 			- 垃圾回收器
 			  collapsed:: true
 				- 相关概念
+				  collapsed:: true
 					- 根据对象的存活周期不同将内存分为新生代、老年代
 					- 新生代
 					  collapsed:: true
@@ -2918,15 +2907,12 @@
 				- 什么是垃圾回收：简单说就是内存中已经不在被使用到的内存空间就是垃圾。
 				- 判断对象可回收的方法
 				  id:: 640442e6-c01a-4193-a8c4-d43829e17969
-				  collapsed:: true
 					- 引用计数法
-					  collapsed:: true
 						- 原理：给对象添加一个引用计数器，有访问就加1，引用失效就减1。
 						- 优点：实现简单、效率高
 						- 缺点：不能解决对象之间循环引用的问题
 					- 可达性分析算法（根搜索算法/GC Root Tracing）
 					  id:: 64044e66-3742-4a9f-b08c-e25b45d4c214
-					  collapsed:: true
 						- 从根（GC Roots）节点向下搜索对象节点，搜索走过的路径称为引用链（Reference Chain），当一个对象到根之间没有连通的话，则该对象不可用。
 						- Java语音中可作为GC Roots的对象包括：
 						  collapsed:: true
@@ -2934,39 +2920,29 @@
 							- 方法区类静态属性引用的对象
 							- 本地方法栈中JNI（即一般说的Native方法）引用的对象
 					- 引用
-					  collapsed:: true
 						- Java对引用的狭义定义：如果 ((64043de7-b2f9-4db7-b4f3-574c88698635))的数据中存储的数值代表的是另外一块内存的起始地址，就称这块内存代表着一个引用。
 						- 引用的扩充，又分为
-						  collapsed:: true
 							- 强引用-Strong Reference
-							  collapsed:: true
 								- 描述在程序代码中是普遍存在的对象。
 								- 只要强引用存在，垃圾收集器就永远不会回收掉被引用的对象。
 							- 软引用-Soft Reference
-							  collapsed:: true
 								- 描述还有用但并非必需的对象。
 								- jdk1.2提供了SoftReference类来实现软引用。
 							- 弱引用
-							  collapsed:: true
 								- 描述非必需对象。
 								- jdk1.2提供了WeakReference类来实现弱引用。
 							- 虚引用
-							  collapsed:: true
 								- 也称为幽灵引用或者幻影引用。
 								- 设置虚引用的唯一目的是能在这个对象被收集器回收时收到一个系统通知。
 								- jdk1.2之后，提供了PhantomReference类来实现虚引用。
 					- 方法区的回收
-					  collapsed:: true
 						- 方法区回收的主要内容
-						  collapsed:: true
 							- 废弃常量
 							- 废弃无用的类
 						- 要求虚拟机具备类卸载功能的使用场景，来保证 ((64045857-a3d0-48e0-b083-94db4c2e7263)) 不会溢出
-						  collapsed:: true
 							- 在大量使用cglib、反射、动态代理等字节码框架
 							- 动态生成JSP以及OSGi等频繁自定义ClassLoader的场景
 				- 垃圾回收算法
-				  collapsed:: true
 					- 垃圾回收算法是内存回收的方法论
 					- 标记-清除算法
 					  id:: 640454c1-d575-4471-8253-b259cfdfd0d0
@@ -3016,7 +2992,6 @@
 							- 针对新生代采用复制算法
 							- 针对老年代采用标记-清除或是标记-整理算法
 				- HotSpot的算法实现
-				  collapsed:: true
 					- 枚举根节点
 					  collapsed:: true
 						- GC停顿（Stop the world）
@@ -3059,7 +3034,6 @@
 						- 目的：解决在程序执行时，线程因没有分配到CPU时间，从而无法响应JVM的中断请求，导致无法进行GC。
 						- 定义：安全区域是指在一段代码片段中，引用关系不会再发生改变，这个区域的任何位置开始GC都是安全的。
 				- 垃圾收集器
-				  collapsed:: true
 					- 垃圾收集器是内存回收的具体实现。
 					- 垃圾收集器按照收集内存区域的不同，分为老年代收集器和新生代收集器两种。两种不同的收集器可以组合使用
 					- 垃圾收集器的选择
@@ -3202,7 +3176,6 @@
 							- [深入理解G1的GC日志](https://juejin.cn/post/6844903893906751501)
 					- 垃圾收集器的参数配置
 				- 内存分配与回收策略
-				  collapsed:: true
 					- 对象优先分配到Eden区
 					  collapsed:: true
 						- 大多数情况下，对象在新生代Eden区和中分配。当Eden区没有足够空间进行分配时，虚拟机将会发起一次Minor GC。（针对Serial+Serial Old收集器做的演示）
@@ -3338,57 +3311,67 @@
 								- 线程等待的代码演示：jvm-demo:cn.bravedawn.jvm.tool.JConsoleTestCase2
 								- 死锁的代码演示：jvm-demo:cn.bravedawn.jvm.tool.SynAddRunnable
 			- 内存分配策略
+			  collapsed:: true
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 			- 类文件结构
 			- 虚拟机类的加载机制
+			  collapsed:: true
 				- 类加载的时机
 					- 主动使用
 						- 主动引用的时机
 					- 被动使用
 				- 类加载的过程
-				  collapsed:: true
 					- 加载
 					- 连接
-					  collapsed:: true
 						- 验证
 						- 准备
 						- 解析
 					- 初始化
 				- 类加载器
-				  collapsed:: true
 					- 类和类加载器的关系
 					- 自定义类加载器
 					- 双亲委派模型
-					- 破坏双亲委派模型
 					  collapsed:: true
+						- JDK9之后
+							- JDK 9中虽然仍然维持着三层类加载器和双亲委派的架构，但类加载的委派关系也发生了变动。当平台及应用程序类加载器收到类加载请求，在委派给父加载器加载前，要先判断该类是否能够归属到某一个系统模块中，如果可以找到这样的归属关系，就要优先委派给负责那个模块的加载器完成加载。
+					- 破坏双亲委派模型
 						- 第一次：Java1.2引入双亲委派模型，为兼容Java1.1就存在的ClassLoader抽象类和类加载器，在ClassLoader中新增了findClass()方法。
 						- 第二次：因SPI机制，父的类加载器需要获取子的类加载器，去加载厂商实现的类，提出了线程上下文加载器。
 						- 第三次：实现热部署，OSGi。
+						- 第四次：JDK9修改了双亲委派的规则。
 					- 类加载器的应用
 					  collapsed:: true
 						- 获取一个包下面所有的类
 						  collapsed:: true
 							- 具体实现：cn.bravedawn.jvm.classloader.ClassUtil
 							- 参考文章：[Java获取指定package下所有类](https://blog.csdn.net/yuhentian/article/details/110007378)
+					- 模块化下的类加载器
+						- 扩展类加载器（Extension Class Loader）被平台类加载器（Platform Class Loader）取代
+						- 平台类加载器和应用程序类加载器都不再派生自`java.net.URLClassLoader`
+						- 现在启动类加载器、平台类加载器、应用程序类加载器全都继承于`jdk.internal.loader.BuiltinClassLoader`，在`BuiltinClassLoader`中实现了新的模块化架构下类如何从模块中加载的逻辑，以及模块中资源可访问性的处理。
+						- 启动类加载器现在是在Java虚拟机内部和Java类库共同协作实现的类加载器。
 			- 虚拟机字节码执行引擎
+				- 虚拟机执行引擎执行字节码的方式
+					- 解释执行：通过解释器执行
+					- 编译执行：通过即时编译期生成本地代码执行
 				- 栈帧
+					- 背景
+						- Java虚拟机以方法作为最基本的执行单元。
 					- 定义
-					  collapsed:: true
 						- 是用于支持虚拟机进行方法调用和方法执行的数据结构
-						- 是虚拟机运行时数据区的虚拟机栈（Virtual Machine Stack）的栈元素
+						- 是虚拟机运行时数据区的虚拟机栈（Virtual Machine Stack）的栈元素。
+						- 可以理解成Java中的一个方法就是一个栈帧。
 					- 作用
-					  collapsed:: true
 						- 存储方法的局部变量表、操作数栈、动态连接和方法返回地址等信息
 						- 每一个方法从调用开始至执行完成的过程，都对应一个栈帧在虚拟机栈里面从入栈到出栈的过程
 					- 结构
-					  collapsed:: true
 						- 局部变量表
-						  collapsed:: true
 							- 定义：一组变量值存储空间。
 							- 作用：用于存放方法参数和方法内部定义的局部变量。
-							- Slot
+							- 大小：Class文件Code属性的`max_locals`数据项确定了该方法局部变量表的最大容量。
+							- Slot-变量槽
 							  collapsed:: true
-								- 每个Slot占用32位长度的内存空间。
+								- 每个Slot占用32位长度的内存空间。其实虚拟机规范中并没有明确规定一个变量槽的具体大小，这个变量槽的大小可以根据处理器、操作系统和虚拟机的实现不同而发生变化。
 								- Java中占用32位以内的数据类型有：boolean, byte, char, short, int, float, reference和returnAddress。
 								  collapsed:: true
 									- reference类型
@@ -3397,9 +3380,15 @@
 										- 定义：表示对一个对象实例的引用。
 										- 虚拟机通过该引用要做到两点：
 										  collapsed:: true
-											- 一是从此引用中能够直接或间接地查找到对象在Java堆中数据存放的其实地址索引
-											- 二是此引用中直接或间接地查找到对象所属数据类型在方法区中的存储的类型信息，否则无法实现Java语言规范中定义的语法约束。
+											- 一是根据此引用中能够直接或间接地查找到对象在Java堆中数据存放的其实地址索引
+											- 二是根据引用直接或间接地查找到对象所属数据类型在方法区中的存储的类型信息，否则无法实现Java语言规范中定义的语法约束。
+									- returnAddress类型
+									  collapsed:: true
+										- 它是为字节码指令jsr、jsr_w和ret服务的，指向了一条字节码指令的地址，某些很古老的Java虚拟机曾经使用这几条指令来实现**异常处理时的跳转**，但现在也已经全部改为采用异常表来代替了。
 								- 对long和double进行分割存储
+								  collapsed:: true
+									- 因为只有这两个数据类型是被定义为64位的
+									- 由于局部变量表是建立在线程堆栈中的，属于线程私有的数据，无论读写两个连续的变量槽是否为原子操作，都不会引起数据竞争和线程安全问题。
 								- 局部变量表中**slot**的位置分布
 								  collapsed:: true
 									- 静态方法
@@ -3407,152 +3396,180 @@
 									  collapsed:: true
 										- 索引为0的Slot默认是用来传递方法所属对象实例的引用，也就是`this`。
 								- 对于一个存储64位数据类型的两个相邻Slot，不允许单独访问其中一个。
-							- 特点
+							- 使用
 							  collapsed:: true
+								- 通过索引定位的方式访问局部变量表
+								- 索引从0开始，直至局部变量表的最大容量
+								- 对于32位数据类型的变量，索引n就代表了使用第n个变量槽
+								- 对于64位数据类型的变量，则会同时使用索引为n和n+1的变量槽，虚拟机不允许单独访问两个相邻变量槽的某一个。
+								- 在方法调用时，虚拟机将会使用局部变量表中的参数值向方法参数列表传值，即实参到形参的传递。若是实例方法（非static修饰的方法），局部变量变量槽索引为0的位置存储的是对象实例的引用，也就是`this`这个变量
+							- 特点
 								- 局部变量表建立在线程的堆栈上，是线程私有的数据，故对Slot的对写并无原子性的要求，并不会引起数据安全问题。
+								- 变量槽slot是可以复用的，如果局部变量表中定义的变量已经离开了他的作用域，那么这个变量的槽位就可以被新的变量所使用。
+								- 方法中的局部变量必须要手动赋予初值，否则代码是无法运行的。
 						- 操作数栈
-						  collapsed:: true
-							- 定义：是一个先进后出的栈，栈的最大深度定义在Code属性的max_stacks数据项中。
-							- 作用：用来存放方法运行期间各个指令操作的数据。
+							- 定义：是一个先进后出的栈，栈的最大深度定义在Code属性的max_stacks数据项中。32位数据类型所占的栈容量是1，64位数据类型所占的栈容量是2。
+							- 作用
+								- 用来存放方法运行期间各个指令操作的数据。
+								- 在执行方法调用时通过操作数栈进行方法间参数的传递。
 							- 特点
-							  collapsed:: true
 								- 操作数栈中元素的数据类型必须和字节码指令的顺序严格匹配。
-								- 虚拟机在实现栈帧的时候可能会做一些优化，让两个栈帧出现部分重叠的区域，以存放公用数据。
+								- 虚拟机在实现栈帧的时候可能会做一些优化，两个存在调用关系的方法，虚拟机会让两个栈帧的操作数栈出现部分重叠的区域，以存放公用数据，无需进行额外的参数复制传递。
 						- 动态连接
-						  collapsed:: true
-							- 作用：每个栈帧持有一个指向运行时常量池中的该栈帧所属方法的引用，以支持方法调用过程的动态连接。
+							- 定义：在程序运行期间，将常量池中的符号引用转换为直接引用，这个过程称为动态连接
+							- 作用：每个栈帧持有一个指向运行时常量池中的该栈帧所属方法的引用，通过这个引用以支持方法调用过程的动态连接。
 							- 内容
-							  collapsed:: true
 								- 静态解析：类加载的时候（连接的解析阶段），符号引用就转化为直接引用。
 								- 动态连接：运行期间转换为直接引用。
 						- 方法返回地址
-						  collapsed:: true
 							- 定义：方法执行后返回的地址，方法退出的过程实际上就是当前栈帧出栈。
 							- 退出方式
-							  collapsed:: true
-								- 正常完成出口
-								- 异常完成出口
+								- 正常调用完成
+									- 执行引擎遇到任意一个方法返回的字节码指令，可能会有返回值传递给方法调用者，这种退出方式称为正常调用完成
+								- 异常调用完成
+									- 方法执行过程中遇到了异常，且该异常在方法中没有得到妥善的处理
+									- 无论是虚拟机内部的异常，或者是使用athrow指令抛出的异常，只要是本地方法异常表中没有搜索到匹配的异常处理器，就会导致方法退出
+							- 退出时需要执行的操作
+								- 恢复上层方法的局部变量表和操作数栈
+								- 把返回值（如果有的话）压入调用者栈帧的操作数栈
+								- 调整PC计数器的值以指向法调用指令后面的一条指令
 				- 方法调用
 					- 背景
 					  collapsed:: true
 						- Class文件的编译过程不包含传统编译过程中的连接步骤，一切方法调用在Class文件里面存储的都只是符号引用，而不是方法在实际运行时内存布局中的**入口地址**（相当于之前说的直接引用）。
-					- 目的：确定被调用方法的版本（即调用那一个方法）。
-					- 方法解析
+					- 目的：确定被调用方法的版本（即调用哪一个方法）。
+					- 方法调用形式
 					  collapsed:: true
-						- 定义：方法在程序运行之前就有一个可确定的调用版本，方法的调用版本在运行期是不可改变的，我们称这类方法的调用过程为**解析**（Resolution），解析调用是一个静态的过程。
-						- JVM提供的方法调用的字节码指令
-						  collapsed:: true
-							- invokestatic：调用静态方法
-							- invokespecial：调用实例构造器<init>方法、私有方法、父类方法
-							- invokevirtual
-							- invokeinterface
-							- invokedynamic
-						- 非虚方法
-						  collapsed:: true
-							- 定义：在类加载的时候就会把符号引用解析为直接引用，这些方法称为非虚方法
-							- 分类
+						- 解析调用
+							- 定义
 							  collapsed:: true
-								- 使用invokestatic调用的方法
-								- 使用invokespecial调用的方法
-								- 被final修饰的方法
-						- 虚方法
-					- 分派
-					  collapsed:: true
-						- 定义：方法的调用版本确认的过程，我们称之为分派。
-						- 名称解释
-						  collapsed:: true
-							- 静态类型：在代码`Human man = new Man()`中，Human称为静态类型，即编译期就可以确认，不会被改变的类型。
-							- 实际类型：在代码`Human man = new Man()`中，Man称为动态类型，即运行期才可以确认的类型。
-							- 宗量：方法的接收者与方法的参数统称为方法的宗量。
-						- 静态分派
-						  collapsed:: true
-							- 定义：所有依赖**静态类型**来定位方法执行版本的分派动作称为**静态分派**。
-							- 静态分派发生在编译阶段。
-							- 典型应用：重载
-							- 重载方法匹配优先级（自动类型转换）
+								- 方法在程序运行之前就有一个可确定的调用版本，方法的调用版本在运行期是不可改变的，我们称这类方法的调用过程为**解析**（Resolution）
+								- 解析调用一定是个静态的过程，在编译期间就完全确定，在**类加载**的**解析阶段**就会把涉及的符号引用全部转变为明确的直接引用，不必延迟到运行期再去完成。
+							- JVM提供的方法调用的字节码指令
+								- `invokestatic`。用于调用静态方法。
+								- `invokespecial`。用于调用实例构造器<init>()方法、私有方法和父类中的方法。
+								- `invokevirtual`。用于调用所有的虚方法。
+								- `invokeinterface`。用于调用接口方法，会在运行时再确定一个实现该接口的对象。
+								- `invokedynamic`。先在运行时动态解析出调用点限定符所引用的方法，然后再执行该方法。前面4条调用指令，分派逻辑都固化在Java虚拟机内部，而invokedynamic指令的分派逻辑是由用户设定的引导方法来决定的。
+							- 非虚方法
+								- 定义：在类加载的时候就会把符号引用解析为直接引用，这些方法称为非虚方法。
+								- 五种非虚方法
+									- 使用invokestatic调用的方法
+										- 类的静态方法
+									- 使用invokespecial调用的方法
+										- 实例方法
+										- 实例构造器方法
+										- 父类方法
+									- 被final修饰的方法（该方法是通过invokevirtual指令调用的）
+							- 虚方法：与非虚方法相反的，就是虚方法
+						- 分派
+							- 定义：方法的调用版本确认的过程，我们称之为分派。
+							- 名称解释
 							  collapsed:: true
-								- 在方法重载时，方法参数的类型会按照char->int->long->float->double->Character->....(相关类型实现的接口或父类)->Object->可变长参数，来进行静态分派。
-								- 在单方法参数中成立的自动转型，在变长参数中是不成立的。
-						- 动态分派
-						  collapsed:: true
-							- 定义：在运行期根据**实际类型**确定方法执行版本的分派过程称为**动态分派**。
-							- 典型应用：重写
-							- 根据分派基于多少种宗量，分为单分派和多分派
-							- 单分派：根据一个宗量对目标方法进行选择
-							- 多分派：根据多于一个宗量对目标方法进行选择
-							- Java语言的静态分派属于**多分派类型**
-							  collapsed:: true
-								- 一是方法接受者
-								- 二是方法参数
-							- Java语言的动态分派属于**单分派类型**，只看方法的接受者。
-						- 虚方法表
-						  collapsed:: true
-							- 背景：动态分派比较消耗性能，大部分的代码实现不会有很多的动态分派
-							- 具体内容：使用虚方法表来代替元数据查找，提高性能
-							- 特点
-							  collapsed:: true
-								- 某个方法如果在子类中没有被重写，方法的入口地址与父类方法的是一致的。
-								- 若子类重写了父类方法，那么子类方法表中的地址会替换为子类实现版本的入口地址。
-						- 动态类型语言支持
-						  collapsed:: true
-							- 背景
-							  collapsed:: true
-								- Java是在编译期就会做类型检查。
-								- 在JDK7，Java为了实现”动态类型语言“而做的改进。
-							- 定义：动态语言的关键特征是他的类型检查的主体过程是在运行期而不是编译期。
-							- 动态类型语言
-							  collapsed:: true
-								- 变量无类型，变量值有类型
-								- 开发效率高
-								- 对开发人员更灵活
-							- 静态类型语言
-							  collapsed:: true
-								- 与类型相关的问题在编译期就能及时发现，利于代码稳定性，进行大规模代码的开发
-							- MethodHandle机制
-							  collapsed:: true
-								- 背景：Java没有办法单独的把一个函数作为参数进行传递。
-								- 功能：类似于方法指针或者委托的方法别名，从而实现将一个函数作为参数进行传递。
-								- 与Reflection的区别
+								- 静态类型（或者外观类型）：在代码`Human man = new Man()`中，Human称为静态类型，即编译期就可以确认，不会被改变的类型。
+								- 实际类型（或者运行时类型）：在代码`Human man = new Man()`中，Man称为动态类型，即运行期才可以确认的类型。
+								- 宗量：方法的接收者与方法的参数统称为方法的宗量。
+							- 静态分派
+								- 定义：所有依赖**静态类型**来定位方法执行版本的分派动作称为**静态分派**。
+								- 静态分派发生在**编译阶段**。
+								- 静态方法会在编译期确定、在类加载期就进行解析，而静态方法显然也是可以拥有重载版本的，选择重载版本的过程也是通过静态分派完成的。
+								- 典型应用：重载
+								- 重载方法匹配优先级（自动类型转换）
 								  collapsed:: true
-									- 两者都是在模拟方法调用，Reflection是模拟Java代码层次的方法调用，而MethodHandle是模拟字节码层次的方法调用
-									- Reflection是重量级的，包含了Java对象的全面映像，也就是说能够获取多全量的对象信息；而MethodHandle只包含执行该方法的相关信息
-									- MethodHandle是针对字节码方法执行调用的模拟，可以利用虚拟机实现相关优化
-									- Reflection是站在Java语言角度来看的，而MethodHandle是服务于所有运行在Java虚拟机之上的语言的
-							- invokedynamic指令
-							  collapsed:: true
-								- 动态调用点：包含invokedynamic指令的位置
-								- 功能：该指令的作用与MethodHandle的作用类似。为了解决如何将查找目标方法的决定权从虚拟机转嫁到具体的用户代码之中
-								- invikedynamic与之前四种invoke*方法不同支出在于分派逻辑不是虚拟机决定，而是由程序员决定
-								- INDY工具：将字节码转换为使用invokedynamic的简单工具
-						- 基于栈的字节码解释执行引擎
-						  collapsed:: true
-							- 解释执行：通过解释器执行
-							- 编译执行：通过即时编译器生成本地代码，然后执行
-							- Java是一个半独立的编译器
-							  collapsed:: true
-								- Javac编译期完成了词法分析，语法分析到抽象语法树，接着遍历语法数生成字节码指令是在虚拟机之外进行的。
-								- Java的解释器却在虚拟机内部。
-							- 基于栈的指令集
-							  collapsed:: true
+									- 在方法重载时，方法参数的类型会按照char->int->long->float->double->Character->....(相关类型实现的接口或父类)->Object->可变长参数，来进行静态分派。
+									- 在单方法参数中成立的自动转型，在变长参数中是不成立的。
+							- 动态分派
+								- 定义：在运行期根据**实际类型**确定方法执行版本的分派过程称为**动态分派**。
+								- 典型应用：重写
+								- 动态分派发生在**虚拟机运行阶段**。
+								- `invokevirtual`指令的执行逻辑
+									- 1）找到操作数栈顶的第一个元素所指向的对象的实际类型，记作C。
+									- 2）如果在类型C中找到与常量中的描述符和简单名称都相符的方法，则进行访问权限校验，如果通过则返回这个方法的直接引用，查找过程结束；不通过则返回java.lang.IllegalAccessError异常。
+									- 3）否则，按照继承关系从下往上依次对C的各个父类进行第二步的搜索和验证过程。
+									- 4）如果始终没有找到合适的方法，则抛出java.lang.AbstractMethodError异常。
+								- 方法多态性的根源在于虚方法调用指令invokevirtual的执行逻辑，但是字段是没有多态性的
+								  collapsed:: true
+									- 具体实践：cn.bravedawn.jvm.execution_engine.FieldHasNoPolymorphic
+								- 根据分派基于多少种宗量，分为单分派和多分派
+								- 单分派：根据一个宗量对目标方法进行选择
+								- 多分派：根据多于一个宗量对目标方法进行选择
+								- Java语言的静态分派属于**多分派类型**
+								  collapsed:: true
+									- 一是方法接受者
+									- 二是方法参数
+								- Java语言的动态分派属于**单分派类型**，只看方法的接受者。
+							- 虚方法表
+								- 背景：动态分派比较消耗性能，大部分的代码实现不会有很多的动态分派
+								- 具体内容：使用虚方法表来代替元数据查找，提高性能
 								- 特点
-								  collapsed:: true
-									- 大部分指令是零地址指令
-								- 优点
-								  collapsed:: true
-									- 可移植性强
-									- 代码紧凑，编译器实现简单
-								- 缺点
-								  collapsed:: true
-									- 运行较慢
-									- 指令数量多于寄存器指令集
-							- 基于寄存器的指令集
-							  collapsed:: true
-								- 缺点
-								  collapsed:: true
-									- 收到硬件的约束
-								- 优点
-								  collapsed:: true
-									- 运行快
+									- 某个方法如果在子类中没有被重写，方法的入口地址与父类方法的是一致的。
+									- 若子类重写了父类方法，那么子类方法表中的地址会替换为子类实现版本的入口地址。
+				- 动态类型语言支持
+				  collapsed:: true
+					- 背景
+					  collapsed:: true
+						- Java是在编译期就会做类型检查。
+						- 在JDK7，Java为了实现”动态类型语言“而做的改进。
+					- 动态类型语言的定义：动态类型语言的关键特征是他的类型检查的主体过程是在运行期而不是编译期。
+					- 动态类型语言
+					  collapsed:: true
+						- 变量无类型，变量值有类型
+						- 开发效率高
+						- 对开发人员更灵活
+					- 静态类型语言
+					  collapsed:: true
+						- 与类型相关的问题在编译期就能及时发现，利于代码稳定性，进行大规模代码的开发
+					- JDK 7时JSR-292提案中`invokedynamic`指令以及`java.lang.invoke`包出现的技术背景
+					  collapsed:: true
+						- Java方法的符号引用在编译时产生，而动态类型语言只有在运行期才能确定方法的接收者。
+						- 最严重的性能瓶颈是在于动态类型方法调用时，由于无法确定调用对象的静态类型，而导致的**方法内联**无法有效进行。
+					- MethodHandle机制
+						- 背景：Java没有办法单独的把一个函数作为参数进行传递。
+						- 功能：类似于方法指针或者委托的方法别名，从而实现将一个函数作为参数进行传递。
+						- 与Reflection的区别
+							- 两者都是在模拟方法调用，Reflection是模拟Java代码层次的方法调用，而MethodHandle是模拟字节码层次的方法调用。
+							- Reflection是重量级的，包含了Java对象的全面映像，也就是说能够获取多全量的对象信息；而MethodHandle只包含执行该方法的相关信息，是轻量级的。
+							- MethodHandle是针对字节码方法执行调用的模拟，可以利用虚拟机实现相关优化
+							- Reflection是站在Java语言角度来看的，而MethodHandle是服务于所有运行在Java虚拟机之上的语言的
+					- invokedynamic指令
+						- 动态调用点：包含`invokedynamic`指令的位置。
+						- 功能：该指令的作用与MethodHandle的作用类似。为了解决原有4条”invoke*“指令方法分派规则完全固化在虚拟机中的问题，把如何将查找目标方法的决定权从虚拟机转嫁到具体的用户代码之中，让用户有更高的自由度。
+						- 特点
+							- `invokedynamic`与之前四种invoke*方法不同支出在于分派逻辑不是虚拟机决定，而是由程序员决定。
+							- `invokedynamic`指令是服务于运行在Java虚拟机的其他动态类型语言的，不用于Java
+						- INDY工具：将字节码转换为使用invokedynamic的简单工具。
+					- 实战：修改方法的分派规则
+						- 通过MethodHandle去修改方法的分派规则，使得子类能够访问其祖父类的方法。
+						- 具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/execution_engine/ChangeAllotTest2.java
+				- 基于栈的字节码解释执行引擎
+				  collapsed:: true
+					- 解释执行：通过解释器执行
+					- 编译执行：通过即时编译器生成本地代码，然后执行
+					- Java是一个半独立的编译器
+					  collapsed:: true
+						- Javac编译期完成了词法分析，语法分析到抽象语法树，接着遍历语法数生成字节码指令是在虚拟机之外进行的。
+						- Java的解释器却在虚拟机内部。
+					- 基于栈的指令集
+					  collapsed:: true
+						- 特点
+						  collapsed:: true
+							- 大部分指令是零地址指令
+						- 优点
+						  collapsed:: true
+							- 可移植性强
+							- 代码紧凑，编译器实现简单
+						- 缺点
+						  collapsed:: true
+							- 运行较慢
+							- 指令数量多于寄存器指令集
+					- 基于寄存器的指令集
+					  collapsed:: true
+						- 缺点
+						  collapsed:: true
+							- 收到硬件的约束
+						- 优点
+						  collapsed:: true
+							- 运行快
 		- 三方类库
 		  collapsed:: true
 			- Guava
@@ -3561,7 +3578,9 @@
 			- reflectasm
 				- 空笔记
 	- 新特性
+	  collapsed:: true
 		- Java8
+		  collapsed:: true
 			- 我不会的函数
 				- java.util.Map#compute
 				- java.util.Map#merge
@@ -5148,492 +5167,50 @@
 - 测试框架
   collapsed:: true
 	- Junit
-	  collapsed:: true
+		- 架构
+		  collapsed:: true
+			- JUnit Platform
+				- 该平台负责在 JVM 上启动测试框架。 它定义了 JUnit 与其客户端（例如构建工具）之间稳定而强大的接口。
+			- JUnit Jupiter
+				- 该模块包括用于在 JUnit 5 中编写测试的新编程和扩展模型。
+			- JUnit Vintage
+				- 支持在 JUnit 5 平台上运行基于 JUnit 3 和 JUnit 4 的测试。
+		- 基本注解
+		  collapsed:: true
+			- `@BeforeAll`
+			  collapsed:: true
+				- 在一个类所有测试方法之前运行一次
+				- 需要注意的是，带有`@BeforeAll`注释的方法必须是静态的，否则代码将无法编译
+			- `@BeforeEach`
+			  collapsed:: true
+				- 在一个类每一个测试方法之前运行一次
+			- `@DisplayName`
+			  collapsed:: true
+				- 为测试案例定义一个名称，作用在类和方法上
+			- `@Test`
+			  collapsed:: true
+				- 作用在注解和方法上，标注这个方法是一个测试用例
+			- `Disable`
+			  collapsed:: true
+				- 禁用测试类或方法(前面`@Ignore`)
+			- `@AfterEach`
+			  collapsed:: true
+				- 在一个类每一个测试方法之后运行一次
+			- `@AfterAll`
+			  collapsed:: true
+				- 在一个类所有测试方法之后运行一次
+				- 需要注意的是，带有`@AfterAll`注释的方法必须是静态的，否则代码将无法编译
+		- Assertions
+			- 在junit5中，针对Java8的lambda进行了增强
+		- Assumptions
+			- Assumptions仅在满足某些条件时才用于运行测试。 这通常用于测试正常运行所需的外部条件，但与正在测试的内容没有直接关系。
+			- 如果假设失败，将抛出 `TestAbortedException` 并跳过测试。
+			- 假设也能够使用lambda表达式。
+		- Exception验证
+			- 两种异常测试方式
+				- 第一种验证抛出的异常的详细信息
+				- 第二种验证抛出异常的类型
+		- Test Suites 测试套件
+			-
 		- 参考文章
 			- [Spring Boot 基于 JUnit 5 实现单元测试](https://www.jianshu.com/p/4648fd55830e)
-- 开发框架
-  collapsed:: true
-	- Spring
-	  collapsed:: true
-		- spring-core
-		  collapsed:: true
-			- IOC
-			  collapsed:: true
-				- 对IOC的理解
-				  collapsed:: true
-					- 称为Inverse of Control，控制反转。也被叫做DI（Dependency Injection），依赖注入
-					- 让调用者类对某一个接口实现类的依赖关系由第三方（容器或者协作类）注入，从而移除调用者类对某一接口实现类的依赖。换一个通俗的说话，比如说调用者类A要使用接口B的实现类C，故类A和类C之前有着依赖关系，如果我们将依赖关系硬编码到类A的逻辑中，类A代码的耦合度就比较高了，这还只是类A与类C之间有依赖关系，要是类A依赖的类特别多，那该怎么办？类A就需要维护多个类的维护工作，代码耦合度很高。要是有第三方负责去管理这些被调用的类，调用类只负责使用不负责维护，我们开发代码的耦合度就会大大的降低。
-				- IOC的类型
-				  collapsed:: true
-					- 构造函数注入
-					- 属性注入
-					- 接口注入
-				- 参考博客
-				  collapsed:: true
-					- [极简 Spring 框架 -- 浅析循环依赖](http://heeexy.com/2018/01/28/IoC/)
-					- [徒手撸框架--实现IoC](https://diaozxin007.github.io/2018/01/08/spring-ioc/)
-			- 在抽象类中使用@Autowired
-			  collapsed:: true
-				- 背景
-				  collapsed:: true
-					- 第一，Spring不会对抽象类进行组件扫描。
-					- 第二，setter 注入在抽象类中是可能的，但是如果我们不为setter 方法使用final 关键字是有风险的。 如果子类重写 setter 方法，应用程序可能不稳定。
-					- 第三，由于 Spring 不支持在抽象类中注入构造函数，我们通常应该让具体的子类提供构造函数参数。 这意味着我们需要在具体子类中进行构造函数注入。
-				- 方法一：在 setter 方法中使用@Autowired
-				- 方法二：构造函数注入
-				- 参考文章
-				  collapsed:: true
-					- [Using @Autowired in Abstract Classes](https://www.baeldung.com/spring-autowired-abstract-class)
-			- 注解@Scope
-			  collapsed:: true
-				- 作用
-				  collapsed:: true
-					- Scope，也称作用域，在 Spring IoC 容器是指其创建的 Bean 对象相对于其他 Bean 对象的请求可见范围。
-				- Spring IoC容器的作用域
-				  collapsed:: true
-					- 基本作用域
-					  collapsed:: true
-						- `singleton`：单例模式，在整个Spring IoC容器中，使用singleton定义的Bean将只有一个实例。
-						- `prototype`：原型模式，每次通过容器的getBean方法获取prototype定义的Bean时，都将产生一个新的Bean实例。
-					- Web 作用域
-					  collapsed:: true
-						- `reqeust`：对于每次HTTP请求，使用request定义的Bean都将产生一个新实例，即每次HTTP请求将会产生不同的Bean实例。只有在Web应用中使用Spring时，该作用域才有效。
-						- `session`：对于每次HTTP Session，使用session定义的Bean都将产生一个新实例。同样只有在Web应用中使用Spring时，该作用域才有效。
-						- `globalsession`：每个全局的HTTP Session，使用session定义的Bean都将产生一个新实例。典型情况下，仅在使用portlet context的时候有效。同样只有在Web应用中使用Spring时，该作用域才有效。
-					- 自定义作用域。
-		- spring MVC
-		  collapsed:: true
-			- 过滤器
-			  collapsed:: true
-				- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
-				  collapsed:: true
-					- 如下图
-					  ![10.png](../assets/10_1680702279599_0.png)
-				- 过滤器-Filter
-				  collapsed:: true
-					- Filter是Servlet提供的过滤器，与Spring无关
-					- 是所有过滤组件中最外层的，从粒度来说是最大的
-					- 使用场景
-					  collapsed:: true
-						- 可以获取到Http的请求和响应信息
-						- 将请求参数记录到日志文件
-						- 资源请求的认证和授权
-						- 在将请求正文（body）或报头（header）发送到servlet之前进行格式化
-						- 压缩发送给客户端的响应数据
-						- 通过添加一些cookie，标题信息等来更改响应
-						- 设置请求或响应的报文编码
-						- 可以在日志中统计请求处理的耗时
-					- 不足
-						- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
-				- Spring的OncePreRequestFilter
-				  collapsed:: true
-					- 与Servlet Filter的区别
-					- 参考文章
-						- [What is OncePerRequestFilter](https://www.baeldung.com/spring-onceperrequestfilter)
-				- 拦截器-Intercepter
-				  collapsed:: true
-					- Interceptor是Spring提供的过滤器
-					- 在自定义Interceptor的时候需要实现`org.springframework.web.servlet.HandlerInterceptor`接口
-					- 不足
-					  collapsed:: true
-						- 通过preHandle方法的handle方法，我们可以**获取请求调用的Controller类和方法名**。但是并**不能获取请求的调用方法的具体参数**
-					- 使用场景
-					  collapsed:: true
-						- 可以在日志中统计请求处理的耗时
-				- Controller增强-`@ControllerAdvice`
-				  collapsed:: true
-					- 使用场景
-						- 全局异常处理
-						- 全局数据绑定
-						- 全局数据预处理
-				- 切面-aspect
-			- 如何多次读取HttpServletRequest
-			  collapsed:: true
-				- 具体实现
-					- jasper:cn/bravedawn/web/config/cachedrequest
-				- 参考文章
-					- [Reading HttpServletRequest Multiple Times in Spring](https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times)
-			- 异常处理
-			  collapsed:: true
-				- 方法一：为每一个controller添加一个@ExceptionHandler注解的方法
-				  collapsed:: true
-					- 代码
-					  ```java
-					  public class FooController{
-					      
-					      //...
-					      @ExceptionHandler({ CustomException1.class, CustomException2.class })
-					      public void handleException() {
-					          //
-					      }
-					  }
-					  ```
-					- 缺点
-					  collapsed:: true
-						- 带注释的@ExceptionHandler方法只对特定的Controller有效，对整个应用程序不是全局的。当然，为每一个控制器添加一个@ExceptionHandler方法不太适合通用异常处理机制。
-				- 方法二：定义一个HandlerExceptionResolver，为Rest API实现统一的异常处理机制
-				  collapsed:: true
-					- 现有的实现
-						- `SimpleMappingExceptionResolver`
-						  collapsed:: true
-							- SimpleMappingExceptionResolver可以根据需要轻松地将任何异常映射到默认的错误视图。
-						- `DefaultHandlerExceptionResolver`
-						  collapsed:: true
-							- 这个解析器是Spring3.0中引入的，在DispatcherServlet中默认启用。
-							- 它用于将标准Spring异常解析为相应的HTTP状态码，即客户端错误4xx和服务器错误5xx状态码。下面是他处理的[Spring异常的完整列表](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-ann-rest-spring-mvc-exceptions)，以及它们如何映射到状态代码。
-							- 缺点
-							  collapsed:: true
-								- 虽然它正确的设置了响应的状态码，但有一个限制是它没有为响应体设置任何内容。对于REST API来说——状态码并不能提供给客户端足够的信息，响应也必须有一个主体，以允许应用程序提供关于故障的附加信息。
-						- `ExceptionHandlerExceptionResolver`
-						  collapsed:: true
-							- 这个解析器是Spring3.1中引入的，在DispatcherServlet中默认启用。这个处理器是@ExceptionHandler机制如何工作的核心组件。
-						- `ResponseStatusExceptionResolver`
-						  collapsed:: true
-							- 这个解析器是Spring3.0中引入的，在DispatcherServlet中默认启用。
-							- 它的主要职责是能在自定义异常上使用@ResponseStatus注解，并将这些异常映射到HTTP状态码上。
-							- 代码
-							  ```java
-							  @ResponseStatus(value = HttpStatus.NOT_FOUND)
-							  public class MyResourceNotFoundException extends RuntimeException {
-							      public MyResourceNotFoundException() {
-							          super();
-							      }
-							      public MyResourceNotFoundException(String message, Throwable cause) {
-							          super(message, cause);
-							      }
-							      public MyResourceNotFoundException(String message) {
-							          super(message);
-							      }
-							      public MyResourceNotFoundException(Throwable cause) {
-							          super(cause);
-							      }
-							  }
-							  ```
-							- 缺点
-								- 与DefaultHandlerExceptionResolver一样，该解析器在处理响应体的方式上受到限制——可以映射状态码到响应上，但响应体仍然为空。
-					- 自定义HandlerExceptionResolver
-						- 要实现的功能：希望能够输出JSON或XML到响应体中，这取决于客户端要求的格式（通过Accept报头）
-						- 代码
-						  ```java
-						  @Component
-						  public class RestResponseStatusExceptionResolver extends AbstractHandlerExceptionResolver {
-						  
-						      @Override
-						      protected ModelAndView doResolveException(
-						        HttpServletRequest request, 
-						        HttpServletResponse response, 
-						        Object handler, 
-						        Exception ex) {
-						          try {
-						              if (ex instanceof IllegalArgumentException) {
-						                  return handleIllegalArgument(
-						                    (IllegalArgumentException) ex, request, response);
-						              }
-						              ...
-						          } catch (Exception handlerException) {
-						              logger.warn("Handling of [" + ex.getClass().getName() + "] 
-						                resulted in Exception", handlerException);
-						          }
-						          return null;
-						      }
-						  
-						      private ModelAndView 
-						        handleIllegalArgument(IllegalArgumentException ex, HttpServletRequest request, HttpServletResponse response) 
-						        throws IOException {
-						          response.sendError(HttpServletResponse.SC_CONFLICT);
-						          String accept = request.getHeader(HttpHeaders.ACCEPT);
-						          ...
-						          return new ModelAndView();
-						      }
-						  }
-						  ```
-				- 方法三：@ControllerAdvice
-				  collapsed:: true
-					- Spring3.2通过@ControllerAdvice注解支持了全局的@ExceptionHandler。
-					- 这是一种新的机制，脱离了旧的MVC模型，并利用了ResponseEntity以及@ExceptionHandler的类型安全性和灵活性。
-					- @ControllerAdvice注释允许我们将之前分散的多个@ExceptionHandler合并为单个的全局错误处理组件。
-					- 代码
-					  ```java
-					  @ControllerAdvice
-					  public class RestResponseEntityExceptionHandler 
-					    extends ResponseEntityExceptionHandler {
-					  
-					      @ExceptionHandler(value 
-					        = { IllegalArgumentException.class, IllegalStateException.class })
-					      protected ResponseEntity<Object> handleConflict(
-					        RuntimeException ex, WebRequest request) {
-					          String bodyOfResponse = "This should be application specific";
-					          return handleExceptionInternal(ex, bodyOfResponse, 
-					            new HttpHeaders(), HttpStatus.CONFLICT, request);
-					      }
-					  }
-					  ```
-					- 优点
-						- 能够自定义响应body体和状态代码
-						- 提供了多个异常映射到同一个方法，以便一起处理
-						- 可以很好的新的RESTful ResponseEntity响应
-					- 缺点
-						- 用@ExceptionHandler处理的异常应与其方法参数的异常声明相匹配。如果他们不匹配，编译器不会报错，Spring也不会报错。但是，异常会在运行时实际抛出来时，异常解析机制将失败。
-						  ```
-						  java.lang.IllegalStateException: No suitable resolver for argument [0] [type=...]
-						  HandlerMethod details: ...
-						  ```
-				- 方法四：ResponseStatusException (Spring 5 and Above)
-					- Spring5引入了ResponseStatusException类
-					- 我们可以创建它的一个实例，提供一个HttpStatus，并可选的提供一个reason和cause
-					- 参考文章
-						- [Spring ResponseStatusException](https://www.baeldung.com/spring-response-status-exception)
-				- 参考文章
-					- [Error Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
-			- 开发过程中的错误记录
-			  collapsed:: true
-				- @RequestBody中的required默认是true，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将required设置为false。
-				- Spring Boot请求(状态码是406)Could not find acceptable representation原因
-					- 有可能是你的响应对象的属性没有写get/set方法导致的
-		- spring-tx
-		  collapsed:: true
-			- Spring对事务管理的支持
-			  collapsed:: true
-				- 事务管理的关键抽象
-				  collapsed:: true
-					-
-		- Spring Boot
-		  collapsed:: true
-			- 依赖管理
-			  collapsed:: true
-				- Spring Boot 的每个版本都提供了它支持的依赖项列表，因此，我们在引入其他的依赖时不需要在配置中指定依赖项的版本，Spring Boot会自行管理。具体可以参考文章：[springboot依赖的一些配置：spring-boot-dependencies、spring-boot-starter-parent、io.spring.platform](https://www.cnblogs.com/leeego-123/p/12665279.html)
-			- 上传文件
-			  collapsed:: true
-				- 在Spring Boot上传文件的时候，如果你上传的文件是0kb，spring是会报错的，报的错是：`Error parsing HTTP request header java.io.EOFException: null`
-			- 重要接口
-			  collapsed:: true
-				- Interface `ApplicationRunner` 和 `CommandLineRunner`
-				  collapsed:: true
-					- 作用：
-					  collapsed:: true
-						-
-					- 参考文章
-					  collapsed:: true
-						- https://www.jianshu.com/p/5d4ffe267596
-						- https://www.baeldung.com/running-setup-logic-on-startup-in-spring
-					-
-			- 日志
-			  collapsed:: true
-				- Spring Boot 默认使用 SLF4J+Logback 记录日志，其中SLF4J提供了日志接口，Logback提供的日志实现。
-				- 日志配置的级别
-				  collapsed:: true
-					- 使用root级别，即项目的所有日志
-					  collapsed:: true
-						- 例如：
-						  ```
-						  logging.level.root=trace
-						  ```
-					- 使用package级别，即指定包下使用相应的日志级别
-					  collapsed:: true
-						- 例如：
-						  ```
-						  logging.level.cn.bravedawn=trace
-						  ```
-				- 参考
-				  collapsed:: true
-					- [使用SLF4J和Logback-廖雪峰](https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176)
-					- [Spring Boot日志配置及输出](http://c.biancheng.net/spring_boot/log-config.html)
-		- Spring Test
-		  collapsed:: true
-			- 在单元测试中如果依赖Spring的RequestContext，怎么办
-			  collapsed:: true
-				- 先看代码：
-				  ```Java
-				  // Spring-test 有一个灵活的请求模拟，称为 MockHttpServletRequest。
-				  MockHttpServletRequest request = new MockHttpServletRequest();
-				  RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
-				  ```
-				- 参考文章
-				  collapsed:: true
-					- [How to Mock HttpServletRequest](https://www.baeldung.com/java-httpservletrequest-mock)
-		- Spring Cloud
-		  collapsed:: true
-			- [spring-cloud-release](https://github.com/spring-cloud/spring-cloud-release)
-			  collapsed:: true
-				- 该项目的作用就是管理SpringCloud版本的发布，主要做了二件事，一个是分布版本的规则，二是管理各个发布版本的子项目的版本的映射关系。
-				- 参考文章： https://www.cnblogs.com/hzhuxin/p/12393456.html
-			- Open Feign
-			  collapsed:: true
-				- 配置规则
-				  collapsed:: true
-					- 第一种：自定义配置类
-					  collapsed:: true
-						- 自定义FeignClientsConfiguration配置类
-						  collapsed:: true
-							- openFeign允许我们为每个Feign客户端定制一套组件
-							  collapsed:: true
-								- 设置@FeignClinet的Configuration属性
-								  collapsed:: true
-									- 作用：可以对客户端的组件进行自定义，使用新的Bean定义覆盖原有的配置
-									- 默认配置类：`org.springframework.cloud.openfeign.FeignClientsConfiguration`
-									- 配置的定义的Bean
-									  collapsed:: true
-										- Decoder – *ResponseEntityDecoder*, which wraps *SpringDecoder*, used to decode the *Response*
-										- Encoder – `SpringEncoder` is used to encode the *RequestBody*.
-										- Logger – `Slf4jLogger` is the default logger used by Feign.
-										- Contract – `SpringMvcContract`, which provides annotation processing
-										- Feign-Builder – `HystrixFeign.Builder` is used to construct the components.
-										- Client – `LoadBalancerFeignClient` or default Feign client
-							- openFeign日志级别
-							  collapsed:: true
-								- `NONE`：不做任何记录（默认）
-								- `BASIC`：仅记录请求方法和 URL 以及响应状态代码和执行时间
-								- `HEADERS`：记录基本信息以及请求和响应标头
-								- `FULL`：记录请求和响应的标题，正文和元数据
-							- 自定义Http客户端
-							  collapsed:: true
-								- 使用Apache HttpClient
-								- 使用OKHttp
-					- 第二种：配置文件
-					  collapsed:: true
-						- 在配置文件中设置全局配置
-						- 在配置文件中为每个FeignClient设置专属配置
-					- 配置优先级：配置文件中每个FeignClient设置的专属配置 > 配置文件中的全局配置 > 配置类
-					- 拦截器的追加规则
-					  collapsed:: true
-						- `RequestInterceptor` 是拦截器，通过用于在请求发送前做一些处理，比如添加头信息。他可以被专属FeignClient在配置文件中配置、全局配置文件中配置、配置类中配置。
-						- 他的模式是追加，而不是覆盖。
-						- 若在三种场景都配置了拦截器，则执行顺序是：专属FeignClient在配置文件中配置->全局配置文件中配置->配置类中配置。
-						- 若在三种场景都配置了同一个拦截器，则这个拦截器就会被重复执行三次。
-				- 数据压缩
-				  collapsed:: true
-					- 请求压缩配置
-					  collapsed:: true
-						- 配置代码
-						  collapsed:: true
-						  ```properties
-						  feign.compression.request.enabled=true
-						  feign.compression.request.mime-types=application/json
-						  feign.compression.request.min-request-size=1
-						  ```
-							- 上述的配置是无效的，配置了上面的代码之后openFeign会判断当前请求的`content-type`是否包含在`mime-types`属性列表内并且请求的`content-length`必须大于`min-request-size`才会在请求的头信息中添加下面的几个属性：
-							  collapsed:: true
-								- Content-Encoding: gzip
-								- Content-Encoding: deflate
-					- 响应压缩配置
-					  collapsed:: true
-						- 配置代码
-						  ```properties
-						  feign.compression.response.enabled=true
-						  feign.compression.response.useGzipDecoder=true
-						  ```
-				- 参考文章
-				  collapsed:: true
-					- [OpenFeign / SpringBoot 响应使用gzip压缩（含例子）](https://blog.csdn.net/Jokers_lin/article/details/126342022)
-					- [SpringBoot 使用 Feign 无废话 All-in-one 指南](https://juejin.cn/post/7169549885723639838)
-					- [openFeign夺命连环9问，这谁受得了？](https://www.cnblogs.com/cbvlog/p/15322926.html)
-					- [Feign Client Exception Handling](https://www.baeldung.com/java-feign-client-exception-handling)
-			- Sentinel
-			  collapsed:: true
-				- 官网：[Sentinel](https://sentinelguard.io/zh-cn/index.html)
-				- 流量控制（flow controller）
-				  collapsed:: true
-					- 定义：
-					  collapsed:: true
-						- 其原理是监控应用流量的 **QPS** 或**并发线程数**等指标，当达到指定的**阈值**时对流量进行控制，以避免被瞬时的流量高峰冲垮，从而保障应用的**高可用性**。
-						- 服务降级一般是指在服务器压力剧增的时候，根据实际业务使用情况以及流量，对一些服务和页面有策略的不处理或者用一种简单的方式进行处理，从而**释放服务器资源的资源以保证核心业务的正常高效运行。**
-					- 三种流控效果（controlBehavior）
-					  collapsed:: true
-						- 快速失败
-						  collapsed:: true
-							- 默认的流量控制方式，当QPS超过任意规则的阈值后，新的请求就会被立即拒绝，拒绝方式为抛出`FlowException`。
-						- warm up（热身）
-						  collapsed:: true
-							- 即**预热/冷启动**方式。当系统长期处于低水位的情况下，当流量突然增加时，直接把系统拉升到高水位可能瞬间把系统压垮。通过"冷启动"，让通过的流量**缓慢增加**，在**一定时间内**逐渐增加到**阈值上限**，给冷系统一个**预热**的时间，避免冷系统被压垮。
-							- 对应**令牌桶算法**
-						- 排队等待
-						  collapsed:: true
-							- 匀速排队方式会严格控制请求通过的间隔时间，也即是让请求以均匀的速度通过。
-							- 对应**漏桶算法**
-							- 适用场景：这种方式适合用于请求以突刺状来到，这个时候我们不希望一下子把所有的请求都通过，这样可能会把系统压垮；同时我们也期待系统以稳定的速度，逐步处理这些请求，以起到“**削峰填谷**”的效果，而不是拒绝所有请求。
-					- 三种流控模式（strategy）
-					  collapsed:: true
-						- 直接拒绝：接口达到限流条件时，直接限流。
-						  collapsed:: true
-							- 默认的流量控制方式。
-							- 当QPS超过任意规则的阈值后，新的请求就会被立即拒绝，拒绝方式为抛出`FlowException`。
-						- 关联：当关联的资源达到阈值时，就限流自己。
-						  collapsed:: true
-							- **典型的使用场景**：一个是**支付**接口，一个是**下单**接口，此时一旦**支付接口达到了阈值**，那么订单接口就应该被限流，不然这边还在下单，用户等待或者直接被拒绝支付将会极大的影响用户体验。**简而言之：A关联B，一旦B到达阈值，则A被限流**。
-						- 链路：只记录指定链路上的流量（指定资源从入口资源进来的流量，如果达到阈值，就可以限流）。
-					- 两种统计类型
-					  collapsed:: true
-						- QPS
-						  collapsed:: true
-							- 定义：每秒请求数，即在不断向服务器发送请求的情况下，服务器每秒能够处理的请求数量。
-							- 通俗理解：同时能接收的请求数量，也就是说同时能**接收**几个任务。
-						- 并发线程数
-						  collapsed:: true
-							- 定义：指的是施压机施加的同时请求的线程数量。
-							- 通俗理解：同时处理请求的线程数，也就是说同时有几个人能**干活**。
-				- 熔断降级
-				  collapsed:: true
-					- 服务雪崩的定义
-					  collapsed:: true
-						- 多个微服务之间调用的时候，假设微服务A调用微服务B和微服务C，微服务B和微服务C有调用其他的微服务，如果整个链路上某个微服务的调用响应式过长或者不可用，对微服务A的调用就会占用越来越多的系统资源，进而引起系统雪崩，所谓的”雪崩效应”。
-					- 定义
-					  collapsed:: true
-						- 应对微服务雪崩效应的一种链路保护机制，类似股市、保险丝
-						- 熔断机制是应对雪崩效应的一种微服务链路保护机制，当整个链路的某个微服务不可用或者响应时间太长时，会进行服务的降级，进而熔断该节点微服务的调用，快速返回”错误”的响应信息。
-				- 参考文章
-				  collapsed:: true
-					- [阿里限流神器Sentinel夺命连环 17 问？](https://www.cnblogs.com/cbvlog/p/15385100.html)
-	- lombok
-	  collapsed:: true
-		- 官网：
-	- xxl job
-	  collapsed:: true
-		- 路由策略配置
-			- 参考文章
-				- [xxl-job（四）路由策略](https://blog.csdn.net/w_t_y_y/article/details/117119864)
-	- Jackson
-	  collapsed:: true
-		- 自定义反序列化器
-			- 标准的反序列化器
-				- 要求
-					- 反序列化的类不能是内部类
-					- json必须完整的切合对象属性，才能反序列化成功
-			- 在ObjectMapper上自定义反序列化器
-				- 适用场景
-					- 只想获取json中一部分的json字段，不需要全部获取
-			- 为泛型类型添加反序列化器
-				- 适用场景
-					- 如果需要反序列化的对象中包含泛型字段，我们可以通过自定义反序列化器去做处理
-			- 参考文章
-				- [Getting Started with Custom Deserialization in Jackson](https://www.baeldung.com/jackson-deserialization)
-		- 参考文章
-			- [jackson example](https://mkyong.com/tag/jackson/)
-	- Leaf      
-	  collapsed:: true
-		- 简介
-		- 业务系统对于ID号的要求
-			- 全局唯一，不能重复
-			- 趋势递增，有效的利用MySQL的聚集索引
-			- 单调递增，保证下一个ID一定大于上一个ID，例如事务版本号、IM增量消息、排序等特殊需求
-			- 信息安全，在一些特殊场景下需要ID是无规则的
-		- 常见的生成案例
-			- UUID
-				- 优点：性能非常高：本地生成，没有网络消耗。
-				- 缺点
-					- 不易存储，通常为36位长度的字符串
-					- 信息不安全，基于MAC地址生成的UUID算法可能会泄露MAC地址
-					- UUID过长，MySQL建议主键越短越好，不适合做主键，性能较差
-			- 类snowflake
-				- 结构
-					- 划分为64-bit
-					- 1-bit保留位
-					- 41-bit表示时间戳，69年的时间
-					- 10-bit机器码
-					- 12-bit-序列号，可以设置自增序列
-				- 优点
-					- 毫秒数在高位，自增序列在低位，整个ID都是趋势递增的。
-					- 不依赖数据库等第三方系统，以服务的方式部署，稳定性更高，生成ID的性能也是非常高的。
-					- 可以根据自身业务特性分配bit位，非常灵活。
-				- 缺点
-					- 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
-			- 数据库生成
