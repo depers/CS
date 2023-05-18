@@ -1411,18 +1411,16 @@
 				- Java的反射是指程序在运行期可以拿到一个对象的所有信息
 				- 反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法
 			- Class类
-			  collapsed:: true
 				- 特点
-				  collapsed:: true
 					- 除基本类型外，Java的其他类型都是Class（包括interface），Class的本质是数据类型
-					- JVM每加载一个类，就会为其创建一个Class类型的实例
+					- 每个类的Class对象是在装载类时，由JVM通过调用类装载器中的`defineClass()`方法自动构建的。
 					- 由于JVM为每个加载的类创建了对应的Class实例，并在实例中保存了该类的所有信息，包括类名、包名、父类、实现的接口、所有方法、字段等，因此，如果获取了某个Class实例，我们就可以通过这个Class实例获取到该实例对应的类的所有信息。
 				- 获取Class实例的方法
-				  collapsed:: true
 					- 方法一：直接通过一个类的静态变量class获取
 					- 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取
 					- 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取
 				- Class实例比较和instanceof的差别
+				  collapsed:: true
 					- 用instanceof不但匹配指定类型，还匹配指定类型的子类。
 					- 用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
 				- 通过反射生产对象的方式
@@ -1434,6 +1432,7 @@
 					- JVM在执行Java程序的时候，并不是一次性把所有用到的类全部加载到内存，而是第一次需要用到类时才加载。
 					- 利用JVM动态加载类的特性，我们才能在运行期根据条件加载不同的实现类。
 				- 重要方法
+				  collapsed:: true
 					- `isInterface()`：该对象是否是一个接口
 					- `isAnonymous()`：是否是匿名类
 					- `class.newInstance()`： 会直接调用该类的无参构造函数进行实例化
@@ -1445,13 +1444,12 @@
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
 			- 访问字段
-			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
 					- `Field getField(name)`：根据字段名获取某个public的field（包括父类）
 					- `Field getDeclaredField(name)`：根据字段名获取当前类的某个field（不包括父类）
 					- `Field[] getFields()`：获取所有public的field（包括父类）
 					- `Field[] getDeclaredFields()`：获取当前类的所有field（不包括父类）
-				- 允许访问非public字段：setAccessible(true)
+				- 允许访问非public字段：`setAccessible(true)`
 				- 获取字段的信息
 				  collapsed:: true
 					- getName()：返回字段名称，例如，"name"；
@@ -1460,7 +1458,6 @@
 				- 获取字段值：field.get(object)
 				- 设置字段值：field.set(object, value)
 			- 调用方法
-			  collapsed:: true
 				- 通过Class实例获取Method信息，Class提供了 以下几个方法来获取方法
 					- Method getMethod(name, Class...)：获取某个public的Method（包括父类）
 					- Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）
@@ -1471,6 +1468,7 @@
 					- getReturnType()：返回方法返回值类型，也是一个Class实例，例如：String.class；
 					- getParameterTypes()：返回方法的参数类型，是一个Class数组，例如：{String.class, int.class}；
 					- getModifiers()：返回方法的修饰符，它是一个int，不同的bit表示不同的含义。
+				- 允许调用非public方法需：`setAccessible(true)`
 			- 调用构造方法
 			  collapsed:: true
 				- Class.newInstance()的局限
@@ -1505,7 +1503,7 @@
 			  collapsed:: true
 				- 方法句柄MethodHandle
 					- 类似于反射，可以实现方法的间接调用。
-		- 模块
+		- 模块（Java Platform Module System，JPMS）
 		  collapsed:: true
 			- 背景
 				- jar文件就是class文件的容器，但是jar只是用于存放class的容器，它并不关心class之间的依赖。如果我们编写了一个jar，它还引用了多个jar的代码，如果我们要执行这个jar：java -cp app.jar:a.jar:b.jar:c.jar cn.bravedawn.sample.Main，这里我们要写一堆的三方包。如果漏写了某个运行时需要用到的jar，那么在运行期极有可能抛出ClassNotFoundException。
@@ -2695,12 +2693,11 @@
 			  collapsed:: true
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
-		- JVM
+		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
 			- Java的内存区域
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
-				  collapsed:: true
 					- 程序计数器
 					  collapsed:: true
 						- 作用
@@ -2731,7 +2728,6 @@
 								- ((64375a7f-dd8b-41a8-939d-58a359b6fc4c)) ：两个存活区
 							- 老年代（Tenured Space）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大
 					- 方法区
-					  collapsed:: true
 						- 作用：用来保存加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据
 						- 运行时常量池
 							- 是方法区的一部分
@@ -3315,12 +3311,13 @@
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 			- 类文件结构
 			- 虚拟机类的加载机制
-			  collapsed:: true
 				- 类加载的时机
+				  collapsed:: true
 					- 主动使用
 						- 主动引用的时机
 					- 被动使用
 				- 类加载的过程
+				  collapsed:: true
 					- 加载
 					- 连接
 						- 验证
@@ -3328,29 +3325,44 @@
 						- 解析
 					- 初始化
 				- 类加载器
+					- `ClassLoader`的重要方法
+					  collapsed:: true
+						- `defineClass(String name, byte[] b, int off, int len)`
+						  collapsed:: true
+							- 将字节码文件的字节数组转换为JVM内部的`java.lang.Class`对象。
 					- 类和类加载器的关系
 					- 自定义类加载器
+					  collapsed:: true
+						- 复写`ClassLoader`的`findClass`方法
+						- 具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/classloader/MyClassLoaderTest.java
 					- 双亲委派模型
 					  collapsed:: true
 						- JDK9之后
+						  collapsed:: true
 							- JDK 9中虽然仍然维持着三层类加载器和双亲委派的架构，但类加载的委派关系也发生了变动。当平台及应用程序类加载器收到类加载请求，在委派给父加载器加载前，要先判断该类是否能够归属到某一个系统模块中，如果可以找到这样的归属关系，就要优先委派给负责那个模块的加载器完成加载。
 					- 破坏双亲委派模型
+					  collapsed:: true
 						- 第一次：Java1.2引入双亲委派模型，为兼容Java1.1就存在的ClassLoader抽象类和类加载器，在ClassLoader中新增了findClass()方法。
 						- 第二次：因SPI机制，父的类加载器需要获取子的类加载器，去加载厂商实现的类，提出了线程上下文加载器。
 						- 第三次：实现热部署，OSGi。
 						- 第四次：JDK9修改了双亲委派的规则。
 					- 类加载器的应用
-					  collapsed:: true
 						- 获取一个包下面所有的类
 						  collapsed:: true
 							- 具体实现：cn.bravedawn.jvm.classloader.ClassUtil
 							- 参考文章：[Java获取指定package下所有类](https://blog.csdn.net/yuhentian/article/details/110007378)
 					- 模块化下的类加载器
-						- 扩展类加载器（Extension Class Loader）被平台类加载器（Platform Class Loader）取代
+					  collapsed:: true
+						- JDK9，扩展类加载器（Extension Class Loader）被平台类加载器（Platform Class Loader）取代
 						- 平台类加载器和应用程序类加载器都不再派生自`java.net.URLClassLoader`
 						- 现在启动类加载器、平台类加载器、应用程序类加载器全都继承于`jdk.internal.loader.BuiltinClassLoader`，在`BuiltinClassLoader`中实现了新的模块化架构下类如何从模块中加载的逻辑，以及模块中资源可访问性的处理。
 						- 启动类加载器现在是在Java虚拟机内部和Java类库共同协作实现的类加载器。
+					- 类加载器的功能
+						- 一保障了Java程序的安全稳定运行
+							- 基于双亲委派机制，自底向上的类加载模式保证了一个类只能被加载一次，且分层的类加载器设计划分类类加载器的执行范围，避免了程序被恶意篡改
+						- 二可以通过自定义类加载器，实现不同应用程序之间依赖的分隔管理，互不干扰。
 			- 虚拟机字节码执行引擎
+			  collapsed:: true
 				- 虚拟机执行引擎执行字节码的方式
 					- 解释执行：通过解释器执行
 					- 编译执行：通过即时编译期生成本地代码执行
@@ -3578,6 +3590,39 @@
 					- 基于栈的解释执行过程
 					  collapsed:: true
 						- 这里主要讲解了JVM是如何使用程序计数器、局部变量、操作数栈等部件执行Java的一个栈帧的。
+			- 类加载及执行子系统的案例与实战
+				- 类加载器在Tomcat中的使用
+				  collapsed:: true
+					- 一个功能健全的web服务器需要解决的4个问题
+						- 1.**部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离**。比如A程序依赖了common-lang.3.0的StringUtils类，B程序依赖了Common-lang.3.1的StringUtils类，要保证A程序只能用3.0的StringUtils类，B程序只能使用3.1的StringUtils类。
+						- 2.**部署在同一个服务器上的两个Web应用程序所使用的Java类库可以互相共享**。这句话其实和第一点是相反的，比如A程序使用了Spring4.0，B程序也使用了Spring4.0，为了节省虚拟机方法区的内存占用，要实现A和B程序可以共用一份Spring类库的内存资源。
+						- 3.**服务器需要尽可能地保证自身的安全不受部署的Web应用程序影响**。比如说Tomcat就是纯Java实现的，我们要保证服务器使用的Java类库要和应用程序使用的是分离的，如果同一份类库资源，如果用户程序的类库遭到恶意篡改，势必会导致服务器无法正常运转。
+						- 4.**支持JSP应用的Web服务器，十有八九都需要支持HotSwap功能**。比如你修改了JSP页面的一个展示逻辑，保存文件之后刷新浏览器你就会发现你的展示逻辑生效了，中间并没有重启服务，这里的逻辑是服务器会为每一个JSP文件生成一个类加载器，JSP文件其实就是一个Servlet类，当服务器检测到JSP文件发生了变动，他会为修改后的JSP文件重新生成类加载器，并用这个类加载器去替换原有的类加载器，从而实现了热更新。
+					- Tomcat的架构设计
+						- Common ClassLoader
+							- 负责加载服务器和web应用程序共同使用的类库
+							- 对应common目录
+						- Catalina ClassLoader
+							- 负责加载服务器自己使用的类库
+							- 对应server目录
+						- Shared ClassLoader
+							- 负责加载所有web应用程序使用的类库
+							- 对应shared目录
+						- WebApp ClassLoader
+							- 负责加载当前web应用程序使用的类库
+							- 对应webApp/WBE-INF目录
+						- JSP ClassLoader
+							- 负责加载一个JSP页面的类
+					- Tomcat6之后简化了目录，将common、server、shared合并到了/lib目录，使用Common ClassLoader加载。
+					- 只有指定了`tomcat/conf/catalina.properties`配置文件的`server.loader`和`share.loader`项后才会真正建立Catalina类加载器和Shared类加载器的实例，否则会用到这两个类加载器的地方都会用Common类加载器的实例代替
+				- 灵活的类加载器架构：OSGI
+				  collapsed:: true
+					- OSGI是动态模块化的规范，而JDK9引入的JPMS是静态模块化的规范。这里的动态模块化，我的理解就是OSGI不仅实现了JMPS对包的依赖和导出的权限控制，而且基于依赖关系实现了网状的类加载机制。
+					- OSGI中的模块（bundle），也就是Java的类库，可以打包到一个jar文件
+					- OSGI的类加载机制
+						- 不同bundle之间类的依赖关系，以bundle作为一个单位去进行加载
+						- 对于某个类的依赖需要通过该类所在bundle的类加载器去加载
+						- 两个bundle之间的类相互依赖，加载是可能会出现死锁
 		- 三方类库
 		  collapsed:: true
 			- Guava
@@ -4716,12 +4761,10 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
-  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
 	- IDEA
-	  collapsed:: true
 		- 快捷键
 			- MAC
 				- 全局查找：`command`+`shift`+`F`

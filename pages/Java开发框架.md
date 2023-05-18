@@ -155,18 +155,44 @@
 			- Ioc的类型
 			  collapsed:: true
 				- 一构造函数注入
-				  collapsed:: true
 					- 在调用类的构造函数中将接口实现类的对象赋给接口实例，从而实现依赖注入
 					- 缺点
-					  collapsed:: true
 						- 每次创建调用类对象时都要完成对实现类接口实例的注入，在某些场景下我们可能并不需要使用该实现类接口的实例，存在资源浪费的情况
 				- 二属性注入
-				  collapsed:: true
-					- 属性注入是可以有选择的通过Setter方法完成对调用类所需依赖的注入，更加灵活
+					- 属性注入是可以有选择的通过Setter方法完成对调用类所需依赖的实现类实例的注入，更加灵活
 				- 三接口注入
-				  collapsed:: true
 					- 将调用类所有依赖注入的逻辑抽取到一个接口中，调用类通过实现该接口提供相应的注入方法。这种方式与构造函数注入和属性注入区别不大，还新增了一个接口增加了类的数量，不推荐使用。
 				- Spring支持**构造函数注入**和**属性注入**。
+			- 通过容器完成依赖关系的注入
+				- 从上一节Ioc的类型中我们看到，我们虽然实现了调用类和实现类的解耦，但是在调用类的代码中仍然存在实现类接口的代码，要想将实现类接口的代码也剔除的话，我们就需要一个三方的容器来去维护和管理两个类之间的依赖关系，Spring Ioc容器就是为此而生的。
+				- Spring Ioc容器的实现依赖于Java反射。
+			- Java相关的知识点
+				- 类加载器ClassLoader
+				- Java反射相关知识
+			- 资源访问
+				- Spring提供的Resource接口，提供了更强大的底层资源访问的能力
+					- [使用Resource](https://www.liaoxuefeng.com/wiki/1252599548343744/1282383017934882)
+					- [Access a File from the Classpath in a Spring Application](https://www.baeldung.com/spring-classpath-file-access)
+				- 资源加载
+					- 资源地址表达式
+						- `classpath:`和`classpath*:`的区别
+							- `classpath:com/smart/module*.xml`只会加载**一个**模块的配置文件
+							- `classpath*:com/smart/module*.xml`会加载com/smart目录下**所有的**以mudule开头的xml文件
+						- 支持的地址前缀
+							- `classpath:`：从类路径中加载，后面跟类的绝对地址
+							- `file:`：使用`UrlResource`从文件系统中加载资源，可以是绝对地址或相对地址
+							- `http://`：使用`UrlResource`从文件系统中加载资源
+							- `ftp://`：使用`UrlResource`从FTP服务器加载资源
+							- `没有前缀`：根据`ApplicationContext`的具体实现类采用对应类型的`Resource`
+						- 支持Ant风格带通配符的资源地址，支持以下三种通配符
+							- `?`：匹配文件名中的一个字符
+							- `*`：匹配文件名中的任意字符
+							- `**`：匹配多层路径
+					- 资源加载器
+						- ResourceLoader接口，仅支持带资源类型前缀的表达式，不支持Ant风格的资源路径表达式
+						- ResourcePatternResolver，扩展了ResourceLoader接口，支持带资源类型前缀的表达式和Ant风格的资源路径表达式
+						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
+					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 	- spring-core
 	  collapsed:: true
 		- IOC
