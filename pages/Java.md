@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -145,7 +146,6 @@
 			- 运算
 			  collapsed:: true
 				- 参数传递
-				  collapsed:: true
 					- Java的参数传递是：值传递，
 					- 对于基本类型（原始类型），在参数传递中是值传递
 					- 对于引用类型，本质上是将对象的地址以值的方式传递到形参中，修改信息的是同一个对象。
@@ -158,11 +158,15 @@
 					- 整数类型：byte, short, int, long
 					- 溢出：整数由于存在范围限制，如果计算结果超出了范围，就会产生溢出
 					- 加减乘除
-					  collapsed:: true
 						- `+`/`+=`
 						- `-`/`-=`
 						- `*`/`*=`
 						- `/`/`/=`
+						- `++`和`--`
+							- a++是先用当前值，后加1
+							- ++a是先加1，用加1之后的值
+							- a--也是先用当前值，后减1
+							- --a是先减1，用减1之后的值
 					- 自增/自减
 					  collapsed:: true
 						- `++`
@@ -174,7 +178,6 @@
 						- `>>`，右移相当于除2
 						- `>>>`，无符号右移，也相当于除2，与右移运算符不同的是
 					- 位运算
-					  collapsed:: true
 						- `&`，与预算
 						- `|`，或运算
 						- `~`，非运算
@@ -189,7 +192,6 @@
 						- 参与运算的两个数类型不一致，那么计算结果为较大类型的整型
 						- 大范围的整数转型为小范围的整数。强制转型使用(类型)。强转的结果可能是错的。
 				- 浮点数运算
-				  collapsed:: true
 					- float与double
 					  collapsed:: true
 						- // float f = 1.1; 是错的，Java 不能隐式执行向下转型，因为这会使得精度降低。
@@ -211,24 +213,19 @@
 						- 四舍五入需要加0.5
 						- 如果转型后超过了整型能表示的最大范围，将返回整型的最大值
 				- 布尔运算
-				  collapsed:: true
 					- 短路运算：如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果
 					- 三元运算符：b ? x : y
 				- 运算符
-				  collapsed:: true
 					- 逻辑运算符
-					  collapsed:: true
 						- 与：`&&`
 						- 或：`||`
 						- 非：`!`
 					- 算术运算符
-					  collapsed:: true
 						- 加：`+`/`+=`/`++`
 						- 减：`-`/`-=`/`--`
 						- 乘：`*`/`*=`
 						- 除：`/`/`/=`
 					- 移位运算符
-					  collapsed:: true
 						- `<<`
 						  collapsed:: true
 							- 运算规则：**左移位会丢弃左边指定位数，右边补0**。
@@ -2695,6 +2692,7 @@
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
 			- Java的内存区域
+			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
@@ -3311,6 +3309,7 @@
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 			- 类文件结构
 			- 虚拟机类的加载机制
+			  collapsed:: true
 				- 类加载的时机
 				  collapsed:: true
 					- 主动使用
@@ -3326,13 +3325,14 @@
 					- 初始化
 				- 类加载器
 					- `ClassLoader`的重要方法
-					  collapsed:: true
+						- `loadClass(String name)`
+							- loadClass() 方法是加载目标类的入口，它首先会查找当前 ClassLoader 以及它的双亲里面是否已经加载了目标类，如果没有找到就会让双亲尝试加载，如果双亲都加载不了，就会调用 findClass() 让自定义加载器自己来加载目标类。
+						- `findClass(String name)`
+							- ClassLoader 的 findClass() 方法是需要子类来覆盖的，不同的加载器将使用不同的逻辑来获取目标类的字节码。
 						- `defineClass(String name, byte[] b, int off, int len)`
-						  collapsed:: true
 							- 将字节码文件的字节数组转换为JVM内部的`java.lang.Class`对象。
 					- 类和类加载器的关系
 					- 自定义类加载器
-					  collapsed:: true
 						- 复写`ClassLoader`的`findClass`方法
 						- 具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/classloader/MyClassLoaderTest.java
 					- 双亲委派模型
@@ -3591,6 +3591,7 @@
 					  collapsed:: true
 						- 这里主要讲解了JVM是如何使用程序计数器、局部变量、操作数栈等部件执行Java的一个栈帧的。
 			- 类加载及执行子系统的案例与实战
+			  collapsed:: true
 				- 类加载器在Tomcat中的使用
 				  collapsed:: true
 					- 一个功能健全的web服务器需要解决的4个问题
@@ -3623,6 +3624,33 @@
 						- 不同bundle之间类的依赖关系，以bundle作为一个单位去进行加载
 						- 对于某个类的依赖需要通过该类所在bundle的类加载器去加载
 						- 两个bundle之间的类相互依赖，加载是可能会出现死锁
+				- 字节码生成技术与代理类的实现
+				  collapsed:: true
+					- 支持字节码生成技术的第三方类库
+						- JDK中的javac命令
+						- Javassist
+						- CGLib
+						- ASM
+					- 动态代理
+						- Spring内部是通过动态代理的方式来对Bean进行增强的。
+						- 动态代理所说的“动态”，是针对使用Java代码实际编写了代理类的“静态”代理而言的。动态代理的优势不在于比静态代理少写了一些代理类的代码，而是**实现了在原始类和接口还未知的时候，就可以编写代理类的规则。代理类与原始类脱离了直接联系，使用十分灵活**。
+						- JDK是如何实现动态代理的
+							- JDK通过`sun.misc.ProxyGenerator::generateProxyClass()`方法来完成生成字节码的动作，从而完成动态代理增强代码的字节码生成，在具体方法的调用时，其实执行的是`InvocationHandler::invoke()`中的代理逻辑。
+				- Backport工具：Java的时光机器
+				  collapsed:: true
+					- 背景：随着JDK的不断更新迭代，每个版本都会带来新的语言特性，我们如果想使用新的JDK开发的代码部署运行在老的JDK版本上，该怎么做呢？
+					- 这种能够使使用新版JDK开发的代码，正确部署运行在老版JDK上的做法，我们称为：Java的逆向移植（Java Backporting Tool）。
+					- Java逆向移植的杰出工具：
+						- Retrotranslator
+						- Retrolambda
+					- JDK每次新增功能主要分为五类
+						- 1.**对Java类库API的代码增强**。譬如JDK 1.2时代引入的java.util.Collections等一系列集合类，在JDK 5时代引入的java.util.concurrent并发包、在JDK 7时引入的java.lang.invoke包，等等。
+						- 2.**在前端编译器层面做的改进。这种改进被称作语法糖。**实际上就是Javac编译器在程序中使用到包装对象的地方自动插入了很多Integer.valueOf()、Float.valueOf()之类的代码；变长参数在编译之后就被自动转化成了一个数组来完成参数传递；泛型的信息则在编译阶段就已经被擦除掉了（但是在元数据中还保留着），相应的地方被编译器自动插入了类型转换代码。
+						- 3.**需要在字节码中进行支持的改动**。如JDK 7里面新加入的语法特性——动态语言支持，就需要在虚拟机中新增一条invokedynamic字节码指令来实现相关的调用功能。不过字节码指令集一直处于相对稳定的状态，这种要在字节码层面直接进行的改动是比较少见的。
+						- 4.**需要在JDK整体结构层面进行支持的改进**，典型的如JDK 9时引入的Java模块化系统，它就涉及了JDK结构、Java语法、类加载和连接过程、Java虚拟机等多个层面。
+						- 5.**集中在虚拟机内部的改进**。如JDK 5中实现的JSR-133规范重新定义的Java内存模型（Java Memory Model，JMM），以及在JDK 7、JDK 11、JDK 12中新增的G1、ZGC和Shenandoah收集器之类的改动，这种改动对于程序员编写代码基本是透明的，只会在程序运行时产生影响。
+						- Java的逆向移植工具其实目前只能实现前三类的功能。
+					-
 		- 三方类库
 		  collapsed:: true
 			- Guava
@@ -4761,6 +4789,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -4779,7 +4808,6 @@
 				- 复制一行：`command` + `D`
 	- VS Code
 - 构建工具
-  collapsed:: true
 	- Maven
 		- 基础知识
 			- DependencyManagement标签的使用
@@ -4810,7 +4838,6 @@
 				- 以上面这段配置来做说明，它将 `spring-boot-dependencies`  中 `DependencyManagement` 下的 `Dependencies` 插入到当前工程的 `DependencyManagement` 中，所以不存在依赖传递。
 				- 当没有 `<scope>import</scope>` 时，意思是将 `spring-boot-dependencies`  的 `Dependencies` 全部插入到当前工程的 `Dependencies` 中，并且会依赖传递。
 			- 指定jdk编译版本号
-			  collapsed:: true
 				- 参见如下代码
 				  ```xml
 				  <build>

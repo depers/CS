@@ -149,52 +149,162 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
+		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
 			- Ioc的类型
 			  collapsed:: true
 				- 一构造函数注入
+				  collapsed:: true
 					- 在调用类的构造函数中将接口实现类的对象赋给接口实例，从而实现依赖注入
 					- 缺点
+					  collapsed:: true
 						- 每次创建调用类对象时都要完成对实现类接口实例的注入，在某些场景下我们可能并不需要使用该实现类接口的实例，存在资源浪费的情况
 				- 二属性注入
+				  collapsed:: true
 					- 属性注入是可以有选择的通过Setter方法完成对调用类所需依赖的实现类实例的注入，更加灵活
 				- 三接口注入
+				  collapsed:: true
 					- 将调用类所有依赖注入的逻辑抽取到一个接口中，调用类通过实现该接口提供相应的注入方法。这种方式与构造函数注入和属性注入区别不大，还新增了一个接口增加了类的数量，不推荐使用。
 				- Spring支持**构造函数注入**和**属性注入**。
 			- 通过容器完成依赖关系的注入
+			  collapsed:: true
 				- 从上一节Ioc的类型中我们看到，我们虽然实现了调用类和实现类的解耦，但是在调用类的代码中仍然存在实现类接口的代码，要想将实现类接口的代码也剔除的话，我们就需要一个三方的容器来去维护和管理两个类之间的依赖关系，Spring Ioc容器就是为此而生的。
 				- Spring Ioc容器的实现依赖于Java反射。
 			- Java相关的知识点
+			  collapsed:: true
 				- 类加载器ClassLoader
 				- Java反射相关知识
 			- 资源访问
+			  collapsed:: true
 				- Spring提供的Resource接口，提供了更强大的底层资源访问的能力
+				  collapsed:: true
 					- [使用Resource](https://www.liaoxuefeng.com/wiki/1252599548343744/1282383017934882)
 					- [Access a File from the Classpath in a Spring Application](https://www.baeldung.com/spring-classpath-file-access)
 				- 资源加载
+				  collapsed:: true
 					- 资源地址表达式
+					  collapsed:: true
 						- `classpath:`和`classpath*:`的区别
+						  collapsed:: true
 							- `classpath:com/smart/module*.xml`只会加载**一个**模块的配置文件
 							- `classpath*:com/smart/module*.xml`会加载com/smart目录下**所有的**以mudule开头的xml文件
 						- 支持的地址前缀
+						  collapsed:: true
 							- `classpath:`：从类路径中加载，后面跟类的绝对地址
 							- `file:`：使用`UrlResource`从文件系统中加载资源，可以是绝对地址或相对地址
 							- `http://`：使用`UrlResource`从文件系统中加载资源
 							- `ftp://`：使用`UrlResource`从FTP服务器加载资源
 							- `没有前缀`：根据`ApplicationContext`的具体实现类采用对应类型的`Resource`
 						- 支持Ant风格带通配符的资源地址，支持以下三种通配符
+						  collapsed:: true
 							- `?`：匹配文件名中的一个字符
 							- `*`：匹配文件名中的任意字符
 							- `**`：匹配多层路径
 					- 资源加载器
+					  collapsed:: true
 						- ResourceLoader接口，仅支持带资源类型前缀的表达式，不支持Ant风格的资源路径表达式
 						- ResourcePatternResolver，扩展了ResourceLoader接口，支持带资源类型前缀的表达式和Ant风格的资源路径表达式
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
+			- BeanFactory和ApplicationContext
+			  collapsed:: true
+				- BeanFactory
+				  collapsed:: true
+					- 功能
+						- 一般称BeanFactory为Ioc容器
+						- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
+						- BeanFactory是Spring最核心的接口，他提供了高级的Ioc配置机制。
+						- BeanFactory是Spring框架的基础设施，面向Spring本身。
+					- BeanFactory的类体系结构
+						- Spring为BeanFactory提供了多种实现，建议使用XmlBeanDefinitionReader、DefaultListableBeanFactory进行Spring Ioc容器的启动。
+						- BeanFactory的重要方法是getBean(String beanName)，该方法用于从容器中返回特定名称的Bean。
+						- `ListableBeanFactory`：该接口定义了访问容器中Bean基本信息的若干方法。
+						- `HierarchicalBeanFactory`：父子级联Ioc容器的接口，子容器可以通过该接口访问父容器。
+						- `ConfiguraleBeanFactory`：增强了Ioc容器的可定制性。
+						- `AutowireCapableBeanFactory`：定义了将容器中的Bean按照某种规则进行自动装配的方法。
+						- `singletonBeanRegistry`：定义了在运行期向容器注册单实例Bean的方法。
+						- `BeanDefinitionRegistry`：提供了向容器手工注册BeanDefinition对象的方法。
+				- ApplicationContext
+				  collapsed:: true
+					- 功能
+						- 一般称Application为Spring容器
+						- ApplicationContext是面向使用Spring的开发者，几乎所有的场合可以直接使用ApplicationContext而不是BeanFactory。
+						- ApplictionContext是建立在BeanFactory之上的，提供了更多面向应用的功能。
+					- 与BeanFactory的重大区别
+						- BeanFacotry在初始化容器的时候，并未实例化Bean，直到第一次访问某个Bean时才实例化目标Bean。此一次访问这个Bean时会消耗过多的时间。
+						- Application在初始化应用上下文时就实例化所有的单实例的bean，ApplicationContext的初始化时间比BeanFactory的时间会长一点，但是第一次访问Bean就会很快。
+					- ApplicationContext的初始化
+						- `ClassPathXmlApplicationContext`，若配置文件在类路径下，使用这个类初始化ApplicationContext
+						- `FileSystemXmlApplicationContext`，若配置文件在文件系统的路径下，使用这个类初始化ApplicationContext
+						- `ClassPathXmlApplicationContext`与`FileSystemXmlApplicationContext`的区别在于在不显示声明资源类型前缀的情况下，他两分别会将路径解析为类路径和文件系统路径。
+					- Spring支持基于注解的配置方式
+						- 这部分功能主要由JavaConfig这个项目来负责实现。
+						- Spring为注解类的配置提供了`ApplicationContext`的实现类：`AnnotationConfigApplicationContext`。
+					- Spring4.0支持使用Groovy DSL来进行Bean定义的配置
+					- ApplicationContext的类体系结构
+						- `ApplicationEventPublisher`：让容器具有发布应用上下文事件的功能。
+						- `MessageSource`：为程序提供i18n国际化消息访问的功能。
+						- `ResourcePatternResolver`：可以通过带前缀的Ant风格的资源文件路径装载Spring的配置文件。
+						- `LifeCycle`：主要用于控制异步处理过程。
+				- WebApplicationContext
+				  collapsed:: true
+					- 功能
+						- WebApplicationContext是专门为web程序服务的，他允许相对于Web根目录的路径中装载文件完成初始化工作。
+					- WebApplicationContext的类体系结构
+						- WebApplicationContext作为属性放置在ServletContext中，Spring提供了`WebApplicationContextUtils`工具类，可以通过该类的`getWebApplicationContext(ServletContext sc)`方法，从`ServletContext`中获取`WebApplicationContext`实例。
+						- 在非web应用的环境下，Bean只有`singleton`和`prototype`两种作用域，WebApplicationContext提供了三个新的作用域：`request`、`session`、`global session`。
+						- `ConfigurableWebApplicationContext`扩展了WebApplicationContext，允许我们通过配置化的方式实例化WebApplicationContext。
+					- WebApplicationContext的初始化
+						- 可以在web.xml配置自启动的Servlet或定义Web容器监听器（ServletContextLister），
+				- 父子容器
+				  collapsed:: true
+					- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
+					- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
+			- Bean的生命周期
+			  collapsed:: true
+				- BeanFactory中Bean的生命周期
+					- 生命周期图
+					  ![BeanFactory的生命周期.png](../assets/BeanFactory的生命周期_1684648090473_0.png)
+					- 生命周期分类分析，划分为4类
+						- Bean自身的方法
+						  collapsed:: true
+							- 调用Bean构造函数，实例化Bean
+							- 调用Setter方法设置Bean的属性
+							- 通过`<bean>`的`init-method`和`destory-method`所指定的方法
+						- Bean生命周期接口方法，下面的这些接口有Bean类自己直接实现
+						  collapsed:: true
+							- `BeanNameAware.setBeanName()`：将配置文件中该Bean的名称设置到Bean中。
+							- `BeanFactoryAware.setBeanFactory()`：将BeanFactory容器实例设置到Bean中。
+							- `InitializingBean.afterPropertiesSet()`：这个方法在设置了所有Bean属性后才执行初始化逻辑。
+							- `DisposableBeandestroy()`：当容器关闭时，将调用该方法，可以在这里编写释放资源、记录日志等操作。
+						- 容器级生命周期接口方法，由如下两个接口实现，他们的实现类被称为"**后置处理器**"
+						  collapsed:: true
+							- `InstantiationAwareBeanPostProcessor`接口
+							  collapsed:: true
+								- `postProcessBeforeInstantiation()`：在实例化之前调用
+								- `postProcessAfterInstantiation()`：在实例化之后调用
+								- `postProcessPropertyValues()`：在为Bean设置属性值之前调用
+								- 注意：`InstantiationAwareBeanPostProcessor`其实是`BeanPostProcessor`的子接口，我们一般使用他的适配器类`InstantiationAwareBeanPostProcessorAdapter`进行扩展。
+							- `BeanPostProcessor`接口
+							  collapsed:: true
+								- `postProcessBeforeInitialization()`：使用该方法对Bean进行特殊处理
+								- `postProcessAfterInitialization()`：使用该方法对Bean进行特殊处理
+								- `BeanPostProcessor`接口十分重要，Spring容器提供的AOP和动态代理等功能都是通过它进行实施的。
+							- `InitDestroyAnnotationBeanPostProcessor`类
+								- 用于对加了`@PostConstruct`、`@PreDestory`注解的Bean进行处理
+							- 后处理器的特点
+							  collapsed:: true
+								- 他们独立于Bean，他们的实现类以容器附加的形式注册到Spring容器中，并通过反射被Spring容器扫描识别。
+								- 后处理器是作用范围是**全局性的（容器级的）**
+								- 用户可以通过编写后处理器对特定的Bean进行加工处理
+								- 可以定义多个后处理器，只需要同时实现`org.springframework.core.Ordered`接口指定其加载顺序即可。
+						- 工厂后处理器接口方法
+						  collapsed:: true
+							- 工厂后处理器也是容器级的，在应用上下文装配配置文件之后立即调用。
+					- 具体实践：spring-demo/cn/bravedawn/chapter4/beanfactorydemo
 	- spring-core
-	  collapsed:: true
 		- IOC
 		  collapsed:: true
 			- 对IOC的理解
