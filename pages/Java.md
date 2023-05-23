@@ -2547,11 +2547,18 @@
 			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
-		  collapsed:: true
+			- 五种IO模型
+			  collapsed:: true
+				- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
+			- NIO
+			  collapsed:: true
+				- [Java NIO浅析](https://tech.meituan.com/2016/11/04/nio.html)
 			- System.out/System.err
+			  collapsed:: true
 				- 值得注意的点
 					- 标准输出（System.out）和标准错误输出（System.err）中打印的信息收集起来。但标准输出设备是整个虚拟机进程全局共享的资源，如果使用`System.setOut()`/`System.setErr()`方法把输出流重定向到自己定义的`PrintStream`对象上固然可以收集到输出信息，但也会对原有程序产生影响：会把其他线程向标准输出中打印的信息也收集了。
 			- 字节流
+			  collapsed:: true
 				- 特点
 					- 所有字节流类都继承于 `InputStream` 和 `OutputStream` 。
 					- 不同类型字节流的使用方式差别不大，主要是构造方法有区别。
@@ -2563,6 +2570,7 @@
 				- 参考文章
 					- [Byte Streams](https://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html)
 			- 字符流
+			  collapsed:: true
 				- 特点
 				  collapsed:: true
 					- 所有字符流类都派生自 `Reader` 和 `Writer`。
@@ -2577,7 +2585,8 @@
 				- 具体实践
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
-			- 缓冲流（buffered streams）
+			- 缓冲流（buffered streams）          
+			  collapsed:: true
 				- 背景
 					- 使用未缓冲的IO操作每个读或写请求都由底层操作系统直接处理。这会降低程序的效率，因为每个这样的请求通常会触发磁盘访问、网络活动或其他一些相对昂贵的操作。
 					- **为了减少这种开销，Java 平台实现了缓冲的 I/O 流**。
