@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -328,9 +327,17 @@
 						- main方法的args字符串数组
 						- $ javac Main.java
 						- $ java Main -version
-				- System.arraycopy
+				- System.arraycopy()
 				  collapsed:: true
-					- 参考博客：https://www.geeksforgeeks.org/system-arraycopy-in-java/
+					- 功能
+						- `java.lang.System.arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length)`方法将源数组从特定起始位置复制到目标数组中提到的位置。 要复制的参数数量由参数决定。 将 source_Position 到 source_Position + length – 1 处的组件从 destination_Position 到 destination_Position + length – 1 复制到目标数组。
+					- 特点
+						- **深复制**：当数组为**一维数组**，且元素为**基本类型**或**String**类型（**String**的特殊是因为它的不可变性）时，属于深复制，即原数组与新数组的元素不会相互影响。
+						- **浅复制**：当数组为**多维数组**，或其中一维数组中的元素为**引用类型**时，属于浅复制，原数组与新数组的元素引用指向同一个对象。
+						- 可能会出现的异常
+					- 具体实践：JavaTrain/src/main/java/cn/bravedawn/basic/lang/systemarraycopy
+					- 参考博客：
+						- [System.arraycopy() in Java](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 			- 关键字final和static
 			  collapsed:: true
 				- final
@@ -2541,6 +2548,9 @@
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
 		  collapsed:: true
+			- System.out/System.err
+				- 值得注意的点
+					- 标准输出（System.out）和标准错误输出（System.err）中打印的信息收集起来。但标准输出设备是整个虚拟机进程全局共享的资源，如果使用`System.setOut()`/`System.setErr()`方法把输出流重定向到自己定义的`PrintStream`对象上固然可以收集到输出信息，但也会对原有程序产生影响：会把其他线程向标准输出中打印的信息也收集了。
 			- 字节流
 				- 特点
 					- 所有字节流类都继承于 `InputStream` 和 `OutputStream` 。
@@ -2553,7 +2563,6 @@
 				- 参考文章
 					- [Byte Streams](https://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html)
 			- 字符流
-			  collapsed:: true
 				- 特点
 				  collapsed:: true
 					- 所有字符流类都派生自 `Reader` 和 `Writer`。
@@ -2568,8 +2577,7 @@
 				- 具体实践
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
-			- 缓冲流（buffered streams）          
-			  collapsed:: true
+			- 缓冲流（buffered streams）
 				- 背景
 					- 使用未缓冲的IO操作每个读或写请求都由底层操作系统直接处理。这会降低程序的效率，因为每个这样的请求通常会触发磁盘访问、网络活动或其他一些相对昂贵的操作。
 					- **为了减少这种开销，Java 平台实现了缓冲的 I/O 流**。
@@ -2691,6 +2699,7 @@
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
+		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -4808,6 +4817,7 @@
 				- 复制一行：`command` + `D`
 	- VS Code
 - 构建工具
+  collapsed:: true
 	- Maven
 		- 基础知识
 			- DependencyManagement标签的使用

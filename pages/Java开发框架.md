@@ -1,4 +1,5 @@
 - Spring
+  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
 		- 第一章 Spring概述
 		  collapsed:: true
@@ -208,7 +209,7 @@
 						- ResourcePatternResolver，扩展了ResourceLoader接口，支持带资源类型前缀的表达式和Ant风格的资源路径表达式
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
-			- BeanFactory和ApplicationContext
+			- BeanFactory、ApplicationContext和WebApplicationContext
 			  collapsed:: true
 				- BeanFactory
 				  collapsed:: true
@@ -229,25 +230,32 @@
 				- ApplicationContext
 				  collapsed:: true
 					- 功能
+					  collapsed:: true
 						- 一般称Application为Spring容器
 						- ApplicationContext是面向使用Spring的开发者，几乎所有的场合可以直接使用ApplicationContext而不是BeanFactory。
 						- ApplictionContext是建立在BeanFactory之上的，提供了更多面向应用的功能。
 					- 与BeanFactory的重大区别
+					  collapsed:: true
 						- BeanFacotry在初始化容器的时候，并未实例化Bean，直到第一次访问某个Bean时才实例化目标Bean。此一次访问这个Bean时会消耗过多的时间。
 						- Application在初始化应用上下文时就实例化所有的单实例的bean，ApplicationContext的初始化时间比BeanFactory的时间会长一点，但是第一次访问Bean就会很快。
 					- ApplicationContext的初始化
+					  collapsed:: true
 						- `ClassPathXmlApplicationContext`，若配置文件在类路径下，使用这个类初始化ApplicationContext
 						- `FileSystemXmlApplicationContext`，若配置文件在文件系统的路径下，使用这个类初始化ApplicationContext
 						- `ClassPathXmlApplicationContext`与`FileSystemXmlApplicationContext`的区别在于在不显示声明资源类型前缀的情况下，他两分别会将路径解析为类路径和文件系统路径。
 					- Spring支持基于注解的配置方式
+					  collapsed:: true
 						- 这部分功能主要由JavaConfig这个项目来负责实现。
 						- Spring为注解类的配置提供了`ApplicationContext`的实现类：`AnnotationConfigApplicationContext`。
 					- Spring4.0支持使用Groovy DSL来进行Bean定义的配置
 					- ApplicationContext的类体系结构
+					  collapsed:: true
 						- `ApplicationEventPublisher`：让容器具有发布应用上下文事件的功能。
 						- `MessageSource`：为程序提供i18n国际化消息访问的功能。
 						- `ResourcePatternResolver`：可以通过带前缀的Ant风格的资源文件路径装载Spring的配置文件。
 						- `LifeCycle`：主要用于控制异步处理过程。
+					- 参考文章
+						- [The Spring ApplicationContext](https://www.baeldung.com/spring-application-context)
 				- WebApplicationContext
 				  collapsed:: true
 					- 功能
@@ -257,30 +265,28 @@
 						- 在非web应用的环境下，Bean只有`singleton`和`prototype`两种作用域，WebApplicationContext提供了三个新的作用域：`request`、`session`、`global session`。
 						- `ConfigurableWebApplicationContext`扩展了WebApplicationContext，允许我们通过配置化的方式实例化WebApplicationContext。
 					- WebApplicationContext的初始化
-						- 可以在web.xml配置自启动的Servlet或定义Web容器监听器（ServletContextLister），
+						- 可以在web.xml配置**自启动的Servlet**或**定义Web容器监听器**（ServletContextLister），
 				- 父子容器
 				  collapsed:: true
 					- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
 					- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
 			- Bean的生命周期
 			  collapsed:: true
-				- BeanFactory中Bean的生命周期
+				- `BeanFactory`中Bean的生命周期
+				  collapsed:: true
 					- 生命周期图
 					  ![BeanFactory的生命周期.png](../assets/BeanFactory的生命周期_1684648090473_0.png)
 					- 生命周期分类分析，划分为4类
 						- Bean自身的方法
-						  collapsed:: true
 							- 调用Bean构造函数，实例化Bean
 							- 调用Setter方法设置Bean的属性
 							- 通过`<bean>`的`init-method`和`destory-method`所指定的方法
-						- Bean生命周期接口方法，下面的这些接口有Bean类自己直接实现
-						  collapsed:: true
+						- Bean生命周期接口方法，下面的这些接口由Bean类自己直接实现
 							- `BeanNameAware.setBeanName()`：将配置文件中该Bean的名称设置到Bean中。
 							- `BeanFactoryAware.setBeanFactory()`：将BeanFactory容器实例设置到Bean中。
 							- `InitializingBean.afterPropertiesSet()`：这个方法在设置了所有Bean属性后才执行初始化逻辑。
 							- `DisposableBeandestroy()`：当容器关闭时，将调用该方法，可以在这里编写释放资源、记录日志等操作。
 						- 容器级生命周期接口方法，由如下两个接口实现，他们的实现类被称为"**后置处理器**"
-						  collapsed:: true
 							- `InstantiationAwareBeanPostProcessor`接口
 							  collapsed:: true
 								- `postProcessBeforeInstantiation()`：在实例化之前调用
@@ -295,15 +301,113 @@
 							- `InitDestroyAnnotationBeanPostProcessor`类
 								- 用于对加了`@PostConstruct`、`@PreDestory`注解的Bean进行处理
 							- 后处理器的特点
-							  collapsed:: true
 								- 他们独立于Bean，他们的实现类以容器附加的形式注册到Spring容器中，并通过反射被Spring容器扫描识别。
 								- 后处理器是作用范围是**全局性的（容器级的）**
 								- 用户可以通过编写后处理器对特定的Bean进行加工处理
 								- 可以定义多个后处理器，只需要同时实现`org.springframework.core.Ordered`接口指定其加载顺序即可。
-						- 工厂后处理器接口方法
-						  collapsed:: true
+						- 工厂后置处理器接口方法
 							- 工厂后处理器也是容器级的，在应用上下文装配配置文件之后立即调用。
 					- 具体实践：spring-demo/cn/bravedawn/chapter4/beanfactorydemo
+				- `ApplicationContext`中Bean的生命周期
+				  collapsed:: true
+					- 生命周期图
+					  ![ApplicationContext上bean的生命周期.png](../assets/ApplicationContext上bean的生命周期_1684722873669_0.png)
+					- 相比于BeanFactory中Bean的生命周期的分类，有两处新增的逻辑
+					  collapsed:: true
+						- Bean生命周期接口方法
+							- 新增了调用`ApplicationContextAware.setApplicationContext()`方法
+						- 工厂后置处理器接口方法
+							- 新增了调用`BeanFactoryPostProcessor.postProcessBeanFactory()`方法
+								- 发生在应用上下文在装载配置文件之后，在Bean实例化之前调用，用于对配置文件中Bean的信息进行加工处理
+					- 具体实践：spring-demo/cn/bravedawn/chapter4/applicationbeanfactorydemo
+				- `ApplicationContext`与`BeanFactory`的不同之处
+				  collapsed:: true
+					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
+					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
+		- 第五章 在Ioc容器中装配Bean
+			- Spring配置概述
+				- Spring容器的高层视图
+				  collapsed:: true
+					- Bean的配置信息是Bean的元数据信息，由以下四部分组成
+					  collapsed:: true
+						- Bean的实现类。
+						- Bean的属性信息，如数据库连接数、用户名、密码等。
+						- Bean的依赖关系，Spring根据依赖关系配置Bean之间的装配。
+						- Bean的行为配置，如生命周期范围及生命周期各过程的回调函数等。
+					- Spring容器、Bean配置信息、Bean实现类及应用程序四者之间的相互关系，如下图
+					  ![Spring内容协作图.png](../assets/Spring内容协作图_1684734065513_0.png){:height 364, :width 686}
+				- Spring Bean的配置方式
+				  collapsed:: true
+					- 基于XML的配置（Spring1.0）
+					  collapsed:: true
+						- XML DTD
+						- XML Schema（XSD，Spring2.0）
+					- 基于注解的配置（Spring2.0)
+					- 基于Java类的配置（Spring3.0)
+					- 基于Groovy动态语言配置（Spring4.0)
+					- 参考文章
+					  collapsed:: true
+						- [Spring中有几种配置方式(xml、注解＜jsr250＞、JavaConfig)](https://blog.csdn.net/m0_45406092/article/details/115203753)
+				- Bean的基本配置
+				  collapsed:: true
+					- Bean的装配
+						- xml中bean最基础的配置是`id`和`class`两个属性
+						  ```xml
+						  <bean id="car" class="cn.bravedawn.chapter4.applicationbeanfactorydemo.Car"/>
+						  ```
+					- Bean的命名
+						- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
+				- 依赖注入
+				  collapsed:: true
+					- 属性注入
+					  collapsed:: true
+						- 定义：属性注入是指通过setXX()方法注入Bean的属性朱或依赖对象。
+						- 代码实例：
+						  ```xml
+						  <bean id="car" class="cn.abc.Car">
+						    <property name="maxSpeed"><value>200</value></property>
+						    <property name="color"><value>黑色</value></property>
+						    <property name="name"><value>奇瑞QQ</value></property>
+						  </bean>
+						  ```
+						- 具体实现：
+							- 属性注入要求Bean提供一个默认的构造函数，并为需要注入的属性提供对应的Setter方法。
+							- Spring会先调用bean的构造函数实例化一个bean对象，然后通过反射的方式调用Setter方法注入属性值。
+						- 值得注意：**Spring会检查bean的属性值在实现类中是否有对应的Setter方法，并不要求实现类必须有这个属性成员**
+						- JavaBean关于属性命名的特殊规范
+							- 一般而言：属性名是小写为xxx，则对应的方法名为setXxx()
+							- 考虑到一些特定意义的缩写是大写字母开头的，JavaBean要求：**变量的前两个字母要么全部大写要么全部小写**，也就是说“brand，IDCode，IC”这样的属性名是合法的，但是“iD，iDCard”则是不合法的。
+					- 构造函数注入
+					  collapsed:: true
+						- 定义：构造函数注入是另一种比较常用的注入方式，它保证了一些必要的参数在Bean实例化时就能到的设置，确保Bean实例化后就可以使用。
+						- 相比于属性入参的优点
+							- 属性注入并不保证实现类必须具有属性成员，而构造函数注入则可以在语法级上保证实例化的对象类必须有相应的属性成员。
+						- 构造函数注入的四种方式
+							- 一按类型类型入参
+							  collapsed:: true
+								- 构造函数的每一个入参都是不同类型的，Spring可以通过**入参类型**将不同的属性在实例化时进行赋值。
+							- 二索引匹配入参
+							  collapsed:: true
+								- 如果两个入参的类型相同，通过入参类型Spring并不能准确的进行成员变量的赋值。所以通过为入参设置索引，从而使Spring能够准确的为相同类型的入参进行赋值。
+							- 三联合使用类型和索引匹配入参
+							  collapsed:: true
+								- 若存在两个构造函数，他们的入参数量相同，但是参入的类型却不同，此时Spring就需要结合入参类型和索引去匹配正确的构造函数。
+							- 四通过自身类型反射匹配入参
+							  collapsed:: true
+								- 若入参的类型不是基础数据类型且入参类型各异，Spring可以通过反射获得入参的数据类型，从而匹配正确的构造函数。
+						- 循环依赖问题
+							- 问题阐述：Spring在实例化一个Bean的时候要求Bean构造函数入参引用的对象必须已经实例化完成。BeanA的构造函数中有入参BeanB的对象，BeanB的构造函数中有入参BeanA的对象，两个Bean都采用构造函数注入，就会发生类似于线程死锁的循环依赖问题。
+							- 解决办法：只需要修改其中一个Bean的注入方式为属性注入就可以解决
+					- 工厂方法注入
+					  collapsed:: true
+						- 定义：可以使用Spring工厂方法注入的方式，对Bean进行实例化。
+						- 工厂方法注入的方式
+							- 一非静态工厂方法
+								- 使用场景：若工厂方法是非静态的，必须先实例化工厂类之后才能调用工厂方法。
+							- 二静态工厂方法
+								- 使用场景：若工厂方法是静态的，则无需实例化工厂类就可以调用工厂类方法。
+							-
+					-
 	- spring-core
 		- IOC
 		  collapsed:: true
