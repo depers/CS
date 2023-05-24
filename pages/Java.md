@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -915,16 +916,13 @@
 				- 内部类
 				  collapsed:: true
 					- 内部类
-					  collapsed:: true
 						- 可以用Outer.this引用Outer实例
 						- 可以修改Outer Class的private字段
 						- 可以访问Outer Class的private字段和方法
 					- 匿名内部类
-					  collapsed:: true
 						- 通过实现一个接口或是抽象类来定义一个匿名内部类，从而实例化一个接口或是抽象类
 						- 匿名类也完全可以继承自普通类
 					- 静态内部类
-					  collapsed:: true
 						- 和内部类类似，但是使用static修饰
 						- 不再依附于Outer的实例，而是一个完全独立的类，因此无法引用Outer.this
 						- 可以访问Outer的private静态字段和静态方法
@@ -1720,6 +1718,7 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2547,6 +2546,7 @@
 			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
+		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
@@ -2714,6 +2714,7 @@
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 				- 运行时数据区域
+				  collapsed:: true
 					- 程序计数器
 					  collapsed:: true
 						- 作用
@@ -2721,20 +2722,16 @@
 							- 执行字节码的行号指示器。
 							- 通过改变计数器的值，来选取下一条需要执行的字节码指令。
 					- Java虚拟机栈
-					  collapsed:: true
 						- 作用
-						  collapsed:: true
 							- Java虚拟机栈描述的是Java方法执行的内存模型。说通俗点就是存储栈帧的。
 							- Java中每个方法执行的同时会创建一个栈帧（Stack Frame）用于存储局部变量比表、操作数栈、动态链接、方法返回值等信息。
 							- 每一个方法调用直至执行完成的过程，就对应着一个栈帧在虚拟机中入栈和出栈的过程。
 					- 本地方法栈
-					  collapsed:: true
 						- 作用：与Java虚拟机栈不同，本地方法栈描述的是native方法执行的内存模型。
 					- Java堆
 					  collapsed:: true
 						- 作用：用来存储应用系统创建的对象和数组。
 						- 区域划分
-						  collapsed:: true
 							- 区域图
 							  ![JVM堆的区域划分.webp](../assets/JVM堆的区域划分_1680093136228_0.webp)
 							- 元空间（Metadata Space，JDK1.8之前叫永久代）：像一些方法中的操作临时对象等，JDK1.8之前是占用JVM内存，JDK1.8之后直接使用物理内存
@@ -3400,7 +3397,6 @@
 							- 作用：用于存放方法参数和方法内部定义的局部变量。
 							- 大小：Class文件Code属性的`max_locals`数据项确定了该方法局部变量表的最大容量。
 							- Slot-变量槽
-							  collapsed:: true
 								- 每个Slot占用32位长度的内存空间。其实虚拟机规范中并没有明确规定一个变量槽的具体大小，这个变量槽的大小可以根据处理器、操作系统和虚拟机的实现不同而发生变化。
 								- Java中占用32位以内的数据类型有：boolean, byte, char, short, int, float, reference和returnAddress。
 								  collapsed:: true
@@ -3753,8 +3749,8 @@
 	- 新特性
 	  collapsed:: true
 		- Java8
-		  collapsed:: true
 			- 我不会的函数
+			  collapsed:: true
 				- java.util.Map#compute
 				- java.util.Map#merge
 				- java.util.function.BiFunction
@@ -3764,6 +3760,7 @@
 				- java.util.function.BiConsumer
 				- 空笔记
 			- stream操作
+			  collapsed:: true
 				- Stream生命周期
 					- 流由三部分构成：数据源，一个或多个中间操作，一个或多个终止操作。
 					- **数据源**：为流提供数据。
@@ -3780,6 +3777,19 @@
 						- JavaTrain：cn/bravedawn/java8/stream/peek
 				- findAny
 				- findFirst
+			- Optional类
+			  collapsed:: true
+				- [Java 8 Optional 类](https://www.runoob.com/java/java8-optional-class.html)
+			- Lambda表达式
+				- Variable used in lambda expression should be final or effectively final
+				  collapsed:: true
+					- 这句话的意思是说lambda 表达式只能引用标记了 final 的外层局部变量，也就是说不能在 lambda 内部修改定义在域外的局部变量，否则会编译错误。
+					- 捕获 Lambda
+						- Lambda 表达式可以使用在外部作用域中定义的变量。 我们将这些 lambda 称为捕获 lambda。 它们可以捕获静态变量、实例变量和局部变量，但只有局部变量必须是最终的或实际上是最终的。
+				- 参考文章
+					- [Final vs Effectively Final in Java](https://www.baeldung.com/java-effectively-final)
+					- [Why Do Local Variables Used in Lambdas Have to Be Final or Effectively Final?](https://www.baeldung.com/java-lambda-effectively-final-local-variables)
+					-
 	- 命令行工具
 	  collapsed:: true
 		- java
