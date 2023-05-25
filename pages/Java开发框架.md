@@ -1,5 +1,4 @@
 - Spring
-  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
 		- 第一章 Spring概述
 		  collapsed:: true
@@ -326,6 +325,7 @@
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
 			- Spring配置概述
+			  collapsed:: true
 				- Spring容器的高层视图
 				  collapsed:: true
 					- Bean的配置信息是Bean的元数据信息，由以下四部分组成
@@ -337,7 +337,6 @@
 					- Spring容器、Bean配置信息、Bean实现类及应用程序四者之间的相互关系，如下图
 					  ![Spring内容协作图.png](../assets/Spring内容协作图_1684734065513_0.png){:height 364, :width 686}
 				- Spring Bean的配置方式
-				  collapsed:: true
 					- 基于XML的配置（Spring1.0）
 					  collapsed:: true
 						- XML DTD
@@ -348,66 +347,98 @@
 					- 参考文章
 					  collapsed:: true
 						- [Spring中有几种配置方式(xml、注解＜jsr250＞、JavaConfig)](https://blog.csdn.net/m0_45406092/article/details/115203753)
-				- Bean的基本配置
+			- Bean的基本配置
+			  collapsed:: true
+				- Bean的装配
+					- xml中bean最基础的配置是`id`和`class`两个属性
+					  ```xml
+					  <bean id="car" class="cn.bravedawn.chapter4.applicationbeanfactorydemo.Car"/>
+					  ```
+				- Bean的命名
+					- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
+			- 依赖注入
+			  collapsed:: true
+				- 属性注入
 				  collapsed:: true
-					- Bean的装配
-						- xml中bean最基础的配置是`id`和`class`两个属性
-						  ```xml
-						  <bean id="car" class="cn.bravedawn.chapter4.applicationbeanfactorydemo.Car"/>
+					- 定义：属性注入是指通过setXX()方法注入Bean的属性朱或依赖对象。
+					- 代码实例：
+					  ```xml
+					  <bean id="car" class="cn.abc.Car">
+					    <property name="maxSpeed"><value>200</value></property>
+					    <property name="color"><value>黑色</value></property>
+					    <property name="name"><value>奇瑞QQ</value></property>
+					  </bean>
+					  ```
+					- 具体实现：
+						- 属性注入要求Bean提供一个默认的构造函数，并为需要注入的属性提供对应的Setter方法。
+						- Spring会先调用bean的构造函数实例化一个bean对象，然后通过反射的方式调用Setter方法注入属性值。
+					- 值得注意：**Spring会检查bean的属性值在实现类中是否有对应的Setter方法，并不要求实现类必须有这个属性成员**
+					- JavaBean关于属性命名的特殊规范
+						- 一般而言：属性名是小写为xxx，则对应的方法名为setXxx()
+						- 考虑到一些特定意义的缩写是大写字母开头的，JavaBean要求：**变量的前两个字母要么全部大写要么全部小写**，也就是说“brand，IDCode，IC”这样的属性名是合法的，但是“iD，iDCard”则是不合法的。
+				- 构造函数注入
+				  collapsed:: true
+					- 定义：构造函数注入是另一种比较常用的注入方式，它保证了一些必要的参数在Bean实例化时就能到的设置，确保Bean实例化后就可以使用。
+					- 代码实例
+						- Java部分代码
+						  ```java
+						  public class Car {
+						    
+						    private String brand;
+						    private double price;
+						    
+						    public Car(String brand, double price) {
+						      this.brand = brand;
+						      this.price = price;
+						    }
+						  }
 						  ```
-					- Bean的命名
-						- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
-				- 依赖注入
-				  collapsed:: true
-					- 属性注入
-					  collapsed:: true
-						- 定义：属性注入是指通过setXX()方法注入Bean的属性朱或依赖对象。
-						- 代码实例：
+						- XML部分代码
 						  ```xml
-						  <bean id="car" class="cn.abc.Car">
-						    <property name="maxSpeed"><value>200</value></property>
-						    <property name="color"><value>黑色</value></property>
-						    <property name="name"><value>奇瑞QQ</value></property>
+						  <bean id="car1" class="cn.bravedawn.Car">
+						    <constructor-arg type="java.lang.String">
+						      <value>红旗A72</value>
+						    </constructor-arg>
+						    <constructor-arg type="double">
+						      <value>20.1</value>
+						    </constructor-arg>
 						  </bean>
 						  ```
-						- 具体实现：
-							- 属性注入要求Bean提供一个默认的构造函数，并为需要注入的属性提供对应的Setter方法。
-							- Spring会先调用bean的构造函数实例化一个bean对象，然后通过反射的方式调用Setter方法注入属性值。
-						- 值得注意：**Spring会检查bean的属性值在实现类中是否有对应的Setter方法，并不要求实现类必须有这个属性成员**
-						- JavaBean关于属性命名的特殊规范
-							- 一般而言：属性名是小写为xxx，则对应的方法名为setXxx()
-							- 考虑到一些特定意义的缩写是大写字母开头的，JavaBean要求：**变量的前两个字母要么全部大写要么全部小写**，也就是说“brand，IDCode，IC”这样的属性名是合法的，但是“iD，iDCard”则是不合法的。
-					- 构造函数注入
-					  collapsed:: true
-						- 定义：构造函数注入是另一种比较常用的注入方式，它保证了一些必要的参数在Bean实例化时就能到的设置，确保Bean实例化后就可以使用。
-						- 相比于属性入参的优点
-							- 属性注入并不保证实现类必须具有属性成员，而构造函数注入则可以在语法级上保证实例化的对象类必须有相应的属性成员。
-						- 构造函数注入的四种方式
-							- 一按类型类型入参
-							  collapsed:: true
-								- 构造函数的每一个入参都是不同类型的，Spring可以通过**入参类型**将不同的属性在实例化时进行赋值。
-							- 二索引匹配入参
-							  collapsed:: true
-								- 如果两个入参的类型相同，通过入参类型Spring并不能准确的进行成员变量的赋值。所以通过为入参设置索引，从而使Spring能够准确的为相同类型的入参进行赋值。
-							- 三联合使用类型和索引匹配入参
-							  collapsed:: true
-								- 若存在两个构造函数，他们的入参数量相同，但是参入的类型却不同，此时Spring就需要结合入参类型和索引去匹配正确的构造函数。
-							- 四通过自身类型反射匹配入参
-							  collapsed:: true
-								- 若入参的类型不是基础数据类型且入参类型各异，Spring可以通过反射获得入参的数据类型，从而匹配正确的构造函数。
-						- 循环依赖问题
-							- 问题阐述：Spring在实例化一个Bean的时候要求Bean构造函数入参引用的对象必须已经实例化完成。BeanA的构造函数中有入参BeanB的对象，BeanB的构造函数中有入参BeanA的对象，两个Bean都采用构造函数注入，就会发生类似于线程死锁的循环依赖问题。
-							- 解决办法：只需要修改其中一个Bean的注入方式为属性注入就可以解决
-					- 工厂方法注入
-					  collapsed:: true
-						- 定义：可以使用Spring工厂方法注入的方式，对Bean进行实例化。
-						- 工厂方法注入的方式
-							- 一非静态工厂方法
-								- 使用场景：若工厂方法是非静态的，必须先实例化工厂类之后才能调用工厂方法。
-							- 二静态工厂方法
-								- 使用场景：若工厂方法是静态的，则无需实例化工厂类就可以调用工厂类方法。
-							-
-					-
+					- 相比于属性注入的优点
+						- 属性注入并不保证实现类必须具有属性成员，而构造函数注入则可以在语法级上保证实例化的对象类必须有相应的属性成员。
+					- 构造函数注入的四种方式
+						- 一按类型类型入参
+							- 构造函数的每一个入参都是不同类型的，Spring可以通过**入参类型**将不同的属性在实例化时进行赋值。
+						- 二索引匹配入参
+							- 如果两个入参的类型相同，通过入参类型Spring并不能准确的进行成员变量的赋值。所以通过为入参设置索引，从而使Spring能够准确的为相同类型的入参进行赋值。
+						- 三联合使用类型和索引匹配入参
+							- 若存在两个构造函数，他们的入参数量相同，但是参入的类型却不同，此时Spring就需要结合入参类型和索引去匹配正确的构造函数。
+						- 四通过自身类型反射匹配入参
+							- 若入参的类型不是基础数据类型且入参类型各异，Spring可以通过反射获得入参的数据类型，从而匹配正确的构造函数。
+					- 循环依赖问题
+						- 问题阐述：Spring在实例化一个Bean的时候要求Bean构造函数入参引用的对象必须已经实例化完成。BeanA的构造函数中有入参BeanB的对象，BeanB的构造函数中有入参BeanA的对象，两个Bean都采用构造函数注入，就会发生类似于线程死锁的循环依赖问题。
+						- 解决办法：只需要修改其中一个Bean的注入方式为属性注入就可以解决
+				- 工厂方法注入
+				  collapsed:: true
+					- 定义：可以使用Spring工厂方法注入的方式，对Bean进行实例化。
+					- 工厂方法注入的方式
+						- 一非静态工厂方法
+							- 使用场景：若工厂方法是非静态的，必须先实例化工厂类之后才能调用工厂方法。落到具体的实现上面，首先要定义一个工厂类的Bean，然后再通过`factory-bean`和`factory-method`指定工厂实例和对应的工厂方法生成具体的Bean。
+						- 二静态工厂方法
+							- 使用场景：若工厂方法是静态的，则无需实例化工厂类就可以调用工厂类方法。落到具体的实现上面，我们无需定义工厂类的Bean，直接在实例Bean上配置`factory-bean`和`factory-method`就行。
+			- 注入参数详解
+				- 字面值
+				  collapsed:: true
+					- 字面值一般指的就是字符串
+					- 字面值可以通过**<value>**元素标签进行注入，在默认情况下，基本数据类型及其封装类、String等类型都可以采用字面值的方式进行注入。Spring内置了**编辑器**可以将字面值转换为相应类型的变量。
+					- XMl中有五种特殊字符，分别是`&`，`<`，`>`，`“`，`‘`。使用的时候可以用`<![CDATA[]]>`标签包裹，或者使用这五个字符的转义字符进行表示。
+				- 引用其他Bean
+				  collapsed:: true
+					- 在Bean定义时可以通过<ref>标签对其他Bean进行引用。
+				- 内部Bean
+				- null值
+				- 级联属性
+				- 集合类型属性
 	- spring-core
 		- IOC
 		  collapsed:: true

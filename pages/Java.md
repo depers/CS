@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1086,6 +1085,7 @@
 					- 缺点
 						- 传输效率会降低，因为它把原始数据的长度增加了1/3
 			- 哈希算法
+			  collapsed:: true
 				- 定义：哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。
 				- 特点
 					- 无论输入的消息有多长，计算出来的消息摘要的长度总是固定的
@@ -1165,6 +1165,7 @@
 					- 缺点
 						- 不能防止中间人攻击
 			- 非对称加密算法
+			  collapsed:: true
 				- 定义：非对称加密就是加密和解密使用的不是相同的密钥，只有同一个公钥-私钥对才能正常加解密。
 				- 特性
 					- RSA密钥有256/512/1024/2048/4096等不同的长度。
@@ -1180,6 +1181,7 @@
 					- 小红将AES的密钥用小明的RSA公钥加密，小明用自己的RSA私钥解密得到AES密钥
 					- 双方使用这个共享的AES口令用AES加密通信
 			- 签名算法
+			  collapsed:: true
 				- 目的：使用数字签名的目的是为了确认信息确实由某个发送的，任何人都不能伪造，并且发送方也不能抵赖
 				- 使用
 					- 数字签名就是用发送方的私钥对原始数据进行签名，只有用发送方公钥才能通过签名验证
@@ -1207,6 +1209,7 @@
 						- 比特币的签名算法就采用了ECDSA算法
 						- BouncyCastle提供了ECDSA的完整实现
 			- 数字证书
+			  collapsed:: true
 				- 背景：摘要算法用来确保数据没有被篡改，非对称加密算法可以对数据进行加解密，签名算法可以确保数据完整性和抗否认性，把这些算法集合到一起，并搞一套完善的标准，这就是数字证书
 				- 定义：集合了多种密码学算法，用于实现数据加解密、身份认证、签名等多种功能的一种安全标准
 				- 特点
@@ -1718,7 +1721,6 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2585,8 +2587,7 @@
 				- 具体实践
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
-			- 缓冲流（buffered streams）          
-			  collapsed:: true
+			- 缓冲流（buffered streams）
 				- 背景
 					- 使用未缓冲的IO操作每个读或写请求都由底层操作系统直接处理。这会降低程序的效率，因为每个这样的请求通常会触发磁盘访问、网络活动或其他一些相对昂贵的操作。
 					- **为了减少这种开销，Java 平台实现了缓冲的 I/O 流**。
@@ -2632,7 +2633,6 @@
 				- 对于日期/时间表示
 					- 一般语法：`%[argument_index$][flags][width]conversion`
 			- 创建文件
-			  collapsed:: true
 				- 推荐使用Java 7 nio Files.write 来创建和写入文件，因为它有更简洁的代码并自动关闭打开的资源。
 				- 实现
 					- `Files.newBufferedWriter` (Java 8)
