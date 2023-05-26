@@ -209,9 +209,7 @@
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 			- BeanFactory、ApplicationContext和WebApplicationContext
-			  collapsed:: true
 				- BeanFactory
-				  collapsed:: true
 					- 功能
 						- 一般称BeanFactory为Ioc容器
 						- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
@@ -227,10 +225,8 @@
 						- `singletonBeanRegistry`：定义了在运行期向容器注册单实例Bean的方法。
 						- `BeanDefinitionRegistry`：提供了向容器手工注册BeanDefinition对象的方法。
 				- ApplicationContext
-				  collapsed:: true
 					- 功能
-					  collapsed:: true
-						- 一般称Application为Spring容器
+						- 一般称Application为**Spring容器**
 						- ApplicationContext是面向使用Spring的开发者，几乎所有的场合可以直接使用ApplicationContext而不是BeanFactory。
 						- ApplictionContext是建立在BeanFactory之上的，提供了更多面向应用的功能。
 					- 与BeanFactory的重大区别
@@ -324,6 +320,7 @@
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
+		  collapsed:: true
 			- Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
@@ -337,6 +334,7 @@
 					- Spring容器、Bean配置信息、Bean实现类及应用程序四者之间的相互关系，如下图
 					  ![Spring内容协作图.png](../assets/Spring内容协作图_1684734065513_0.png){:height 364, :width 686}
 				- Spring Bean的配置方式
+				  collapsed:: true
 					- 基于XML的配置（Spring1.0）
 					  collapsed:: true
 						- XML DTD
@@ -350,11 +348,13 @@
 			- Bean的基本配置
 			  collapsed:: true
 				- Bean的装配
+				  collapsed:: true
 					- xml中bean最基础的配置是`id`和`class`两个属性
 					  ```xml
 					  <bean id="car" class="cn.bravedawn.chapter4.applicationbeanfactorydemo.Car"/>
 					  ```
 				- Bean的命名
+				  collapsed:: true
 					- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
 			- 依赖注入
 			  collapsed:: true
@@ -427,18 +427,71 @@
 						- 二静态工厂方法
 							- 使用场景：若工厂方法是静态的，则无需实例化工厂类就可以调用工厂类方法。落到具体的实现上面，我们无需定义工厂类的Bean，直接在实例Bean上配置`factory-bean`和`factory-method`就行。
 			- 注入参数详解
-				- 字面值
+			  collapsed:: true
+				- 1.字面值
 				  collapsed:: true
 					- 字面值一般指的就是字符串
 					- 字面值可以通过**<value>**元素标签进行注入，在默认情况下，基本数据类型及其封装类、String等类型都可以采用字面值的方式进行注入。Spring内置了**编辑器**可以将字面值转换为相应类型的变量。
 					- XMl中有五种特殊字符，分别是`&`，`<`，`>`，`“`，`‘`。使用的时候可以用`<![CDATA[]]>`标签包裹，或者使用这五个字符的转义字符进行表示。
-				- 引用其他Bean
+				- 2.引用其他Bean
 				  collapsed:: true
-					- 在Bean定义时可以通过<ref>标签对其他Bean进行引用。
-				- 内部Bean
-				- null值
-				- 级联属性
-				- 集合类型属性
+					- 在Bean定义时可以通过`<ref>`标签对其他Bean进行引用。
+					- `<ref>`标签有三个属性
+						- bean：可以引用同一容器或父容器的Bean
+						- local：只能引用同一配置文件中定义的Bean
+						- parent：引用父容器的Baen
+				- 3.内部Bean
+				  collapsed:: true
+					- 内部Bean和Java的匿名内部类很像，即没有名字，也不能被其他Bean引用，只能在声明处为外部的Bean提供实例注入。
+				- 4.null值
+				  collapsed:: true
+					- 使用专用的`<null/>`标签为属性设置一个`null`的属性值。
+					  ```java
+					  <property name="brand"><null/></property>
+					  ```
+				- 5.级联属性
+				  collapsed:: true
+					- 所谓级联就是，对象Boss有一个Car的实例属性，然后我们可以直接在Boss Bean的注入逻辑中为Car实例属性设置他的属性值。
+					  ```xml
+					  <property name="car.brand" value="奔驰"/>
+					  ```
+				- 6.集合类型属性
+				  collapsed:: true
+					- 集合类型也可以作为Bean的属性进行注入，常见的集合数据结构有List，Set，Map，Properties。Spring为集合类型提供了专属的配置标签。
+					- 集合配置的类型
+						- List
+						- Set
+						- Map
+						  collapsed:: true
+							- Map元素的键和值可以是任何类型的对象。
+						- Properties
+						  collapsed:: true
+							- Properties的键和值只能是字符串。
+						- 强类型集合
+						  collapsed:: true
+							- 我们在声明Map的时候，可以对键和值的类型进行明确的声明。这样Spring容器在注入强类型集合时就会判断元素的类型，将其值转换为对应的数据类型。
+						- 集合合并
+						  collapsed:: true
+							- Spring支持集合合并的功能，允许子<bean>继承父<bean>的同名属性集合元素，并将子<bean>中配置的集合属性和父<bean>中配置的同名属性值合并起来作为**最终子Bean的属性值**。
+						- 通过util命名空间配置集合类型的Bean
+						  collapsed:: true
+							- 如果要配置一个集合类型的Bean，而非一个集合类型的属性，需要在Bean配置文件中引入`util`命名空间进行配置。
+				- 简化配置方式
+				  collapsed:: true
+					- 背景：上面介绍了完整配置格式的配置方式，比较繁琐，Spring提供了更简便的配置方法。
+					- 简化后的配置
+						- 1.字面值属性
+						- 2.引用对象属性
+						- 3.使用p命名空间
+							- 作用：简化Bean属性的xml配置方式。具体使用的话需要在bean的定义文件中声明p的命名空间。
+							- 示例
+							  ```xml
+							  <!--对于字面值属性，其格式为-->
+							  p:<属性名>="xxx"
+							   
+							  <!--对于引用对象属性，其格式为-->
+							  p:<属性名>-ref="xxx"
+							  ```
 	- spring-core
 		- IOC
 		  collapsed:: true

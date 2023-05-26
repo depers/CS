@@ -1,7 +1,6 @@
 - Java语言
 	- Java基础
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -579,7 +578,6 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
-		  collapsed:: true
 			- Object通用方法
 			  collapsed:: true
 				- equals
@@ -761,12 +759,12 @@
 				- 重载
 				  collapsed:: true
 					- 特点（定义）
-						- （Overload）存在于同一个类中，指一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。返回类型可以相同也可以不同。
+						- （Overload）存在于同一个类中，指一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。
+						- 返回类型不参与重载选择，可以相同也可以不同。
 						- 每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。
 						- 最常用的地方就是构造器的重载。
 						- Java中不允许用户重载运算符。
 					- Java中方法重载的三种方式
-					  collapsed:: true
 						- 更改参数的数量
 						- 更改参数的数据类型
 						- 改变方法参数的顺序
@@ -777,7 +775,6 @@
 						- 在类型升级的过程中，Java会自动将原始数据类型转为包装类型去类型转换匹配图中去寻找。
 						- 类型转换匹配图，例如实参如果是Byte类型，但是形参没有Byte类型，Java就会去找是否有Short、Integer....的重载方法。
 					- 返回值问题
-					  collapsed:: true
 						- 如果两个方法参数的参数类型、个数、顺序都相同。返回值不同，是无法通过编译的。
 						- 如果两个方法参数的参数类型、个数、顺序至少有一个不同，返回值可以相同也可以不同。
 					- 重载main方法
@@ -1225,7 +1222,6 @@
 					- alias：指定证书在程序中引用的名称；
 					- dname：最重要的CN=www.sample.com指定了Common Name，如果证书用在HTTPS中，这个名称必须与域名完全一致。
 		- 泛型
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 解决的问题：Java数据类型和自定义对象类型较多，一种公共的数据结构或是算法，需要针对不同的类型和对象进行不同的处理。而且特别容易出错，例如类型强转错误
@@ -1274,7 +1270,6 @@
 					- 泛型类中的泛型方法
 					- 静态方法和泛型
 			- 擦拭法
-			  collapsed:: true
 				- Java泛型的局限性
 					- 局限一：<T>不能是基本类型，例如int，因为实际类型是Object，Object类型无法持有基本类型
 					- 局限二：无法取得带泛型对象的Class
@@ -1410,12 +1405,12 @@
 			  collapsed:: true
 				- [廖雪峰-处理注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102026065728)
 		- 反射
-		  collapsed:: true
 			- 定义
 			  collapsed:: true
 				- Java的反射是指程序在运行期可以拿到一个对象的所有信息
 				- 反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法
 			- Class类
+			  collapsed:: true
 				- 特点
 					- 除基本类型外，Java的其他类型都是Class（包括interface），Class的本质是数据类型
 					- 每个类的Class对象是在装载类时，由JVM通过调用类装载器中的`defineClass()`方法自动构建的。
@@ -1449,6 +1444,7 @@
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
 			- 访问字段
+			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
 					- `Field getField(name)`：根据字段名获取某个public的field（包括父类）
 					- `Field getDeclaredField(name)`：根据字段名获取当前类的某个field（不包括父类）
@@ -1463,6 +1459,7 @@
 				- 获取字段值：field.get(object)
 				- 设置字段值：field.set(object, value)
 			- 调用方法
+			  collapsed:: true
 				- 通过Class实例获取Method信息，Class提供了 以下几个方法来获取方法
 					- Method getMethod(name, Class...)：获取某个public的Method（包括父类）
 					- Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）
@@ -2587,7 +2584,8 @@
 				- 具体实践
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
-			- 缓冲流（buffered streams）
+			- 缓冲流（buffered streams）          
+			  collapsed:: true
 				- 背景
 					- 使用未缓冲的IO操作每个读或写请求都由底层操作系统直接处理。这会降低程序的效率，因为每个这样的请求通常会触发磁盘访问、网络活动或其他一些相对昂贵的操作。
 					- **为了减少这种开销，Java 平台实现了缓冲的 I/O 流**。
@@ -2633,6 +2631,7 @@
 				- 对于日期/时间表示
 					- 一般语法：`%[argument_index$][flags][width]conversion`
 			- 创建文件
+			  collapsed:: true
 				- 推荐使用Java 7 nio Files.write 来创建和写入文件，因为它有更简洁的代码并自动关闭打开的资源。
 				- 实现
 					- `Files.newBufferedWriter` (Java 8)
@@ -2707,8 +2706,10 @@
 			  collapsed:: true
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
+			- 文件下载
+				- 参考文章
+					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
-		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -3670,7 +3671,6 @@
 					- 功能：实现在服务器端执行临时代码的功能
 					- 实现代码：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/codetracer
 			- 前端编译优化
-			  collapsed:: true
 				- 三类类编译器
 				  collapsed:: true
 					- 前端编译器
@@ -3689,12 +3689,10 @@
 						- javac代码编译过程
 							- 1.准备过程：初始化插入式注解处理器
 							- 2.解析与填充符号表过程
-							  collapsed:: true
 								- 2.1词法、语法分析。将源代码的字符流转变为标记集合，构造出抽象语法树。
 								- 2.2填充符号表。产生符号地址和符号信息。
 							- 3.插入式注解处理器的注解处理过程：插入式注解处理器的执行阶段
 							- 4.分析与字节码生成过程
-							  collapsed:: true
 								- 标注检查。对语法的静态信息进行检查。
 								- 数据流及控制流分析。对程序动态运行过程进行检查。
 								- 解语法糖。将简化代码编写的语法糖还原为原有的形式。
@@ -3719,7 +3717,6 @@
 							- 有了插入式处理器，程序员就可以干涉编译器的行为，程序元可以访问到抽象语法树的任意元素。比如Lombok可以通过注解@Getter或是@Setter等注解自动生成相关方法，帮助程序员消除冗余代码。
 						- 语义分析和字节码生成
 							- 语义分析
-							  collapsed:: true
 								- 作用：语法分析之后，编译器获得了程序代码的抽象语法树表示，抽象语法树能够表示一个结构正确的源程序，但无法保证源程序的语义是符合逻辑的。而语义分析的主要任务则是对结构上正确的源程序进行上下文相关性质的检查，譬如进行类型检查、控制流检查、数据流检查等等。
 								- 语义分析过程可分为标注检查和数据及控制流分析两个步骤：
 									- 标注检查
@@ -3735,10 +3732,25 @@
 									- 解语法糖
 										- 对应 ((646c6ad3-96eb-4503-a760-5ec2c5479cb5))中的desugar()方法。
 										- Java虚拟机运行时并不直接支持这些语法，它们在编译阶段被还原回原始的基础语法结构，这个过程就称为解语法糖。比如Java中的泛型，其实是语法糖实现的。
-										-
 							- 字节码生成
-							  collapsed:: true
 								- 字节码生成阶段不仅仅是把前面各个步骤所生成的信息（语法树、符号表）转化成字节码指令写到磁盘中，编译器还进行了少量的代码添加和转换工作。比如生成实例构造器<init>和类构造器<cinit>、还有就是字符串的+符号替换成StringBuffer或StringBuilder的append()操作。
+				- Java语法糖的味道
+				  collapsed:: true
+					- 泛型
+						- 裸类型
+						  ```java
+						  ArrayList<String> slist = new ArrayList<String>();
+						  ArrayList list; // 与上面相对应，这种就叫做裸类型
+						  ```
+						- 类型擦除
+							- 所谓类型擦除，就是在将源码进行编译的时候将泛型声明的类型去掉，将其变为裸类型。在源码中定义的泛型类型变量在访问、修改的地方插入强制类型转换和检查的指令。
+							- 缺陷
+								- 使用类型擦除的泛型实现方案，会有较多的性能损耗
+								- 不支持原始数据类型
+								- 运行期无法获取到泛型的类型信息
+							- 优势
+								- 在泛型的技术实现方面，几乎只需在Javac编译器上做出修改即可，不需要动字节码，不需要动虚拟机。
+								- 兼容性，Java的泛型之所以选择类型擦除的方案主要是为了先后兼容。也就是老版本编译的java代码在新版本的虚拟机上仍然是可以正常运行的。
 		- 三方类库
 		  collapsed:: true
 			- Guava
