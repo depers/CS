@@ -1,6 +1,7 @@
 - Java语言
 	- Java基础
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -578,6 +579,7 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
+		  collapsed:: true
 			- Object通用方法
 			  collapsed:: true
 				- equals
@@ -1222,6 +1224,7 @@
 					- alias：指定证书在程序中引用的名称；
 					- dname：最重要的CN=www.sample.com指定了Common Name，如果证书用在HTTPS中，这个名称必须与域名完全一致。
 		- 泛型
+		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 解决的问题：Java数据类型和自定义对象类型较多，一种公共的数据结构或是算法，需要针对不同的类型和对象进行不同的处理。而且特别容易出错，例如类型强转错误
@@ -1270,6 +1273,7 @@
 					- 泛型类中的泛型方法
 					- 静态方法和泛型
 			- 擦拭法
+			  collapsed:: true
 				- Java泛型的局限性
 					- 局限一：<T>不能是基本类型，例如int，因为实际类型是Object，Object类型无法持有基本类型
 					- 局限二：无法取得带泛型对象的Class
@@ -2545,9 +2549,7 @@
 			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
-		  collapsed:: true
 			- 五种IO模型
-			  collapsed:: true
 				- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
 			- NIO
 			  collapsed:: true
@@ -2710,6 +2712,7 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
+		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：

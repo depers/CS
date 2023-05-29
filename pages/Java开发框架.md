@@ -209,6 +209,7 @@
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 			- BeanFactory、ApplicationContext和WebApplicationContext
+			  collapsed:: true
 				- BeanFactory
 					- 功能
 						- 一般称BeanFactory为Ioc容器
@@ -252,7 +253,6 @@
 					- 参考文章
 						- [The Spring ApplicationContext](https://www.baeldung.com/spring-application-context)
 				- WebApplicationContext
-				  collapsed:: true
 					- 功能
 						- WebApplicationContext是专门为web程序服务的，他允许相对于Web根目录的路径中装载文件完成初始化工作。
 					- WebApplicationContext的类体系结构
@@ -348,13 +348,11 @@
 			- Bean的基本配置
 			  collapsed:: true
 				- Bean的装配
-				  collapsed:: true
 					- xml中bean最基础的配置是`id`和`class`两个属性
 					  ```xml
 					  <bean id="car" class="cn.bravedawn.chapter4.applicationbeanfactorydemo.Car"/>
 					  ```
 				- Bean的命名
-				  collapsed:: true
 					- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
 			- 依赖注入
 			  collapsed:: true
@@ -492,6 +490,26 @@
 							  <!--对于引用对象属性，其格式为-->
 							  p:<属性名>-ref="xxx"
 							  ```
+				- 自动装配
+				  collapsed:: true
+					- 背景
+						- 在上面我们讲到了bean的属性输入的声明方式，但是如果Bean的属性是其他bean的话，声明起来还是挺麻烦的。因为Spring Ioc容器知道所有的Bean信息，这个功能其实Spring自己就可以帮我们做到，无需我们自己去声明`<ref>`标签。
+					- Spring提供了四种自动装配的类型
+					  id:: 6472ef0b-5a76-479d-bd1b-a12045c6ff6e
+						- byName：根据属性名称自动装配
+						- byType：根据属性类型自动装配
+						- constructor：根据构造函数进行自动装配，与byType类似，如果构造函数中有一个参数包含某个Bean类型的参数，Spring会自动将容器中这个类型的Bean作为这个构造函数的入参。
+						- autodetect：根据Bean的自省机制决定采用byType还是constructor进行自动装配。
+					- 全局配置
+						- <beans>标签的default-autowire属性可以配置全局自动装配策略
+						- default-autowire属性默认值为no，其他几个配置如 ((6472ef0b-5a76-479d-bd1b-a12045c6ff6e))
+						- 值得注意的是：<bean>中的自动装配策略可以覆盖全局的自动装配策略
+					- 实际开发
+						- xml配置方式很少使用自动装配的配置。
+						- 基于注解的配置方式默认采用byType的自动装配策略。
+			- 方法注入
+				-
+			-
 	- spring-core
 		- IOC
 		  collapsed:: true
