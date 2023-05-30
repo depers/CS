@@ -179,7 +179,6 @@
 			- 资源访问
 			  collapsed:: true
 				- Spring提供的Resource接口，提供了更强大的底层资源访问的能力
-				  collapsed:: true
 					- [使用Resource](https://www.liaoxuefeng.com/wiki/1252599548343744/1282383017934882)
 					- [Access a File from the Classpath in a Spring Application](https://www.baeldung.com/spring-classpath-file-access)
 				- 资源加载
@@ -211,6 +210,7 @@
 			- BeanFactory、ApplicationContext和WebApplicationContext
 			  collapsed:: true
 				- BeanFactory
+				  collapsed:: true
 					- 功能
 						- 一般称BeanFactory为Ioc容器
 						- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
@@ -226,6 +226,7 @@
 						- `singletonBeanRegistry`：定义了在运行期向容器注册单实例Bean的方法。
 						- `BeanDefinitionRegistry`：提供了向容器手工注册BeanDefinition对象的方法。
 				- ApplicationContext
+				  collapsed:: true
 					- 功能
 						- 一般称Application为**Spring容器**
 						- ApplicationContext是面向使用Spring的开发者，几乎所有的场合可以直接使用ApplicationContext而不是BeanFactory。
@@ -253,6 +254,7 @@
 					- 参考文章
 						- [The Spring ApplicationContext](https://www.baeldung.com/spring-application-context)
 				- WebApplicationContext
+				  collapsed:: true
 					- 功能
 						- WebApplicationContext是专门为web程序服务的，他允许相对于Web根目录的路径中装载文件完成初始化工作。
 					- WebApplicationContext的类体系结构
@@ -260,7 +262,8 @@
 						- 在非web应用的环境下，Bean只有`singleton`和`prototype`两种作用域，WebApplicationContext提供了三个新的作用域：`request`、`session`、`global session`。
 						- `ConfigurableWebApplicationContext`扩展了WebApplicationContext，允许我们通过配置化的方式实例化WebApplicationContext。
 					- WebApplicationContext的初始化
-						- 可以在web.xml配置**自启动的Servlet**或**定义Web容器监听器**（ServletContextLister），
+					  id:: 64671339-5f03-4f81-93dc-13517bb386c0
+						- 可以在web.xml配置**自启动的Servlet**或**定义Web容器监听器**（ServletContextListener），
 				- 父子容器
 				  collapsed:: true
 					- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
@@ -357,7 +360,7 @@
 			- 依赖注入
 			  collapsed:: true
 				- 属性注入
-				  collapsed:: true
+				  id:: 646b109c-232c-4c0a-82e6-31cac5b6dd72
 					- 定义：属性注入是指通过setXX()方法注入Bean的属性朱或依赖对象。
 					- 代码实例：
 					  ```xml
@@ -432,8 +435,18 @@
 					- 字面值可以通过**<value>**元素标签进行注入，在默认情况下，基本数据类型及其封装类、String等类型都可以采用字面值的方式进行注入。Spring内置了**编辑器**可以将字面值转换为相应类型的变量。
 					- XMl中有五种特殊字符，分别是`&`，`<`，`>`，`“`，`‘`。使用的时候可以用`<![CDATA[]]>`标签包裹，或者使用这五个字符的转义字符进行表示。
 				- 2.引用其他Bean
-				  collapsed:: true
+				  id:: 646f6c92-c296-48ed-a49e-5a5db7d545e1
 					- 在Bean定义时可以通过`<ref>`标签对其他Bean进行引用。
+					- 实例代码
+					  ```xml
+					  <bean id="car" class="cn.bravedawn.Car">
+					    
+					  <bean id="boss" class="cn.bravedawn.Boss">
+					    <property name="car">
+					      <ref bean="car"></ref>
+					    </property>
+					  <bean>
+					  ```
 					- `<ref>`标签有三个属性
 						- bean：可以引用同一容器或父容器的Bean
 						- local：只能引用同一配置文件中定义的Bean
@@ -508,8 +521,91 @@
 						- xml配置方式很少使用自动装配的配置。
 						- 基于注解的配置方式默认采用byType的自动装配策略。
 			- 方法注入
-				-
-			-
+			  collapsed:: true
+				- 背景：希望通过一个singleton Bean获取一个prototype Bean时使用。换句话说，我们想让singleton的Boss中注入prototype的Car，并且希望每次调用bossBean的getCar()方法的时候都能返回一个新的 car Bean。
+				- lookup方法注入
+					- 实现背景：Spring通过使用CGLib类包，使得Spring Ioc容器拥有了复写Bean方法的能力，CGLib可以在运行期动态操作Class字节码，为Bean创建子类或实现类。
+					- 具体实践：在bean的声明文件中通过`lookup-method`标签来实现。
+					- 使用范围：希望通过一个singleton Bean获取一个prototype Bean时使用。
+				- 方法替换
+					- 目的：使用某个Bean的方法去替换另一个Bean的方法。
+					- 具体实践
+						- 替换Bean的类需要实现MethodReplacer接口，对reimplement方法进行实现。
+						- 在bean的声明文件中，对被替换类Bean的声明中，使用replaced-method标签使用替换Bean的方法对被替换类的方法进行替换。
+			- <bean>之间的关系
+			  collapsed:: true
+				- 背景：之间我们在Bean的声明中使用<ref>引用另一个Bean，去建立Bean之间的依赖关系。这种关系其实是基于类和属性的关系去建立声明的。其实在bean文件的配置过程中，我们可以利用bean声明的一些配置来简化我们的bean配置。
+				- 继承
+				  collapsed:: true
+					- 背景：在面向对象编程的思想中，如果多个类具有相同的属性或是方法，此时我们就可以声明一个父类集中这些相同的内容，不同的内容通过他的子类去声明。在bean文件的配置过程中，我们也可以利用这样的思路，相同的配置放到一个bean的配置中，不同的使用子类配置去声明即可
+					- 具体实践
+						- 在父bean的声明中对共性的方法和属性进行声明，并声明`abstract="true"`的属性，表明该bean声明不需要Spring Ioc容器无需对该bean配置进行实例化。
+						- 在子bean的声明中使用`parent="父bean的id"`，来将父bean的配置信息传递给子bean。
+				- 依赖
+				  id:: 6474b608-c264-42e9-94de-f73b658a41e3
+					- 背景：在我们声明bean的时候，我们发现Bean A依赖Bean B，而且Bean A希望在实例化自己之前，自己依赖的Bean B可以提前创建好。
+					- Spring允许用户通过`depends-on`属性显式指定Bean前置依赖的Bean，前置依赖的Bean会在本Bean实例化之前创建好。
+				- 引用
+					- 背景：
+					  collapsed:: true
+						- 在bean的xml文件的声明中，假设Bean A有一个属性是Bean B。之前 ((646f6c92-c296-48ed-a49e-5a5db7d545e1)) 我们是通过ref属性去引用的，Spring也不会检测当前容器中是否会有Bean B的实例，只有调用的时候才会发现。
+					- <idref>标签
+					  collapsed:: true
+						- 作用：在bean定义时，通过<idref>标签引用另一个beanB作为属性，在容器启动时，Spring会负责检查引用关系的正确性，确保当前容器中是有beanB的实例的。
+						- 具体代码
+						  ```xml
+						  <bean id="car" class="cn.bravedawn.Car">
+						    
+						  <bean id="boss" class="cn.bravedawn.Boss">
+						    <property name="car">
+						      <idref bean="car"></idref>
+						    </property>
+						  <bean>
+						  ```
+			- 整合多个配置文件
+			  collapsed:: true
+				- 方法一：在启动Spring容器时，可以通过一个String数组指定这些配置文件。
+				- 方法二：Spring还允许通过<import>将多个配置文件引入到一个文件中，进行文件的集成，在配置的时候是需要配置一个集成的配置文件即可。
+			- Bean作用域
+			  collapsed:: true
+				- Bean作用域的类型
+				  collapsed:: true
+					- 类型图
+					  ![bean的作用域类型.png](../assets/bean的作用域类型_1685432562981_0.png)
+					- 除了上面的作用域类型，Spring还允许用户自定义bean的作用域。
+				- singleton作用域
+				  collapsed:: true
+					- 初始化时机：默认情况下，在Spring的ApplicationContext容器在启动时，自动实例化所有的singleton的Bean并缓存于容器中。
+					- Spring中的Bean默认是singleton作用域。
+					- 使用场景：一般情况下，无状态或是状态不变的类适合使用单例模式。
+					- 优点
+						- 在启动时实例化Bean的时候会及早发现潜在的配置问题。
+						- bean以缓存的方式保存，在运行期无需再实例化，提高了运行效率。
+					- 懒加载
+						- 如果不希望在容器启动时实例化Bean，可以在Bean声明的时候设置属性`lazy-init="true"`。
+						- 按我们之前讲的Bean之间存在 ((6474b608-c264-42e9-94de-f73b658a41e3))关系，如果该Bean被其他提前实例化的bean引用，那么Spring会忽略延迟实例化的设置。
+				- prototype作用域
+				  collapsed:: true
+					- 每次都会生成一个新的Bean实例。
+					- 默认情况下，Spring容器在启动时不会实例化prototype类型的Bean。
+					- Spring容器将prototype的bean交给调用者后，就不再管理它的生命周期。
+				- 与Web应用环境相关的bean作用域
+				  collapsed:: true
+					- 在Web容器中的额外配置
+						- 使用另外3中web应相关的Bean作用域的额外配置：在web.xml中配置`RequestContextListener`请求监听器。
+						- 之前我们讲了 ((64671339-5f03-4f81-93dc-13517bb386c0))中提到了`ServletContextListener`，他与`RequestContextListener`的各有什么区别？
+						  ![两个监听器的区别.png](../assets/两个监听器的区别_1685434891868_0.png)
+							- `ServletContextListener`
+								- 负责监听web容器启动和关闭的事件.
+								- Spring在启动时会使用`ContextLoaderListener`监听器，它实现了`ServletContextListener`接口。
+								- 作用：初始化web容器，使得Spring能够对web容器进行Bean作用域的控制。
+							- `ReuqestContextListener`
+							  collapsed:: true
+								- 负责监听Http的请求事件，web服务器每接到一次请求就会通知该监听器。
+								- 作用：提供了`request`、`session`和`globalSession`类型的Bean作用域。
+					- Spring其实可以提供一个实现了ServletContextListener和ReuqestContextListener接口的监听器，为什么要提供两个实现类？
+						- 一是为了兼容，因为web应用的Bean作用域是从Spring2.0开始提供的。
+						- 二是使用新的三种作用域的场景少。没必要让每个Bean都具有这三个作用域类型。
 	- spring-core
 		- IOC
 		  collapsed:: true

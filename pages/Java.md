@@ -1,9 +1,8 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
-			  collapsed:: true
 				- 基本类型
 				  collapsed:: true
 					- 整型
@@ -21,6 +20,7 @@
 				- 包装类型
 				  collapsed:: true
 					- 基本类型都对应一个包装类型
+					  collapsed:: true
 						- Java核心库提供的包装类型可以把基本类型包装为class；
 						- 自动装箱和自动拆箱都是在编译期完成的（JDK>=1.5）；
 						- 装箱和拆箱会影响执行效率，且拆箱时可能发生NullPointerException；
@@ -29,6 +29,7 @@
 						- 包装类型提供了大量实用方法；
 						- 所有的包装类型都是不变类；
 					- 基本数据类型和其包装类的对应关系
+					  collapsed:: true
 						- byte-Byte
 						- short-Short
 						- int-Integer
@@ -39,11 +40,13 @@
 						- char-Character
 					- 自动装箱与拆箱
 					- 进制转换
+					  collapsed:: true
 						- 十进制：Integer.toString
 						- 十六进制：Integer.toHexString
 						- 八进制：Integer.toOctalString
 						- 二进制：Integer.toBinaryString
 					- 处理无符号整型
+					  collapsed:: true
 						- Java并没有无符号整型（Unsigned）的基本数据类型
 						- byte、short、int和long都是带符号整型，最高位是符号位
 						- Byte.toUnsignedInt
@@ -143,8 +146,8 @@
 					- String Pool
 				- new String("abc")
 			- 运算
-			  collapsed:: true
 				- 参数传递
+				  collapsed:: true
 					- Java的参数传递是：值传递，
 					- 对于基本类型（原始类型），在参数传递中是值传递
 					- 对于引用类型，本质上是将对象的地址以值的方式传递到形参中，修改信息的是同一个对象。
@@ -191,6 +194,7 @@
 						- 参与运算的两个数类型不一致，那么计算结果为较大类型的整型
 						- 大范围的整数转型为小范围的整数。强制转型使用(类型)。强转的结果可能是错的。
 				- 浮点数运算
+				  collapsed:: true
 					- float与double
 					  collapsed:: true
 						- // float f = 1.1; 是错的，Java 不能隐式执行向下转型，因为这会使得精度降低。
@@ -212,9 +216,11 @@
 						- 四舍五入需要加0.5
 						- 如果转型后超过了整型能表示的最大范围，将返回整型的最大值
 				- 布尔运算
+				  collapsed:: true
 					- 短路运算：如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果
 					- 三元运算符：b ? x : y
 				- 运算符
+				  collapsed:: true
 					- 逻辑运算符
 						- 与：`&&`
 						- 或：`||`
@@ -585,14 +591,12 @@
 				- equals
 				  collapsed:: true
 					- Java SE中针对equals()的原则
-					  collapsed:: true
 						- 自反性（Reflexive）：对于非null的x来说，x.equals(x)必须返回true；
 						- 对称性（Symmetric）：对于非null的x和y来说，如果x.equals(y)为true，则y.equals(x)也必须为true；
 						- 传递性（Transitive）：对于非null的x、y和z来说，如果x.equals(y)为true，y.equals(z)也为true，那么x.equals(z)也必须为true；
 						- 一致性（Consistent）：对于非null的x和y来说，只要x和y状态不变，则x.equals(y)总是一致地返回true或者false；
 						- 对null的比较：x.equals(null)永远返回false
 					- 手动编写equals的步骤（可参考：JavaTrain：cn.bravedawn.obj.object.EqualsExample#equals）
-					  collapsed:: true
 						- 第一步：先确定实例“相等”的逻辑，即哪些字段相等，就认为实例相等；
 						- 第二步：用instanceof判断传入的待比较的Object是不是当前类型，如果是，继续比较，否则，返回false；
 						- 第三步：对引用类型用Objects.equals()比较，对基本类型直接用==比较；
@@ -1409,6 +1413,7 @@
 			  collapsed:: true
 				- [廖雪峰-处理注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102026065728)
 		- 反射
+		  collapsed:: true
 			- 定义
 			  collapsed:: true
 				- Java的反射是指程序在运行期可以拿到一个对象的所有信息
@@ -1722,6 +1727,7 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2549,6 +2555,7 @@
 			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
+		  collapsed:: true
 			- 五种IO模型
 				- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
 			- NIO
@@ -2712,7 +2719,6 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
-		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -3674,6 +3680,7 @@
 					- 功能：实现在服务器端执行临时代码的功能
 					- 实现代码：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/codetracer
 			- 前端编译优化
+			  collapsed:: true
 				- 三类类编译器
 				  collapsed:: true
 					- 前端编译器
@@ -3740,6 +3747,7 @@
 				- Java语法糖的味道
 				  collapsed:: true
 					- 泛型
+					  collapsed:: true
 						- 裸类型
 						  ```java
 						  ArrayList<String> slist = new ArrayList<String>();
@@ -3749,11 +3757,17 @@
 							- 所谓类型擦除，就是在将源码进行编译的时候将泛型声明的类型去掉，将其变为裸类型。在源码中定义的泛型类型变量在访问、修改的地方插入强制类型转换和检查的指令。
 							- 缺陷
 								- 使用类型擦除的泛型实现方案，会有较多的性能损耗
-								- 不支持原始数据类型
+								- 泛型不支持原始数据类型
 								- 运行期无法获取到泛型的类型信息
 							- 优势
 								- 在泛型的技术实现方面，几乎只需在Javac编译器上做出修改即可，不需要动字节码，不需要动虚拟机。
 								- 兼容性，Java的泛型之所以选择类型擦除的方案主要是为了先后兼容。也就是老版本编译的java代码在新版本的虚拟机上仍然是可以正常运行的。
+					- 自动装箱、拆箱和循环遍历
+					  collapsed:: true
+						- 要进行循环便利的类需要继承Iterable类，应为for循环在编译之后会被优化为Iterable遍历。
+					- 条件编译
+						- 通过条件为常量的if语句，Java会将符合条件判断的子句保留，剔除不符合条件的子句，从而达到条件编译的效果。
+				- 插入式注解处理器实战：检查类名、方法名、属性名和常量等命名是否符合驼峰命名规则。
 		- 三方类库
 		  collapsed:: true
 			- Guava
