@@ -1,5 +1,4 @@
 - Java语言
-  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1728,6 +1727,7 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2555,8 +2555,8 @@
 			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
-		  collapsed:: true
 			- 五种IO模型
+			  collapsed:: true
 				- 同步阻塞-Blocking I/O
 					- 阻塞IO模型
 						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
@@ -2696,7 +2696,6 @@
 				- 使用新的**File() API**来构造文件路径
 				- 检查系统操作系统并手动创建文件路径
 			- 文件权限
-			  collapsed:: true
 				- 检查文件的权限
 				  collapsed:: true
 					- file.canExecute(); – return true, file is executable; false is not.

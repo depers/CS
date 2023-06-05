@@ -318,6 +318,7 @@
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
+		  collapsed:: true
 			- 1.Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
@@ -841,6 +842,80 @@
 				  collapsed:: true
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
+		- 第六章 Spring容器高级主题
+			- 1.Spring容器技术内幕
+			  collapsed:: true
+				- Spring的内部工作机制
+				  collapsed:: true
+					- Spring中`AbstractApplicationContext`是`ApplicationContext`的抽象实现类，`AbstractApplication#refresh()`方法定义了Spring容器在加载配置文件之后各项处理过程。
+				- IOC流水线
+				  collapsed:: true
+					- Spring容器从加载配置文件到创建出一个完整的Bean的作业流程如下
+						- 流程图
+						  ![IOC流水线.png](../assets/IOC流水线_1685943712897_0.png)
+					- 流程解析
+						- 1.`ResourceLoader`从配置文件中读取数据，通过`Resource`对象来表示配置文件资源。
+						- 2.`BeanDefinitionReader`读取`Resource`指向的配置文件资源，然后解析配置文件。将配置文件中的每一个`<bean>`标签解析为`BeanDefinition`对象，并将其保存到`BeanDefinitionRegistry`中。
+						- 3.容器扫描`BeanDefinitionRegistry`中的`BeanDefinition`，识别出Bean工厂后置处理器（也就是实现了`BeanFactoryPostProcessor`接口的Bean）调用Bean工厂后置处理器对`BeanDefinitionRegistry`中的`BeanDefinition`对象进行加工处理。
+						- 4.容器扫描`BeanDefinitionRegistry`中的`BeanDefinition`，找出所有属性编辑器的Bean（也就是实现了`java.beans.PropertyEditor`接口的Bean），并自动将其注册到Spring容器的属性编辑器注册表`PropertyEditorRegistry`中。
+						- 5.Spring容器从`BeanDefinitionRegistry`中取出加工后的`BeanDefinition`，并调用`InstantiationStrategy`进行Bean的实例化。
+						- 6.在实例化Bean时，Spring容器使用`BeanWrapper`对Bean进行封装，`BeanWrapper`通过Bean的`BeanDefinition`和容器中的属性编辑器，完成Bean的属性注入工作。
+				- BeanDefinition
+				  collapsed:: true
+					- BeanDefinition是配置文件<bean>标签在Spring容器的内部表示。
+					- BeanDefinition类继承结构
+					  collapsed:: true
+						- 结构图
+						  ![BeanDefinition类继承图.png](../assets/BeanDefinition类继承图_1685945802306_0.png)
+						- 结构说明
+						  collapsed:: true
+							- `RootBeanDefinition`代表父`<bean>`标签，或者是没有父`<bean>`的`<bean>`标签。
+							- `ChildBeanDefnition`代表子<bean>标签。
+							- `AbstractBeanDefinition`是对`RootBeanDefinition`和`ChildBeanDefinition`共同类信息的抽象。
+				- InstantiationStrategy
+				  collapsed:: true
+					- `InstantiationStrategy`负责根据`BeanDefinition`对象创建一个Bean实例。
+					- `InstantiationStrategy`类继承结构
+					  collapsed:: true
+						- 结构图
+						  ![InstantiationStrategry类继承结构.png](../assets/InstantiationStrategry类继承结构_1685946560121_0.png)
+						- 结构说明
+							- `SimpleInstantiationStrategy`是最常用的实例化策略，该策略利用Bean实现类的默认构造函数、带参构造函数或工厂方法创建Bean的实例。
+							- `CglibSubclassingInstantiationStrategy`扩展了`SimpleInstantiationStrategy`，为需要进行方法注入的Bean提供了支持。它利用CGLib为Bean动态生成子类，在子类中生成方法注入的逻辑，利用这个动态生成的子类去实例化Bean。
+				- BeanWrapper
+				  collapsed:: true
+					- BeanWrapper负责完成对Bean属性的填充工作。
+					- BeanWrapper类继承结构图
+					  collapsed:: true
+						- 结构图
+						  ![BeanWrapper类继承结构图.png](../assets/BeanWrapper类继承结构图_1685946981333_0.png)
+						- 结构说明
+							- PropertyAccess接口定义了各种访问Bean属性的方法
+							- PropertyEditorRegistry是属性编辑器的注册表
+					- 属性注入的流程
+					  collapsed:: true
+						- Spring容器从BeanfDefinition中获取Bean属性的配置信息PropertyValue，并使用属性编辑器对PropertryValue进行转换以得到Bean的属性值。对Bean的其他属性重复这个过程就可以完成属性填充工作。
+			- 2.属性编辑器
+			  collapsed:: true
+				- 作用
+					- Spring配置文件中Bean的属性一般是通过字面值为其设置属性值，但是Bean的类型却有很多种。属性编辑器负责完成配置文件字面值到JVM内部类型的类型转换工作。说白了就是一个类型转换器。
+				- JavaBean的属性编辑器
+					- 背景
+						- Sun制定的JavaBean很大程度上是为IDE的开发准备的，也就是为Java GUI程序的开发准备的
+					- PropertyEditor
+					  collapsed:: true
+						- 任何实现java.beans.PropertyEditor接口的类都是属性编辑器。
+						- PropertyEditor是属性编辑器的接口，它规定了将外部设置值转换为内部JavaBean属性值的转换接口方法
+					- BeanInfo
+					  collapsed:: true
+						- 主要描述了JavaBean的那些属性可以编辑以及对应的属性编辑器。
+			- 3.Spring默认属性编辑器
+			  collapsed:: true
+				- Spring的属性编辑器与IDE开发的属性编辑器不同，没有UI界面。仅负责将配置文件中的文本配置值转换为Bean属性的对应值。
+				- Spring在`PropertyEditoRegistrySupport`中为常见属性类型提供了默认的属性编辑器。
+				- Spring提供的默认属性编辑器
+				  ![Spring默认的属性编辑器.png](../assets/Spring默认的属性编辑器_1685949337055_0.png)
+		-
 	- spring-core
 		- IOC
 		  collapsed:: true
@@ -1353,10 +1428,8 @@
 				- 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
 		- 数据库生成
 - Apache httpClient
-  collapsed:: true
 	- 客户端超时设置
 		- 参考文章
-		  collapsed:: true
 			- 连接超时 (http.connection.timeout) ：与远程主机建立连接的时间。
 			- 套接字超时 (http.socket.timeout) ：建立连接后等待数据的时间； 两个数据包之间不活动的最长时间。
 			- 连接管理器超时 (http.connection-manager.timeout) ：等待来自连接管理器/池的连接的时间。
