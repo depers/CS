@@ -1,5 +1,6 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
+	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -149,7 +150,6 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
-		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -208,7 +208,6 @@
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 			- BeanFactory、ApplicationContext和WebApplicationContext
-			  collapsed:: true
 				- BeanFactory
 				  collapsed:: true
 					- 功能
@@ -269,13 +268,13 @@
 					- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
 					- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
 			- Bean的生命周期
-			  collapsed:: true
 				- `BeanFactory`中Bean的生命周期
-				  collapsed:: true
+				  id:: 6469b072-85f3-479d-87c3-ccb6560739bb
 					- 生命周期图
 					  ![BeanFactory的生命周期.png](../assets/BeanFactory的生命周期_1684648090473_0.png)
 					- 生命周期分类分析，划分为4类
 						- Bean自身的方法
+						  id:: 6469b109-a6d9-4743-8ade-896d4866aacc
 							- 调用Bean构造函数，实例化Bean
 							- 调用Setter方法设置Bean的属性
 							- 通过`<bean>`的`init-method`和`destory-method`所指定的方法
@@ -292,7 +291,6 @@
 								- `postProcessPropertyValues()`：在为Bean设置属性值之前调用
 								- 注意：`InstantiationAwareBeanPostProcessor`其实是`BeanPostProcessor`的子接口，我们一般使用他的适配器类`InstantiationAwareBeanPostProcessorAdapter`进行扩展。
 							- `BeanPostProcessor`接口
-							  collapsed:: true
 								- `postProcessBeforeInitialization()`：使用该方法对Bean进行特殊处理
 								- `postProcessAfterInitialization()`：使用该方法对Bean进行特殊处理
 								- `BeanPostProcessor`接口十分重要，Spring容器提供的AOP和动态代理等功能都是通过它进行实施的。
@@ -307,11 +305,9 @@
 							- 工厂后处理器也是容器级的，在应用上下文装配配置文件之后立即调用。
 					- 具体实践：spring-demo/cn/bravedawn/chapter4/beanfactorydemo
 				- `ApplicationContext`中Bean的生命周期
-				  collapsed:: true
 					- 生命周期图
 					  ![ApplicationContext上bean的生命周期.png](../assets/ApplicationContext上bean的生命周期_1684722873669_0.png)
 					- 相比于BeanFactory中Bean的生命周期的分类，有两处新增的逻辑
-					  collapsed:: true
 						- Bean生命周期接口方法
 							- 新增了调用`ApplicationContextAware.setApplicationContext()`方法
 						- 工厂后置处理器接口方法
@@ -319,12 +315,10 @@
 								- 发生在应用上下文在装载配置文件之后，在Bean实例化之前调用，用于对配置文件中Bean的信息进行加工处理
 					- 具体实践：spring-demo/cn/bravedawn/chapter4/applicationbeanfactorydemo
 				- `ApplicationContext`与`BeanFactory`的不同之处
-				  collapsed:: true
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
-		  collapsed:: true
-			- Spring配置概述
+			- 1.Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
 				  collapsed:: true
@@ -348,7 +342,7 @@
 					- 参考文章
 					  collapsed:: true
 						- [Spring中有几种配置方式(xml、注解＜jsr250＞、JavaConfig)](https://blog.csdn.net/m0_45406092/article/details/115203753)
-			- Bean的基本配置
+			- 2.Bean的基本配置
 			  collapsed:: true
 				- Bean的装配
 					- xml中bean最基础的配置是`id`和`class`两个属性
@@ -357,7 +351,7 @@
 					  ```
 				- Bean的命名
 					- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
-			- 依赖注入
+			- 3.依赖注入
 			  collapsed:: true
 				- 属性注入
 				  id:: 646b109c-232c-4c0a-82e6-31cac5b6dd72
@@ -427,7 +421,7 @@
 							- 使用场景：若工厂方法是非静态的，必须先实例化工厂类之后才能调用工厂方法。落到具体的实现上面，首先要定义一个工厂类的Bean，然后再通过`factory-bean`和`factory-method`指定工厂实例和对应的工厂方法生成具体的Bean。
 						- 二静态工厂方法
 							- 使用场景：若工厂方法是静态的，则无需实例化工厂类就可以调用工厂类方法。落到具体的实现上面，我们无需定义工厂类的Bean，直接在实例Bean上配置`factory-bean`和`factory-method`就行。
-			- 注入参数详解
+			- 4.注入参数详解
 			  collapsed:: true
 				- 1.字面值
 				  collapsed:: true
@@ -436,6 +430,7 @@
 					- XMl中有五种特殊字符，分别是`&`，`<`，`>`，`“`，`‘`。使用的时候可以用`<![CDATA[]]>`标签包裹，或者使用这五个字符的转义字符进行表示。
 				- 2.引用其他Bean
 				  id:: 646f6c92-c296-48ed-a49e-5a5db7d545e1
+				  collapsed:: true
 					- 在Bean定义时可以通过`<ref>`标签对其他Bean进行引用。
 					- 实例代码
 					  ```xml
@@ -520,7 +515,7 @@
 					- 实际开发
 						- xml配置方式很少使用自动装配的配置。
 						- 基于注解的配置方式默认采用byType的自动装配策略。
-			- 方法注入
+			- 5.方法注入
 			  collapsed:: true
 				- 背景：希望通过一个singleton Bean获取一个prototype Bean时使用。换句话说，我们想让singleton的Boss中注入prototype的Car，并且希望每次调用bossBean的getCar()方法的时候都能返回一个新的 car Bean。
 				- lookup方法注入
@@ -532,7 +527,7 @@
 					- 具体实践
 						- 替换Bean的类需要实现MethodReplacer接口，对reimplement方法进行实现。
 						- 在bean的声明文件中，对被替换类Bean的声明中，使用replaced-method标签使用替换Bean的方法对被替换类的方法进行替换。
-			- <bean>之间的关系
+			- 6.<bean>之间的关系
 			  collapsed:: true
 				- 背景：之间我们在Bean的声明中使用<ref>引用另一个Bean，去建立Bean之间的依赖关系。这种关系其实是基于类和属性的关系去建立声明的。其实在bean文件的配置过程中，我们可以利用bean声明的一些配置来简化我们的bean配置。
 				- 继承
@@ -562,14 +557,14 @@
 						    </property>
 						  <bean>
 						  ```
-			- 整合多个配置文件
+			- 7.整合多个配置文件
 			  collapsed:: true
 				- 方法一：在启动Spring容器时，可以通过一个String数组指定这些配置文件。
 				- 方法二：Spring还允许通过<import>将多个配置文件引入到一个文件中，进行文件的集成，在配置的时候是需要配置一个集成的配置文件即可。
-			- Bean作用域
+			- 8.Bean作用域
+			  id:: 6475a88f-4108-4bc9-81f8-350b6077b62b
 			  collapsed:: true
 				- Bean作用域的类型
-				  collapsed:: true
 					- 类型图
 					  ![bean的作用域类型.png](../assets/bean的作用域类型_1685432562981_0.png)
 					- 除了上面的作用域类型，Spring还允许用户自定义bean的作用域。
@@ -592,20 +587,260 @@
 				- 与Web应用环境相关的bean作用域
 				  collapsed:: true
 					- 在Web容器中的额外配置
+					  collapsed:: true
 						- 使用另外3中web应相关的Bean作用域的额外配置：在web.xml中配置`RequestContextListener`请求监听器。
 						- 之前我们讲了 ((64671339-5f03-4f81-93dc-13517bb386c0))中提到了`ServletContextListener`，他与`RequestContextListener`的各有什么区别？
+						  collapsed:: true
 						  ![两个监听器的区别.png](../assets/两个监听器的区别_1685434891868_0.png)
 							- `ServletContextListener`
 								- 负责监听web容器启动和关闭的事件.
 								- Spring在启动时会使用`ContextLoaderListener`监听器，它实现了`ServletContextListener`接口。
 								- 作用：初始化web容器，使得Spring能够对web容器进行Bean作用域的控制。
 							- `ReuqestContextListener`
-							  collapsed:: true
 								- 负责监听Http的请求事件，web服务器每接到一次请求就会通知该监听器。
 								- 作用：提供了`request`、`session`和`globalSession`类型的Bean作用域。
 					- Spring其实可以提供一个实现了ServletContextListener和ReuqestContextListener接口的监听器，为什么要提供两个实现类？
+					  collapsed:: true
 						- 一是为了兼容，因为web应用的Bean作用域是从Spring2.0开始提供的。
 						- 二是使用新的三种作用域的场景少。没必要让每个Bean都具有这三个作用域类型。
+					- web容器Bean的三种类型作用域
+					  collapsed:: true
+						- request作用域
+						  collapsed:: true
+							- request作用域的Bean对应一个Http请求和生命周期。
+							- 每次http请求调用时创建一个新的Bean，请求处理完成后就销毁这个Bean。
+							- 参考代码
+							  ```xml
+							  <bean id="car" class="cn.bravedawn.Car" scope="request"/>
+							  ```
+						- session作用域
+						  collapsed:: true
+							- Bean的作用域横跨整个Http Session，Session中所有的Http请求都共享**同一个Bean**，当Http Session结束后，实例才被销毁。
+						- globalSession作用域
+						  collapsed:: true
+							- 该作用域仅适用于Portlet的Web应用使用，Portlet规范定义了全局Session的概念。
+							- 不在Portlet的web应用环境下，global Session作用域等价于session作用域。
+				- 作用域依赖问题
+				  collapsed:: true
+					- 背景：某些场景下，需要将web相关的Bean注入singleton或prototype的Bean中，但是我们需要一些额外的配置。
+					- 实例代码
+					  ```xml
+					  <bean id="car" class="cn.bravedawn.Car" scope="request" <aop:scoped-proxy/>
+					  </bean>
+					  
+					  <bean id="boss" class="cn.bravedawn.Boss" scope="singleton">
+					    <property name="car" ref="car"/>
+					  </bean>
+					  ```
+					- 场景描述：当Boss Bean在Web环境中调用car Bean的时候，Spring AOP会启用动态代理智能的判断Boss Bean位于那个http请求线程中，病虫对应的http请求线程中获取对应的car Bean。其中注入Boss Bean的car Bean并不是原来的car Bean，这个car Bean是Spring动态代理生成的代理对象。
+			- 9.`FactoryBean`接口
+			  collapsed:: true
+				- 背景：使用xml文件描述Bean的信息过于复杂，采用编码的方式或许是更好的选择。Spring提供了一个工厂类接口`FactoryBean`，用户可以通过这个接口定制实例化Bean的逻辑。
+				- 这里具体的例子可以参考本书P154页的实现，这里不再赘述。
+			- 10.基于注解的配置
+			  collapsed:: true
+				- 使用注解定义Bean
+				  collapsed:: true
+					- Spring容器成功启动的三大要件
+						- Bean定义信息，就是xml中bean的定义
+						- Bean实现类，就是java类中对bean进行定义的类
+						- Spring本身
+						- 基于xml的配置中，Bean的定义信息和Bean的实现类是分隔开来的；在基于注解的配置中，这两者都在Bean的实现类中得以体现。
+					- Spring提供的声明Bean的注解
+						- `@Component`，下面的三个注解其实和`@Component`是等效的，只是为了标注类的用途更加清晰化，其实可以用`@Component`替换。
+						- `@Respository`
+						- `@Service`
+						- `@Contoller`
+				- 扫描注解定义的Bean
+					- 背景：使用了上面的四个注解之后，我们需要在原来的Bean的描述文件中配置需要Spring扫描Bean的类包。
+					- xml中的`component-scan`配置
+						- 作用：配置Spring需要扫描Bean定义信息的类包。
+						- 属性
+							- `base-package`
+							  collapsed:: true
+								- 配置需要扫描的类包。
+							- `resource-pattern`
+								- 基于base-package的配置，过滤出特定的类，Spring会对这些特定的类进行扫描。
+							- `include-filter`
+							  collapsed:: true
+								- 表示要包含的目标类。
+								- 支持过滤表达式。
+							- `exclude-filter`
+							  collapsed:: true
+								- 表示要排除的目标类。
+								- 支持过滤表达式，其中`aspectj`的过滤表达能力是最强的。
+								- 过滤表达式的类别
+								  collapsed:: true
+									- annotation
+									- assignable
+									- aspectj
+									- regex
+									- custom
+							- `use-default-filters`
+							  collapsed:: true
+								- 默认值是`true`，表示默认会对`@Component`、`@Service`、`@Controller`和`@Resposity`的Bean进行扫描。
+								- 如果想只对`@Controller`标注的Bean进行扫描，必须将其值设置为`false`。
+							- 关于`include-filter`、`exclude-filter`和`use-default-filters`三者的作用顺序：
+								- Spring首先会根据exclude-filter的配置列出需要排除的黑名单，然后根据include-filter的配置列出白名单，再根据use-default-filters的配置觉得需要扫描的注解配置。
+							-
+				- 自动装配Bean
+				  collapsed:: true
+					- 使用`@Autowired`进行自动注入
+					  collapsed:: true
+						- `@Autowired`注解默认按类型（byType）匹配的方式在容器中查找匹配的Bean，当有且仅有一个匹配的Bean时，Spring将其注入`@Autowired`标注的变量中。
+					- 使用`@Autowired`的requested属性
+					  collapsed:: true
+						- 若容器中没有一个和标注变量类型匹配的Bean，那么Spring在启动的时候会报`NoSuchDefinitionException`异常。若希望Spring在匹配不到的时候不要抛异常，则可以使用`@Autowired(required=false)`进行标注。
+					- 使用`@Qualifier`指定注入Bean的名称
+					  collapsed:: true
+						- 如果容器中存在相同类型的Bean的数量超过1个以上，则可以通过`@Qualifier`注解限定Bean的名称。
+					- 对类的方法进行标注
+					  collapsed:: true
+						- @Autowired注解除了可以对类的**属性成员变量**进行注入，还可以对**方法的入参**进行注入。
+						- 若方法只有一个入参
+						  collapsed:: true
+							- 示例代码
+							  ```java
+							  @Autowired
+							  public void setLogDao(LogDao logDao) {
+							    this.logDao = logDao;
+							  }
+							  
+							  // 会将bean名称为userdao的bean注入给方法参数
+							  @Autowired
+							  @Qualifier("userdao")
+							  public void setUserDao(UserDao userDao) {
+							    this.userDao = userDao;
+							  }
+							  ```
+						- 若方法存在多个入参
+						  collapsed:: true
+							- 示例代理
+							  ```java
+							  // 下面的方法会将名称为userdao的Bean注入给参数userDao，会将类型为LogDao的Bean注入给logDao
+							  @Autowired
+							  public void init(@Qualifier("userdao") UserDao userDao, LogDao logDao) {
+							    this.userDao = userDao;
+							    this.logDao = logDao;
+							  }
+							  ```
+					- 对集合类进行注入
+					  collapsed:: true
+						- 对于List集合
+							- 下面代码中会将所有Plugin类型（包含继承和实现了Plugin类的Bean）的Bean注入到这个list变量中。
+							- 示例代码
+							  ```java
+							  @Autowired(required=false)
+							  private List<Plugin> plugins;
+							  ```
+						- 对于Map集合
+							- 下面的代码中会将Plugin类型的Bean放入这个Map中，其中key是Bean的名称，value是Bean本身。
+							- 示例代码
+							  ```java
+							  @Autowired(required=false)
+							  public Map<String, Plugin> pluginMap;
+							  ```
+						- 值得注意的是：Bean的加载顺序可以使用@Order注解进行声明，其中值越小，越优先被加载。
+					- 对延迟依赖注入的支持
+					  collapsed:: true
+						- Spring容器在启动的时候，对于同时标注了`@Lazy`和`@Autowired`注解的属性不会立刻注入属性值，而是延迟到调用此属性的时候才会注入属性值。
+						- `@Lazy`必须同时标注在目标Bean Java类的声明上和注入属性这两个地方才会生效。
+					- 对标准注解的支持
+					  collapsed:: true
+						- JSR-250定义的`@Resource`注解
+							- 作用：对类成员变量和方法入参提供自动注入的功能。
+							- 与@Autowired的区别
+								- @Resource是按名称匹配进行Bean的注入的。@Autowired是按类型。
+								- @Resource要求提供一个Bean的名称属性方便其进行查找，如果属性为空，则按照标注处的变量名称或方法名作为Bean的名称去做查找。
+						- JSR-330定义的`@Inject`注解
+							- 作用：对类成员变量和方法入参提供自动注入的功能。
+							- 与`@Autowired`的区别
+								- `@Inject`注解与`@Autowired`注解一样都是按类型进行注入的，但是`@Inject`没有`required`属性。
+				- Bean的作用范围及生命过程方法
+				  collapsed:: true
+					- 作用范围
+						- 我们在通过注解配置一个Bean的时候，除了使用@Component注解外，还可以使用@Scope注解来显示的指定Bean的作用范围或者说是作用域。具体可以参考 ((6475a88f-4108-4bc9-81f8-350b6077b62b))。
+					- 生命过程方法
+						- 除了之前在 ((6469b109-a6d9-4743-8ade-896d4866aacc))提到过的`init-method`和`destory-method`方法外，Spring支持了JSR-250定义的`@PostContruct`和`@PreDestory`注解。
+						- `@PostContruct`和`@PreDestory`注解的作用时机
+							- Bean的构造方法
+							- 调用Setter方法设置Bean的属性
+							- 调用`@PostContruct`标注的方法
+							- Bean销毁时调用`@PreDestory`注解
+			- 11.基于Java类的配置
+			  collapsed:: true
+				- 使用Java类提供Bean的定义信息
+				  collapsed:: true
+					- 实现步骤
+						- 一使用`@Configuration`注解声明一个配置类
+						- 二在配置中声明定义类的方法，并使用@Bean注解去标注，默认Bean是以方法名作为Bean的名称。
+					- 注意
+						- `@Configuration`注解类本身已经标注了`@Component`注解，所以配置类本身就是一个Bean。
+						- 在方法上标注`@Bean`注解的地方，我们还可以使用`@Scope`注解来控制Bean的作用范围。
+						- 因为采用Java类的配置去声明Bean的方式，在进行Bean的创建时会将Bean的生命周期管理的逻辑植入进来。这里就要用到AOP增强，所以使用基于Java类的配置方式必须保证要将Spirng aop和CGLib的包加载到类路径下。
+				- 使用基于Java类的配置信息启动Spring容器
+					- 直接通过`@Configuration`类启动Spring容器
+						- 方法一：加载一个`@Configuration`配置类
+							- Spring提供了`AnnotationConfigApplicationContext`类，直接通过标注`@Configuration`的Java类启动Spring容器。
+						- 方法二：加载多个`@Configuration`配置类
+							- 通过`AnnotationConfigApplicationContext`类的`register()`（注册配置类）和`refresh()`（刷新容器以应用这些注册的配置类）方法去加载多个配置类。
+						- 方法三：通过`@Import`注解将多个配置类组装到一个配置类中
+							- 将多个配置类组合到一个配置类中，使用方法一加载配置类。
+					- 通过XML配置文件引用@Configuration的配置
+					  collapsed:: true
+						- 在xml文件中配置Java Bean的配置类，让Spring容器去扫描到相应的配置类。
+					- 通过@Configuration配置类引用XML配置信息
+					  collapsed:: true
+						- 在标注有@Configuration注解的配置类中，引入声明有Bean定义的xml文件，在Java的配置文件中我们可以直接使用xml中配置的Bean。最后使用@Configuration类启动Spring容器即可。
+			- 12.基于Groovy DSL的配置
+			  collapsed:: true
+				- 使用Groovy DSL提供Bean的定义信息
+					- Bean的配置信息使用Groovy脚本进行声明，Bean定义可以实现的功能有：
+						- 可以与基于注解的配置混用
+						- 配置无参的构造函数Bean
+						- 配置有参的构造函数Bean
+						- 可以根据条件对Bean进行注入
+				- 使用GenericGroovyApplicationContext启动
+					- Spring提供了`GenericGroovyApplicationContext`类，通过Groovy DSL去启动Spring容器。
+			- 13.通过编码方式动态添加Bean
+			  collapsed:: true
+				- 为什么要动态的添加Bean，直接声明（或者说是定义）Bean不就行了吗？
+				  collapsed:: true
+					- 在向Spring容器添加Bean的时候，我们可能需要根据配置做相关逻辑的判断，按照上面xml、注解、Java类的方式等不足以满足我们的需求，因为他们都是静态添加，尽管Groovy DSL可以通过条件判断进行注入的逻辑，但是无法满足将bean的添加到Spring的逻辑。所以我们需要在Spring启动的时候动态的添加Bean实例到Spring容器中。
+				- 方法一：通过`DefaultListaleBeanFactory`
+				  collapsed:: true
+					- `BeanFactoryPostProcessor`接口
+						- 作用：为了实现在Spring启动阶段能够动态注入自定义Bean，保证动态注入的Bean能够被AOP所增强，需要实现Bean工厂后置处理器接口`BeanFactoryPostProcessor`。
+					- `DefaultListableBeanFactory`类
+						- 实现了`ConfigurableListableBeanFactory`接口
+						- 提供了扩展配置、循环枚举的功能
+						- 通过此类可以实现Bean的动态注入
+				- 方法二：扩展自定义标签
+				  collapsed:: true
+					- 实现步骤
+						- 1.创建一个需要扩展的组件，也就是编写bean的Java类定义
+						- 2.采用XSD描述自定义标签的元素属性
+						- 3.编写Bean定义的解析器，创建一个实现 AbstractSingleBeanDefinitionParser 接口的类，又或者创建一个实现 BeanDefinitionParser 接口的类，用来解析 XSD 文件中的定义和组件定义。这两种实现方式对应不同的 XSD 文件配置方式。
+						- 4.注册自定义标签解析器，创建一个 Handler，继承 NamespaceHandlerSupport ，用于将组件注册到 Spring 容器
+						- 5.绑定命名空间解析器编写 Spring.handlers 和 Spring.schemas 文件
+					- 除了自定义标签之外，我们还可以自定义属性和子标签。
+					- 参考文章
+						- [Spring自定义标签的实现](https://zhuanlan.zhihu.com/p/107837020)
+				- 这里有一些参考文章
+				  collapsed:: true
+					- [SpringBoot动态注入Bean](https://www.jianshu.com/p/faa6ac6f2ce2)
+					- [spring动态创建bean:动态创建方式的时机影响（一）](https://blog.csdn.net/qq_37207266/article/details/120389752)
+			- 14.不同配置方式的比较
+			  collapsed:: true
+				- Bean不同配置方式的比较
+				  collapsed:: true
+					- 书中总结图片
+					  ![Bean不同配置方式的比较.png](../assets/Bean不同配置方式的比较_1685860855635_0.png)
+					  ![Bean不同配置方式的比较2.png](../assets/Bean不同配置方式的比较2_1685860862388_0.png)
+				- Bean不同配置方式的使用场景
+				  collapsed:: true
+					- 书中总结的图片
+					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 	- spring-core
 		- IOC
 		  collapsed:: true
@@ -1117,3 +1352,17 @@
 			- 缺点
 				- 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
 		- 数据库生成
+- Apache httpClient
+  collapsed:: true
+	- 客户端超时设置
+		- 参考文章
+		  collapsed:: true
+			- 连接超时 (http.connection.timeout) ：与远程主机建立连接的时间。
+			- 套接字超时 (http.socket.timeout) ：建立连接后等待数据的时间； 两个数据包之间不活动的最长时间。
+			- 连接管理器超时 (http.connection-manager.timeout) ：等待来自连接管理器/池的连接的时间。
+			- [Apache HttpClient Timeout](https://www.baeldung.com/httpclient-timeout)
+- Nginx
+	- 静态资源配置
+	  collapsed:: true
+		- 参考文章
+			- [nginx配置静态资源访问](https://www.cnblogs.com/qingshan-tang/p/12763522.html)

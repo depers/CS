@@ -1,4 +1,5 @@
 - Java语言
+  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1727,7 +1728,6 @@
 			- BeanInfo
 			- PropertyDescriptor
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2557,10 +2557,36 @@
 		- IO
 		  collapsed:: true
 			- 五种IO模型
-				- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
-			- NIO
-			  collapsed:: true
-				- [Java NIO浅析](https://tech.meituan.com/2016/11/04/nio.html)
+				- 同步阻塞-Blocking I/O
+					- 阻塞IO模型
+						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
+						- 示例图
+						  ![阻塞IO.webp](../assets/阻塞IO_1685864250927_0.webp)
+					- IO复用模型
+						- 进程通过将一个或多个fd传递给select，阻塞在select操作上，select帮我们侦测多个fd是否准备就绪，当有fd准备就绪时，select返回数据可读状态，应用程序再调用recvfrom读取数据。
+						- 示例图
+						  ![io复用.webp](../assets/io复用_1685864464711_0.webp)
+				- 同步非阻塞-Non-blocking I/O
+					- 非阻塞IO模型
+						- 非阻塞IO就是当应用发起读取数据申请时，如果内核数据没有准备好会即刻告诉应用，不会让应用在这里等待。
+						- 示例图
+						  ![非阻塞IO.png](../assets/非阻塞IO_1685864787196_0.png)
+					- 信号驱动的IO模型
+						- 首先开启套接口信号驱动IO功能，并通过系统调用sigaction执行一个信号处理函数，此时请求即刻返回，当数据准备就绪时，就生成对应进程的SIGIO信号，通过信号回调通知应用线程调用recvfrom来读取数据。
+						- IO复用模型里面的select虽然可以监控多个fd了，但select其实现的本质上还是通过不断的轮询fd来监控数据状态， 因为大部分轮询请求其实都是无效的，所以信号驱动IO意在通过这种建立信号关联的方式，实现了发出请求后只需要等待数据就绪的通知即可，这样就可以避免大量无效的数据状态轮询操作。
+						- 示例图
+						  ![信号驱动的io模型.webp](../assets/信号驱动的io模型_1685865059269_0.webp)
+				- 异步非阻塞/异步IO-Async I/O
+					- 通过观察我们发现，不管是IO复用还是信号驱动，我们要读取一个数据总是要发起两阶段的请求，第一次发送select请求，询问数据状态是否准备好，第二次发送recevform请求读取数据。
+					- 应用只需要向内核发送一个read 请求,告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
+					- 示例图
+					  ![异步IO.webp](../assets/异步IO_1685865454338_0.webp)
+				- 同步和异步的区别在于：是否需要应用进程再去调用recvfrom系统调用。
+				- 阻塞和非阻塞的区别在于：应用进程在询问内核数据准备情况时，是否需要等待。
+				- 用通俗的话来讲：IO操作就像我们吃饭，首先我们要看饭做好了没有，然后再去吃饭。
+				- 参考文章
+					- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
+					- [Java NIO浅析](https://tech.meituan.com/2016/11/04/nio.html)
 			- System.out/System.err
 			  collapsed:: true
 				- 值得注意的点
@@ -2719,6 +2745,7 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
+		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -3776,8 +3803,8 @@
 			- reflectasm
 				- 空笔记
 	- 新特性
-	  collapsed:: true
 		- Java8
+		  collapsed:: true
 			- 我不会的函数
 			  collapsed:: true
 				- java.util.Map#compute
@@ -3810,6 +3837,7 @@
 			  collapsed:: true
 				- [Java 8 Optional 类](https://www.runoob.com/java/java8-optional-class.html)
 			- Lambda表达式
+			  collapsed:: true
 				- Variable used in lambda expression should be final or effectively final
 				  collapsed:: true
 					- 这句话的意思是说lambda 表达式只能引用标记了 final 的外层局部变量，也就是说不能在 lambda 内部修改定义在域外的局部变量，否则会编译错误。
@@ -3886,7 +3914,6 @@
 - Java EE
   collapsed:: true
 	- Servlet
-	  collapsed:: true
 		- Java web application介绍
 		  collapsed:: true
 			- 静态和动态网站的区别
@@ -4184,7 +4211,6 @@
 					- Servlet容器根据客户端请求创建ServletRequest对象，并将其传递给Servlet service()方法进行处理。
 					- ServletRequest的子接口是HttpServletRequest，它包含一些用于会话管理、cookie和请求授权的其他方法。
 				- 方法
-				  collapsed:: true
 					- Object getAttribute(String name)
 					  collapsed:: true
 						- 此方法将指定属性的值返回为Object，如果不存在则返回null。
@@ -4255,7 +4281,6 @@
 			- HttpServletRequest interface
 			  collapsed:: true
 				- 关于httpServletRequest path API的讨论
-				  collapsed:: true
 					- 附一张图
 					  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
 					- 参考文章：[HttpServletRequest Path Decoding](https://agiletribe.purplehillsbooks.com/2016/02/23/httpservletrequest-path-decoding/)
@@ -4506,24 +4531,18 @@
 				  collapsed:: true
 					- 我们可以在ServletContentListener的初始化方法中，使用ServletContext.addServlet()方法去注册一个Servlet
 		- Servlet中Session的管理
-		  collapsed:: true
 			- 会话的定义
 			  collapsed:: true
 				- 背景
-				  collapsed:: true
 					- HTTP协议和Web服务器是无状态的，这意味着对Web服务器来说，每个请求都是一个新的请求，他们不能识别它是否来自之前发送请求的客户端。
 				- 定义
-				  collapsed:: true
 					- Session是web服务器和客户端之间的一种状态标识。由于HTTP和Web Server都是无状态的，所以维护Session的唯一方法是在每个请求和响应中在服务器和客户机之间传递一些关于会话的惟一信息(会话id)。
 				- 有几种方法可以在请求和响应中提供唯一标识符
-				  collapsed:: true
 					- 1.用户认证
-					  collapsed:: true
 						- 用户可以从登录页面提供身份验证凭据，然后我们可以在服务器和客户机之间传递身份验证信息以维护会话。
 						- 优点：实现简单
 						- 缺点：如果同一用户使用不同的浏览器登录，此时系统内有两个相同的用户在操作，无法保证用户操作的唯一性
 					- 2.HTML隐藏字段
-					  collapsed:: true
 						- 我们可以在HTML中创建一个唯一的隐藏字段，当用户开始导航时，我们可以设置它的值为用户唯一，并跟踪会话。
 						- 优点：实现简单
 						- 缺点
@@ -4531,13 +4550,10 @@
 							- 这种办法不能用于链接，客户端每次发送带有隐藏字段的请求时，都需要提交表单
 							- 不安全，黑客可以从HTML源中获取隐藏字段的值并使用它们攻击会话
 					- 3.URL重写
-					  collapsed:: true
 						- 在每个请求和响应中附加一个会话标识符参数，以跟踪会话。这是非常麻烦的，因为我们需要在每个响应中跟踪此参数，并确保它与其他参数没有冲突。
 					- 4.Cookie
-					  collapsed:: true
 						- cookie是由web服务器在响应头中发送的一小段信息，并存储在浏览器的cookie中。当客户端发出进一步的请求时，它将cookie添加到请求头，我们可以利用它来跟踪会话。我们可以用cookie维护一个会话，但如果客户端禁用cookie，那么它就无法工作。
 					- 5.Session Management API
-					  collapsed:: true
 						- 是在以上方法的基础上构建的，用于会话跟踪。
 						- 上面所有方法的主要缺点
 						  collapsed:: true
@@ -4545,13 +4561,10 @@
 							- 上述所有方法本身都不完整，它们都不能在特定的场景中工作。因此，我们需要一种能够利用这些会话跟踪方法在所有情况下都能提供会话管理的解决方案。
 						- J2EE Servlet技术附带了我们可以使用的Session Management API。
 			- 方法一：Cookies
-			  collapsed:: true
 				- 这里可以参考mall项目下的子项目Servlet/servlet-demo
-				  collapsed:: true
 					- cn.bravedawn.servlet.session.cookies.LoginSessionServlet
 					- cn.bravedawn.servlet.session.cookies.LogoutSessionServlet
 			- 方法二：HttpSession
-			  collapsed:: true
 				- Servlet API通过HttpSession接口提供会话管理。我们可以使用以下方法从HttpServletRequest对象获取会话。HttpSession允许我们将对象设置为可以在未来请求中检索的属性。
 				- 方法
 				  collapsed:: true
@@ -4970,6 +4983,7 @@
 				- 以上面这段配置来做说明，它将 `spring-boot-dependencies`  中 `DependencyManagement` 下的 `Dependencies` 插入到当前工程的 `DependencyManagement` 中，所以不存在依赖传递。
 				- 当没有 `<scope>import</scope>` 时，意思是将 `spring-boot-dependencies`  的 `Dependencies` 全部插入到当前工程的 `Dependencies` 中，并且会依赖传递。
 			- 指定jdk编译版本号
+			  collapsed:: true
 				- 参见如下代码
 				  ```xml
 				  <build>
@@ -5070,7 +5084,6 @@
   collapsed:: true
 	- Java.util.logging
 	- Log4j2
-	  collapsed:: true
 		- 参考文章
 		  collapsed:: true
 			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
