@@ -150,6 +150,7 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
+		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -846,7 +847,6 @@
 			- 1.Spring容器技术内幕
 			  collapsed:: true
 				- Spring的内部工作机制
-				  collapsed:: true
 					- Spring中`AbstractApplicationContext`是`ApplicationContext`的抽象实现类，`AbstractApplication#refresh()`方法定义了Spring容器在加载配置文件之后各项处理过程。
 				- IOC流水线
 				  collapsed:: true
@@ -898,8 +898,10 @@
 			- 2.属性编辑器
 			  collapsed:: true
 				- 作用
+				  collapsed:: true
 					- Spring配置文件中Bean的属性一般是通过字面值为其设置属性值，但是Bean的类型却有很多种。属性编辑器负责完成配置文件字面值到JVM内部类型的类型转换工作。说白了就是一个类型转换器。
 				- JavaBean的属性编辑器
+				  collapsed:: true
 					- 背景
 						- Sun制定的JavaBean很大程度上是为IDE的开发准备的，也就是为Java GUI程序的开发准备的
 					- PropertyEditor
@@ -909,13 +911,73 @@
 					- BeanInfo
 					  collapsed:: true
 						- 主要描述了JavaBean的那些属性可以编辑以及对应的属性编辑器。
-			- 3.Spring默认属性编辑器
+				- Spring默认属性编辑器
+				  collapsed:: true
+					- Spring的属性编辑器与IDE开发的属性编辑器不同，没有UI界面。仅负责将配置文件中的文本配置值转换为Bean属性的对应值。
+					- Spring在`PropertyEditoRegistrySupport`中为常见属性类型提供了默认的属性编辑器。
+					- Spring提供的默认属性编辑器
+					  ![Spring默认的属性编辑器.png](../assets/Spring默认的属性编辑器_1685949337055_0.png)
+				- 在Spring自定义属性编辑器
+				  collapsed:: true
+					- 开发者可以通过扩展PropertyEditorSupport实现自己的属性编辑器。
+					- Spring的属性编辑器功能单一，仅需将配置文件中的字面值转换为属性类型的对象即可。
+					- 实例演示
+					  collapsed:: true
+						- 如果一个BeanA的属性中包含另一个BeanB的引用，要配置BeanA的BeanB属性，有两种方案：
+						  collapsed:: true
+							- 一首先要声明BeanB，然后在BeanA的声明中使用<ref>标签去引用BeanB。
+							- 二是BeanB类型声明一个自定义的属性编辑器，这样就可以像普通类型一样去通过字面值为BeanA的BeanB属性提供配置值。
+						- 自定义的编辑器需要实现PropertyEditorSupport，并覆盖setAsText()方法就可以。
+						- 注册自定义的属性编辑器
+						  collapsed:: true
+							- 如果使用`BeanFactory`，需要手工通过调用`registerCustomEditor(Class requiredType, PropertyEditor propertyEditor)`方法去注册自定义的属性编辑器。
+							- 如果使用`ApplicationContext`，只需要在配置文件中通过`CustomEditorConfigurer`注册即可。
+			- 3.使用外部属性文件
 			  collapsed:: true
-				- Spring的属性编辑器与IDE开发的属性编辑器不同，没有UI界面。仅负责将配置文件中的文本配置值转换为Bean属性的对应值。
-				- Spring在`PropertyEditoRegistrySupport`中为常见属性类型提供了默认的属性编辑器。
-				- Spring提供的默认属性编辑器
-				  ![Spring默认的属性编辑器.png](../assets/Spring默认的属性编辑器_1685949337055_0.png)
-		-
+				- 背景
+				  collapsed:: true
+					- 在Spring的配置文件中，如果一个配置在多个Bean的声明中被使用，那就需要我们在每一个配置的地方都硬编码一次。如果我们统一将这些配置抽取出来，放在一个外部文件中，就会极大的减少维护的工作量，从而降低了在服务部署时因配置导致出错的概率。
+				- 实现依赖
+					- Spring提供了一个`PropertyPlaceholderConfigurer`类用于支持在Bean配置的时候引用外部属性文件。
+					- `PropertyPlaceholderConfigurer`实现了`BeanFactoryPostProcessorBean`接口，也是一个Bean工厂后处理器。
+				- `PropertyPlaceholderConfigurer`属性文件
+					- 1.使用流程
+					  collapsed:: true
+						- 将公共配置抽离出一个`.properties`属性文件
+						- 在Bean的配置文件中引入`.properties`属性文件
+						- 在Bean的声明中通过`${属性名}`使用配置的属性值。
+					- 2.PropertyPlaceholderConfigurer的其他属性
+					  collapsed:: true
+						- `locations`：设置属性文件位置的classpath
+						- `fileEncoding`：属性文件的编码格式
+						- `order`：若bean的配置文件中定义了多个`PropertyPalceholderConfigurer`，则通过该属性指定优先顺序。
+						- `placeholderPrefix`：使用`${属性名}`引用属性文件中的属性项，其中`${`为默认的占位符前缀。
+						- `placeholderSuffix`：占位符后缀，默认是`}`。
+					- 3.使用<context:property-placeholder>引用属性文件
+					  collapsed:: true
+						- 使用context命名空间定义属性文件，相比于传统的`PropertyPlaceholderConfigurer`配置的方式更优雅。这是第二种引入外部配置文件的方法。
+					- 4.在基于注解及基于Java类的配置中引用属性
+					  collapsed:: true
+						- 在基于注解和基于Java类的配置中，我们可以使用`@Value(${属性名})`为Bean（`@Component`和@`Configuration`注解都会将类本省声明为一个Bean）的成员变量和方法入参自动注入容器已有的属性。
+				- 使用加密的属性文件
+				  collapsed:: true
+					- 背景
+						- 在应用程序的配置文件中有时会有一些敏感的数据，比如数据库的账户密码，这些数据如果明文存在配置文件中，会被内部开发人员看到，可能会导致数据库信息的泄露。所以针对一些比较敏感信息，我们需要这些配置信息进行加密。
+					- 实现依赖
+						- PropertyPlaceholderConfigurer继承了PropertyResourceConfigurer类
+						- PropertyResourceConfigurer有几个有用的protected方法，用于在属性使用之前对属性列表中的属性进行转换
+							- `void convertProperties(Properties props)`：props变量中包含了所有的属性列表，可以对所有属性进行转换处理。
+							- `String convertProperty(String propertyName, String propertyValue)`：在加载属性文件并读取配置文件中的每一个属性，都会调用这个方法进行转换。**我们一般复写这个方法。**
+							- `String convertPropertyValue(String originValue)`：这个方法只传入了每个属性的属性值。
+					-
+				- 属性文件自身的引用
+					- 在属性文件内容，不同的属性可以通过`${属性名}`引用其他属性的属性值。
+					- 如果一个属性值太长写不下，可以在行后添加`\`，将属性值划分为多行。
+			- 4.引用Bean的属性值
+			  collapsed:: true
+				- 背景：如果我们的系统是集群部署或者希望在运行期调整应用的某些配置。此时我们可能会考虑使用数据库去存储我们的一些属性配置项。
+				- 在基于xml的配置方式中，我们可以使用`#{bean.属性名}`的方式去获取其他bean的值。
+				- 在基于注解和Java类的配置方式中，我们可以使用`@Value(#{bean.属性名}`的方法获取其他bean的属性值。
 	- spring-core
 		- IOC
 		  collapsed:: true
@@ -1428,6 +1490,7 @@
 				- 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
 		- 数据库生成
 - Apache httpClient
+  collapsed:: true
 	- 客户端超时设置
 		- 参考文章
 			- 连接超时 (http.connection.timeout) ：与远程主机建立连接的时间。
