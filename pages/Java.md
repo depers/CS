@@ -1,7 +1,7 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 				- 基本类型
 				  collapsed:: true
@@ -1726,6 +1726,11 @@
 			- AutoCloseable
 			- BeanInfo
 			- PropertyDescriptor
+		- http
+			- 参考文章
+				- [Java11 HttpClient小试牛刀](https://juejin.cn/post/6844903685563088903)
+				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
+				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
 	  collapsed:: true
 		- 集合框架
@@ -3802,6 +3807,7 @@
 			- reflectasm
 				- 空笔记
 	- 新特性
+	  collapsed:: true
 		- Java8
 		  collapsed:: true
 			- 我不会的函数

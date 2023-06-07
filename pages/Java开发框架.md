@@ -847,6 +847,7 @@
 			- 1.Spring容器技术内幕
 			  collapsed:: true
 				- Spring的内部工作机制
+				  id:: 647d7431-b322-4e39-9e76-221c5fa193a8
 					- Spring中`AbstractApplicationContext`是`ApplicationContext`的抽象实现类，`AbstractApplication#refresh()`方法定义了Spring容器在加载配置文件之后各项处理过程。
 				- IOC流水线
 				  collapsed:: true
@@ -978,6 +979,86 @@
 				- 背景：如果我们的系统是集群部署或者希望在运行期调整应用的某些配置。此时我们可能会考虑使用数据库去存储我们的一些属性配置项。
 				- 在基于xml的配置方式中，我们可以使用`#{bean.属性名}`的方式去获取其他bean的值。
 				- 在基于注解和Java类的配置方式中，我们可以使用`@Value(#{bean.属性名}`的方法获取其他bean的属性值。
+			- 5.国际化信息
+			  collapsed:: true
+				- 基础信息
+					- 一般需求两个条件才可以确定一个特定类型的本地化信息，分别是“语言类型”和“国家/地区类型”。
+					- Locale
+					  collapsed:: true
+						- java.util.Locale类是表示语言和国家/地区类型信息的本地化类，它是创建国际化应用的基础。
+						- 比如创建中国的国际化信息，代码如下：
+						  ```java
+						  Locale locale1 = new Locale("zh", "CN");
+						  
+						  // 等同于
+						  Locale locale2 = Locale.CHINA;
+						  ```
+						- 如果希望改变系统默认的本地化配置，可以在JVM的启动参数中指定：`java -Duer.language=en -Duser.region=US MyTest`。
+					- 本地化工具类
+					  collapsed:: true
+						- JDK的java.util包提供了几个工具类来支持本地化的格式化操作，这几个类分别是：
+							- `NumberFormat`：可以对货币金额按照本地化的方式进行格式化操作。
+							- `DateFormat`：可以对日期按照本地化的方式进行格式化操作。
+							- `MessageFormat`：提供了字符串占位符的格式化操作。
+					- ResourceBoundle
+					  collapsed:: true
+						- 作用：用于访问国际化信息
+						- 资源文件的命名
+						  collapsed:: true
+							- 国际化资源文件的命名规范：`<资源名>_<语言代码>_<国家/地区代码>.properties`，其中语言代码和国家/地区代码是可选参数。
+							- 默认资源文件的命名：`<资源名>.properties`
+						- 中文本地化资源文件的内容的编码只能使用ASCII字符，所以需要将非ASCII字符的内容转换为Unicode代码的表示方式。
+						  collapsed:: true
+							- JDK在bin目录下提供了一个工具native2ascii，用于将中午字符的资源文件转换为Unicode编码的文件。
+							- IDEA支持透明化编辑资源文件的功能，在Setting->Editor->File Enconding->勾选“Transparent native-to-ascii conversion”就可以开启。也就是说在idea中你可以以中文字符的方式编写资源文件，idea会自动帮你将中文字符转换Unicode编码。
+						- 使用`ResourceBoundle`加载和访问资源文件
+							- ResourceBoundle加载资源文件的顺序：指定本地化对象的资源文件->本系统默认的本地化对象的资源文件->默认的资源文件
+						- 使用`ResourceBoundle`和`MessageFormat`读取格式化资源文件
+				- MessageSource
+					- 作用：用于访问国际化信息
+					- 重要方法
+					  collapsed:: true
+						- `String getMessage(String code, Object[] args, String defaultMessage, Locale locale)`
+							- `code`：表示国际化信息中的属性名
+							- `args`：用于传递格式化串占位符所用的运行期参数
+							- `defaultMessage`：在资源中找不到资源名时，返回defaultMessage定义的信息
+							- `locale`：指定本地化对象
+					- MessageSource的类结构
+					  id:: 648025f9-3b49-405a-b5ec-9e2071ed197a
+					  collapsed:: true
+						- 结构图
+						  ![MessageSource类结构图.png](../assets/MessageSource类结构图_1686120037790_0.png)
+					- `ResourceBundleMessageSource`
+					  collapsed:: true
+						- 该类允许用户通过beanName访问一个或是多个资源文件
+						- 与`ResourceBoundle`的区别
+							- 在加载资源文件的时候无需明确指定本地化信息，通过资源名就可以加载整套国际化资源文件。
+							- 无需使用`MessageFormat`去格式化信息，调用getMessage()方法直接就可以完成格式化。
+					- `ReloadableResourceBundleMessageSource`
+					  collapsed:: true
+						- 与ResourceBundleMessageSource的区别是可以定时刷新资源文件，在应用不重启的情况下感知资源文件的变化。
+				- 容器级的国际化信息资源
+				  collapsed:: true
+					- 在 ((648025f9-3b49-405a-b5ec-9e2071ed197a))中我们看到`ApplicationContext`实现了`MessageSource`接口，其目的在于将国际化资源信息变为容器级的，Spring将国际化信息资源作为公共基础设施对所有组件公开。
+					- 声明容器级的国际化信息资源
+					  collapsed:: true
+						- 在 ((647d7431-b322-4e39-9e76-221c5fa193a8))中，在容器启动的时候会执行`initMessageSource()`方法，这个方法的作用就是初始化容器中的国际化信息资源。它根据反射从`BeanDefinitionRegistry`找出名为`messageSource`（这个Bean名称只能为`messageSource`）且类型为`org.springframework.MessageSource`的Bean，将这个Bean定义的信息资源加载为容器级的国际化信息资源。
+			- 6.容器事件
+			  collapsed:: true
+				- 背景：
+				  collapsed:: true
+					- Spring的ApplicationContext能够发布事件并允许注册相应的事件监听器，有一套完整的事件发布和监听机制。
+				- Java通过`java.util.EventObject`类描述事件，`java.util.EventListener`接口描述监听器。
+				- 重要概念
+				  collapsed:: true
+					- 事件源：事件的产生者，任何一个EventObject都有一个事件源。
+					- 事件监听注册表：用于保存事件监听器。
+						- 将一个注册一个事件监听器，就是将监听器保存到事件监听注册表。
+						- 当事件源产生事件时，就会通知位于注册表中的事件监听器。
+					- 事件广播器：是事件和监听器沟通的桥梁，负责把事件通知给事件监听器。
+					- 一个图
+					  ![事件体系.png](../assets/事件体系_1686122116114_0.png)
+		-
 	- spring-core
 		- IOC
 		  collapsed:: true
