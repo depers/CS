@@ -1,8 +1,10 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
+			  collapsed:: true
 				- 基本类型
 				  collapsed:: true
 					- 整型
@@ -146,6 +148,7 @@
 					- String Pool
 				- new String("abc")
 			- 运算
+			  collapsed:: true
 				- 参数传递
 				  collapsed:: true
 					- Java的参数传递是：值传递，
@@ -493,27 +496,25 @@
 			  collapsed:: true
 				- 功能：正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。Java标准库java.util.regex内建了正则表达式引擎。
 				- 匹配规则
-					- 匹配任意字符：.匹配一个字符且仅限一个任意字符
-					- 匹配数字：\d仅限单个数字字符
-					- 匹配常用字符：\w可以匹配一个字母、数字或下划线
-					- 匹配空格字符：\s可以匹配一个空格字符，注意空格字符不但包括空格，还包括tab字符（在Java中用\t表示）
-					- 匹配非数字：\D则匹配一个非数字
+				  collapsed:: true
+					- 匹配任意字符：`.`匹配一个字符且仅限一个任意字符
+					- 匹配数字：`\d`仅限单个数字字符
+					- 匹配常用字符：`\w`可以匹配一个字母、数字或下划线
+					- 匹配空格字符：`\s`可以匹配一个空格字符，注意空格字符不但包括空格，还包括tab字符（在Java中用`\t`表示）
+					- 匹配非数字：`\D`则匹配一个非数字
 					- 重复匹配
-						- 修饰符*可以匹配任意个字符，包括0个字符
-						- 修饰符+可以匹配至少一个字符
-						- 修饰符?可以匹配0个或一个字符
+						- 修饰符`*`可以匹配任意个字符，包括0个字符
+						- 修饰符`+`可以匹配至少一个字符
+						- 修饰符`?`可以匹配0个或一个字符
 				- 匹配复杂规则
 				  collapsed:: true
 					- 匹配开头和结尾
 					- 匹配指定范围
 					- 或规则匹配
 					- 使用括号
-					  collapsed:: true
 						- 提取公共部分，括起子规则
-						  collapsed:: true
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.BracketExample
 						- 分组匹配
-						  collapsed:: true
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.GroupMatch
 				- 使用Pattern只做一次编译，不建议使用String.matches()
 				- 非贪婪匹配?
@@ -524,6 +525,9 @@
 					- 替换字符串：String.replaceAll()
 					- 反向引用
 					- Matcher.appendReplacement()
+				- 参考文章
+				  collapsed:: true
+					- [正则表达式](https://www.liaoxuefeng.com/wiki/1252599548343744/1255945288020320)
 			- 枚举
 			  collapsed:: true
 				- 枚举类的作用：定义的普通常量类，编译器无法检查每个值的合理性
@@ -1727,6 +1731,7 @@
 			- BeanInfo
 			- PropertyDescriptor
 		- http
+		  collapsed:: true
 			- 参考文章
 				- [Java11 HttpClient小试牛刀](https://juejin.cn/post/6844903685563088903)
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)

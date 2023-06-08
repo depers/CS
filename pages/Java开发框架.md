@@ -1,6 +1,5 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
-	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -844,6 +843,7 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
+		  collapsed:: true
 			- 1.Spring容器技术内幕
 			  collapsed:: true
 				- Spring的内部工作机制
@@ -1058,8 +1058,105 @@
 					- 事件广播器：是事件和监听器沟通的桥梁，负责把事件通知给事件监听器。
 					- 一个图
 					  ![事件体系.png](../assets/事件体系_1686122116114_0.png)
-		-
+				- Spring事件类结构
+				  collapsed:: true
+					- 事件类
+					  collapsed:: true
+						- 事件类结构图
+						  ![事件类结构图.png](../assets/事件类结构图_1686201445018_0.png)
+						- ApplicationEvent的唯一构造函数式ApplicationEvent(Object source)，通过source参数指定事件源。
+						- ApplicationEvent有两个子类
+							- ApplicationContextEvent
+								- 这个类代表容器事件，它拥有4个子类，分别代表了容器启动、刷新、停止和关闭的事件。
+							- RequestHandledEvent
+								- 这个类是和web应用相关的事件，当一个http请求本处理后，就会产生该事件。
+							- 也可以根据自己的需要扩展`ApplicationEvent`定义自己的事件，完成其他的特殊功能。
+					- 事件监听接口
+						- 事件监听接口结构图
+						  ![事件监听接口结构图.png](../assets/事件监听接口结构图_1686202194823_0.png)
+						- `ApplicationListener`
+							- Spring的事件监听器都继承自`ApplicationListener`接口
+							- `ApplicationListener`接口定义了一个`onApplicationEvent(E event)`方法，该方法接收`ApplicationEvent`事件对象，在该方法中编写事件处理的逻辑。
+						- `SmartApplicationListener`
+							- `boolean supportsEventType(Class<? extends ApplicationEvent> eventType)`：指定监听器对支持哪种类型的容器事件。
+							- `boolean supportsSourceType(Class<?> sourceType)`：指定监听器对何种数据源对象做出响应。
+						- `GenericApplicationListener`
+						  collapsed:: true
+							- 与`SmartApplicationListener`不同的是，它增强了对泛型事件类型的支持。`suppertsEventTyoe()`方法的入参是`ResolvableType`，他可以获取泛型的实际类型信息。
+							- `boolean supportsEventType(ResolvableType eventType)`：指定监听器对支持哪种类型的容器事件。
+							- `boolean supportsSourceType(Class<?> sourceType)`：指定监听器对何种数据源对象做出响应。
+					- 事件广播器
+					  collapsed:: true
+						- 类结构图
+						  ![类结构图.png](../assets/类结构图_1686211575227_0.png)
+						- Spring为事件广播器定义了接口和实现类。
+						- 自定义事件广播器只要实现`AbstractApplicationEventMulticaster`接口即可。
+						- 如果没有自定义的事件广播器，则默认使用`SimpleApplicationEventMulticaster`。
+					- Spring事件体系的具体实现
+						- `org.springframework.context.support.AbstractApplicationContext#refresh`，从容器启动的方法中通过这三个方法搭建事件的基础设施
+							- `this.initApplicationEventMulticaster()`：初始化应用上下文事件广播器。
+							- `this.registerListeners()`：注册事件监听器。
+							- `this.finishRefresh()`：完成刷新并发布容器刷新事件。
+					- Spring事件实例的编写
+						- 1.继承`ApplicationEvent`，实现定义一个事件。
+						- 2.实现`ApplicationListener`接口，定义一个监听器。
+						- 3.实现`ApplicationContextAware`接口的`setApplicationContext()`方法，在Spring容器启动时注入容器实例。
+						-
+		- 第七章 Spring AOP基础
+			- 1.AOP概述
+				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
+				- 什么是AOP
+				  collapsed:: true
+					- 英语翻译过来是Aspect Oriented Programing，翻译过来是面向切面编程。
+					- 说下我自己的理解吧，比如我们开发一个接口，我们都是从**controller**->**service**->**repository**这几个层次去开发的，我按照这样的模式开发了很多的接口，但是如果我想对这些接口做一些统一的操作，那我应该怎么去做呢。这里我们就可以利用AOP来做，如果说一个接口的开发是纵向的，那么AOP就是做些横向的工作。
+				- AOP的术语
+				  collapsed:: true
+					- 连接点（Joinpoint）
+					  collapsed:: true
+						- 连接点就是触发点的意思，描述了切面的逻辑是从什么地方开始执行的。
+						- Spring仅支持方法的连接点，也就是说只能从**方法调用前**、**方法调用后**、**方法抛出异常时**和**方法调用前后**这四个地方加入切面的相关逻辑。
+						- 连接点有两个信息去进行确认：
+						  collapsed:: true
+							- 一是用**方法**表示的程序**执行点**，其中使用**切点**对执行点进行定位。
+							- 二是用**相对位置**表示的**方位**，在**增强类型**中进行定义。
+					- 切点（Pointcut）
+					  collapsed:: true
+						- AOP通过切点对特定的连接点记性定位。
+						- 连接点相当于**数据库中的记录**，而切点相当于**查询条件**。
+						- 在Spring中，通过`org.springframework.aop.Pointcut`接口对切点进行描述。
+					- 增强（Advice）
+					  collapsed:: true
+						- 增强是放置在程序连接点上的一段程序代码。
+						- 增强还包含了用于定位连接点的方位，所谓方位就是在方法的调用前还是调用后这些。
+						- Spring提供的增强接口都是带方位的，比如`BeforeAdvice`、`AfterReturningAdvice`等等。
+					- 目标对象（Target）
+					  collapsed:: true
+						- 目标对象就是添加增强逻辑代码的那个目标类。
+					- 引介（Introduction）
+					  collapsed:: true
+						- 引介是一种特殊的增强，它为目标类添加一些属性和方法。
+					- 织入（Weaving）
+					  collapsed:: true
+						- 织入是将增强代码添加到目标类的具体连接点上的过程。
+						- AOP有三种织入方式
+						  collapsed:: true
+							- 编译期织入，这要求使用特殊的Java编译器。
+							- 类装载期织入，这要求使用特殊的类装载器。
+							- 动态代理织入，在运行期为目标类添加增强生成子类的方式。
+						- Spring采用动态代理织入，AspectJ采用编译期织入和类装载期织入。
+					- 代理（Proxy）
+					  collapsed:: true
+						- 一个类被AOP增强之后，就会产生一个结果类，这个结果类是融合了原类和增强逻辑的代理类。
+						- 代理类可能是和原来具有相同的接口，或者是原类的子类。所以我们可以通过调用原类相同的方式调用代理类。
+					- 切面（Aspect）
+					  collapsed:: true
+						- 切面由切点和增强组成，即包含横切逻辑的定义，又包含连接点的定义。
+					- 要将增强应用于目标对象的连接点上，两个步骤：
+					  collapsed:: true
+						- 一如何将切点和增强定位到连接点上。
+						- 二如何在增强中编写切面的代码。
 	- spring-core
+	  collapsed:: true
 		- IOC
 		  collapsed:: true
 			- 对IOC的理解
