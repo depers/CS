@@ -1104,6 +1104,7 @@
 						-
 		- 第七章 Spring AOP基础
 			- 1.AOP概述
+			  collapsed:: true
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
 				- 什么是AOP
 				  collapsed:: true
@@ -1139,7 +1140,6 @@
 					  collapsed:: true
 						- 织入是将增强代码添加到目标类的具体连接点上的过程。
 						- AOP有三种织入方式
-						  collapsed:: true
 							- 编译期织入，这要求使用特殊的Java编译器。
 							- 类装载期织入，这要求使用特殊的类装载器。
 							- 动态代理织入，在运行期为目标类添加增强生成子类的方式。
@@ -1155,6 +1155,51 @@
 					  collapsed:: true
 						- 一如何将切点和增强定位到连接点上。
 						- 二如何在增强中编写切面的代码。
+				- AOP的实现者
+				  collapsed:: true
+					- AspectJ
+						- 在**编译期**提供横切代码的织入。
+						- 有一个编译器用来生成Java字节码规范的Class文件。
+					- AspectWerkz
+						- 支持在运行期或类装载期织入横切代码。
+					- JBoss Aop
+					- Spring Aop
+						- 采用纯Java实现，在运行期通过代理方式向目标类织入增强代码。
+						- 不提供完整的AOP实现，侧重提供一种与Spring IOC整合的AOP实现。
+			- 2.基础知识
+			  collapsed:: true
+				- 静态代理
+				- JDK动态代理
+				  collapsed:: true
+					- JDK只能为接口创建代理实例，这个也是他的一个限制。
+					- JDK的动态代理主要涉及`Proxy`类和`InvocationHandler`这两个接口。
+				- CGLib动态代理
+				  collapsed:: true
+					- CGLib采用底层的字节码技术，可以为一个类创建子类，在子类中采用方法拦截的技术拦截所有父类方法的调用，并在父类方法上加入横切逻辑。
+					- CGLib采用动态创建子类的方式生成代理对象，所以不能对目标类中`final`和`private`的方法进行代理。
+				- 代理知识总结
+				  collapsed:: true
+					- JDK动态代理和CGLib动态代理的不足
+						- 目标类的所有方法都添加了增强的横切逻辑。有时候我们只想针对某些方法来做增强，这个他两不支持。
+						- 通过硬编码的方式指定了要放入横切逻辑的位置。对源代码有侵入性。
+						- 手动编写代理实例的创建过程。在为不同的类创建代理时，需要分别编写，无法通用。
+			- 3.创建增强类
+				- 增强类型
+					- AOP联盟定义了`org.application.aop.Advice`接口。
+					- Spring提供了五种类型的增强
+						- 前置增强
+							- 在目标方法前执行。
+							- BeforeAdvice代表前置增强，是为了为了版本扩展定义的。
+							- 因为Spring只支持方法级的增强，所以MethodBeforeAdvice是目前可用的强置增强。
+						- 后置增强
+							- AfterReturnAdvice，在目标方法后执行。
+						- 环绕增强
+							- MethodInterceptor，在目标方法执行前后执行。
+						- 异常抛出增强
+							- ThrowsAdvice，在目标方法抛出异常后执行。
+						- 引介增强
+							- IntroductionInterceptor，在目标类中添加一些新的方法和属性。
+					-
 	- spring-core
 	  collapsed:: true
 		- IOC
