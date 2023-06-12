@@ -1,5 +1,6 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
+	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -843,7 +844,6 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
-		  collapsed:: true
 			- 1.Spring容器技术内幕
 			  collapsed:: true
 				- Spring的内部工作机制
@@ -1044,7 +1044,6 @@
 					  collapsed:: true
 						- 在 ((647d7431-b322-4e39-9e76-221c5fa193a8))中，在容器启动的时候会执行`initMessageSource()`方法，这个方法的作用就是初始化容器中的国际化信息资源。它根据反射从`BeanDefinitionRegistry`找出名为`messageSource`（这个Bean名称只能为`messageSource`）且类型为`org.springframework.MessageSource`的Bean，将这个Bean定义的信息资源加载为容器级的国际化信息资源。
 			- 6.容器事件
-			  collapsed:: true
 				- 背景：
 				  collapsed:: true
 					- Spring的ApplicationContext能够发布事件并允许注册相应的事件监听器，有一套完整的事件发布和监听机制。
@@ -1066,18 +1065,24 @@
 						  ![事件类结构图.png](../assets/事件类结构图_1686201445018_0.png)
 						- ApplicationEvent的唯一构造函数式ApplicationEvent(Object source)，通过source参数指定事件源。
 						- ApplicationEvent有两个子类
+						  collapsed:: true
 							- ApplicationContextEvent
+							  collapsed:: true
 								- 这个类代表容器事件，它拥有4个子类，分别代表了容器启动、刷新、停止和关闭的事件。
 							- RequestHandledEvent
+							  collapsed:: true
 								- 这个类是和web应用相关的事件，当一个http请求本处理后，就会产生该事件。
 							- 也可以根据自己的需要扩展`ApplicationEvent`定义自己的事件，完成其他的特殊功能。
 					- 事件监听接口
+					  collapsed:: true
 						- 事件监听接口结构图
 						  ![事件监听接口结构图.png](../assets/事件监听接口结构图_1686202194823_0.png)
 						- `ApplicationListener`
+						  collapsed:: true
 							- Spring的事件监听器都继承自`ApplicationListener`接口
 							- `ApplicationListener`接口定义了一个`onApplicationEvent(E event)`方法，该方法接收`ApplicationEvent`事件对象，在该方法中编写事件处理的逻辑。
 						- `SmartApplicationListener`
+						  collapsed:: true
 							- `boolean supportsEventType(Class<? extends ApplicationEvent> eventType)`：指定监听器对支持哪种类型的容器事件。
 							- `boolean supportsSourceType(Class<?> sourceType)`：指定监听器对何种数据源对象做出响应。
 						- `GenericApplicationListener`
@@ -1093,18 +1098,21 @@
 						- 自定义事件广播器只要实现`AbstractApplicationEventMulticaster`接口即可。
 						- 如果没有自定义的事件广播器，则默认使用`SimpleApplicationEventMulticaster`。
 					- Spring事件体系的具体实现
+					  collapsed:: true
 						- `org.springframework.context.support.AbstractApplicationContext#refresh`，从容器启动的方法中通过这三个方法搭建事件的基础设施
+						  collapsed:: true
 							- `this.initApplicationEventMulticaster()`：初始化应用上下文事件广播器。
 							- `this.registerListeners()`：注册事件监听器。
 							- `this.finishRefresh()`：完成刷新并发布容器刷新事件。
 					- Spring事件实例的编写
+					  collapsed:: true
 						- 1.继承`ApplicationEvent`，实现定义一个事件。
 						- 2.实现`ApplicationListener`接口，定义一个监听器。
 						- 3.实现`ApplicationContextAware`接口的`setApplicationContext()`方法，在Spring容器启动时注入容器实例。
-						-
+						- 4.在bean的声明件中声明事件和监听器。
+						- 5.使用ClassPathXmlApplicationContext加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
 			- 1.AOP概述
-			  collapsed:: true
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
 				- 什么是AOP
 				  collapsed:: true
@@ -1117,16 +1125,13 @@
 						- 连接点就是触发点的意思，描述了切面的逻辑是从什么地方开始执行的。
 						- Spring仅支持方法的连接点，也就是说只能从**方法调用前**、**方法调用后**、**方法抛出异常时**和**方法调用前后**这四个地方加入切面的相关逻辑。
 						- 连接点有两个信息去进行确认：
-						  collapsed:: true
 							- 一是用**方法**表示的程序**执行点**，其中使用**切点**对执行点进行定位。
 							- 二是用**相对位置**表示的**方位**，在**增强类型**中进行定义。
 					- 切点（Pointcut）
-					  collapsed:: true
 						- AOP通过切点对特定的连接点记性定位。
 						- 连接点相当于**数据库中的记录**，而切点相当于**查询条件**。
 						- 在Spring中，通过`org.springframework.aop.Pointcut`接口对切点进行描述。
 					- 增强（Advice）
-					  collapsed:: true
 						- 增强是放置在程序连接点上的一段程序代码。
 						- 增强还包含了用于定位连接点的方位，所谓方位就是在方法的调用前还是调用后这些。
 						- Spring提供的增强接口都是带方位的，比如`BeforeAdvice`、`AfterReturningAdvice`等等。
@@ -1149,7 +1154,6 @@
 						- 一个类被AOP增强之后，就会产生一个结果类，这个结果类是融合了原类和增强逻辑的代理类。
 						- 代理类可能是和原来具有相同的接口，或者是原类的子类。所以我们可以通过调用原类相同的方式调用代理类。
 					- 切面（Aspect）
-					  collapsed:: true
 						- 切面由切点和增强组成，即包含横切逻辑的定义，又包含连接点的定义。
 					- 要将增强应用于目标对象的连接点上，两个步骤：
 					  collapsed:: true
@@ -1184,9 +1188,12 @@
 						- 通过硬编码的方式指定了要放入横切逻辑的位置。对源代码有侵入性。
 						- 手动编写代理实例的创建过程。在为不同的类创建代理时，需要分别编写，无法通用。
 			- 3.创建增强类
+			  collapsed:: true
 				- 增强类型
+				  collapsed:: true
 					- AOP联盟定义了`org.application.aop.Advice`接口。
 					- Spring提供了五种类型的增强
+					  collapsed:: true
 						- 前置增强
 							- 在目标方法前执行。
 							- BeforeAdvice代表前置增强，是为了为了版本扩展定义的。
@@ -1199,6 +1206,96 @@
 							- ThrowsAdvice，在目标方法抛出异常后执行。
 						- 引介增强
 							- IntroductionInterceptor，在目标类中添加一些新的方法和属性。
+					-
+				- 前置增强
+				  collapsed:: true
+					- 1.通过MethodBeforeAdvice接口实现前置增强
+						- MethodBeforeAdvices的唯一接口方法：`before(Method method, Objects[] args, Object obj)`
+							- method：为目标方法
+							- args：为目标方法参数
+							- obj：目标类实例
+					- 2.解刨ProxyFactory
+						- ProxyFactory负责将增强织入到目标类中。
+						- ProxyFactory内部使用JDK和CGLib动态代理技术将增强应用到目标类中。
+						- AopProxy
+						  collapsed:: true
+							- AopProxy类结构图
+							  ![AopProxy类结构图.png](../assets/AopProxy类结构图_1686566358726_0.png)
+							- CgLib2AopProxy
+								- 使用CGLib动态代理技术创建代理。
+								- 针对类进行代理。
+								- ProxyFacotory.setOptimize(true)方法让ProxyFactory启动优化代理，也会使用CglibAopProxy去创建代理。
+							- JdkDynamicAopProxy
+								- 使用jdk动态代理技术创建代理。
+								- 针对接口进行代理。
+					- 3.在Spring中通过ProxyFactoryBean配置代理
+				- 后置增强
+				  collapsed:: true
+					- 通过实现AfterReturningAdvice来定义后置增强的逻辑
+					- AfterReturningAdvice的唯一接口方法：`AfterReturning(Method method, Objects[] args, Object obj)`
+				- 环绕增强
+				  collapsed:: true
+					- Spring直接使用AOP联盟定义的MethodInterceptor作为环绕增强的接口。
+					- MethodInterceptor接口的唯一方法：`Object invoke(MethodInvocation invocation)`。
+				- 异常抛出增强
+				  collapsed:: true
+					- 异常抛出增强最适合的应用场景就是事务管理。
+					- `ThrowsAdvice`异常抛出增强接口，是一个**标签接口**，本身没有定义任何方法。
+					- `ThrowsAdvice`接口的实现类必须采用如下方法的签名形式定义增强方法：`void afterThrowing(Method method, Object[] args, Object target, Throwable e)`
+						- 这个方法的前三个参数是可选的，要么都提供，要么不提供。
+					- 在同一个异常抛出增强类中可以定义多个`afterThrowing()`方法，目标类抛出异常的时候会自动选择最匹配的增强方法。
+				- 引介增强
+				  collapsed:: true
+					- Spring为引介增强定义了`IntroductionInterceptor`接口，该接口没有定义任何方法。接着Spring又提供了他的实现类`DelegatingIntroductionInterceptor`，一般情况下拓展该类实现自己的引介增强类。
+			- 4.创建切面
+				- 切面概述
+				  collapsed:: true
+					- Spring通过`Pointcut`接口描述切点。
+					- `Pointcut`由`ClassFilter`和`MethodMather`构成。
+					- `ClassFilter`负责定位到特定的类，`MethodMather`负责定位到特定的方法。
+					- Spring支持两种方法匹配器
+					  collapsed:: true
+						- 静态方法匹配器
+							- 仅对方法签名（包括方法名和入参类型及顺序）进行匹配。
+							- 静态匹配只会判别一次。
+						- 动态方法匹配器
+							- 会在运行期检查方法入参的值。
+							- 动态匹配每次调用方法的时候都会进行判别。
+							- 对性能的影响很大，一般不用。
+				- 切点类型
+				  collapsed:: true
+					- 静态方法切点
+					- 动态方法切点
+					- 注解切点
+					- 表达式切点
+					- 流程切点
+					- 符合切点
+				- 切面类型
+				  collapsed:: true
+					- 一般切面
+					  collapsed:: true
+						- `Advisor`代表一般切面。仅包含Advice，也就是增强。
+						- 一般切面代表连接点是所有目标类的所有方法，因为范围太宽泛，所以一般不使用。
+					- 切点切面
+					  collapsed:: true
+						- `PointcutAdvisor`代表具有切点的切面。
+						- 包含Advice和Pointcut两个类，这样就可以通过类、方法名和方法方位等信息灵活的定义切面的连接点。
+						- PointcutAdvisor的具体实现类
+							- PointcutAdvisor实现体系
+							  ![PointcutAdvisor实现体系.png](../assets/PointcutAdvisor实现体系_1686577035330_0.png)
+							- `DefaultPointcutAdvisor`
+							- `NameMatchMethodPointcutAdvisor`
+							- `RegexpMethodPointcutAdvisor`
+							- `StaticMethodMatcherPointcutAdvisor`：静态方法匹配器切点定义的切面，默认情况下匹配所有的目标类。
+							- `AspectJExpressionPointcutAdvisor`
+							- `AspectJPointcutAdvisor`
+					- 引介切面
+					  collapsed:: true
+						- `IntroductionAdvisor`代表引介切面。
+						- 引介切面应用于类层面，所以引介切点是使用`ClassFilter`进行定义的。
+					- 切面继承关系图
+					  ![切面继承关系图.png](../assets/切面继承关系图_1686568931898_0.png)
+				- 静态普通方法匹配切面
 					-
 	- spring-core
 	  collapsed:: true
@@ -1713,7 +1810,6 @@
 				- 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
 		- 数据库生成
 - Apache httpClient
-  collapsed:: true
 	- 客户端超时设置
 		- 参考文章
 			- 连接超时 (http.connection.timeout) ：与远程主机建立连接的时间。

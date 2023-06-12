@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
