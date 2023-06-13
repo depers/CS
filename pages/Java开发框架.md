@@ -844,6 +844,7 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
+		  collapsed:: true
 			- 1.Spring容器技术内幕
 			  collapsed:: true
 				- Spring的内部工作机制
@@ -1044,12 +1045,12 @@
 					  collapsed:: true
 						- 在 ((647d7431-b322-4e39-9e76-221c5fa193a8))中，在容器启动的时候会执行`initMessageSource()`方法，这个方法的作用就是初始化容器中的国际化信息资源。它根据反射从`BeanDefinitionRegistry`找出名为`messageSource`（这个Bean名称只能为`messageSource`）且类型为`org.springframework.MessageSource`的Bean，将这个Bean定义的信息资源加载为容器级的国际化信息资源。
 			- 6.容器事件
+			  collapsed:: true
 				- 背景：
 				  collapsed:: true
 					- Spring的ApplicationContext能够发布事件并允许注册相应的事件监听器，有一套完整的事件发布和监听机制。
 				- Java通过`java.util.EventObject`类描述事件，`java.util.EventListener`接口描述监听器。
 				- 重要概念
-				  collapsed:: true
 					- 事件源：事件的产生者，任何一个EventObject都有一个事件源。
 					- 事件监听注册表：用于保存事件监听器。
 						- 将一个注册一个事件监听器，就是将监听器保存到事件监听注册表。
@@ -1058,7 +1059,6 @@
 					- 一个图
 					  ![事件体系.png](../assets/事件体系_1686122116114_0.png)
 				- Spring事件类结构
-				  collapsed:: true
 					- 事件类
 					  collapsed:: true
 						- 事件类结构图
@@ -1074,45 +1074,39 @@
 								- 这个类是和web应用相关的事件，当一个http请求本处理后，就会产生该事件。
 							- 也可以根据自己的需要扩展`ApplicationEvent`定义自己的事件，完成其他的特殊功能。
 					- 事件监听接口
-					  collapsed:: true
 						- 事件监听接口结构图
 						  ![事件监听接口结构图.png](../assets/事件监听接口结构图_1686202194823_0.png)
 						- `ApplicationListener`
-						  collapsed:: true
 							- Spring的事件监听器都继承自`ApplicationListener`接口
 							- `ApplicationListener`接口定义了一个`onApplicationEvent(E event)`方法，该方法接收`ApplicationEvent`事件对象，在该方法中编写事件处理的逻辑。
 						- `SmartApplicationListener`
-						  collapsed:: true
 							- `boolean supportsEventType(Class<? extends ApplicationEvent> eventType)`：指定监听器对支持哪种类型的容器事件。
 							- `boolean supportsSourceType(Class<?> sourceType)`：指定监听器对何种数据源对象做出响应。
 						- `GenericApplicationListener`
-						  collapsed:: true
 							- 与`SmartApplicationListener`不同的是，它增强了对泛型事件类型的支持。`suppertsEventTyoe()`方法的入参是`ResolvableType`，他可以获取泛型的实际类型信息。
 							- `boolean supportsEventType(ResolvableType eventType)`：指定监听器对支持哪种类型的容器事件。
 							- `boolean supportsSourceType(Class<?> sourceType)`：指定监听器对何种数据源对象做出响应。
 					- 事件广播器
-					  collapsed:: true
 						- 类结构图
 						  ![类结构图.png](../assets/类结构图_1686211575227_0.png)
 						- Spring为事件广播器定义了接口和实现类。
 						- 自定义事件广播器只要实现`AbstractApplicationEventMulticaster`接口即可。
 						- 如果没有自定义的事件广播器，则默认使用`SimpleApplicationEventMulticaster`。
 					- Spring事件体系的具体实现
-					  collapsed:: true
 						- `org.springframework.context.support.AbstractApplicationContext#refresh`，从容器启动的方法中通过这三个方法搭建事件的基础设施
 						  collapsed:: true
 							- `this.initApplicationEventMulticaster()`：初始化应用上下文事件广播器。
 							- `this.registerListeners()`：注册事件监听器。
 							- `this.finishRefresh()`：完成刷新并发布容器刷新事件。
 					- Spring事件实例的编写
-					  collapsed:: true
 						- 1.继承`ApplicationEvent`，实现定义一个事件。
 						- 2.实现`ApplicationListener`接口，定义一个监听器。
 						- 3.实现`ApplicationContextAware`接口的`setApplicationContext()`方法，在Spring容器启动时注入容器实例。
 						- 4.在bean的声明件中声明事件和监听器。
-						- 5.使用ClassPathXmlApplicationContext加载配置文件，启动容器。
+						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
 			- 1.AOP概述
+			  collapsed:: true
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
 				- 什么是AOP
 				  collapsed:: true
@@ -1150,13 +1144,11 @@
 							- 动态代理织入，在运行期为目标类添加增强生成子类的方式。
 						- Spring采用动态代理织入，AspectJ采用编译期织入和类装载期织入。
 					- 代理（Proxy）
-					  collapsed:: true
 						- 一个类被AOP增强之后，就会产生一个结果类，这个结果类是融合了原类和增强逻辑的代理类。
 						- 代理类可能是和原来具有相同的接口，或者是原类的子类。所以我们可以通过调用原类相同的方式调用代理类。
 					- 切面（Aspect）
 						- 切面由切点和增强组成，即包含横切逻辑的定义，又包含连接点的定义。
 					- 要将增强应用于目标对象的连接点上，两个步骤：
-					  collapsed:: true
 						- 一如何将切点和增强定位到连接点上。
 						- 二如何在增强中编写切面的代码。
 				- AOP的实现者
@@ -1173,24 +1165,26 @@
 			- 2.基础知识
 			  collapsed:: true
 				- 静态代理
+					- 就是在代码中显示指定的代理。
+					- 所谓静态就是在程序运行前就已经存在代理类的字节码文件，代理类和委托类的关系在运行前就确定了。
+				- 动态代理
+					- 允许开发人员在代理运行期创建接口或者类的代理实例。
 				- JDK动态代理
-				  collapsed:: true
 					- JDK只能为接口创建代理实例，这个也是他的一个限制。
 					- JDK的动态代理主要涉及`Proxy`类和`InvocationHandler`这两个接口。
 				- CGLib动态代理
-				  collapsed:: true
 					- CGLib采用底层的字节码技术，可以为一个类创建子类，在子类中采用方法拦截的技术拦截所有父类方法的调用，并在父类方法上加入横切逻辑。
 					- CGLib采用动态创建子类的方式生成代理对象，所以不能对目标类中`final`和`private`的方法进行代理。
 				- 代理知识总结
-				  collapsed:: true
 					- JDK动态代理和CGLib动态代理的不足
 						- 目标类的所有方法都添加了增强的横切逻辑。有时候我们只想针对某些方法来做增强，这个他两不支持。
 						- 通过硬编码的方式指定了要放入横切逻辑的位置。对源代码有侵入性。
 						- 手动编写代理实例的创建过程。在为不同的类创建代理时，需要分别编写，无法通用。
+					- CGLib创建代理对象所花费的时间比JDK要长，但是创建动态代理对象的性能比JDK要好。
 			- 3.创建增强类
+			  id:: 6482ed45-9164-4552-a1e3-4d6bf237aa70
 			  collapsed:: true
 				- 增强类型
-				  collapsed:: true
 					- AOP联盟定义了`org.application.aop.Advice`接口。
 					- Spring提供了五种类型的增强
 					  collapsed:: true
@@ -1206,7 +1200,6 @@
 							- ThrowsAdvice，在目标方法抛出异常后执行。
 						- 引介增强
 							- IntroductionInterceptor，在目标类中添加一些新的方法和属性。
-					-
 				- 前置增强
 				  collapsed:: true
 					- 1.通过MethodBeforeAdvice接口实现前置增强
@@ -1248,13 +1241,14 @@
 				  collapsed:: true
 					- Spring为引介增强定义了`IntroductionInterceptor`接口，该接口没有定义任何方法。接着Spring又提供了他的实现类`DelegatingIntroductionInterceptor`，一般情况下拓展该类实现自己的引介增强类。
 			- 4.创建切面
+			  id:: 6486fcb3-45f5-4bfa-928a-fe41754cb908
+			  collapsed:: true
 				- 切面概述
 				  collapsed:: true
 					- Spring通过`Pointcut`接口描述切点。
 					- `Pointcut`由`ClassFilter`和`MethodMather`构成。
 					- `ClassFilter`负责定位到特定的类，`MethodMather`负责定位到特定的方法。
 					- Spring支持两种方法匹配器
-					  collapsed:: true
 						- 静态方法匹配器
 							- 仅对方法签名（包括方法名和入参类型及顺序）进行匹配。
 							- 静态匹配只会判别一次。
@@ -1264,20 +1258,23 @@
 							- 对性能的影响很大，一般不用。
 				- 切点类型
 				  collapsed:: true
-					- 静态方法切点
-					- 动态方法切点
+					- 静态方法切点：
+					- 动态方法切点：`DynamicMethodMatcherPointcut`
 					- 注解切点
 					- 表达式切点
-					- 流程切点
-					- 符合切点
+					- 流程切点：`ControlFlowPointcut`
+					  id:: 6486ff13-eb9a-4087-b121-c3070e8f7cc2
+					  collapsed:: true
+						- 根据程序执行堆栈的信息查看目标方法是否由某一个方法直接或间接的发起调用，以此判断是否匹配连接点。
+					- 复合切点：`ComposablePointcut`
+					  collapsed:: true
+						- 可以将多个切点以并集或交集的方式组合起来，提供了切点之间复合运算的功能。
 				- 切面类型
 				  collapsed:: true
 					- 一般切面
-					  collapsed:: true
 						- `Advisor`代表一般切面。仅包含Advice，也就是增强。
 						- 一般切面代表连接点是所有目标类的所有方法，因为范围太宽泛，所以一般不使用。
 					- 切点切面
-					  collapsed:: true
 						- `PointcutAdvisor`代表具有切点的切面。
 						- 包含Advice和Pointcut两个类，这样就可以通过类、方法名和方法方位等信息灵活的定义切面的连接点。
 						- PointcutAdvisor的具体实现类
@@ -1286,17 +1283,84 @@
 							- `DefaultPointcutAdvisor`
 							- `NameMatchMethodPointcutAdvisor`
 							- `RegexpMethodPointcutAdvisor`
-							- `StaticMethodMatcherPointcutAdvisor`：静态方法匹配器切点定义的切面，默认情况下匹配所有的目标类。
+								- 使用正则表达式匹配方法名进行切点定义的切面。
+							- `StaticMethodMatcherPointcutAdvisor`
+								- 静态方法匹配器切点定义的切面，默认情况下匹配所有的目标类。这个类的作用就是定义切点。
+								- 仅能通过方法名定义切点。
 							- `AspectJExpressionPointcutAdvisor`
 							- `AspectJPointcutAdvisor`
 					- 引介切面
-					  collapsed:: true
 						- `IntroductionAdvisor`代表引介切面。
 						- 引介切面应用于类层面，所以引介切点是使用`ClassFilter`进行定义的。
 					- 切面继承关系图
 					  ![切面继承关系图.png](../assets/切面继承关系图_1686568931898_0.png)
-				- 静态普通方法匹配切面
-					-
+				- 静态切面
+				  collapsed:: true
+					- 是指在生成代理对象时就确定了增强是否需要织入到目标类的连接点上。
+				- 动态切面
+				  collapsed:: true
+					- 是指必须在运行期根据方法入参的值来判断增强是否需要织入到目标类的连接点上。
+				- 切面的实现
+				  collapsed:: true
+					- 普通方法匹配的静态切面的实现
+					  collapsed:: true
+						- 通过`StaticMethodMatcherPointcutAdvisor`进行实现，除了切点定义外，还需要定义一个增强才行。
+						- 需要实现`StaticMethodMatcherPointcutAdvisor`的`matches()`方法定义切点方法的匹配规则，覆盖`getClassFilter()`方法来定义切点类的匹配规则。通过这两步就可以完成对切点的定义。
+					- 正则表达式方法匹配的静态切面的实现
+					  collapsed:: true
+						- 通过`RegexpMethodPointcutAdvisor`进行实现。除了切点定义外，还需要定义一个增强才行。
+						- 可以通过正则表达式来匹配目标方法，来定义切点。
+					- 动态切面的实现
+					  collapsed:: true
+						- 在低版本中，Spring提供了``DynamicMethodMathcherPointcutAdvisor``抽象类，后来这个类被废弃了，可以使用`DefaultPointcutAdvisor`和`DynamicMethodMatcherPointcut`来完成相同的功能。
+						- `DynamicMethodMatcherPointcut`动态切点对静态切点检查和动态切点检查都是有用的。但是动态切点的检查是十分耗性能的。
+							- 可以定义对类静态切点检查
+							- 可以定义对方法的静态切点检查
+							- 对方法进行动态切点检查
+						- Spring对静态切点和动态切点的检查原理
+							- 在创建代理是对目标类的每个连接点进行静态切点检查，若不匹配，则不再进行动态切点价差。若静态切点检查匹配，则在运行时再进行动态连接点检查。
+							- 若没有定义静态切点检查，则动态切点在运行时会匹配每一个方法的调用。
+					- 流程切面的实现
+					  collapsed:: true
+						- 流程切面由`DefaultPointcutAdvisor`和 ((6486ff13-eb9a-4087-b121-c3070e8f7cc2)) 实现。
+						- 流程切面与动态切面一样也需要在运行期判断动态的环境。代理对象每次在调用在调用目标方法时，都需要判断方法调用堆栈是否有流程切点要求的方法。
+						- 对性能的影响很大，比较慢。
+					- 复合切点切面的实现
+					  collapsed:: true
+						- 有时需要通过多个切点来描述一个连接点的信息时，我们就需要定义复合切点来进行实现。
+					- 引介切面的实现
+					  collapsed:: true
+						- 引介切面是引介增强的封装器，通过引介切面可以更容易的对现有对象添加任何接口的实现。
+						- 引介切面类的继承关系
+							- 继承图
+							  ![引介关系继承图.png](../assets/引介关系继承图_1686651567822_0.png)
+							- `Advisor`代表一般切面。
+							- `IntroductionInfo`描述了目标类需要实现的新接口。
+							- `DefaultIntroductionAdvisor`是引介切面最常用的实现类。
+							- `DeclareParentsAdvisor`用于实现使用AspectJ语言的`DeclareParent`注解表示的引介切面。
+			- 5.自动创建代理
+				- 背景
+				  collapsed:: true
+					- 在 ((6482ed45-9164-4552-a1e3-4d6bf237aa70))和 ((6486fcb3-45f5-4bfa-928a-fe41754cb908))都是通过`ProxyFactoryBean`创建织入切面的代理，每个需要被增强的Bean都需要使用一个`ProxyFactoryBean`进行配置。对于大项目来讲，配置起来比较麻烦。
+					- Spring提供的自动代理，通过`BeanPostProcessor`自动生成代理，从而简化配置。
+				- 基于`BeanPostProcessor`实现的自动代理创建器，会在容器实例化Bean时为匹配的Bean创建代理，主要分为三类：
+				  collapsed:: true
+					- 基于`Bean`配置名规则的自动代理创建器，实现类为`BeanNameAutoProxyCreator`
+					- 基于`Advisor`匹配机制的自动代理创建器，实现类为`DefaultAdvisorAutoProxyCreator`
+					- 基于`Bean`中AspectJ注解标签的自动代理创建器：实现类为`AnnotationAwareAspectJProxyCreator`
+					- 自动代理创建器的类继承图
+					  ![自动代理创建器的类继承图.png](../assets/自动代理创建器的类继承图_1686653220198_0.png)
+				- BeanNameAutoProxyCreator
+					- 通过指定Bean名称的一组规则去筛选需要为其自动创建代理的Bean。
+				- DefaultAdvisorAutoProxyCreator
+					- `DefaultAdvisorAutoProxyCreator`能够扫描容器中的Advisor，并将Advisor自动注入到匹配的目标Bean中，也就是为目标Bean自动创建代理。
+				- AOP如何实现方法的嵌套调用增强
+					- 问题
+						- 要对一个Bean的A和B两个方法进行匹配增强，若是B方法嵌套在了A方法的里面，调用A方法的同时也会调用B方法。我们指定的切面匹配规则满足A和B两个方法，但是在运行代码的时候发现只有A方法被增强了，但是B方法却没有。
+					- 分析
+						- 原因是在方法内部调用的时候A方法内会直接调用原实例的方法，不会调用代理类的。
+					- 解决办法
+						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
 	- spring-core
 	  collapsed:: true
 		- IOC
@@ -1621,8 +1685,12 @@
 			  RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
 			  ```
 			- 参考文章
-			  collapsed:: true
 				- [How to Mock HttpServletRequest](https://www.baeldung.com/java-httpservletrequest-mock)
+		- 整合Junit
+		  collapsed:: true
+			- 参考文章
+			  collapsed:: true
+				- [springBoot整合的Junit4单元测试](https://www.jianshu.com/p/921282034c5d)
 	- Spring Cloud
 	  collapsed:: true
 		- [spring-cloud-release](https://github.com/spring-cloud/spring-cloud-release)
@@ -1810,13 +1878,17 @@
 				- 强依赖机器时钟，如果机器上时钟回拨，会导致发号重复或者服务会处于不可用状态。
 		- 数据库生成
 - Apache httpClient
+  collapsed:: true
 	- 客户端超时设置
+	  collapsed:: true
 		- 参考文章
+		  collapsed:: true
 			- 连接超时 (http.connection.timeout) ：与远程主机建立连接的时间。
 			- 套接字超时 (http.socket.timeout) ：建立连接后等待数据的时间； 两个数据包之间不活动的最长时间。
 			- 连接管理器超时 (http.connection-manager.timeout) ：等待来自连接管理器/池的连接的时间。
 			- [Apache HttpClient Timeout](https://www.baeldung.com/httpclient-timeout)
 - Nginx
+  collapsed:: true
 	- 静态资源配置
 	  collapsed:: true
 		- 参考文章
