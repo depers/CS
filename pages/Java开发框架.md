@@ -1,4 +1,5 @@
 - Spring
+  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
 	  collapsed:: true
 		- 第一章 Spring概述
@@ -1105,8 +1106,8 @@
 						- 4.在bean的声明件中声明事件和监听器。
 						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
+			- 本章主要讨论了基于接口的切面技术。
 			- 1.AOP概述
-			  collapsed:: true
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
 				- 什么是AOP
 				  collapsed:: true
@@ -1339,6 +1340,7 @@
 							- `DefaultIntroductionAdvisor`是引介切面最常用的实现类。
 							- `DeclareParentsAdvisor`用于实现使用AspectJ语言的`DeclareParent`注解表示的引介切面。
 			- 5.自动创建代理
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 在 ((6482ed45-9164-4552-a1e3-4d6bf237aa70))和 ((6486fcb3-45f5-4bfa-928a-fe41754cb908))都是通过`ProxyFactoryBean`创建织入切面的代理，每个需要被增强的Bean都需要使用一个`ProxyFactoryBean`进行配置。对于大项目来讲，配置起来比较麻烦。
@@ -1348,19 +1350,63 @@
 					- 基于`Bean`配置名规则的自动代理创建器，实现类为`BeanNameAutoProxyCreator`
 					- 基于`Advisor`匹配机制的自动代理创建器，实现类为`DefaultAdvisorAutoProxyCreator`
 					- 基于`Bean`中AspectJ注解标签的自动代理创建器：实现类为`AnnotationAwareAspectJProxyCreator`
+					  id:: 648846ef-0e58-477b-abba-4457dbbede3d
 					- 自动代理创建器的类继承图
 					  ![自动代理创建器的类继承图.png](../assets/自动代理创建器的类继承图_1686653220198_0.png)
 				- BeanNameAutoProxyCreator
+				  collapsed:: true
 					- 通过指定Bean名称的一组规则去筛选需要为其自动创建代理的Bean。
 				- DefaultAdvisorAutoProxyCreator
+				  collapsed:: true
 					- `DefaultAdvisorAutoProxyCreator`能够扫描容器中的Advisor，并将Advisor自动注入到匹配的目标Bean中，也就是为目标Bean自动创建代理。
 				- AOP如何实现方法的嵌套调用增强
 					- 问题
+					  collapsed:: true
 						- 要对一个Bean的A和B两个方法进行匹配增强，若是B方法嵌套在了A方法的里面，调用A方法的同时也会调用B方法。我们指定的切面匹配规则满足A和B两个方法，但是在运行代码的时候发现只有A方法被增强了，但是B方法却没有。
 					- 分析
+					  collapsed:: true
 						- 原因是在方法内部调用的时候A方法内会直接调用原实例的方法，不会调用代理类的。
 					- 解决办法
+					  collapsed:: true
 						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
+		- 第八章 基于AspectJ和Schema的AOP
+			- 1.Spring对AOP的支持
+			  collapsed:: true
+				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
+				- 新增了对AspectJ切点表达式语言的支持。
+				- 可以无缝集成AscpectJ。
+			- 2.Java注解的基础知识
+			- 3.着手使用AspectJ
+				- 背景
+				  collapsed:: true
+					- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过Advisor整合切点和增强描述切面。
+					- @Aspect采用注解来描述切点和增强。
+				- 通过注解使用@AspectJ切面
+				  collapsed:: true
+					- 这里主要演示了使用`@AspectJ`和`@Before`注解来实现切面。
+				- 通过配置使用@AspectJ切面
+					- 通过 ((648846ef-0e58-477b-abba-4457dbbede3d)) 将@AspectJ注解切面类自动注入目标类bean中
+					- 通过基于Schema的aop命名空间进行配置，在配置中添加`<aop:aspectj-autoproxy>`自动为Spring容器中匹配@AspectJ切面的Bean创建代理。
+			- 4.@AspectJ语法基础
+				- 背景
+					- 由于Spring只支持方法的连接点，所以Spring仅支持部分AspectJ的切点语言。
+				- 切点表达式函数
+				  collapsed:: true
+					- AspectJ5.0的切点表达式
+						- 关键字（函数）
+						  collapsed:: true
+							- 方法切点函数
+							- 方法入参切点函数
+							- 目标类切点函数
+							- 代理类切点函数
+						- 操作参数
+					- 切点函数表
+					  ![切点函数.png](../assets/切点函数_1686826910815_0.png)
+				- 在切点表达式函数中使用通配符
+					- @AspectJ支持三种通配符
+						- `*`：
+						- `..`
+						- `+`
 	- spring-core
 	  collapsed:: true
 		- IOC
@@ -1893,3 +1939,6 @@
 	  collapsed:: true
 		- 参考文章
 			- [nginx配置静态资源访问](https://www.cnblogs.com/qingshan-tang/p/12763522.html)
+- Netty
+	- 参考文章
+		- [Netty入门看这一篇就够了](https://juejin.cn/post/6924528182313893896)

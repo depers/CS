@@ -1359,6 +1359,7 @@
 					- `RetentionPolicy.CLASS`: 仅class文件。在类加载的时候丢弃。在字节码文件的处理中有用，它们不会被加载进JVM。注解默认使用这种方式
 					- `RetentionPolicy.RUNTIME` : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。该类型的注解会被加载进JVM，并且在运行期可以被程序读取
 				- `@Target`：注解用于什么地方，默认值为任何元素，表示该注解用于什么地方。可用的ElementType 参数包括：
+				  collapsed:: true
 					- `ElementType.CONSTRUCTOR`：用于描述构造器
 					- `ElementType.FIELD`: 成员变量、对象、属性（包括enum实例）
 					- `ElementType.LOCAL_VARIABLE`: 用于描述局部变量
@@ -1369,21 +1370,22 @@
 					- `ElementType.ANNOTATION_TYPE`：用于描述注解类型
 				- `@Inherited`：是否允许子类继承该注解
 				- `@Repeatable`：定义Annotation是否可重复。这个注解应用不是特别广泛。
+				  collapsed:: true
 					- 参考：JavaTrain/src/main/java/cn/bravedawn/annotation/repeatable
 			- 常见标准的Annotation
-				- @Override，标记类型注解，用作标注方法。它说明了被标注的方法重写了父类的方法，起到了断言的作用。如果我们使用了这种注解在一个没有覆盖父类方法的方法时，java 编译器将以一个编译错误来警示。
-				- @Deprecated，标记类型注解，用于废弃代码。
-				- @SuppressWarnings，非标记类型注解，它的作用是告诉编译器对被注解的作用域内部警告保持静默。
-					- @SuppressWarnings("unchecked")：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型。
-					- @SuppressWarnings("serial")：某类实现Serializable(序列化)， 但没有定义 serialVersionUID 时的警告
-					- @SuppressWarnings("deprecation")：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
+				- `@Override`，标记类型注解，用作标注方法。它说明了被标注的方法重写了父类的方法，起到了断言的作用。如果我们使用了这种注解在一个没有覆盖父类方法的方法时，java 编译器将以一个编译错误来警示。
+				- `@Deprecated`，标记类型注解，用于废弃代码。
+				- `@SuppressWarnings`，非标记类型注解，它的作用是告诉编译器对被注解的作用域内部警告保持静默。
+					- `@SuppressWarnings("unchecked")`：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型。
+					- `@SuppressWarnings("serial")`：某类实现`Serializable`(序列化)， 但没有定义 serialVersionUID 时的警告
+					- `@SuppressWarnings("deprecation")`：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
 			- 定义一个注解
-				- 1. 用@interface声明一个注解
-					- Annotation 型定义为@interface，所有的Annotation 会自动继承java.lang.Annotation这一接口，并且不能再去继承别的类或是接口
+				- 1. 用`@interface`声明一个注解
+					- Annotation 型定义为@interface，所有的Annotation 会自动继承`java.lang.annotation.Annotation`这一接口，并且不能再去继承别的类或是接口
 				- 2. 定义参数成员和默认值
-					- 参数成员只能用public 或默认(default) 这两个访问权修饰
-					- 参数成员只能用基本类型byte、short、char、int、long、float、double、boolean八种基本数据类型
-					- String、Enum、Class、annotations等数据类型
+					- 参数成员只能用`public` 或默认(`default`) 这两个访问权修饰
+					- 参数成员只能用基本类型`byte`、`short`、`char`、`int`、`long`、`float`、`double`、`boolean`八种基本数据类型和其包装类。
+					- `String`、`enums`、`Class`等数据类型
 					- 以及以上类型的数组
 				- 3. 用元注解配置注解
 			- 处理注解
@@ -1416,7 +1418,6 @@
 			  collapsed:: true
 				- [廖雪峰-处理注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102026065728)
 		- 反射
-		  collapsed:: true
 			- 定义
 			  collapsed:: true
 				- Java的反射是指程序在运行期可以拿到一个对象的所有信息
@@ -1471,18 +1472,21 @@
 				- 获取字段值：field.get(object)
 				- 设置字段值：field.set(object, value)
 			- 调用方法
-			  collapsed:: true
 				- 通过Class实例获取Method信息，Class提供了 以下几个方法来获取方法
+				  collapsed:: true
 					- Method getMethod(name, Class...)：获取某个public的Method（包括父类）
 					- Method getDeclaredMethod(name, Class...)：获取当前类的某个Method（不包括父类）
 					- Method[] getMethods()：获取所有public的Method（包括父类）
 					- Method[] getDeclaredMethods()：获取当前类的所有Method（不包括父类）
 				- 获取Mehtod对象的方法信息
+				  collapsed:: true
 					- getName()：返回方法名称，例如："getScore"；
 					- getReturnType()：返回方法返回值类型，也是一个Class实例，例如：String.class；
 					- getParameterTypes()：返回方法的参数类型，是一个Class数组，例如：{String.class, int.class}；
 					- getModifiers()：返回方法的修饰符，它是一个int，不同的bit表示不同的含义。
 				- 允许调用非public方法需：`setAccessible(true)`
+				- 方法参数
+					- Java反射无法获取方法的参数名
 			- 调用构造方法
 			  collapsed:: true
 				- Class.newInstance()的局限
@@ -2564,10 +2568,13 @@
 			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
+		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
+				  collapsed:: true
 					- 阻塞IO模型
+					  collapsed:: true
 						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
 						- 示例图
 						  ![阻塞IO.webp](../assets/阻塞IO_1685864250927_0.webp)
@@ -2587,7 +2594,7 @@
 						  ![信号驱动的io模型.webp](../assets/信号驱动的io模型_1685865059269_0.webp)
 				- 异步非阻塞/异步IO-Async I/O
 					- 通过观察我们发现，不管是IO复用还是信号驱动，我们要读取一个数据总是要发起两阶段的请求，第一次发送select请求，询问数据状态是否准备好，第二次发送recevform请求读取数据。
-					- 应用只需要向内核发送一个read 请求,告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
+					- 应用只需要向内核发送一个read 请求，告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
 					- 示例图
 					  ![异步IO.webp](../assets/异步IO_1685865454338_0.webp)
 				- 同步和异步的区别在于：是否需要应用进程再去调用recvfrom系统调用。
