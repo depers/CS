@@ -1,7 +1,5 @@
 - Spring
-  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
-	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -1114,7 +1112,6 @@
 					- 英语翻译过来是Aspect Oriented Programing，翻译过来是面向切面编程。
 					- 说下我自己的理解吧，比如我们开发一个接口，我们都是从**controller**->**service**->**repository**这几个层次去开发的，我按照这样的模式开发了很多的接口，但是如果我想对这些接口做一些统一的操作，那我应该怎么去做呢。这里我们就可以利用AOP来做，如果说一个接口的开发是纵向的，那么AOP就是做些横向的工作。
 				- AOP的术语
-				  collapsed:: true
 					- 连接点（Joinpoint）
 					  collapsed:: true
 						- 连接点就是触发点的意思，描述了切面的逻辑是从什么地方开始执行的。
@@ -1128,7 +1125,7 @@
 						- 在Spring中，通过`org.springframework.aop.Pointcut`接口对切点进行描述。
 					- 增强（Advice）
 						- 增强是放置在程序连接点上的一段程序代码。
-						- 增强还包含了用于定位连接点的方位，所谓方位就是在方法的调用前还是调用后这些。
+						- 增强还包含了用于定位连接点的**方位**，所谓方位就是在方法的调用前还是调用后这些。
 						- Spring提供的增强接口都是带方位的，比如`BeforeAdvice`、`AfterReturningAdvice`等等。
 					- 目标对象（Target）
 					  collapsed:: true
@@ -1164,20 +1161,25 @@
 						- 采用纯Java实现，在运行期通过代理方式向目标类织入增强代码。
 						- 不提供完整的AOP实现，侧重提供一种与Spring IOC整合的AOP实现。
 			- 2.基础知识
-			  collapsed:: true
 				- 静态代理
+				  collapsed:: true
 					- 就是在代码中显示指定的代理。
 					- 所谓静态就是在程序运行前就已经存在代理类的字节码文件，代理类和委托类的关系在运行前就确定了。
 				- 动态代理
+				  collapsed:: true
 					- 允许开发人员在代理运行期创建接口或者类的代理实例。
 				- JDK动态代理
+				  collapsed:: true
 					- JDK只能为接口创建代理实例，这个也是他的一个限制。
 					- JDK的动态代理主要涉及`Proxy`类和`InvocationHandler`这两个接口。
 				- CGLib动态代理
+				  collapsed:: true
 					- CGLib采用底层的字节码技术，可以为一个类创建子类，在子类中采用方法拦截的技术拦截所有父类方法的调用，并在父类方法上加入横切逻辑。
 					- CGLib采用动态创建子类的方式生成代理对象，所以不能对目标类中`final`和`private`的方法进行代理。
 				- 代理知识总结
+				  collapsed:: true
 					- JDK动态代理和CGLib动态代理的不足
+					  collapsed:: true
 						- 目标类的所有方法都添加了增强的横切逻辑。有时候我们只想针对某些方法来做增强，这个他两不支持。
 						- 通过硬编码的方式指定了要放入横切逻辑的位置。对源代码有侵入性。
 						- 手动编写代理实例的创建过程。在为不同的类创建代理时，需要分别编写，无法通用。
@@ -1188,7 +1190,6 @@
 				- 增强类型
 					- AOP联盟定义了`org.application.aop.Advice`接口。
 					- Spring提供了五种类型的增强
-					  collapsed:: true
 						- 前置增强
 							- 在目标方法前执行。
 							- BeforeAdvice代表前置增强，是为了为了版本扩展定义的。
@@ -1202,7 +1203,6 @@
 						- 引介增强
 							- IntroductionInterceptor，在目标类中添加一些新的方法和属性。
 				- 前置增强
-				  collapsed:: true
 					- 1.通过MethodBeforeAdvice接口实现前置增强
 						- MethodBeforeAdvices的唯一接口方法：`before(Method method, Objects[] args, Object obj)`
 							- method：为目标方法
@@ -1224,7 +1224,6 @@
 								- 针对接口进行代理。
 					- 3.在Spring中通过ProxyFactoryBean配置代理
 				- 后置增强
-				  collapsed:: true
 					- 通过实现AfterReturningAdvice来定义后置增强的逻辑
 					- AfterReturningAdvice的唯一接口方法：`AfterReturning(Method method, Objects[] args, Object obj)`
 				- 环绕增强
@@ -1376,7 +1375,8 @@
 				- 新增了对AspectJ切点表达式语言的支持。
 				- 可以无缝集成AscpectJ。
 			- 2.Java注解的基础知识
-			- 3.着手使用AspectJ
+			- 3.着手使用`@AspectJ`
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过Advisor整合切点和增强描述切面。
@@ -1385,28 +1385,164 @@
 				  collapsed:: true
 					- 这里主要演示了使用`@AspectJ`和`@Before`注解来实现切面。
 				- 通过配置使用@AspectJ切面
+				  collapsed:: true
 					- 通过 ((648846ef-0e58-477b-abba-4457dbbede3d)) 将@AspectJ注解切面类自动注入目标类bean中
-					- 通过基于Schema的aop命名空间进行配置，在配置中添加`<aop:aspectj-autoproxy>`自动为Spring容器中匹配@AspectJ切面的Bean创建代理。
-			- 4.@AspectJ语法基础
+					- 通过基于Schema的aop命名空间进行配置，在配置中添加`<aop:aspectj-autoproxy>`自动为Spring容器中匹配`@AspectJ`切面的Bean创建代理。
+			- 4.`@AspectJ`语法基础
+			  collapsed:: true
 				- 背景
+				  collapsed:: true
 					- 由于Spring只支持方法的连接点，所以Spring仅支持部分AspectJ的切点语言。
 				- 切点表达式函数
 				  collapsed:: true
-					- AspectJ5.0的切点表达式
-						- 关键字（函数）
-						  collapsed:: true
-							- 方法切点函数
-							- 方法入参切点函数
-							- 目标类切点函数
-							- 代理类切点函数
+					- AspectJ5.0的切点表达式，由下面两部分组成
+					  collapsed:: true
+						- 关键字（切点函数）
+							- 在切点表达式`exectution(* greetTo(..))`中，关键字是`exectution`。
+							- 分类
+							  collapsed:: true
+								- 方法切点函数
+								- 方法入参切点函数
+								- 目标类切点函数
+								- 代理类切点函数
 						- 操作参数
+							- 在切点表达式`exectution(* greetTo(..))`中，操作参数是`* greetTo(..)`。
 					- 切点函数表
 					  ![切点函数.png](../assets/切点函数_1686826910815_0.png)
 				- 在切点表达式函数中使用通配符
+				  collapsed:: true
 					- @AspectJ支持三种通配符
-						- `*`：
-						- `..`
-						- `+`
+					  collapsed:: true
+						- `*`：匹配任意字符，只能匹配上下文中的一个元素。
+						- `..`：匹配任意字符，可以匹配上下文中的多个元素。
+							- 表示类时，必须和`*`一起使用。
+							- 表示入参时，单独使用。
+						- `+`：表示按照类型匹配指定类的所有类，必须跟在类名后面。
+							- 比如`com.abc.Car+`，就表示继承和扩展指定类的所有类，包括类本身。
+					- @Aspect函数按照其是否支持通配符及支持的程度，分为三类
+						- 支持所有通配符
+						- 仅支持`+`通配符
+						- 不支持通配符
+				- 逻辑运算符
+				  collapsed:: true
+					- 背景
+						- 切点表达式由切点函数组成，切点函数之间还可以进行逻辑运算，组成复合切点。
+					- Spring支持的切点运算符
+						- `&&`：与运算，相当于切点的交集运算。
+						- `||`：或运算，相当于切点的并集运算。
+						- `!`：非运算，相当于切点的反集运算。
+				- 不同的增强类型
+				  collapsed:: true
+					- 背景
+					  collapsed:: true
+						- 第七章 ((6482ed45-9164-4552-a1e3-4d6bf237aa70))中我们通过接口实现来实现增强。@AspectJ也为各种增强提供了不同的注解类。
+					- @Aspect提供的增强注解
+					  collapsed:: true
+						- `@Before`
+							- 前置增强，相当于BeforeAdvice。
+						- `@AfterReturning`
+							- 后置增强，相当于AfterReturningAdvice。
+						- `@Around`
+							- 环绕增强，相当于MethodInterceptor。
+						- `@AfterThrowing`
+							- 抛出增强，相当于ThrowAdvice。
+						- `@After`
+							- Final增强，不管抛出异常还是正常退出，该增强都会得到执行。
+						- `@DeclareParents`
+							- 引介增强，相当于IntroductionInterceptor。
+				- 引介增强用法
+			- 5.切点函数详解
+			  collapsed:: true
+				- `@annotation()`
+				  collapsed:: true
+					- 表示了标注了某个注解的所有方法。
+					- 使用方法
+					  collapsed:: true
+						- 1.定义一个可以作用在方法上注解。
+						- 2.在标注了@Aspect注解的类上定义一个增强切面的方法，例如：
+						  ```java
+						  @AfterReturning("@annotation(com.abc.自定义的注解)")
+						  public void needTestFun() {
+						  	System.out.println("...");
+						  }
+						  ```
+					-
+				- `execution()`
+				  collapsed:: true
+					- execution()的语法
+					  collapsed:: true
+					  ````
+					  execution(<修饰符模式(可选)> <返回类型模式> <方法名模式>(<参数模式>) <异常模式(可选)>)
+					  ```
+						- 修饰符模式和异常模式是可选的。
+					- 1.通过方法签名定义切点
+					  collapsed:: true
+						- 也就是说我们可以根据方法的签名信息来定义切点。
+					- 2.通过类定义切点
+					  collapsed:: true
+						- 也就是通过类这一级来匹配和过滤相关方法。比如某个类的所有方法或是匹配某个接口实现类的所有方法。
+					- 3.通过类包定义切点
+					  collapsed:: true
+						- 通过包这一级来匹配和过滤相关方法。
+					- 4.通过方法的入参定义切点
+					  collapsed:: true
+						- 通过方法入参的参数类型和数量来匹配和过滤相关的方法。
+				- `args()`和`@args()`
+				  collapsed:: true
+					- args()
+					  collapsed:: true
+						- 该函数的入参是一个类名，表示目标方法的入参对象是指定类或是其子类时，匹配切点。
+						- 例如`args(com.abc.Car)`等价于`exection(* *(com.abc.Car+))`，等价于`args(com.abc.Car+)`。
+					- @args()
+					  collapsed:: true
+						- 该函数的入参是一个注解类名，当方法在运行时入参对象标注了指定的注解时，匹配切点。
+						- `@args()`匹配分析
+						  collapsed:: true
+							- 匹配示意图
+							  ![@args匹配示意图.png](../assets/@args匹配示意图_1687316967832_0.png)
+							- 入参类型点
+							  collapsed:: true
+								- 方法签名中入参类型在类继承树中的位置称为**入参类型点**。
+								- 在圈1处，我们在T1类中声明了`fun(T1 t)`方法签名，所以入参类型点就是T1参数所在的问题，也就是圈1处。
+							- 注解点
+							  collapsed:: true
+								- @M注解标注的类在继承树中的位置称为**注解点**。
+								- 在圈2处，我们在类T2上标注了注解@M，所以注解点就在圈2处。
+							- `@args()`切点匹配的原则
+							  collapsed:: true
+								- 若入参连接点在继承树中高于注解点，则注解点所在的类及其子孙类作为方法入参时，该该方法匹配切点（该方法就是入参类型点参数所在的方法）。
+								- 若入参连接点在继承树中低于注解点，则目标方法不能匹配切点`@args(M)`。
+				- `within()`
+				  collapsed:: true
+					- 通过类匹配模式串申明切点，within()函数定义的连接点是针对目标类而言的，能匹配的连接点最小范围只能是**类**。
+					- 语法
+					  ```java
+					  within(<类匹配模式>)
+					  ```
+				- `@within()`和`@target()`
+				  collapsed:: true
+					- 这两个函数都是标注注解的切点函数。
+					- @within(M)函数匹配标注了@M注解的类和子孙类。@M注解标注的如果是一个接口，则无效。
+					- @target(M)函数匹配标注了@M注解的目标类。@M注解标注的如果是一个接口，则无效。
+				- `target()`和`this()`
+				  collapsed:: true
+					- target(M)
+						- 如果目标类按类型匹配于M，则目标类的所有方法都匹配切点。
+					- this()
+						- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
+			- 6.AspectJ进阶
+			  collapsed:: true
+				- 切点的复合运算
+				  collapsed:: true
+					- 通过使用切点的逻辑运算符，来实现具有复合切点的切面。
+				- 切点的命名
+				  collapsed:: true
+					- 背景
+					  collapsed:: true
+						- 在之前的例子中，我们都是直接在增强方法处声明的切点，这种切点声明方式称为匿名切点。匿名切点只能在声明处使用。
+						- 如果想要复用一个切点，则可以通过`@Pointcut`注解及切面类方法对切点进行命名。
+					- 切点命名的结构
+					  ![切点命名.png](../assets/切点命名_1687320105841_0.png)
 	- spring-core
 	  collapsed:: true
 		- IOC
@@ -1940,5 +2076,6 @@
 		- 参考文章
 			- [nginx配置静态资源访问](https://www.cnblogs.com/qingshan-tang/p/12763522.html)
 - Netty
+  collapsed:: true
 	- 参考文章
 		- [Netty入门看这一篇就够了](https://juejin.cn/post/6924528182313893896)

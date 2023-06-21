@@ -1,5 +1,7 @@
 - Java语言
+  collapsed:: true
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -424,7 +426,6 @@
 						- sss：毫秒
 					- Date
 					- SimpleDateFormat
-					  collapsed:: true
 						- 不是线程安全
 					- Calendar
 					  collapsed:: true
@@ -474,7 +475,6 @@
 						- Duration：表示两个时刻之间的时间间隔
 						- Period：表示两个日期之间的天数
 					- 时间格式类
-					  collapsed:: true
 						- DateTimeFormatter
 						  collapsed:: true
 							- 线程安全
@@ -957,7 +957,6 @@
 		- 异常处理
 		  collapsed:: true
 			- 异常体系
-			  collapsed:: true
 				- 分类
 					- 检查性异常：需强制捕获
 					- 运行时异常：无需强制捕获
@@ -969,7 +968,6 @@
 					- throw：用于抛出异常
 					- throws：用在方法签名中，用于声明该方法可能抛出的异常
 			- 捕获异常
-			  collapsed:: true
 				- 多catch语句
 					- catch的顺序非常重要：子类必须写在前面
 					- 多个catch语句只有一个能被执行
@@ -979,9 +977,8 @@
 					- finally是用来保证一些代码必须执行的
 				- 捕获多种异常
 					- 一个catch语句也可以匹配多个非继承关系的异常
-					- 因为处理异常的逻辑想通过，可以用|合并到一起，像这样catch (IOException | NumberFormatException e)
+					- 因为处理异常的逻辑想通过，可以用`|`合并到一起，像这样catch (IOException | NumberFormatException e)
 			- 抛出异常
-			  collapsed:: true
 				- 调用printStackTrace()可以打印异常的传播栈，对于调试非常有用
 				- 保存原始的Exception信息
 					- A方法调用B方法，两个方法相继抛出异常，A方法的异常信息将会丢失，说明新的异常丢失了原始异常信息
@@ -992,12 +989,10 @@
 						- 方法一：将catch中的异常使用一个变量进行保存，然后在finally的异常中，使用e.addSuppressed(origin)方法添加到屏蔽异常的数组中
 						- 方法二：try-with-resource代码块可以直接捕获屏蔽异常
 			- 自定义异常
-			  collapsed:: true
 				- Java标准库定义的常用异常
-				  collapsed:: true
 					- Exception
+					  collapsed:: true
 						- RuntimeException
-						  collapsed:: true
 							- NullPointerException
 							- IndexOutOfBoundsException
 							- SecurityException
@@ -1017,15 +1012,13 @@
 					- 1. 定义一个BaseException作为根异常
 					- 2. BaseException通常从RuntimeException派生
 			- NullPointerException
-			  collapsed:: true
 				- 查看NullPointerException的详细信息，我们可以看到具体的对象是否为null，可以添加JVM参数开启该功能：-XX:+ShowCodeDetailsInExceptionMessages
 			- 断言
-			  collapsed:: true
-				- assert的语法：assert x > 0 : "<提示话术>"; 这句代码的意思就是说，如果x > 0为false，就会抛出AssertionError，并终止执行
+				- assert的语法：`assert x > 0 : "<提示话术>";` 这句代码的意思就是说，如果x > 0为false，就会抛出AssertionError，并终止执行
 				- 断言会抛出AssertionError异常，导致程序结束退出
-				- assert如果断言失败会抛出，JVM默认是会关闭断言指令，需要给Java虚拟机传递-enableassertions（可简写为-ea）参数启用断言
-				- 对特定的类启用断言：-ea:com.itranswarp.sample.Main
-				- 对特定的包启用断言：-ea:com.itranswarp.sample...，注意后面有三个.
+				- assert如果断言失败会抛出，JVM默认是会关闭断言指令，需要给Java虚拟机传递-enableassertions（可简写为`-ea`）参数启用断言
+				- 对特定的类启用断言：`-ea:com.itranswarp.sample.Main`
+				- 对特定的包启用断言：`-ea:com.itranswarp.sample...`，注意后面有三个.
 				- 对可恢复的错误不能使用断言，而应该抛出异常；
 			- 反射相关的异常
 			  collapsed:: true
@@ -1418,6 +1411,7 @@
 			  collapsed:: true
 				- [廖雪峰-处理注解](https://www.liaoxuefeng.com/wiki/1252599548343744/1265102026065728)
 		- 反射
+		  collapsed:: true
 			- 定义
 			  collapsed:: true
 				- Java的反射是指程序在运行期可以拿到一个对象的所有信息
