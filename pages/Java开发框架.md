@@ -1,5 +1,6 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
+	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -1104,6 +1105,7 @@
 						- 4.在bean的声明件中声明事件和监听器。
 						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
+		  collapsed:: true
 			- 本章主要讨论了基于接口的切面技术。
 			- 1.AOP概述
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
@@ -1369,6 +1371,7 @@
 					  collapsed:: true
 						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
 		- 第八章 基于AspectJ和Schema的AOP
+		  collapsed:: true
 			- 1.Spring对AOP的支持
 			  collapsed:: true
 				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
@@ -1376,7 +1379,6 @@
 				- 可以无缝集成AscpectJ。
 			- 2.Java注解的基础知识
 			- 3.着手使用`@AspectJ`
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过Advisor整合切点和增强描述切面。
@@ -1424,7 +1426,7 @@
 						- 仅支持`+`通配符
 						- 不支持通配符
 				- 逻辑运算符
-				  collapsed:: true
+				  id:: 649147c6-bbc4-4d05-a97e-930559e2066a
 					- 背景
 						- 切点表达式由切点函数组成，切点函数之间还可以进行逻辑运算，组成复合切点。
 					- Spring支持的切点运算符
@@ -1452,12 +1454,9 @@
 							- 引介增强，相当于IntroductionInterceptor。
 				- 引介增强用法
 			- 5.切点函数详解
-			  collapsed:: true
 				- `@annotation()`
-				  collapsed:: true
 					- 表示了标注了某个注解的所有方法。
 					- 使用方法
-					  collapsed:: true
 						- 1.定义一个可以作用在方法上注解。
 						- 2.在标注了@Aspect注解的类上定义一个增强切面的方法，例如：
 						  ```java
@@ -1466,9 +1465,7 @@
 						  	System.out.println("...");
 						  }
 						  ```
-					-
 				- `execution()`
-				  collapsed:: true
 					- execution()的语法
 					  collapsed:: true
 					  ````
@@ -1488,13 +1485,10 @@
 					  collapsed:: true
 						- 通过方法入参的参数类型和数量来匹配和过滤相关的方法。
 				- `args()`和`@args()`
-				  collapsed:: true
 					- args()
-					  collapsed:: true
 						- 该函数的入参是一个类名，表示目标方法的入参对象是指定类或是其子类时，匹配切点。
 						- 例如`args(com.abc.Car)`等价于`exection(* *(com.abc.Car+))`，等价于`args(com.abc.Car+)`。
 					- @args()
-					  collapsed:: true
 						- 该函数的入参是一个注解类名，当方法在运行时入参对象标注了指定的注解时，匹配切点。
 						- `@args()`匹配分析
 						  collapsed:: true
@@ -1513,28 +1507,24 @@
 								- 若入参连接点在继承树中高于注解点，则注解点所在的类及其子孙类作为方法入参时，该该方法匹配切点（该方法就是入参类型点参数所在的方法）。
 								- 若入参连接点在继承树中低于注解点，则目标方法不能匹配切点`@args(M)`。
 				- `within()`
-				  collapsed:: true
 					- 通过类匹配模式串申明切点，within()函数定义的连接点是针对目标类而言的，能匹配的连接点最小范围只能是**类**。
 					- 语法
 					  ```java
 					  within(<类匹配模式>)
 					  ```
 				- `@within()`和`@target()`
-				  collapsed:: true
 					- 这两个函数都是标注注解的切点函数。
 					- @within(M)函数匹配标注了@M注解的类和子孙类。@M注解标注的如果是一个接口，则无效。
 					- @target(M)函数匹配标注了@M注解的目标类。@M注解标注的如果是一个接口，则无效。
 				- `target()`和`this()`
-				  collapsed:: true
 					- target(M)
 						- 如果目标类按类型匹配于M，则目标类的所有方法都匹配切点。
 					- this()
 						- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 			- 6.AspectJ进阶
-			  collapsed:: true
 				- 切点的复合运算
 				  collapsed:: true
-					- 通过使用切点的逻辑运算符，来实现具有复合切点的切面。
+					- 通过使用切点的 ((649147c6-bbc4-4d05-a97e-930559e2066a)) ，来实现具有复合切点的切面。
 				- 切点的命名
 				  collapsed:: true
 					- 背景
@@ -1543,6 +1533,27 @@
 						- 如果想要复用一个切点，则可以通过`@Pointcut`注解及切面类方法对切点进行命名。
 					- 切点命名的结构
 					  ![切点命名.png](../assets/切点命名_1687320105841_0.png)
+				- 增强织入的顺序
+				  collapsed:: true
+					- 一若增强在同一个切面类中声明，则按照切面在增强类中声明的顺序进行织入。
+					- 二若增强位于不同的切面类，且切面类实现了`org.springframework.core.Ordered`接口，则按照接口方法的顺序号进行织入，顺序号越小越早织入执行。
+					- 二若增强位于不同的切面类，且没有实现`Ordered`接口，则织入的顺序是不确定的。
+				- 访问连接点信息
+				  collapsed:: true
+					- Aspect使用`org.aspectj.lang.JoinPoint`接口代表连接点对象
+						- 方法列表
+						  collapsed:: true
+							- `java.lang.Object[] getArgs()`：获取连接点方法运行时的入参列表
+							- `Signature getSignature()`：获取连接点的方法签名对象
+							- `java.lang.Object getTarget()`：获取连接点所在的目标对象，也就是代理类代理的目标对象
+							- `java.lang.Object getThis()`：获取代理对象本身
+					- Aspect使用`org.aspectj.lang.ProceedingJoinPoint`接口代表**环绕增强**的连接点对象
+						- ProceedingJoinPoint继承自JoinPoint接口，新增了两个用于执行连接点方法的方法
+							- `java.lang.Object proceed()`：通过反射执行目标对象连接点处的方法
+							- `java.lang Object proceed(java.lang.Object[] args)`：通过反射执行目标对象连接点处的方法，不过可以使用新的入参来代替原来的。
+					-
+				- 绑定连接点方法入参
+					-
 	- spring-core
 	  collapsed:: true
 		- IOC
@@ -1869,9 +1880,7 @@
 			- 参考文章
 				- [How to Mock HttpServletRequest](https://www.baeldung.com/java-httpservletrequest-mock)
 		- 整合Junit
-		  collapsed:: true
 			- 参考文章
-			  collapsed:: true
 				- [springBoot整合的Junit4单元测试](https://www.jianshu.com/p/921282034c5d)
 	- Spring Cloud
 	  collapsed:: true
