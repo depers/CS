@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -3920,7 +3919,6 @@
 				- 这种方式在框架代码中比较常见。
 		- 类型：结构型
 - Java EE
-  collapsed:: true
 	- Servlet
 		- Java web application介绍
 		  collapsed:: true
@@ -4569,10 +4567,12 @@
 							- 上述所有方法本身都不完整，它们都不能在特定的场景中工作。因此，我们需要一种能够利用这些会话跟踪方法在所有情况下都能提供会话管理的解决方案。
 						- J2EE Servlet技术附带了我们可以使用的Session Management API。
 			- 方法一：Cookies
+			  collapsed:: true
 				- 这里可以参考mall项目下的子项目Servlet/servlet-demo
 					- cn.bravedawn.servlet.session.cookies.LoginSessionServlet
 					- cn.bravedawn.servlet.session.cookies.LogoutSessionServlet
 			- 方法二：HttpSession
+			  collapsed:: true
 				- Servlet API通过HttpSession接口提供会话管理。我们可以使用以下方法从HttpServletRequest对象获取会话。HttpSession允许我们将对象设置为可以在未来请求中检索的属性。
 				- 方法
 				  collapsed:: true
@@ -4637,7 +4637,6 @@
 					- cn.bravedawn.servlet.session.urlrewriting.LoginServlet
 					- cn.bravedawn.servlet.session.urlrewriting.LogoutServlet
 		- Servlet中的过滤器
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 在上一节中我们通过HttpSession实现会话管理时，我们通过判断session属性来判断用户是否登录（或者说会话是否有效），这个方式实现简单但是如果我们有大量的Servlet和jsp页面那该怎么办，如果在将来我们修改这个session属性，那我们的工作量就更大了。
@@ -4650,16 +4649,13 @@
 				- 通过添加一些cookie，标题信息等来更改响应
 				- 设置请求或响应的报文编码
 			- 实现
-			  collapsed:: true
 				- 1.实现javax.servlet.Filter接口
 				- 2.在web.xml中声明或是使用@WebFilter注解
 			- Servlet Filter interface
-			  collapsed:: true
 				- init(FilterConfig filterConfig)，web应用程序启动时创建Filter对象实例并调用该方法，Filter对象只会创建一次，init方法只会执行一次。可通过FilterConfig对象获取配置信息
 				- doFilter()，执行实际的拦截工作
 				- destory()，Servlet容器在销毁过滤器实例前调用该方法，在该方法中释放Servlet过滤器占用的资源
 			- 具体实现参考mall项目下的子项目Servlet/servlet-demo
-			  collapsed:: true
 				- cn.bravedawn.filter.AuthenticationFilter
 				- cn.bravedawn.filter.RequestLoggingFilter
 			- 过滤器的执行顺序：web.xml 中的filter-mapping 元素的顺序决定了 Web 容器应用过滤器到 Servlet 的顺序
@@ -4946,6 +4942,7 @@
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
 	- IDEA
+	  collapsed:: true
 		- 快捷键
 			- MAC
 				- 全局查找：`command`+`shift`+`F`
@@ -4960,6 +4957,7 @@
 				- 复制一行：`command` + `D`
 	- VS Code
 - 构建工具
+  collapsed:: true
 	- Maven
 		- 基础知识
 			- DependencyManagement标签的使用

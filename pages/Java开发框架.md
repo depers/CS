@@ -962,12 +962,11 @@
 					  collapsed:: true
 						- 在基于注解和基于Java类的配置中，我们可以使用`@Value(${属性名})`为Bean（`@Component`和@`Configuration`注解都会将类本省声明为一个Bean）的成员变量和方法入参自动注入容器已有的属性。
 				- 使用加密的属性文件
-				  collapsed:: true
 					- 背景
 						- 在应用程序的配置文件中有时会有一些敏感的数据，比如数据库的账户密码，这些数据如果明文存在配置文件中，会被内部开发人员看到，可能会导致数据库信息的泄露。所以针对一些比较敏感信息，我们需要这些配置信息进行加密。
 					- 实现依赖
-						- PropertyPlaceholderConfigurer继承了PropertyResourceConfigurer类
-						- PropertyResourceConfigurer有几个有用的protected方法，用于在属性使用之前对属性列表中的属性进行转换
+						- `PropertyPlaceholderConfigurer`继承了`PropertyResourceConfigurer`类
+						- `PropertyResourceConfigurer`有几个有用的`protected`方法，用于在属性使用之前对属性列表中的属性进行转换
 							- `void convertProperties(Properties props)`：props变量中包含了所有的属性列表，可以对所有属性进行转换处理。
 							- `String convertProperty(String propertyName, String propertyValue)`：在加载属性文件并读取配置文件中的每一个属性，都会调用这个方法进行转换。**我们一般复写这个方法。**
 							- `String convertPropertyValue(String originValue)`：这个方法只传入了每个属性的属性值。
@@ -1105,7 +1104,6 @@
 						- 4.在bean的声明件中声明事件和监听器。
 						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
-		  collapsed:: true
 			- 本章主要讨论了基于接口的切面技术。
 			- 1.AOP概述
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
@@ -1115,7 +1113,6 @@
 					- 说下我自己的理解吧，比如我们开发一个接口，我们都是从**controller**->**service**->**repository**这几个层次去开发的，我按照这样的模式开发了很多的接口，但是如果我想对这些接口做一些统一的操作，那我应该怎么去做呢。这里我们就可以利用AOP来做，如果说一个接口的开发是纵向的，那么AOP就是做些横向的工作。
 				- AOP的术语
 					- 连接点（Joinpoint）
-					  collapsed:: true
 						- 连接点就是触发点的意思，描述了切面的逻辑是从什么地方开始执行的。
 						- Spring仅支持方法的连接点，也就是说只能从**方法调用前**、**方法调用后**、**方法抛出异常时**和**方法调用前后**这四个地方加入切面的相关逻辑。
 						- 连接点有两个信息去进行确认：
@@ -1130,13 +1127,10 @@
 						- 增强还包含了用于定位连接点的**方位**，所谓方位就是在方法的调用前还是调用后这些。
 						- Spring提供的增强接口都是带方位的，比如`BeforeAdvice`、`AfterReturningAdvice`等等。
 					- 目标对象（Target）
-					  collapsed:: true
 						- 目标对象就是添加增强逻辑代码的那个目标类。
 					- 引介（Introduction）
-					  collapsed:: true
 						- 引介是一种特殊的增强，它为目标类添加一些属性和方法。
 					- 织入（Weaving）
-					  collapsed:: true
 						- 织入是将增强代码添加到目标类的具体连接点上的过程。
 						- AOP有三种织入方式
 							- 编译期织入，这要求使用特殊的Java编译器。
@@ -1188,22 +1182,25 @@
 					- CGLib创建代理对象所花费的时间比JDK要长，但是创建动态代理对象的性能比JDK要好。
 			- 3.创建增强类
 			  id:: 6482ed45-9164-4552-a1e3-4d6bf237aa70
-			  collapsed:: true
 				- 增强类型
 					- AOP联盟定义了`org.application.aop.Advice`接口。
 					- Spring提供了五种类型的增强
 						- 前置增强
+						  collapsed:: true
 							- 在目标方法前执行。
 							- BeforeAdvice代表前置增强，是为了为了版本扩展定义的。
 							- 因为Spring只支持方法级的增强，所以MethodBeforeAdvice是目前可用的强置增强。
 						- 后置增强
+						  collapsed:: true
 							- AfterReturnAdvice，在目标方法后执行。
 						- 环绕增强
+						  collapsed:: true
 							- MethodInterceptor，在目标方法执行前后执行。
 						- 异常抛出增强
+						  collapsed:: true
 							- ThrowsAdvice，在目标方法抛出异常后执行。
 						- 引介增强
-							- IntroductionInterceptor，在目标类中添加一些新的方法和属性。
+							- IntroductionInterceptor，在目标类的代理类中通过实现接口的方式，为目标类添加一些新的方法和属性。
 				- 前置增强
 					- 1.通过MethodBeforeAdvice接口实现前置增强
 						- MethodBeforeAdvices的唯一接口方法：`before(Method method, Objects[] args, Object obj)`
@@ -1240,13 +1237,10 @@
 						- 这个方法的前三个参数是可选的，要么都提供，要么不提供。
 					- 在同一个异常抛出增强类中可以定义多个`afterThrowing()`方法，目标类抛出异常的时候会自动选择最匹配的增强方法。
 				- 引介增强
-				  collapsed:: true
 					- Spring为引介增强定义了`IntroductionInterceptor`接口，该接口没有定义任何方法。接着Spring又提供了他的实现类`DelegatingIntroductionInterceptor`，一般情况下拓展该类实现自己的引介增强类。
 			- 4.创建切面
 			  id:: 6486fcb3-45f5-4bfa-928a-fe41754cb908
-			  collapsed:: true
 				- 切面概述
-				  collapsed:: true
 					- Spring通过`Pointcut`接口描述切点。
 					- `Pointcut`由`ClassFilter`和`MethodMather`构成。
 					- `ClassFilter`负责定位到特定的类，`MethodMather`负责定位到特定的方法。
@@ -1272,7 +1266,7 @@
 					  collapsed:: true
 						- 可以将多个切点以并集或交集的方式组合起来，提供了切点之间复合运算的功能。
 				- 切面类型
-				  collapsed:: true
+				  id:: 6486ff6b-3875-4264-b5aa-a97cffb6907c
 					- 一般切面
 						- `Advisor`代表一般切面。仅包含Advice，也就是增强。
 						- 一般切面代表连接点是所有目标类的所有方法，因为范围太宽泛，所以一般不使用。
@@ -1371,7 +1365,6 @@
 					  collapsed:: true
 						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
 		- 第八章 基于AspectJ和Schema的AOP
-		  collapsed:: true
 			- 1.Spring对AOP的支持
 			  collapsed:: true
 				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
@@ -1379,6 +1372,7 @@
 				- 可以无缝集成AscpectJ。
 			- 2.Java注解的基础知识
 			- 3.着手使用`@AspectJ`
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过Advisor整合切点和增强描述切面。
@@ -1398,7 +1392,6 @@
 				- 切点表达式函数
 				  collapsed:: true
 					- AspectJ5.0的切点表达式，由下面两部分组成
-					  collapsed:: true
 						- 关键字（切点函数）
 							- 在切点表达式`exectution(* greetTo(..))`中，关键字是`exectution`。
 							- 分类
@@ -1417,19 +1410,25 @@
 					  collapsed:: true
 						- `*`：匹配任意字符，只能匹配上下文中的一个元素。
 						- `..`：匹配任意字符，可以匹配上下文中的多个元素。
+						  collapsed:: true
 							- 表示类时，必须和`*`一起使用。
 							- 表示入参时，单独使用。
 						- `+`：表示按照类型匹配指定类的所有类，必须跟在类名后面。
+						  collapsed:: true
 							- 比如`com.abc.Car+`，就表示继承和扩展指定类的所有类，包括类本身。
 					- @Aspect函数按照其是否支持通配符及支持的程度，分为三类
+					  collapsed:: true
 						- 支持所有通配符
 						- 仅支持`+`通配符
 						- 不支持通配符
 				- 逻辑运算符
 				  id:: 649147c6-bbc4-4d05-a97e-930559e2066a
+				  collapsed:: true
 					- 背景
+					  collapsed:: true
 						- 切点表达式由切点函数组成，切点函数之间还可以进行逻辑运算，组成复合切点。
 					- Spring支持的切点运算符
+					  collapsed:: true
 						- `&&`：与运算，相当于切点的交集运算。
 						- `||`：或运算，相当于切点的并集运算。
 						- `!`：非运算，相当于切点的反集运算。
@@ -1439,26 +1438,35 @@
 					  collapsed:: true
 						- 第七章 ((6482ed45-9164-4552-a1e3-4d6bf237aa70))中我们通过接口实现来实现增强。@AspectJ也为各种增强提供了不同的注解类。
 					- @Aspect提供的增强注解
-					  collapsed:: true
 						- `@Before`
+						  collapsed:: true
 							- 前置增强，相当于BeforeAdvice。
 						- `@AfterReturning`
+						  id:: 64914b97-f025-4e65-81ba-17f3dae60e5b
+						  collapsed:: true
 							- 后置增强，相当于AfterReturningAdvice。
 						- `@Around`
+						  collapsed:: true
 							- 环绕增强，相当于MethodInterceptor。
 						- `@AfterThrowing`
+						  id:: 64914bad-d263-4fa2-8071-d0d8ee7f1e5a
 							- 抛出增强，相当于ThrowAdvice。
 						- `@After`
+						  collapsed:: true
 							- Final增强，不管抛出异常还是正常退出，该增强都会得到执行。
 						- `@DeclareParents`
+						  collapsed:: true
 							- 引介增强，相当于IntroductionInterceptor。
 				- 引介增强用法
 			- 5.切点函数详解
+			  id:: 64914e34-3bab-43aa-a638-ae2e4c243041
+			  collapsed:: true
 				- `@annotation()`
+				  collapsed:: true
 					- 表示了标注了某个注解的所有方法。
 					- 使用方法
 						- 1.定义一个可以作用在方法上注解。
-						- 2.在标注了@Aspect注解的类上定义一个增强切面的方法，例如：
+						- 2.在标注了@Aspect注解的类上定义一个后置切面的方法，例如：
 						  ```java
 						  @AfterReturning("@annotation(com.abc.自定义的注解)")
 						  public void needTestFun() {
@@ -1466,6 +1474,7 @@
 						  }
 						  ```
 				- `execution()`
+				  collapsed:: true
 					- execution()的语法
 					  collapsed:: true
 					  ````
@@ -1473,10 +1482,8 @@
 					  ```
 						- 修饰符模式和异常模式是可选的。
 					- 1.通过方法签名定义切点
-					  collapsed:: true
 						- 也就是说我们可以根据方法的签名信息来定义切点。
 					- 2.通过类定义切点
-					  collapsed:: true
 						- 也就是通过类这一级来匹配和过滤相关方法。比如某个类的所有方法或是匹配某个接口实现类的所有方法。
 					- 3.通过类包定义切点
 					  collapsed:: true
@@ -1486,27 +1493,25 @@
 						- 通过方法入参的参数类型和数量来匹配和过滤相关的方法。
 				- `args()`和`@args()`
 					- args()
+					  collapsed:: true
 						- 该函数的入参是一个类名，表示目标方法的入参对象是指定类或是其子类时，匹配切点。
 						- 例如`args(com.abc.Car)`等价于`exection(* *(com.abc.Car+))`，等价于`args(com.abc.Car+)`。
 					- @args()
 						- 该函数的入参是一个注解类名，当方法在运行时入参对象标注了指定的注解时，匹配切点。
 						- `@args()`匹配分析
-						  collapsed:: true
 							- 匹配示意图
 							  ![@args匹配示意图.png](../assets/@args匹配示意图_1687316967832_0.png)
 							- 入参类型点
-							  collapsed:: true
 								- 方法签名中入参类型在类继承树中的位置称为**入参类型点**。
 								- 在圈1处，我们在T1类中声明了`fun(T1 t)`方法签名，所以入参类型点就是T1参数所在的问题，也就是圈1处。
 							- 注解点
-							  collapsed:: true
 								- @M注解标注的类在继承树中的位置称为**注解点**。
 								- 在圈2处，我们在类T2上标注了注解@M，所以注解点就在圈2处。
 							- `@args()`切点匹配的原则
-							  collapsed:: true
 								- 若入参连接点在继承树中高于注解点，则注解点所在的类及其子孙类作为方法入参时，该该方法匹配切点（该方法就是入参类型点参数所在的方法）。
 								- 若入参连接点在继承树中低于注解点，则目标方法不能匹配切点`@args(M)`。
 				- `within()`
+				  collapsed:: true
 					- 通过类匹配模式串申明切点，within()函数定义的连接点是针对目标类而言的，能匹配的连接点最小范围只能是**类**。
 					- 语法
 					  ```java
@@ -1522,10 +1527,12 @@
 					- this()
 						- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 			- 6.AspectJ进阶
+			  collapsed:: true
 				- 切点的复合运算
 				  collapsed:: true
 					- 通过使用切点的 ((649147c6-bbc4-4d05-a97e-930559e2066a)) ，来实现具有复合切点的切面。
 				- 切点的命名
+				  id:: 649274ea-aada-484f-8d0c-c91e52487567
 				  collapsed:: true
 					- 背景
 					  collapsed:: true
@@ -1541,6 +1548,7 @@
 				- 访问连接点信息
 				  collapsed:: true
 					- Aspect使用`org.aspectj.lang.JoinPoint`接口代表连接点对象
+					  collapsed:: true
 						- 方法列表
 						  collapsed:: true
 							- `java.lang.Object[] getArgs()`：获取连接点方法运行时的入参列表
@@ -1548,11 +1556,52 @@
 							- `java.lang.Object getTarget()`：获取连接点所在的目标对象，也就是代理类代理的目标对象
 							- `java.lang.Object getThis()`：获取代理对象本身
 					- Aspect使用`org.aspectj.lang.ProceedingJoinPoint`接口代表**环绕增强**的连接点对象
+					  collapsed:: true
 						- ProceedingJoinPoint继承自JoinPoint接口，新增了两个用于执行连接点方法的方法
+						  collapsed:: true
 							- `java.lang.Object proceed()`：通过反射执行目标对象连接点处的方法
 							- `java.lang Object proceed(java.lang.Object[] args)`：通过反射执行目标对象连接点处的方法，不过可以使用新的入参来代替原来的。
 					-
 				- 绑定连接点方法入参
+				  id:: 64990b94-90c2-4607-a56a-681be276a37f
+				  collapsed:: true
+					- 除了`within()`和`execution()`不可以指定参数名外，其他七个切点参数即可以指定类名，还可以指定参数名，具体可以回顾 ((64914e34-3bab-43aa-a638-ae2e4c243041))
+					- `args()`用于绑定连接点方法的入参，可以实现匹配切点（也就是说能够找到匹配切点的方法）和绑定参数的双重功能（可以将方法入参的实际参数绑定到`args()`所设置的参数上）。
+					  collapsed:: true
+						- 参考文章
+						  collapsed:: true
+							- [Spring-AOP @AspectJ进阶之绑定连接点方法入参](https://blog.csdn.net/yangshangwei/article/details/77944158)
+					- `@annotation()`用于绑定连接点方法的注解对象实例。
+					- `@args()`用于绑定连接点方法入参的注解对象实例。
+				- 绑定代理对象
+				  collapsed:: true
+					- 使用`this()`或`target()`函数可以绑定被代理对象实例。可以通过类实例的名称绑定对象进行连接点的匹配。，同样也实现了 ((64990b94-90c2-4607-a56a-681be276a37f)) 。
+				- 绑定类注解对象
+				  collapsed:: true
+					- `@within()`和`@target()`函数可以绑定注解类的实例，可以将目标类的注解对象实例绑定到增强方法的入参中，同样也实现了 ((64990b94-90c2-4607-a56a-681be276a37f)) 。
+				- 绑定返回值
+					- 在后置增强 ((64914b97-f025-4e65-81ba-17f3dae60e5b))中，可以通过`returing`绑定连接点方法的返回值。
+				- 绑定抛出的异常
+					- 连接点抛出的异常必须使用 ((64914bad-d263-4fa2-8071-d0d8ee7f1e5a))注解的`throwing`成员进行绑定。
+			- 7.基于Schema配置切面
+			  collapsed:: true
+				- 背景：前6节中，我们讨论的基于@Aspect注解的切面，但是在Java5.0之前，也就是没有注解之前，我们可以使用Spring提供的基于Schema配置的方式去声明切面。
+				- 说白了基于Schema配置切面就是在xml中进行相关配置。
+				- 基于Schema配置的切面也可以通过配置命名切点，实现切点的复用。这里和 ((649274ea-aada-484f-8d0c-c91e52487567))是一样的。
+				- 基于Schema可以配置的增强类型
+				  collapsed:: true
+					- 前置增强
+					- 后置增强
+					- 环绕增强
+					- 抛出异常增强
+					- Final增强
+					- 引介增强
+				- Advisor配置
+					- 我们之前在 ((6486ff6b-3875-4264-b5aa-a97cffb6907c))中提到了Spring的`Advisor`接口，它是Spring中切面概念的对应物，它包含一个切点和增强，是切点和增强的复合体。但是在AspectJ中却没有等价物。
+					- 在基于Schema的配置中，我们可以配置一个Advisor的切面。
+			- 8.混合切面类型
+			  collapsed:: true
+				- 四种定义切面的方式
 					-
 	- spring-core
 	  collapsed:: true
@@ -1828,45 +1877,43 @@
 				-
 	- Spring Boot
 	  collapsed:: true
+		- SpringBoot注解
+			- @ConditionalOnProperty
+				- 使用这个注解我们可以判断Property的某些属性是不是需要的值，也就是说可以做属性值的判断。
+			- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
+				- 这两个注解用于判断该程序是否web应用程序。
 		- 依赖管理
-		  collapsed:: true
 			- Spring Boot 的每个版本都提供了它支持的依赖项列表，因此，我们在引入其他的依赖时不需要在配置中指定依赖项的版本，Spring Boot会自行管理。具体可以参考文章：[springboot依赖的一些配置：spring-boot-dependencies、spring-boot-starter-parent、io.spring.platform](https://www.cnblogs.com/leeego-123/p/12665279.html)
 		- 上传文件
-		  collapsed:: true
 			- 在Spring Boot上传文件的时候，如果你上传的文件是0kb，spring是会报错的，报的错是：`Error parsing HTTP request header java.io.EOFException: null`
 		- 重要接口
-		  collapsed:: true
 			- Interface `ApplicationRunner` 和 `CommandLineRunner`
-			  collapsed:: true
 				- 作用：
-				  collapsed:: true
 					-
 				- 参考文章
-				  collapsed:: true
 					- https://www.jianshu.com/p/5d4ffe267596
 					- https://www.baeldung.com/running-setup-logic-on-startup-in-spring
-				-
 		- 日志
-		  collapsed:: true
 			- Spring Boot 默认使用 SLF4J+Logback 记录日志，其中SLF4J提供了日志接口，Logback提供的日志实现。
 			- 日志配置的级别
-			  collapsed:: true
 				- 使用root级别，即项目的所有日志
-				  collapsed:: true
 					- 例如：
 					  ```
 					  logging.level.root=trace
 					  ```
 				- 使用package级别，即指定包下使用相应的日志级别
-				  collapsed:: true
 					- 例如：
 					  ```
 					  logging.level.cn.bravedawn=trace
 					  ```
 			- 参考
-			  collapsed:: true
 				- [使用SLF4J和Logback-廖雪峰](https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176)
 				- [Spring Boot日志配置及输出](http://c.biancheng.net/spring_boot/log-config.html)
+		- web相关
+			- SpringBoot实现`Filter`过滤器的两种方式
+				- 通过`FilterRegistrationBean`
+				- 通过`@WebFilter`
+				- 推荐使用`FilterRegistrationBean`，因为他可以设置过滤器的优先级。
 	- Spring Test
 	  collapsed:: true
 		- 在单元测试中如果依赖Spring的RequestContext，怎么办
