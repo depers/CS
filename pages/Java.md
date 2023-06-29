@@ -1044,7 +1044,6 @@
 						- 如果不抛出，则它是必检异常，必须抛出；如果抛出，则父接口或父类中没有声明该必检异常，不能抛出。
 						- 必检异常会被包装为免检异常 UndeclaredThrowableException 后抛出。所以说 UndeclaredThrowableException 也是一个包装了其他异常的异常。
 		- 加解密与安全
-		  collapsed:: true
 			- 编码算法
 			  collapsed:: true
 				- ASCII码
@@ -1162,7 +1161,6 @@
 					- 缺点
 						- 不能防止中间人攻击
 			- 非对称加密算法
-			  collapsed:: true
 				- 定义：非对称加密就是加密和解密使用的不是相同的密钥，只有同一个公钥-私钥对才能正常加解密。
 				- 特性
 					- RSA密钥有256/512/1024/2048/4096等不同的长度。
@@ -1178,7 +1176,6 @@
 					- 小红将AES的密钥用小明的RSA公钥加密，小明用自己的RSA私钥解密得到AES密钥
 					- 双方使用这个共享的AES口令用AES加密通信
 			- 签名算法
-			  collapsed:: true
 				- 目的：使用数字签名的目的是为了确认信息确实由某个发送的，任何人都不能伪造，并且发送方也不能抵赖
 				- 使用
 					- 数字签名就是用发送方的私钥对原始数据进行签名，只有用发送方公钥才能通过签名验证
@@ -1206,7 +1203,6 @@
 						- 比特币的签名算法就采用了ECDSA算法
 						- BouncyCastle提供了ECDSA的完整实现
 			- 数字证书
-			  collapsed:: true
 				- 背景：摘要算法用来确保数据没有被篡改，非对称加密算法可以对数据进行加解密，签名算法可以确保数据完整性和抗否认性，把这些算法集合到一起，并搞一套完善的标准，这就是数字证书
 				- 定义：集合了多种密码学算法，用于实现数据加解密、身份认证、签名等多种功能的一种安全标准
 				- 特点
@@ -1215,12 +1211,12 @@
 					- 数字证书存储的是公钥，可以安全公开，而私钥必须严格保密
 				- 优势
 					- 可以防止中间人攻击
-				- Java数字证书的生成：keytool -storepass 123456 -genkeypair -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -validity 3650 -alias mycert -keystore my.keystore -dname "CN=www.sample.com, OU=sample, O=sample, L=BJ, ST=BJ, C=CN"
-					- keyalg：指定RSA加密算法；
-					- sigalg：指定SHA1withRSA签名算法；
-					- validity：指定证书有效期3650天；
-					- alias：指定证书在程序中引用的名称；
-					- dname：最重要的CN=www.sample.com指定了Common Name，如果证书用在HTTPS中，这个名称必须与域名完全一致。
+				- Java数字证书的生成：`keytool -storepass 123456 -genkeypair -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -validity 3650 -alias mycert -keystore my.keystore -dname "CN=www.sample.com, OU=sample, O=sample, L=BJ, ST=BJ, C=CN"`
+					- `keyalg`：指定RSA加密算法；
+					- `sigalg`：指定SHA1withRSA签名算法；
+					- `validity`：指定证书有效期3650天；
+					- `alias`：指定证书在程序中引用的名称；
+					- `dname`：最重要的CN=www.sample.com指定了Common Name，如果证书用在HTTPS中，这个名称必须与域名完全一致。
 		- 泛型
 		  collapsed:: true
 			- 背景
