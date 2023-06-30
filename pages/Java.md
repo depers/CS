@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1044,6 +1045,7 @@
 						- 如果不抛出，则它是必检异常，必须抛出；如果抛出，则父接口或父类中没有声明该必检异常，不能抛出。
 						- 必检异常会被包装为免检异常 UndeclaredThrowableException 后抛出。所以说 UndeclaredThrowableException 也是一个包装了其他异常的异常。
 		- 加解密与安全
+		  collapsed:: true
 			- 编码算法
 			  collapsed:: true
 				- ASCII码
@@ -1728,7 +1730,6 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2556,6 +2557,7 @@
 			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
+		  collapsed:: true
 			- 五种IO模型
 				- 同步阻塞-Blocking I/O
 					- 阻塞IO模型
@@ -2747,7 +2749,6 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
-		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -3365,19 +3366,19 @@
 			- 虚拟机类的加载机制
 			  collapsed:: true
 				- 类加载的时机
-				  collapsed:: true
 					- 主动使用
 						- 主动引用的时机
 					- 被动使用
 				- 类加载的过程
-				  collapsed:: true
 					- 加载
 					- 连接
+					  collapsed:: true
 						- 验证
 						- 准备
 						- 解析
 					- 初始化
 				- 类加载器
+				  collapsed:: true
 					- `ClassLoader`的重要方法
 						- `loadClass(String name)`
 							- loadClass() 方法是加载目标类的入口，它首先会查找当前 ClassLoader 以及它的双亲里面是否已经加载了目标类，如果没有找到就会让双亲尝试加载，如果双亲都加载不了，就会调用 findClass() 让自定义加载器自己来加载目标类。
