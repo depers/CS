@@ -2749,6 +2749,7 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
+		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -3364,7 +3365,6 @@
 				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 			- 类文件结构
 			- 虚拟机类的加载机制
-			  collapsed:: true
 				- 类加载的时机
 					- 主动使用
 						- 主动引用的时机
@@ -3372,18 +3372,16 @@
 				- 类加载的过程
 					- 加载
 					- 连接
-					  collapsed:: true
 						- 验证
 						- 准备
 						- 解析
 					- 初始化
 				- 类加载器
-				  collapsed:: true
 					- `ClassLoader`的重要方法
 						- `loadClass(String name)`
 							- loadClass() 方法是加载目标类的入口，它首先会查找当前 ClassLoader 以及它的双亲里面是否已经加载了目标类，如果没有找到就会让双亲尝试加载，如果双亲都加载不了，就会调用 findClass() 让自定义加载器自己来加载目标类。
 						- `findClass(String name)`
-							- ClassLoader 的 findClass() 方法是需要子类来覆盖的，不同的加载器将使用不同的逻辑来获取目标类的字节码。
+							- `ClassLoader` 的 `findClass()` 方法是需要子类来覆盖的，不同的加载器将使用不同的逻辑来获取目标类的字节码。
 						- `defineClass(String name, byte[] b, int off, int len)`
 							- 将字节码文件的字节数组转换为JVM内部的`java.lang.Class`对象。
 					- 类和类加载器的关系
@@ -3391,23 +3389,18 @@
 						- 复写`ClassLoader`的`findClass`方法
 						- 具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/classloader/MyClassLoaderTest.java
 					- 双亲委派模型
-					  collapsed:: true
 						- JDK9之后
-						  collapsed:: true
 							- JDK 9中虽然仍然维持着三层类加载器和双亲委派的架构，但类加载的委派关系也发生了变动。当平台及应用程序类加载器收到类加载请求，在委派给父加载器加载前，要先判断该类是否能够归属到某一个系统模块中，如果可以找到这样的归属关系，就要优先委派给负责那个模块的加载器完成加载。
 					- 破坏双亲委派模型
-					  collapsed:: true
 						- 第一次：Java1.2引入双亲委派模型，为兼容Java1.1就存在的ClassLoader抽象类和类加载器，在ClassLoader中新增了findClass()方法。
 						- 第二次：因SPI机制，父的类加载器需要获取子的类加载器，去加载厂商实现的类，提出了线程上下文加载器。
 						- 第三次：实现热部署，OSGi。
 						- 第四次：JDK9修改了双亲委派的规则。
 					- 类加载器的应用
 						- 获取一个包下面所有的类
-						  collapsed:: true
 							- 具体实现：cn.bravedawn.jvm.classloader.ClassUtil
 							- 参考文章：[Java获取指定package下所有类](https://blog.csdn.net/yuhentian/article/details/110007378)
 					- 模块化下的类加载器
-					  collapsed:: true
 						- JDK9，扩展类加载器（Extension Class Loader）被平台类加载器（Platform Class Loader）取代
 						- 平台类加载器和应用程序类加载器都不再派生自`java.net.URLClassLoader`
 						- 现在启动类加载器、平台类加载器、应用程序类加载器全都继承于`jdk.internal.loader.BuiltinClassLoader`，在`BuiltinClassLoader`中实现了新的模块化架构下类如何从模块中加载的逻辑，以及模块中资源可访问性的处理。
@@ -3417,10 +3410,9 @@
 							- 基于双亲委派机制，自底向上的类加载模式保证了一个类只能被加载一次，且分层的类加载器设计划分类类加载器的执行范围，避免了程序被恶意篡改
 						- 二可以通过自定义类加载器，实现不同应用程序之间依赖的分隔管理，互不干扰。
 			- 虚拟机字节码执行引擎
-			  collapsed:: true
 				- 虚拟机执行引擎执行字节码的方式
 					- 解释执行：通过解释器执行
-					- 编译执行：通过即时编译期生成本地代码执行
+					- 编译执行：通过即时编译器生成本地代码执行
 				- 栈帧
 					- 背景
 						- Java虚拟机以方法作为最基本的执行单元。
@@ -3463,7 +3455,6 @@
 										- 索引为0的Slot默认是用来传递方法所属对象实例的引用，也就是`this`。
 								- 对于一个存储64位数据类型的两个相邻Slot，不允许单独访问其中一个。
 							- 使用
-							  collapsed:: true
 								- 通过索引定位的方式访问局部变量表
 								- 索引从0开始，直至局部变量表的最大容量
 								- 对于32位数据类型的变量，索引n就代表了使用第n个变量槽
@@ -3916,6 +3907,7 @@
 				- 这种方式在框架代码中比较常见。
 		- 类型：结构型
 - Java EE
+  collapsed:: true
 	- Servlet
 		- Java web application介绍
 		  collapsed:: true

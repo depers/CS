@@ -1113,47 +1113,61 @@
 					- 说下我自己的理解吧，比如我们开发一个接口，我们都是从**controller**->**service**->**repository**这几个层次去开发的，我按照这样的模式开发了很多的接口，但是如果我想对这些接口做一些统一的操作，那我应该怎么去做呢。这里我们就可以利用AOP来做，如果说一个接口的开发是纵向的，那么AOP就是做些横向的工作。
 				- AOP的术语
 					- 连接点（Joinpoint）
+					  collapsed:: true
 						- 连接点就是触发点的意思，描述了切面的逻辑是从什么地方开始执行的。
 						- Spring仅支持方法的连接点，也就是说只能从**方法调用前**、**方法调用后**、**方法抛出异常时**和**方法调用前后**这四个地方加入切面的相关逻辑。
 						- 连接点有两个信息去进行确认：
+						  collapsed:: true
 							- 一是用**方法**表示的程序**执行点**，其中使用**切点**对执行点进行定位。
 							- 二是用**相对位置**表示的**方位**，在**增强类型**中进行定义。
 					- 切点（Pointcut）
+					  collapsed:: true
 						- AOP通过切点对特定的连接点记性定位。
 						- 连接点相当于**数据库中的记录**，而切点相当于**查询条件**。
 						- 在Spring中，通过`org.springframework.aop.Pointcut`接口对切点进行描述。
 					- 增强（Advice）
+					  collapsed:: true
 						- 增强是放置在程序连接点上的一段程序代码。
 						- 增强还包含了用于定位连接点的**方位**，所谓方位就是在方法的调用前还是调用后这些。
 						- Spring提供的增强接口都是带方位的，比如`BeforeAdvice`、`AfterReturningAdvice`等等。
 					- 目标对象（Target）
+					  collapsed:: true
 						- 目标对象就是添加增强逻辑代码的那个目标类。
 					- 引介（Introduction）
+					  collapsed:: true
 						- 引介是一种特殊的增强，它为目标类添加一些属性和方法。
 					- 织入（Weaving）
+					  collapsed:: true
 						- 织入是将增强代码添加到目标类的具体连接点上的过程。
 						- AOP有三种织入方式
+						  collapsed:: true
 							- 编译期织入，这要求使用特殊的Java编译器。
 							- 类装载期织入，这要求使用特殊的类装载器。
 							- 动态代理织入，在运行期为目标类添加增强生成子类的方式。
 						- Spring采用动态代理织入，AspectJ采用编译期织入和类装载期织入。
 					- 代理（Proxy）
+					  collapsed:: true
 						- 一个类被AOP增强之后，就会产生一个结果类，这个结果类是融合了原类和增强逻辑的代理类。
 						- 代理类可能是和原来具有相同的接口，或者是原类的子类。所以我们可以通过调用原类相同的方式调用代理类。
 					- 切面（Aspect）
+					  collapsed:: true
 						- 切面由切点和增强组成，即包含横切逻辑的定义，又包含连接点的定义。
 					- 要将增强应用于目标对象的连接点上，两个步骤：
+					  collapsed:: true
 						- 一如何将切点和增强定位到连接点上。
 						- 二如何在增强中编写切面的代码。
 				- AOP的实现者
 				  collapsed:: true
 					- AspectJ
+					  collapsed:: true
 						- 在**编译期**提供横切代码的织入。
 						- 有一个编译器用来生成Java字节码规范的Class文件。
 					- AspectWerkz
+					  collapsed:: true
 						- 支持在运行期或类装载期织入横切代码。
 					- JBoss Aop
 					- Spring Aop
+					  collapsed:: true
 						- 采用纯Java实现，在运行期通过代理方式向目标类织入增强代码。
 						- 不提供完整的AOP实现，侧重提供一种与Spring IOC整合的AOP实现。
 			- 2.基础知识
@@ -1180,11 +1194,12 @@
 						- 通过硬编码的方式指定了要放入横切逻辑的位置。对源代码有侵入性。
 						- 手动编写代理实例的创建过程。在为不同的类创建代理时，需要分别编写，无法通用。
 					- CGLib创建代理对象所花费的时间比JDK要长，但是创建动态代理对象的性能比JDK要好。
-			- 3.创建增强类
+			- 3.创建增强类（基于`ProxyFactory`进行实现）
 			  id:: 6482ed45-9164-4552-a1e3-4d6bf237aa70
 				- 增强类型
 					- AOP联盟定义了`org.application.aop.Advice`接口。
-					- Spring提供了五种类型的增强
+					- Spring提供了五种类型的增强，这些增强都是通过`ProxyFactory`实现的，它通过代理技术实现目标类的代理类，从而对原有类的方法进行增强。
+					  collapsed:: true
 						- 前置增强
 						  collapsed:: true
 							- 在目标方法前执行。
@@ -1192,7 +1207,7 @@
 							- 因为Spring只支持方法级的增强，所以MethodBeforeAdvice是目前可用的强置增强。
 						- 后置增强
 						  collapsed:: true
-							- AfterReturnAdvice，在目标方法后执行。
+							- AfterReturningAdvice，在目标方法后执行。
 						- 环绕增强
 						  collapsed:: true
 							- MethodInterceptor，在目标方法执行前后执行。
@@ -1200,14 +1215,19 @@
 						  collapsed:: true
 							- ThrowsAdvice，在目标方法抛出异常后执行。
 						- 引介增强
+						  collapsed:: true
 							- IntroductionInterceptor，在目标类的代理类中通过实现接口的方式，为目标类添加一些新的方法和属性。
 				- 前置增强
-					- 1.通过MethodBeforeAdvice接口实现前置增强
+				  collapsed:: true
+					- 1.通过`MethodBeforeAdvice`接口实现前置增强
+					  collapsed:: true
 						- MethodBeforeAdvices的唯一接口方法：`before(Method method, Objects[] args, Object obj)`
+						  collapsed:: true
 							- method：为目标方法
 							- args：为目标方法参数
 							- obj：目标类实例
-					- 2.解刨ProxyFactory
+					- 2.解刨`ProxyFactory`
+					  collapsed:: true
 						- ProxyFactory负责将增强织入到目标类中。
 						- ProxyFactory内部使用JDK和CGLib动态代理技术将增强应用到目标类中。
 						- AopProxy
@@ -1215,14 +1235,17 @@
 							- AopProxy类结构图
 							  ![AopProxy类结构图.png](../assets/AopProxy类结构图_1686566358726_0.png)
 							- CgLib2AopProxy
+							  collapsed:: true
 								- 使用CGLib动态代理技术创建代理。
 								- 针对类进行代理。
 								- ProxyFacotory.setOptimize(true)方法让ProxyFactory启动优化代理，也会使用CglibAopProxy去创建代理。
 							- JdkDynamicAopProxy
+							  collapsed:: true
 								- 使用jdk动态代理技术创建代理。
 								- 针对接口进行代理。
-					- 3.在Spring中通过ProxyFactoryBean配置代理
+					- 3.在Spring中通过`ProxyFactoryBean`配置代理
 				- 后置增强
+				  collapsed:: true
 					- 通过实现AfterReturningAdvice来定义后置增强的逻辑
 					- AfterReturningAdvice的唯一接口方法：`AfterReturning(Method method, Objects[] args, Object obj)`
 				- 环绕增强
@@ -1234,12 +1257,15 @@
 					- 异常抛出增强最适合的应用场景就是事务管理。
 					- `ThrowsAdvice`异常抛出增强接口，是一个**标签接口**，本身没有定义任何方法。
 					- `ThrowsAdvice`接口的实现类必须采用如下方法的签名形式定义增强方法：`void afterThrowing(Method method, Object[] args, Object target, Throwable e)`
+					  collapsed:: true
 						- 这个方法的前三个参数是可选的，要么都提供，要么不提供。
 					- 在同一个异常抛出增强类中可以定义多个`afterThrowing()`方法，目标类抛出异常的时候会自动选择最匹配的增强方法。
 				- 引介增强
+				  collapsed:: true
 					- Spring为引介增强定义了`IntroductionInterceptor`接口，该接口没有定义任何方法。接着Spring又提供了他的实现类`DelegatingIntroductionInterceptor`，一般情况下拓展该类实现自己的引介增强类。
 			- 4.创建切面
 			  id:: 6486fcb3-45f5-4bfa-928a-fe41754cb908
+			  collapsed:: true
 				- 切面概述
 					- Spring通过`Pointcut`接口描述切点。
 					- `Pointcut`由`ClassFilter`和`MethodMather`构成。
@@ -1253,17 +1279,14 @@
 							- 动态匹配每次调用方法的时候都会进行判别。
 							- 对性能的影响很大，一般不用。
 				- 切点类型
-				  collapsed:: true
-					- 静态方法切点：
+					- 静态方法切点：`StaticMethodMatcherPointcut`
 					- 动态方法切点：`DynamicMethodMatcherPointcut`
-					- 注解切点
-					- 表达式切点
+					- 注解切点：`AnnotationMatchingPointcut`
+					- 表达式切点：`ExpressionPointcut`
 					- 流程切点：`ControlFlowPointcut`
 					  id:: 6486ff13-eb9a-4087-b121-c3070e8f7cc2
-					  collapsed:: true
 						- 根据程序执行堆栈的信息查看目标方法是否由某一个方法直接或间接的发起调用，以此判断是否匹配连接点。
 					- 复合切点：`ComposablePointcut`
-					  collapsed:: true
 						- 可以将多个切点以并集或交集的方式组合起来，提供了切点之间复合运算的功能。
 				- 切面类型
 				  id:: 6486ff6b-3875-4264-b5aa-a97cffb6907c
@@ -1291,23 +1314,17 @@
 					- 切面继承关系图
 					  ![切面继承关系图.png](../assets/切面继承关系图_1686568931898_0.png)
 				- 静态切面
-				  collapsed:: true
 					- 是指在生成代理对象时就确定了增强是否需要织入到目标类的连接点上。
 				- 动态切面
-				  collapsed:: true
 					- 是指必须在运行期根据方法入参的值来判断增强是否需要织入到目标类的连接点上。
 				- 切面的实现
-				  collapsed:: true
 					- 普通方法匹配的静态切面的实现
-					  collapsed:: true
 						- 通过`StaticMethodMatcherPointcutAdvisor`进行实现，除了切点定义外，还需要定义一个增强才行。
 						- 需要实现`StaticMethodMatcherPointcutAdvisor`的`matches()`方法定义切点方法的匹配规则，覆盖`getClassFilter()`方法来定义切点类的匹配规则。通过这两步就可以完成对切点的定义。
 					- 正则表达式方法匹配的静态切面的实现
-					  collapsed:: true
 						- 通过`RegexpMethodPointcutAdvisor`进行实现。除了切点定义外，还需要定义一个增强才行。
 						- 可以通过正则表达式来匹配目标方法，来定义切点。
 					- 动态切面的实现
-					  collapsed:: true
 						- 在低版本中，Spring提供了``DynamicMethodMathcherPointcutAdvisor``抽象类，后来这个类被废弃了，可以使用`DefaultPointcutAdvisor`和`DynamicMethodMatcherPointcut`来完成相同的功能。
 						- `DynamicMethodMatcherPointcut`动态切点对静态切点检查和动态切点检查都是有用的。但是动态切点的检查是十分耗性能的。
 							- 可以定义对类静态切点检查
@@ -1317,15 +1334,12 @@
 							- 在创建代理是对目标类的每个连接点进行静态切点检查，若不匹配，则不再进行动态切点价差。若静态切点检查匹配，则在运行时再进行动态连接点检查。
 							- 若没有定义静态切点检查，则动态切点在运行时会匹配每一个方法的调用。
 					- 流程切面的实现
-					  collapsed:: true
 						- 流程切面由`DefaultPointcutAdvisor`和 ((6486ff13-eb9a-4087-b121-c3070e8f7cc2)) 实现。
 						- 流程切面与动态切面一样也需要在运行期判断动态的环境。代理对象每次在调用在调用目标方法时，都需要判断方法调用堆栈是否有流程切点要求的方法。
 						- 对性能的影响很大，比较慢。
 					- 复合切点切面的实现
-					  collapsed:: true
 						- 有时需要通过多个切点来描述一个连接点的信息时，我们就需要定义复合切点来进行实现。
 					- 引介切面的实现
-					  collapsed:: true
 						- 引介切面是引介增强的封装器，通过引介切面可以更容易的对现有对象添加任何接口的实现。
 						- 引介切面类的继承关系
 							- 继承图
@@ -1355,6 +1369,7 @@
 				  collapsed:: true
 					- `DefaultAdvisorAutoProxyCreator`能够扫描容器中的Advisor，并将Advisor自动注入到匹配的目标Bean中，也就是为目标Bean自动创建代理。
 				- AOP如何实现方法的嵌套调用增强
+				  collapsed:: true
 					- 问题
 					  collapsed:: true
 						- 要对一个Bean的A和B两个方法进行匹配增强，若是B方法嵌套在了A方法的里面，调用A方法的同时也会调用B方法。我们指定的切面匹配规则满足A和B两个方法，但是在运行代码的时候发现只有A方法被增强了，但是B方法却没有。
@@ -1366,7 +1381,6 @@
 						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
 		- 第八章 基于AspectJ和Schema的AOP
 			- 1.Spring对AOP的支持
-			  collapsed:: true
 				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
 				- 新增了对AspectJ切点表达式语言的支持。
 				- 可以无缝集成AscpectJ。
@@ -1392,6 +1406,7 @@
 				- 切点表达式函数
 				  collapsed:: true
 					- AspectJ5.0的切点表达式，由下面两部分组成
+					  id:: 648aed5b-8811-41e4-a892-bc2bfc31dfac
 						- 关键字（切点函数）
 							- 在切点表达式`exectution(* greetTo(..))`中，关键字是`exectution`。
 							- 分类
@@ -1460,7 +1475,6 @@
 				- 引介增强用法
 			- 5.切点函数详解
 			  id:: 64914e34-3bab-43aa-a638-ae2e4c243041
-			  collapsed:: true
 				- `@annotation()`
 				  collapsed:: true
 					- 表示了标注了某个注解的所有方法。
@@ -1492,6 +1506,7 @@
 					  collapsed:: true
 						- 通过方法入参的参数类型和数量来匹配和过滤相关的方法。
 				- `args()`和`@args()`
+				  collapsed:: true
 					- args()
 					  collapsed:: true
 						- 该函数的入参是一个类名，表示目标方法的入参对象是指定类或是其子类时，匹配切点。
@@ -1527,13 +1542,11 @@
 					- this()
 						- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 			- 6.AspectJ进阶
-			  collapsed:: true
 				- 切点的复合运算
 				  collapsed:: true
 					- 通过使用切点的 ((649147c6-bbc4-4d05-a97e-930559e2066a)) ，来实现具有复合切点的切面。
 				- 切点的命名
 				  id:: 649274ea-aada-484f-8d0c-c91e52487567
-				  collapsed:: true
 					- 背景
 					  collapsed:: true
 						- 在之前的例子中，我们都是直接在增强方法处声明的切点，这种切点声明方式称为匿名切点。匿名切点只能在声明处使用。
@@ -1580,16 +1593,18 @@
 				  collapsed:: true
 					- `@within()`和`@target()`函数可以绑定注解类的实例，可以将目标类的注解对象实例绑定到增强方法的入参中，同样也实现了 ((64990b94-90c2-4607-a56a-681be276a37f)) 。
 				- 绑定返回值
+				  collapsed:: true
 					- 在后置增强 ((64914b97-f025-4e65-81ba-17f3dae60e5b))中，可以通过`returing`绑定连接点方法的返回值。
 				- 绑定抛出的异常
+				  collapsed:: true
 					- 连接点抛出的异常必须使用 ((64914bad-d263-4fa2-8071-d0d8ee7f1e5a))注解的`throwing`成员进行绑定。
 			- 7.基于Schema配置切面
-			  collapsed:: true
+			  id:: 649c3d9e-c035-4acd-a460-5033e994ad68
 				- 背景：前6节中，我们讨论的基于@Aspect注解的切面，但是在Java5.0之前，也就是没有注解之前，我们可以使用Spring提供的基于Schema配置的方式去声明切面。
 				- 说白了基于Schema配置切面就是在xml中进行相关配置。
 				- 基于Schema配置的切面也可以通过配置命名切点，实现切点的复用。这里和 ((649274ea-aada-484f-8d0c-c91e52487567))是一样的。
 				- 基于Schema可以配置的增强类型
-				  collapsed:: true
+				  id:: 649c3f6b-d362-4246-8143-a2de3a1e4b27
 					- 前置增强
 					- 后置增强
 					- 环绕增强
@@ -1600,9 +1615,22 @@
 					- 我们之前在 ((6486ff6b-3875-4264-b5aa-a97cffb6907c))中提到了Spring的`Advisor`接口，它是Spring中切面概念的对应物，它包含一个切点和增强，是切点和增强的复合体。但是在AspectJ中却没有等价物。
 					- 在基于Schema的配置中，我们可以配置一个Advisor的切面。
 			- 8.混合切面类型
-			  collapsed:: true
 				- 四种定义切面的方式
-					-
+					- 基于@AspectJ注解的方式
+						- 如果JDK是高于等于JDK5的话，推荐使用这种方式
+					- 基于`<aop:aspect>`的方式
+						- 这个就是我们上面讲的 ((649c3f6b-d362-4246-8143-a2de3a1e4b27))
+					- 基于`<aop:advisor>`的方式
+						- 在第七章，在 ((6486fcb3-45f5-4bfa-928a-fe41754cb908))中，我们学了Advisor的相关知识
+						- `<aop:advisor>`它有几个参数我们可以进行配置
+							- `advice-ref`
+								- 可以配置一个基于`Advice`接口定义的增强。
+							- `pointcut`
+								- 声明一个切点表达式，这里参考 ((648aed5b-8811-41e4-a892-bc2bfc31dfac))
+							- `pointcut-ref`
+								- 引用一个命名的切点，这里参考 ((649274ea-aada-484f-8d0c-c91e52487567))
+					- 基于Advisor类的方式
+						-
 	- spring-core
 	  collapsed:: true
 		- IOC
@@ -2135,3 +2163,8 @@
   collapsed:: true
 	- 参考文章
 		- [Netty入门看这一篇就够了](https://juejin.cn/post/6924528182313893896)
+- Activiti工作流
+  collapsed:: true
+	- 参考文章
+	  collapsed:: true
+		- [Activiti工作流实战开发](https://xuzhongcn.github.io/activiti/activiti.html#header-n3)
