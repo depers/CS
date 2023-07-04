@@ -1,6 +1,5 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
-	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -14,11 +13,9 @@
 					- Context模块
 						- ApplicationContext是Context模块的核心接口
 				- AOP
-				  collapsed:: true
 					- 提供了AOP Alliance规范的实现
 					- 整合了AspectJ框架
 					- JDK5.0提供了引入了java.lang.instrument，允许JVM在启动的时候启用一个代理类，通过代理类可以在运行期修改类的字节码，改变一个类的功能，从而实现AOP的功能。
-					-
 				- 数据访问和集成
 				  collapsed:: true
 					- 不同数据形式可以采用不同的数据访问方式，比如JDBC、MyBatis或Hibernate
@@ -1197,9 +1194,9 @@
 			- 3.创建增强类（基于`ProxyFactory`进行实现）
 			  id:: 6482ed45-9164-4552-a1e3-4d6bf237aa70
 				- 增强类型
+				  collapsed:: true
 					- AOP联盟定义了`org.application.aop.Advice`接口。
 					- Spring提供了五种类型的增强，这些增强都是通过`ProxyFactory`实现的，它通过代理技术实现目标类的代理类，从而对原有类的方法进行增强。
-					  collapsed:: true
 						- 前置增强
 						  collapsed:: true
 							- 在目标方法前执行。
@@ -1246,12 +1243,12 @@
 					- 3.在Spring中通过`ProxyFactoryBean`配置代理
 				- 后置增强
 				  collapsed:: true
-					- 通过实现AfterReturningAdvice来定义后置增强的逻辑
+					- 通过实现`AfterReturningAdvice`来定义后置增强的逻辑
 					- AfterReturningAdvice的唯一接口方法：`AfterReturning(Method method, Objects[] args, Object obj)`
 				- 环绕增强
 				  collapsed:: true
-					- Spring直接使用AOP联盟定义的MethodInterceptor作为环绕增强的接口。
-					- MethodInterceptor接口的唯一方法：`Object invoke(MethodInvocation invocation)`。
+					- Spring直接使用AOP联盟定义的`MethodInterceptor`作为环绕增强的接口。
+					- `MethodInterceptor`接口的唯一方法：`Object invoke(MethodInvocation invocation)`。
 				- 异常抛出增强
 				  collapsed:: true
 					- 异常抛出增强最适合的应用场景就是事务管理。
@@ -1381,6 +1378,7 @@
 						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
 		- 第八章 基于AspectJ和Schema的AOP
 			- 1.Spring对AOP的支持
+			  collapsed:: true
 				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
 				- 新增了对AspectJ切点表达式语言的支持。
 				- 可以无缝集成AscpectJ。
@@ -1475,6 +1473,7 @@
 				- 引介增强用法
 			- 5.切点函数详解
 			  id:: 64914e34-3bab-43aa-a638-ae2e4c243041
+			  collapsed:: true
 				- `@annotation()`
 				  collapsed:: true
 					- 表示了标注了某个注解的所有方法。
@@ -1542,11 +1541,13 @@
 					- this()
 						- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 			- 6.AspectJ进阶
+			  collapsed:: true
 				- 切点的复合运算
 				  collapsed:: true
 					- 通过使用切点的 ((649147c6-bbc4-4d05-a97e-930559e2066a)) ，来实现具有复合切点的切面。
 				- 切点的命名
 				  id:: 649274ea-aada-484f-8d0c-c91e52487567
+				  collapsed:: true
 					- 背景
 					  collapsed:: true
 						- 在之前的例子中，我们都是直接在增强方法处声明的切点，这种切点声明方式称为匿名切点。匿名切点只能在声明处使用。
@@ -1600,11 +1601,13 @@
 					- 连接点抛出的异常必须使用 ((64914bad-d263-4fa2-8071-d0d8ee7f1e5a))注解的`throwing`成员进行绑定。
 			- 7.基于Schema配置切面
 			  id:: 649c3d9e-c035-4acd-a460-5033e994ad68
+			  collapsed:: true
 				- 背景：前6节中，我们讨论的基于@Aspect注解的切面，但是在Java5.0之前，也就是没有注解之前，我们可以使用Spring提供的基于Schema配置的方式去声明切面。
 				- 说白了基于Schema配置切面就是在xml中进行相关配置。
 				- 基于Schema配置的切面也可以通过配置命名切点，实现切点的复用。这里和 ((649274ea-aada-484f-8d0c-c91e52487567))是一样的。
 				- 基于Schema可以配置的增强类型
 				  id:: 649c3f6b-d362-4246-8143-a2de3a1e4b27
+				  collapsed:: true
 					- 前置增强
 					- 后置增强
 					- 环绕增强
@@ -1612,25 +1615,36 @@
 					- Final增强
 					- 引介增强
 				- Advisor配置
+				  collapsed:: true
 					- 我们之前在 ((6486ff6b-3875-4264-b5aa-a97cffb6907c))中提到了Spring的`Advisor`接口，它是Spring中切面概念的对应物，它包含一个切点和增强，是切点和增强的复合体。但是在AspectJ中却没有等价物。
 					- 在基于Schema的配置中，我们可以配置一个Advisor的切面。
 			- 8.混合切面类型
+			  collapsed:: true
 				- 四种定义切面的方式
-					- 基于@AspectJ注解的方式
-						- 如果JDK是高于等于JDK5的话，推荐使用这种方式
+					- 基于`@AspectJ`注解的方式
+					  collapsed:: true
+						- **适用场景**：如果JDK是高于等于JDK5的话，推荐使用这种方式。
 					- 基于`<aop:aspect>`的方式
+					  collapsed:: true
+						- **适用场景**：只能使用低版本的JDK，可以考虑使用`<aop:aspect>`。
 						- 这个就是我们上面讲的 ((649c3f6b-d362-4246-8143-a2de3a1e4b27))
 					- 基于`<aop:advisor>`的方式
-						- 在第七章，在 ((6486fcb3-45f5-4bfa-928a-fe41754cb908))中，我们学了Advisor的相关知识
+						- **适用场景**：如果考虑升级一个基于低版本的Spring AOP开发的项目，因为可以复用已经存在的Advice类，可以考虑使用`<aop:advisor>`。
 						- `<aop:advisor>`它有几个参数我们可以进行配置
+						  collapsed:: true
 							- `advice-ref`
-								- 可以配置一个基于`Advice`接口定义的增强。
+								- 可以配置一个基于`Advice`接口定义的增强，这个可以参考 ((6482ed45-9164-4552-a1e3-4d6bf237aa70)) 。
 							- `pointcut`
 								- 声明一个切点表达式，这里参考 ((648aed5b-8811-41e4-a892-bc2bfc31dfac))
 							- `pointcut-ref`
 								- 引用一个命名的切点，这里参考 ((649274ea-aada-484f-8d0c-c91e52487567))
-					- 基于Advisor类的方式
-						-
+					- 基于`Advisor`类的方式
+						- **适用场景**：如果项目只能使用低版本的Spring，那就可以使用Advisor。
+				- 不同切面定义方式的具体实现比较
+					- 图
+					  ![切面不同定义方式具体实现比较.png](../assets/切面不同定义方式具体实现比较_1688480129319_0.png)
+			- 9.其他
+				-
 	- spring-core
 	  collapsed:: true
 		- IOC

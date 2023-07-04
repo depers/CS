@@ -2749,7 +2749,6 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
-		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -3636,9 +3635,7 @@
 					  collapsed:: true
 						- 这里主要讲解了JVM是如何使用程序计数器、局部变量、操作数栈等部件执行Java的一个栈帧的。
 			- 类加载及执行子系统的案例与实战
-			  collapsed:: true
 				- 类加载器在Tomcat中的使用
-				  collapsed:: true
 					- 一个功能健全的web服务器需要解决的4个问题
 						- 1.**部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离**。比如A程序依赖了common-lang.3.0的StringUtils类，B程序依赖了Common-lang.3.1的StringUtils类，要保证A程序只能用3.0的StringUtils类，B程序只能使用3.1的StringUtils类。
 						- 2.**部署在同一个服务器上的两个Web应用程序所使用的Java类库可以互相共享**。这句话其实和第一点是相反的，比如A程序使用了Spring4.0，B程序也使用了Spring4.0，为了节省虚拟机方法区的内存占用，要实现A和B程序可以共用一份Spring类库的内存资源。
@@ -3670,7 +3667,6 @@
 						- 对于某个类的依赖需要通过该类所在bundle的类加载器去加载
 						- 两个bundle之间的类相互依赖，加载是可能会出现死锁
 				- 字节码生成技术与代理类的实现
-				  collapsed:: true
 					- 支持字节码生成技术的第三方类库
 						- JDK中的javac命令
 						- Javassist
@@ -3682,7 +3678,6 @@
 						- JDK是如何实现动态代理的
 							- JDK通过`sun.misc.ProxyGenerator::generateProxyClass()`方法来完成生成字节码的动作，从而完成动态代理增强代码的字节码生成，在具体方法的调用时，其实执行的是`InvocationHandler::invoke()`中的代理逻辑。
 				- Backport工具：Java的时光机器
-				  collapsed:: true
 					- 背景：随着JDK的不断更新迭代，每个版本都会带来新的语言特性，我们如果想使用新的JDK开发的代码部署运行在老的JDK版本上，该怎么做呢？
 					- 这种能够使使用新版JDK开发的代码，正确部署运行在老版JDK上的做法，我们称为：Java的逆向移植（Java Backporting Tool）。
 					- Java逆向移植的杰出工具：
@@ -3697,7 +3692,6 @@
 						- Java的逆向移植工具其实目前只能实现前三类的功能。
 					-
 				- 项目实战
-				  collapsed:: true
 					- 功能：实现在服务器端执行临时代码的功能
 					- 实现代码：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/codetracer
 			- 前端编译优化
