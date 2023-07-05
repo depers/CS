@@ -13,6 +13,7 @@
 					- Context模块
 						- ApplicationContext是Context模块的核心接口
 				- AOP
+				  collapsed:: true
 					- 提供了AOP Alliance规范的实现
 					- 整合了AspectJ框架
 					- JDK5.0提供了引入了java.lang.instrument，允许JVM在启动的时候启用一个代理类，通过代理类可以在运行期修改类的字节码，改变一个类的功能，从而实现AOP的功能。
@@ -147,7 +148,6 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
-		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -316,7 +316,6 @@
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
-		  collapsed:: true
 			- 1.Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
@@ -351,7 +350,6 @@
 				- Bean的命名
 					- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
 			- 3.依赖注入
-			  collapsed:: true
 				- 属性注入
 				  id:: 646b109c-232c-4c0a-82e6-31cac5b6dd72
 					- 定义：属性注入是指通过setXX()方法注入Bean的属性朱或依赖对象。
@@ -841,9 +839,7 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
-		  collapsed:: true
 			- 1.Spring容器技术内幕
-			  collapsed:: true
 				- Spring的内部工作机制
 				  id:: 647d7431-b322-4e39-9e76-221c5fa193a8
 					- Spring中`AbstractApplicationContext`是`ApplicationContext`的抽象实现类，`AbstractApplication#refresh()`方法定义了Spring容器在加载配置文件之后各项处理过程。
@@ -863,7 +859,6 @@
 				  collapsed:: true
 					- BeanDefinition是配置文件<bean>标签在Spring容器的内部表示。
 					- BeanDefinition类继承结构
-					  collapsed:: true
 						- 结构图
 						  ![BeanDefinition类继承图.png](../assets/BeanDefinition类继承图_1685945802306_0.png)
 						- 结构说明
@@ -1101,6 +1096,7 @@
 						- 4.在bean的声明件中声明事件和监听器。
 						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
+		  collapsed:: true
 			- 本章主要讨论了基于接口的切面技术。
 			- 1.AOP概述
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
@@ -1377,6 +1373,7 @@
 					  collapsed:: true
 						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
 		- 第八章 基于AspectJ和Schema的AOP
+		  collapsed:: true
 			- 1.Spring对AOP的支持
 			  collapsed:: true
 				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
@@ -1645,6 +1642,18 @@
 					  ![切面不同定义方式具体实现比较.png](../assets/切面不同定义方式具体实现比较_1688480129319_0.png)
 			- 9.其他
 				-
+		- 第九章 Spring SpEL
+		- 第十章 Spring对DAO的支持
+		- 第十一章 Spring的事务管理
+		- 第十二章 Spring事务管理难点剖析
+		- 第十三章 使用Spring JDBC访问数据库
+		- 第十四章 整合其他ORM框架
+		- 第十五章 Spring Cache
+		- 第十六章 任务调度和异步执行器
+		- 第十七章 Spring MVC
+		- 第十八章 实战案例开发
+		- 第十九章 Spring OXM
+		- 第二十章 实战型单元测试
 	- spring-core
 	  collapsed:: true
 		- IOC
