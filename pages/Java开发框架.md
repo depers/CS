@@ -82,7 +82,6 @@
 				- 即包含视图信息，又包括视图渲染所需的模型数据信息
 				- ModelAndView的第一个参数代表视图的逻辑名，第二个参数代表数据模型名称，第三个参数代表数据模型对象。其中数据模型对象将以数据模型名称为参数名放置到request的属性中：`request.setAttribute(name, value)`
 		- 第三章 Spring Boot
-		  collapsed:: true
 			- 安装配置
 			  collapsed:: true
 				- 基于Maven环境配置
@@ -175,20 +174,15 @@
 				- 类加载器ClassLoader
 				- Java反射相关知识
 			- 资源访问
-			  collapsed:: true
 				- Spring提供的Resource接口，提供了更强大的底层资源访问的能力
 					- [使用Resource](https://www.liaoxuefeng.com/wiki/1252599548343744/1282383017934882)
 					- [Access a File from the Classpath in a Spring Application](https://www.baeldung.com/spring-classpath-file-access)
 				- 资源加载
-				  collapsed:: true
 					- 资源地址表达式
-					  collapsed:: true
 						- `classpath:`和`classpath*:`的区别
-						  collapsed:: true
 							- `classpath:com/smart/module*.xml`只会加载**一个**模块的配置文件
 							- `classpath*:com/smart/module*.xml`会加载com/smart目录下**所有的**以mudule开头的xml文件
 						- 支持的地址前缀
-						  collapsed:: true
 							- `classpath:`：从类路径中加载，后面跟类的绝对地址
 							- `file:`：使用`UrlResource`从文件系统中加载资源，可以是绝对地址或相对地址
 							- `http://`：使用`UrlResource`从文件系统中加载资源
@@ -200,7 +194,6 @@
 							- `*`：匹配文件名中的任意字符
 							- `**`：匹配多层路径
 					- 资源加载器
-					  collapsed:: true
 						- ResourceLoader接口，仅支持带资源类型前缀的表达式，不支持Ant风格的资源路径表达式
 						- ResourcePatternResolver，扩展了ResourceLoader接口，支持带资源类型前缀的表达式和Ant风格的资源路径表达式
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式

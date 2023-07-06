@@ -73,6 +73,7 @@
 			- 向Pod发送请求
 - 《Kubernetes修炼手册》
 	- 第二章 Kubernetes
+	  collapsed:: true
 		- Kubernetes
 			- 功能：负责应用的部署和管理。
 			- 组成
@@ -80,22 +81,17 @@
 					- Kubernetes的主节点（master）是组成集群的控制平面的系统服务的集合。
 					- 组成
 						- API Server
-						  collapsed:: true
 							- API Server（API服务）是Kubernetes的中央车站。所有组件之间的通信，都需要通过API Server来完成。
 						- 集群存储
-						  collapsed:: true
 							- 在整个控制层中，只有集群存储是有状态（stateful）的部分，它持久化地存储了整个集群的配置与状态。
 							  id:: 64a3de66-2124-4341-ad45-112ae95baf5c
 							- 通常集群存储底层会选用一种常见的分布式数据库etcd。
 						- controller管理器
-						  collapsed:: true
 							- controller管理器实现了全部的后台控制循环，完成对集群的监控并对事件作出响应。
 							- controller管理器是controller的管理者（controller of controller），负责创建controller，并监控它们的执行。
 						- 调度器
-						  collapsed:: true
 							- 调度器的职责就是通过监听API Server来启动新的工作任务，并将其分配到适合的且处于正常运行状态的节点中。
 						- 云controller管理器
-						  collapsed:: true
 							- 云controller管理器负责集成底层的公有云服务
 				- 工作节点
 					- 功能
@@ -128,7 +124,6 @@
 	  collapsed:: true
 		- Pod的清单文件分析
 			- 4个顶级资源
-			  collapsed:: true
 				- *apiVersion*
 					- 用于创建部署对象的API组和API版本，其中API组可以忽略，版本默认是v1。
 				- *kind*
@@ -142,9 +137,7 @@
 	  collapsed:: true
 		- 部署*Deployment*对象
 	- 第六章 Kubernentes Service
-	  collapsed:: true
 		- 背景
-		  collapsed:: true
 			- Pod的IP地址是不可靠的。在某个Pod失效之后，它会被一个拥有新的IP的Pod代替。Deployment扩容也会引入拥有新IP的Pod；而缩容则会删除Pod。这会导致大量的IP流失，因而Pod的IP地址是不可靠的。
 		- 关于Service
 			- 一个Kubernetes Service是指我们在部署文件中定义的API中的一个REST对象，最终需要POST到API Server。
@@ -154,30 +147,27 @@
 			- 可以将Service理解为具有固定的前端和动态的后端的中间层。所谓前端，主要由IP、DNS名称和端口组成，始终不变；而后端，则主要由一系列的Pod构成，会时常发生变化。
 			- Service的标签选择器
 			- Service与Endpoint对象之间的关系
-			  collapsed:: true
 				- Endpoint对象
 					- 整个Endpoint对象其实就是一个动态的列表，其中包含集群中所有的匹配Service Label筛选器的健康Pod。
 				- Service会动态更新其维护的相匹配的健康Pod列表。具体来说，其中的匹配关系是通过Label筛选器和名为Endpoint对象的结构共同完成的。
 			- 从集群内部访问Service
-			  collapsed:: true
 				- Service的默认类型是*ClusterIP*
 				- 集群中的Pod能够从集群内部的DNS服务中知道Service的名称，能够解析对应的ClusterIP，进而连接到所需的Pod。
 			- 从集群外部访问Service
-			  collapsed:: true
 				- Service的另一种类型叫做*NodePort Service*，它在ClusterIP的基础上增加了从集群外部访问的可能。
 		- Service的服务发现
 			- 两种方式
-			  collapsed:: true
 				- DNS（推荐）
 					- DNS插件可以自动检测集群中Service的动向。
 				- 环境变量（绝对不推荐）
 					- 环境变量只有在Pod最初创建的时候才会被注入，没有自动检测Service的功能。
-				-
 		- Service的另一个功能
 			- 支持多种运维操作：红蓝发布、金丝雀发布等，简单而强大。
 		- Service推荐使用声明式的方式去使用，不推荐命令式。
 	- 第七章 服务发现
-		-
+		- Service服务注册的过程
+			- 注册流程总结，主要分为服务前端和后端两部分的注册过程
+			  ![Service服务注册.png](../assets/Service服务注册_1688621324554_0.png)
 - kubectl的命令
 	- kubectl
 	  collapsed:: true
@@ -231,4 +221,5 @@
 	  collapsed:: true
 		- 删除部署的服务。
 	- `kubectl expose`
+	  collapsed:: true
 		- 创建一个新的Service
