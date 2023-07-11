@@ -82,6 +82,7 @@
 				- 即包含视图信息，又包括视图渲染所需的模型数据信息
 				- ModelAndView的第一个参数代表视图的逻辑名，第二个参数代表数据模型名称，第三个参数代表数据模型对象。其中数据模型对象将以数据模型名称为参数名放置到request的属性中：`request.setAttribute(name, value)`
 		- 第三章 Spring Boot
+		  collapsed:: true
 			- 安装配置
 			  collapsed:: true
 				- 基于Maven环境配置
@@ -147,6 +148,7 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
+		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -174,6 +176,7 @@
 				- 类加载器ClassLoader
 				- Java反射相关知识
 			- 资源访问
+			  collapsed:: true
 				- Spring提供的Resource接口，提供了更强大的底层资源访问的能力
 					- [使用Resource](https://www.liaoxuefeng.com/wiki/1252599548343744/1282383017934882)
 					- [Access a File from the Classpath in a Spring Application](https://www.baeldung.com/spring-classpath-file-access)
@@ -309,6 +312,7 @@
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
+		  collapsed:: true
 			- 1.Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
@@ -832,6 +836,7 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
+		  collapsed:: true
 			- 1.Spring容器技术内幕
 				- Spring的内部工作机制
 				  id:: 647d7431-b322-4e39-9e76-221c5fa193a8
@@ -1201,7 +1206,6 @@
 						  collapsed:: true
 							- ThrowsAdvice，在目标方法抛出异常后执行。
 						- 引介增强
-						  collapsed:: true
 							- IntroductionInterceptor，在目标类的代理类中通过实现接口的方式，为目标类添加一些新的方法和属性。
 				- 前置增强
 				  collapsed:: true
@@ -1235,7 +1239,6 @@
 					- 通过实现`AfterReturningAdvice`来定义后置增强的逻辑
 					- AfterReturningAdvice的唯一接口方法：`AfterReturning(Method method, Objects[] args, Object obj)`
 				- 环绕增强
-				  collapsed:: true
 					- Spring直接使用AOP联盟定义的`MethodInterceptor`作为环绕增强的接口。
 					- `MethodInterceptor`接口的唯一方法：`Object invoke(MethodInvocation invocation)`。
 				- 异常抛出增强
@@ -1368,31 +1371,23 @@
 		- 第八章 基于AspectJ和Schema的AOP
 		  collapsed:: true
 			- 1.Spring对AOP的支持
-			  collapsed:: true
 				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
 				- 新增了对AspectJ切点表达式语言的支持。
 				- 可以无缝集成AscpectJ。
 			- 2.Java注解的基础知识
 			- 3.着手使用`@AspectJ`
-			  collapsed:: true
 				- 背景
-				  collapsed:: true
-					- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过Advisor整合切点和增强描述切面。
+					- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过`Advisor`整合切点和增强描述切面。
 					- @Aspect采用注解来描述切点和增强。
 				- 通过注解使用@AspectJ切面
-				  collapsed:: true
-					- 这里主要演示了使用`@AspectJ`和`@Before`注解来实现切面。
+					- 这里主要演示了使用`@AspectJ`和`@Before`注解来实现切面。通过`AspectJProxyFactory`生成其代理类。
 				- 通过配置使用@AspectJ切面
-				  collapsed:: true
 					- 通过 ((648846ef-0e58-477b-abba-4457dbbede3d)) 将@AspectJ注解切面类自动注入目标类bean中
 					- 通过基于Schema的aop命名空间进行配置，在配置中添加`<aop:aspectj-autoproxy>`自动为Spring容器中匹配`@AspectJ`切面的Bean创建代理。
 			- 4.`@AspectJ`语法基础
-			  collapsed:: true
 				- 背景
-				  collapsed:: true
 					- 由于Spring只支持方法的连接点，所以Spring仅支持部分AspectJ的切点语言。
 				- 切点表达式函数
-				  collapsed:: true
 					- AspectJ5.0的切点表达式，由下面两部分组成
 					  id:: 648aed5b-8811-41e4-a892-bc2bfc31dfac
 						- 关键字（切点函数）
@@ -1408,35 +1403,26 @@
 					- 切点函数表
 					  ![切点函数.png](../assets/切点函数_1686826910815_0.png)
 				- 在切点表达式函数中使用通配符
-				  collapsed:: true
 					- @AspectJ支持三种通配符
-					  collapsed:: true
 						- `*`：匹配任意字符，只能匹配上下文中的一个元素。
 						- `..`：匹配任意字符，可以匹配上下文中的多个元素。
-						  collapsed:: true
 							- 表示类时，必须和`*`一起使用。
 							- 表示入参时，单独使用。
 						- `+`：表示按照类型匹配指定类的所有类，必须跟在类名后面。
-						  collapsed:: true
 							- 比如`com.abc.Car+`，就表示继承和扩展指定类的所有类，包括类本身。
 					- @Aspect函数按照其是否支持通配符及支持的程度，分为三类
-					  collapsed:: true
-						- 支持所有通配符
-						- 仅支持`+`通配符
-						- 不支持通配符
+						- 支持所有通配符：`execution()`、`within()`
+						- 仅支持`+`通配符：`args()`、`this()`和`target()`
+						- 不支持通配符：`@annotation`、`@args()`、`@within()`、`@target`
 				- 逻辑运算符
 				  id:: 649147c6-bbc4-4d05-a97e-930559e2066a
-				  collapsed:: true
 					- 背景
-					  collapsed:: true
 						- 切点表达式由切点函数组成，切点函数之间还可以进行逻辑运算，组成复合切点。
 					- Spring支持的切点运算符
-					  collapsed:: true
 						- `&&`：与运算，相当于切点的交集运算。
 						- `||`：或运算，相当于切点的并集运算。
 						- `!`：非运算，相当于切点的反集运算。
 				- 不同的增强类型
-				  collapsed:: true
 					- 背景
 					  collapsed:: true
 						- 第七章 ((6482ed45-9164-4552-a1e3-4d6bf237aa70))中我们通过接口实现来实现增强。@AspectJ也为各种增强提供了不同的注解类。
@@ -1446,16 +1432,14 @@
 							- 前置增强，相当于BeforeAdvice。
 						- `@AfterReturning`
 						  id:: 64914b97-f025-4e65-81ba-17f3dae60e5b
-						  collapsed:: true
 							- 后置增强，相当于AfterReturningAdvice。
 						- `@Around`
 						  collapsed:: true
 							- 环绕增强，相当于MethodInterceptor。
 						- `@AfterThrowing`
 						  id:: 64914bad-d263-4fa2-8071-d0d8ee7f1e5a
-							- 抛出增强，相当于ThrowAdvice。
+							- 只有抛出增强才会起作用，相当于ThrowAdvice。
 						- `@After`
-						  collapsed:: true
 							- Final增强，不管抛出异常还是正常退出，该增强都会得到执行。
 						- `@DeclareParents`
 						  collapsed:: true
@@ -1463,9 +1447,7 @@
 				- 引介增强用法
 			- 5.切点函数详解
 			  id:: 64914e34-3bab-43aa-a638-ae2e4c243041
-			  collapsed:: true
 				- `@annotation()`
-				  collapsed:: true
 					- 表示了标注了某个注解的所有方法。
 					- 使用方法
 						- 1.定义一个可以作用在方法上注解。
@@ -1477,7 +1459,6 @@
 						  }
 						  ```
 				- `execution()`
-				  collapsed:: true
 					- execution()的语法
 					  collapsed:: true
 					  ````
@@ -1495,10 +1476,8 @@
 					  collapsed:: true
 						- 通过方法入参的参数类型和数量来匹配和过滤相关的方法。
 				- `args()`和`@args()`
-				  collapsed:: true
 					- args()
-					  collapsed:: true
-						- 该函数的入参是一个类名，表示目标方法的入参对象是指定类或是其子类时，匹配切点。
+						- 该函数的入参是一个类名，表示**目标方法的入参**对象是指定类或是其子类时，匹配切点。
 						- 例如`args(com.abc.Car)`等价于`exection(* *(com.abc.Car+))`，等价于`args(com.abc.Car+)`。
 					- @args()
 						- 该函数的入参是一个注解类名，当方法在运行时入参对象标注了指定的注解时，匹配切点。
@@ -1522,16 +1501,17 @@
 					  within(<类匹配模式>)
 					  ```
 				- `@within()`和`@target()`
+				  collapsed:: true
 					- 这两个函数都是标注注解的切点函数。
 					- @within(M)函数匹配标注了@M注解的类和子孙类。@M注解标注的如果是一个接口，则无效。
 					- @target(M)函数匹配标注了@M注解的目标类。@M注解标注的如果是一个接口，则无效。
 				- `target()`和`this()`
+				  collapsed:: true
 					- target(M)
 						- 如果目标类按类型匹配于M，则目标类的所有方法都匹配切点。
 					- this()
 						- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 			- 6.AspectJ进阶
-			  collapsed:: true
 				- 切点的复合运算
 				  collapsed:: true
 					- 通过使用切点的 ((649147c6-bbc4-4d05-a97e-930559e2066a)) ，来实现具有复合切点的切面。
@@ -1609,7 +1589,6 @@
 					- 我们之前在 ((6486ff6b-3875-4264-b5aa-a97cffb6907c))中提到了Spring的`Advisor`接口，它是Spring中切面概念的对应物，它包含一个切点和增强，是切点和增强的复合体。但是在AspectJ中却没有等价物。
 					- 在基于Schema的配置中，我们可以配置一个Advisor的切面。
 			- 8.混合切面类型
-			  collapsed:: true
 				- 四种定义切面的方式
 					- 基于`@AspectJ`注解的方式
 					  collapsed:: true
@@ -1619,6 +1598,7 @@
 						- **适用场景**：只能使用低版本的JDK，可以考虑使用`<aop:aspect>`。
 						- 这个就是我们上面讲的 ((649c3f6b-d362-4246-8143-a2de3a1e4b27))
 					- 基于`<aop:advisor>`的方式
+					  collapsed:: true
 						- **适用场景**：如果考虑升级一个基于低版本的Spring AOP开发的项目，因为可以复用已经存在的Advice类，可以考虑使用`<aop:advisor>`。
 						- `<aop:advisor>`它有几个参数我们可以进行配置
 						  collapsed:: true

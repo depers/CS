@@ -73,7 +73,6 @@
 			- 向Pod发送请求
 - 《Kubernetes修炼手册》
 	- 第二章 Kubernetes
-	  collapsed:: true
 		- Kubernetes
 			- 功能：负责应用的部署和管理。
 			- 组成
@@ -111,7 +110,7 @@
 			- Pod是一个用于运行容器的有限制的环境。
 			- Kubernetes中最小的调度单元也是Pod。
 			- 一个Pod只会被唯一的工作节点调度。这一点对于多容器Pod来说也是一样的，一个多容器Pod中的全部容器都会运行在相同的工作节点上。
-			- 对于存在强绑定关系的多个容器，比如需要共享内存与存储，多容器Pod就是一个非常完美的选择。否则尽量在一个Pod上只部署一个容器。
+			- 对于存在强绑定关系的多个容器部署在同一个Pod，比如需要共享内存与存储，多容器Pod就是一个非常完美的选择。否则尽量在一个Pod上只部署一个容器。
 			- 更确切地说，一个Pod就是由一个或多个容器共享的运行环境。
 		- Development
 			- 是Pod的更高一层封装。
@@ -121,7 +120,6 @@
 			- Service使用标签（label）与一个标签选择器（label selector）来决定应当将流量负载均衡到哪一个Pod集合。
 			- 鉴于Pod这种天生不稳定的特性，Kubernetes通过使用Service对象来为一组Pod提供固定的名称、IP地址和端口。客户端通过连接Service对象，来进一步以负载均衡的方式连接到目标Pod。
 	- 第四章 Pod的使用
-	  collapsed:: true
 		- Pod的清单文件分析
 			- 4个顶级资源
 				- *apiVersion*
@@ -134,7 +132,6 @@
 				- *spec*
 					- 用于定义Pod所运行的容器。
 	- 第五章 Kubernetes Deployment
-	  collapsed:: true
 		- 部署*Deployment*对象
 	- 第六章 Kubernentes Service
 		- 背景

@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1103,6 +1102,7 @@
 				- 常见的哈希算法
 					- MD(Message Digest)：消息摘要算法
 					- SHA(Secure Hash Algorithm)：安全散列算法
+					- SM3：国密签名算法
 					- 相同点
 						- 都是密码散列函数，加密不可逆。
 						- 都可以实现对任意长度对象加密，都不能防止碰撞。
@@ -1163,6 +1163,7 @@
 					- 缺点
 						- 不能防止中间人攻击
 			- 非对称加密算法
+			  collapsed:: true
 				- 定义：非对称加密就是加密和解密使用的不是相同的密钥，只有同一个公钥-私钥对才能正常加解密。
 				- 特性
 					- RSA密钥有256/512/1024/2048/4096等不同的长度。
@@ -1178,6 +1179,7 @@
 					- 小红将AES的密钥用小明的RSA公钥加密，小明用自己的RSA私钥解密得到AES密钥
 					- 双方使用这个共享的AES口令用AES加密通信
 			- 签名算法
+			  collapsed:: true
 				- 目的：使用数字签名的目的是为了确认信息确实由某个发送的，任何人都不能伪造，并且发送方也不能抵赖
 				- 使用
 					- 数字签名就是用发送方的私钥对原始数据进行签名，只有用发送方公钥才能通过签名验证
@@ -1192,6 +1194,7 @@
 					- MD5withRSA
 					- SHA1withRSA
 					- SHA256withRSA
+				- 国密SM2算法
 				- DSA签名
 					- 算法
 						- SHA1withDSA
@@ -1205,20 +1208,28 @@
 						- 比特币的签名算法就采用了ECDSA算法
 						- BouncyCastle提供了ECDSA的完整实现
 			- 数字证书
+			  collapsed:: true
 				- 背景：摘要算法用来确保数据没有被篡改，非对称加密算法可以对数据进行加解密，签名算法可以确保数据完整性和抗否认性，把这些算法集合到一起，并搞一套完善的标准，这就是数字证书
 				- 定义：集合了多种密码学算法，用于实现数据加解密、身份认证、签名等多种功能的一种安全标准
 				- 特点
+				  collapsed:: true
 					- 数字证书就是集合了多种密码学算法，用于实现数据加解密、身份认证、签名等多种功能的一种安全标准
 					- 数字证书采用链式签名管理，顶级的Root CA证书已内置在操作系统中
 					- 数字证书存储的是公钥，可以安全公开，而私钥必须严格保密
 				- 优势
+				  collapsed:: true
 					- 可以防止中间人攻击
-				- Java数字证书的生成：`keytool -storepass 123456 -genkeypair -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -validity 3650 -alias mycert -keystore my.keystore -dname "CN=www.sample.com, OU=sample, O=sample, L=BJ, ST=BJ, C=CN"`
+				- Java数字证书的生成
+				  collapsed:: true
+					- 命令：`keytool -storepass 123456 -genkeypair -keyalg RSA -keysize 1024 -sigalg SHA1withRSA -validity 3650 -alias mycert -keystore my.keystore -dname "CN=www.sample.com, OU=sample, O=sample, L=BJ, ST=BJ, C=CN"`
 					- `keyalg`：指定RSA加密算法；
 					- `sigalg`：指定SHA1withRSA签名算法；
 					- `validity`：指定证书有效期3650天；
 					- `alias`：指定证书在程序中引用的名称；
 					- `dname`：最重要的CN=www.sample.com指定了Common Name，如果证书用在HTTPS中，这个名称必须与域名完全一致。
+				- 读取证书信息
+				  collapsed:: true
+					- [使用 Java 读取 X.509 证书信息](https://janking.netlify.app/post/x509.html)
 		- 泛型
 		  collapsed:: true
 			- 背景
@@ -1226,17 +1237,14 @@
 				- 解决的问题：Java数据类型和自定义对象类型较多，一种公共的数据结构或是算法，需要针对不同的类型和对象进行不同的处理。而且特别容易出错，例如类型强转错误
 				- 定义：泛型编写模板代码来适应任意类型，又通过编译器保证了类型安全。例如ArrayList<T>，然后在代码中为用到的类创建对应的ArrayList<类型>，就可以创建任意类型的ArrayList
 			- 相关名词
-			  collapsed:: true
 				- 类型变量（Type Varibles）：也称为泛型参数，用于指定一个泛型类型名称的标识符。也就是我们常见的E，T，K等标记符。
 				- 参数化类型（Parameterized Types）：泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。这是一种行为。
 			- 特点
-			  collapsed:: true
 				- 泛型的好处是使用时不必对类型进行强制转换，它通过编译器对类型进行检查
 				- 泛型的继承关系：可以把ArrayList<Integer>向上转型为List<Integer>（T不能变，这里的T指的是Integer），但不能把ArrayList<Integer>向上转型为ArrayList<Number>或List<Number>（T不能变成父类）
 				- 泛型可以同时定义多种类型，例如Map<K, V>
 				- Java的泛型只能在类、构造器和方法上进行声明
 			- Java中的泛型标记符
-			  collapsed:: true
 				- E - Element (在集合中使用，因为集合中存放的是元素)
 				- T - Type（Java 类）
 				- K - Key（键）
@@ -1244,7 +1252,6 @@
 				- N - Number（数值类型）
 				- ？ - 表示不确定的 java 类型
 			- 泛型的使用
-			  collapsed:: true
 				- 泛型类
 				  collapsed:: true
 					- 泛型类的定义
@@ -1269,7 +1276,6 @@
 					- 泛型类中的泛型方法
 					- 静态方法和泛型
 			- 擦拭法
-			  collapsed:: true
 				- Java泛型的局限性
 					- 局限一：<T>不能是基本类型，例如int，因为实际类型是Object，Object类型无法持有基本类型
 					- 局限二：无法取得带泛型对象的Class
@@ -1289,15 +1295,11 @@
 					  collapsed:: true
 						- public class GenericException<T> extends Exception {}
 				- 不恰当的覆写方法
-				  collapsed:: true
 					- 不能覆写Object方法的equals(Object)为equals(T)
 				- 泛型继承
-				  collapsed:: true
 					- 继承泛型类型的情况下，子类可以获取父类的泛型类型。这里可以参考cn.bravedawn.generic.typeerasure.IntPair
 			- 限定通配符
-			  collapsed:: true
 				- `<? extends T>`
-				  collapsed:: true
 					- 作用：对泛型参数的上界进行限制，必须是泛型T或是他的子类
 					- 作为方法参数时控制泛型参数类型为指定类型或是他的子类
 					- 上界描述符`extends`适合读取（get）的场景（可以获取具体类型和Object类型），并不适合写入（set，传入null除外）的场景
@@ -1325,10 +1327,8 @@
 					- 作用：实现jdk1.5之前代码的兼容
 					- 定义：在编译一个继承泛型类或是实现泛型接口的类和接口的时候，编译器会创建一个合成方法。称为桥接方法，他是类型擦除过程中的一部分。
 			- 参考文章：
-			  collapsed:: true
 				- [廖雪峰-泛型](https://www.liaoxuefeng.com/wiki/1252599548343744/1265104600263968)
 		- 注解
-		  collapsed:: true
 			- 定义
 			  collapsed:: true
 				- 提供了一种安全的类似注释的机制，用来将任何的信息或元数据（metadata）与程序元素（类、方法、成员变量等）进行关联。为程序的元素（类、方法、成员变量）加上更直观更明了的说明，这些说明信息是与程序的业务逻辑无关，并且供指定的工具或框架使用。Annontation像一种修饰符一样，应用于包、类型、构造方法、方法、成员变量、参数及本地变量的声明语句中。
@@ -1730,9 +1730,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
-		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -1834,6 +1832,7 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
+			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -1890,6 +1889,7 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
+				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- 使用双向链表来存储元素
@@ -1931,6 +1931,7 @@
 						- javapoint：https://www.baeldung.com/java-linkedlist
 						- baeldung：https://www.javatpoint.com/java-linkedlist
 				- ArrayList
+				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- ArrayList是构建在数组之上的List实现之一
@@ -2009,6 +2010,7 @@
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
 				- List的比较和使用场景
 				- List的应用
+				  collapsed:: true
 					- 多维列表
 					  collapsed:: true
 						- 创建二维数组：ArrayList<ArrayList<Integer>>
@@ -2215,7 +2217,6 @@
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
 			- Map
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -2224,7 +2225,6 @@
 						- 使用map的话插入和检索一个元素，需要的时间复杂度是O(1)
 				- HashMap
 					- 特点
-					  collapsed:: true
 						- Map是一种key-value映射表的数据结构
 						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉
 						- Map中存储的映射关系是不保证顺序的
@@ -2240,7 +2240,6 @@
 							- 方法二：通过循环遍历Map实例的entrySet()方法返回的Set集合
 						- 具体实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/HashMapExample.java
 					- 关于key需要注意
-					  collapsed:: true
 						- 可以在HashMap中使用任何类作为键。为了使映射正常工作，我们需要为equals()和hashCode()提供一个实现
 						- hashCode()和equals()只需要在我们希望用作映射键的类中重写
 					- Java8新增的方法
@@ -2251,9 +2250,7 @@
 						- compute()
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/java8
 					- HashMap的内部实现
-					  collapsed:: true
 						- 存储结构
-						  collapsed:: true
 							- 内部包含了一个 Entry 类型的数组 table。也就是我们说的桶数组。
 							- Entry 存储着键值对。它包含了四个字段，从 next 字段我们可以看出 Entry 是一个链表。
 							- 即数组中的每个位置被当成一个桶，一个桶存放一个链表。
@@ -2277,7 +2274,6 @@
 							- 要使其正确工作，相等的键必须具有相同的散列，然而，不同的键可以具有相同的散列。如果两个不同的键具有相同的散列，则属于它们的两个值将存储在同一个bucket中。在桶内，值存储在一个列表中，并通过遍历所有元素来检索。它的代价是O(n) ，这里的n指的是桶里键值对的大小。
 							- 从Java 8(参见JEP 180)开始，如果一个桶包含8个或更多的值，则存储在一个桶内的值的数据结构将从链表更改为红黑树，这将使性能提高到O(log n)，这里的n指的是桶里键值对的大小。如果某个时刻桶中只剩下2到6个键值对时，则将回退回链表。
 						- 容量和负载因子
-						  collapsed:: true
 							- 为了避免多个桶具有多个值，如果75%(负载系数)的桶变为非空的，则容量将翻倍。
 							- 默认负载系数为75%，初始容量为16。两者都可以在构造函数中设置。
 						- 底层代码解析：Java HashMap的底层实现
@@ -2349,9 +2345,7 @@
 						- 实验一：map中包含一个键值对，当把key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，清空map。
 						- 实验二：map中包含两个键值对，当把其中一个key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，map会移除该key对应的键值对。
 				- ConcurrentHashMap
-				  collapsed:: true
 					- 特点
-					  collapsed:: true
 						- ConcurrentHashMap是线程安全的。
 						- ConcurrentHashMap中key和value是不允许存在null值的。
 						- 在多线程环境下，ConcurrentHashMap的性能较好。
@@ -2750,6 +2744,7 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
+		  collapsed:: true
 			- Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -4921,6 +4916,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -4940,8 +4936,29 @@
 				- 复制一行：`command` + `D`
 	- VS Code
 - 构建工具
+  collapsed:: true
 	- Maven
 		- 基础知识
+			- maven项目的一般结构
+			  collapsed:: true
+				- 结构图
+				  ![Maven文件结构图.png](../assets/Maven文件结构图_1688650829563_0.png)
+			- 基础组件：仓库-Repository
+				- 仓库的类型
+				  collapsed:: true
+					- 远程仓库/中央仓库
+					- 本地仓库
+					- 私有服务器
+				- 远程参考和私有服务器的使用
+				  collapsed:: true
+					- 示例图片
+					  ![maven仓库.png](../assets/maven仓库_1688651161081_0.png)
+					- 常规项目
+					- 企业项目
+				- 本地仓库和中央参考的配置
+				  collapsed:: true
+					- 示例图片
+					  ![本地仓库和中央仓库的配置.png](../assets/本地仓库和中央仓库的配置_1688651242393_0.png)
 			- DependencyManagement标签的使用
 			  collapsed:: true
 				- 作用
@@ -4991,6 +5008,9 @@
 				- 在maven添加spring-boot-maven-plugin依赖
 				- 使用`mvn -Dmaven.test.skip=true package spring-boot:repackage`进行打包
 		- 插件
+		  collapsed:: true
+			- maven内建的插件
+				- [maven内建插件](https://maven.apache.org/plugins/index.html)
 			- spring-boot-maven-plugin
 			  collapsed:: true
 				- 作用
@@ -5001,9 +5021,12 @@
 				  collapsed:: true
 					- [spring-boot-maven-plugin插件的作用](https://www.cnblogs.com/acm-bingzi/p/mavenspringbootplugin.html)
 			- maven-compiler-plugin
+			  collapsed:: true
 				- 背景
+				  collapsed:: true
 					- `maven`是个项目管理工具，如果我们不告诉它我们的代码要使用什么样的`jdk`版本编译的话，它就会用`maven-compiler-plugin`默认的`jdk`版本来进行处理，这样就容易出现版本不匹配，以至于可能导致编译不通过的问题。
 				- 作用
+				  collapsed:: true
 					- 使用`maven-compiler-plugin`插件可以指定项目源码的`jdk`版本，编译后的`jdk`版本，以及`编码`。
 			- flatten-maven-plugin
 			  collapsed:: true
@@ -5038,15 +5061,26 @@
 					- https://zhuanlan.zhihu.com/p/270574226
 					- https://www.cnblogs.com/jonath/p/7729903.html
 			- maven-failsafe-plugin
+			  collapsed:: true
 				- 功能：用来执行集成测试的。
 			- maven-surefire-plugin
+			  collapsed:: true
 				- 功能：用来执行单元测试的。
 			- maven-jar-plugin
+			  collapsed:: true
 				- 功能：配置mainClass和指定classpath。
 			- exec-maven-plugin
+			  collapsed:: true
 				- 功能
+				  collapsed:: true
 					- 提供了在 Maven 构建过程中执行外部命令的功能，常用于在构建过程中执行一些自定义脚本或命令行工具。
 					- 如果你想在maven生命周期内，运行一段java代码，或者一段独立的程序，或者说我们所指的预执行，初始化某些值，生成某些不能预先生成的文件。
+			- tomcat7-maven-plugin
+				- 可以使用maven命令的方式运行tomcat。
+		- 常见问题
+			- 创建Maven项目，挂死在构建项目环境报`Generating project in Batch mode`
+			  collapsed:: true
+				- 原因是：国内防火墙阻止或延缓了访问在国外的Maven仓库。
 - ORM框架
   collapsed:: true
 	- Mybatis
