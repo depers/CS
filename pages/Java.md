@@ -1,4 +1,5 @@
 - Java语言
+  collapsed:: true
 	- Java基础
 		- 语言基础
 		  collapsed:: true
@@ -1163,7 +1164,6 @@
 					- 缺点
 						- 不能防止中间人攻击
 			- 非对称加密算法
-			  collapsed:: true
 				- 定义：非对称加密就是加密和解密使用的不是相同的密钥，只有同一个公钥-私钥对才能正常加解密。
 				- 特性
 					- RSA密钥有256/512/1024/2048/4096等不同的长度。
@@ -1329,6 +1329,7 @@
 			- 参考文章：
 				- [廖雪峰-泛型](https://www.liaoxuefeng.com/wiki/1252599548343744/1265104600263968)
 		- 注解
+		  collapsed:: true
 			- 定义
 			  collapsed:: true
 				- 提供了一种安全的类似注释的机制，用来将任何的信息或元数据（metadata）与程序元素（类、方法、成员变量等）进行关联。为程序的元素（类、方法、成员变量）加上更直观更明了的说明，这些说明信息是与程序的业务逻辑无关，并且供指定的工具或框架使用。Annontation像一种修饰符一样，应用于包、类型、构造方法、方法、成员变量、参数及本地变量的声明语句中。
@@ -1731,6 +1732,7 @@
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
 		- 集合框架
+		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -2217,6 +2219,7 @@
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
 			- Map
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -2744,8 +2747,7 @@
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
-		  collapsed:: true
-			- Java的内存区域
+			- 第二章 Java的内存区域
 			  collapsed:: true
 				- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 				  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
@@ -2896,7 +2898,7 @@
 					- 本机直接内存溢出
 					  collapsed:: true
 						- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
-			- 垃圾回收器
+			- 第三章 垃圾回收器
 			  collapsed:: true
 				- 相关概念
 				  collapsed:: true
@@ -2952,6 +2954,7 @@
 				- 什么是垃圾回收：简单说就是内存中已经不在被使用到的内存空间就是垃圾。
 				- 判断对象可回收的方法
 				  id:: 640442e6-c01a-4193-a8c4-d43829e17969
+				  collapsed:: true
 					- 引用计数法
 						- 原理：给对象添加一个引用计数器，有访问就加1，引用失效就减1。
 						- 优点：实现简单、效率高
@@ -2988,6 +2991,7 @@
 							- 在大量使用cglib、反射、动态代理等字节码框架
 							- 动态生成JSP以及OSGi等频繁自定义ClassLoader的场景
 				- 垃圾回收算法
+				  collapsed:: true
 					- 垃圾回收算法是内存回收的方法论
 					- 标记-清除算法
 					  id:: 640454c1-d575-4471-8253-b259cfdfd0d0
@@ -3037,6 +3041,7 @@
 							- 针对新生代采用复制算法
 							- 针对老年代采用标记-清除或是标记-整理算法
 				- HotSpot的算法实现
+				  collapsed:: true
 					- 枚举根节点
 					  collapsed:: true
 						- GC停顿（Stop the world）
@@ -3079,6 +3084,7 @@
 						- 目的：解决在程序执行时，线程因没有分配到CPU时间，从而无法响应JVM的中断请求，导致无法进行GC。
 						- 定义：安全区域是指在一段代码片段中，引用关系不会再发生改变，这个区域的任何位置开始GC都是安全的。
 				- 垃圾收集器
+				  collapsed:: true
 					- 垃圾收集器是内存回收的具体实现。
 					- 垃圾收集器按照收集内存区域的不同，分为老年代收集器和新生代收集器两种。两种不同的收集器可以组合使用
 					- 垃圾收集器的选择
@@ -3221,6 +3227,8 @@
 							- [深入理解G1的GC日志](https://juejin.cn/post/6844903893906751501)
 					- 垃圾收集器的参数配置
 				- 内存分配与回收策略
+					- 内存分配的时机
+						- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 					- 对象优先分配到Eden区
 					  collapsed:: true
 						- 大多数情况下，对象在新生代Eden区和中分配。当Eden区没有足够空间进行分配时，虚拟机将会发起一次Minor GC。（针对Serial+Serial Old收集器做的演示）
@@ -3244,7 +3252,7 @@
 					  collapsed:: true
 						- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 						- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
-			- 虚拟机性能监控、故障处理工具
+			- 第四章 虚拟机性能监控、故障处理工具
 			  collapsed:: true
 				- 基础故障处理工具
 					- jps：虚拟机进程状况工具
@@ -3252,13 +3260,11 @@
 						- 功能：可以列出正在运行的虚拟机进程，并显示虚拟机的执行主类名称以及这些进程的本地虚拟机唯一ID（LVMID，Local Virtual Machine Identifier）
 						- 命令格式：`jps [options] [hostid]`
 						- 主要选项
-						  collapsed:: true
 							- `-q`：只输出LVMID，省略主类的名称
 							- `-m`：输出虚拟机进程启动传递给主类main()函数的参数
 							- `-l`：输出主类的全名，如果进程执行的是JAR包，则输出JAR路径
 							- `-v`：输出虚拟机进程启动时的JVM参数
 						- 值得注意的
-						  collapsed:: true
 							- LVMID与操作系统的进程ID（PID，Process Identifier）是一致的
 					- jstat：虚拟机统计信息监视工具
 					  collapsed:: true
@@ -3355,11 +3361,9 @@
 							- 具体实践
 								- 线程等待的代码演示：jvm-demo:cn.bravedawn.jvm.tool.JConsoleTestCase2
 								- 死锁的代码演示：jvm-demo:cn.bravedawn.jvm.tool.SynAddRunnable
-			- 内存分配策略
+			- 第六章 类文件结构
+			- 第七章 虚拟机类的加载机制
 			  collapsed:: true
-				- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
-			- 类文件结构
-			- 虚拟机类的加载机制
 				- 类加载的时机
 					- 主动使用
 						- 主动引用的时机
@@ -3404,7 +3408,8 @@
 						- 一保障了Java程序的安全稳定运行
 							- 基于双亲委派机制，自底向上的类加载模式保证了一个类只能被加载一次，且分层的类加载器设计划分类类加载器的执行范围，避免了程序被恶意篡改
 						- 二可以通过自定义类加载器，实现不同应用程序之间依赖的分隔管理，互不干扰。
-			- 虚拟机字节码执行引擎
+			- 第八章 虚拟机字节码执行引擎
+			  collapsed:: true
 				- 虚拟机执行引擎执行字节码的方式
 					- 解释执行：通过解释器执行
 					- 编译执行：通过即时编译器生成本地代码执行
@@ -3630,7 +3635,8 @@
 					- 基于栈的解释执行过程
 					  collapsed:: true
 						- 这里主要讲解了JVM是如何使用程序计数器、局部变量、操作数栈等部件执行Java的一个栈帧的。
-			- 类加载及执行子系统的案例与实战
+			- 第九章 类加载及执行子系统的案例与实战
+			  collapsed:: true
 				- 类加载器在Tomcat中的使用
 					- 一个功能健全的web服务器需要解决的4个问题
 						- 1.**部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离**。比如A程序依赖了common-lang.3.0的StringUtils类，B程序依赖了Common-lang.3.1的StringUtils类，要保证A程序只能用3.0的StringUtils类，B程序只能使用3.1的StringUtils类。
@@ -3690,7 +3696,7 @@
 				- 项目实战
 					- 功能：实现在服务器端执行临时代码的功能
 					- 实现代码：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/codetracer
-			- 前端编译优化
+			- 第十章 前端编译优化
 			  collapsed:: true
 				- 三类类编译器
 				  collapsed:: true
@@ -4916,7 +4922,6 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
-  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -4935,15 +4940,19 @@
 				- 显示隐藏文件：`Shift`+`Command`+`.`
 				- 复制一行：`command` + `D`
 	- VS Code
+		-
+	- Git
+		- 删除本地仓库的缓存：`git rm -r cached .`
 - 构建工具
-  collapsed:: true
 	- Maven
+	  collapsed:: true
 		- 基础知识
 			- maven项目的一般结构
 			  collapsed:: true
 				- 结构图
 				  ![Maven文件结构图.png](../assets/Maven文件结构图_1688650829563_0.png)
 			- 基础组件：仓库-Repository
+			  collapsed:: true
 				- 仓库的类型
 				  collapsed:: true
 					- 远程仓库/中央仓库
@@ -5005,11 +5014,126 @@
 				  </build>
 				  ```
 			- 打包Spring Boot项目
+			  collapsed:: true
 				- 在maven添加spring-boot-maven-plugin依赖
 				- 使用`mvn -Dmaven.test.skip=true package spring-boot:repackage`进行打包
+			- maven中snapshot快照库和release发布库的区别和作用
+			  collapsed:: true
+				- 快照版本
+					- 定义一个组件/模块为**快照版本**，只需要在pom文件中在该模块的版本号后加上**-SNAPSHOT**即可(注意这里必须是大写)。
+					- snapshot一般是开发过程中的迭代版本，snapshot更新后，引用的项目可以不修改版本号自动下载构建。
+				- 发布版本
+					- release版本不允许修改，每次进行release版本修改，发布新的版本必须提升版本号。
+				- 参考文章
+					- [maven中snapshot快照库和release发布库的区别和作用](https://www.cnblogs.com/panchanggui/p/12110186.html)
+			- Maven配置
+				- 配置maven3的环境变量
+					- 直接将bin目录配置到系统变量的`path`中即可，不用配MAVEN_HOME。
+				- 全局配置：`setting.xml`
+					- `localRespository`
+					  collapsed:: true
+						- 作用：用于配置本地仓库。
+					- `interactiveMode`
+					  collapsed:: true
+						- 作用：用于配置是否需要和用户交互，默认为ture，一般不做修改。
+					- `usePluginRegistry`
+					  collapsed:: true
+						- 作用：maven是否需要使用`plugin-registry.xml`文件来管理插件版本。如果需要让maven使用文件`~/.m2/plugin-registry.xml`来管理插件版本，则设为`true`。默认为`false`。一般我们会将插件的声明写到pom里，所以一般不做配置。
+					- `offline`
+					  collapsed:: true
+						- 作用：表示maven是否需要在离线模式下运行。如果构建系统需要在离线模式下运行，则为`true`，默认为`false`。当由于网络设置原因或者安全因素，构建服务器不能连接远程仓库的时候，该配置就十分有用。
+					- `pluginGroups`
+					  collapsed:: true
+						- 作用：当插件的组织id（groupId）没有显式提供时，供搜寻插件组织Id（groupId）的列表。一般不做配置。
+					- `servers`
+					  collapsed:: true
+						- 作用：一般，仓库的下载和部署是在pom.xml文件中的`repositories`和`distributionManagement`元素中定义的。然而，一般类似用户名、密码（**有些仓库访问是需要安全认证的**）等信息不应该在pom.xml文件中配置，这些信息可以配置在`settings.xml`中。
+					- `mirrors`
+					  collapsed:: true
+						- 作用：为仓库列表配置的下载镜像列表。
+					- `proxies`
+					  collapsed:: true
+						- 作用：用来配置连接仓库的代理。
+					- `profiles`
+					  collapsed:: true
+						- 作用：根据环境参数来调整构建配置的列表。
+						- 内容
+							- `settings.xml`中的`profile`元素是`pom.xml`中`profile`元素的**裁剪版本**。
+							- 它包含了`id`、`activation`、`repositories`、`pluginRepositories`和 `properties`元素。这里的profile元素只包含这五个子元素是因为这里只关心构建系统这个整体（这正是settings.xml文件的角色定位），而非单独的项目对象模型设置。如果一个`settings.xml`中的`profile`被激活，它的值会覆盖任何其它定义在`pom.xml`中带有相同id的`profile`。
+					- `activeProfiles`
+					  collapsed:: true
+						- 作用：手动激活profiles的列表，按照`profile`被应用的顺序定义`activeProfile`。
+						- 内容：该元素包含了一组`activeProfile`元素，每个`activeProfile`都含有一个profile id。任何在`activeProfile`中定义的profile id，不论环境设置如何，其对应的 `profile`都会被激活。如果没有匹配的`profile`，则什么都不会发生。
+					- `activation`
+					  collapsed:: true
+						- 作用：自动触发`profile`的条件逻辑。
+						- 内容：如`pom.xml`中的`profile`一样，`profile`的作用在于它能够在某些特定的环境中自动使用某些特定的值；这些环境通过`activation`元素指定。
+						  `activation`元素并不是激活`profile`的唯一方式。`settings.xml`文件中的`activeProfile`元素可以包含`profile`的`id`。`profile`也可以通过在命令行，使用-P标记和逗号分隔的列表来显式的激活（如，-P test）。
+					- `properties`
+					  collapsed:: true
+						- 作用：声明变量。
+					- `repositories`
+					  collapsed:: true
+						- 作用：远程仓库列表，它是maven用来填充构建系统本地仓库所使用的一组远程仓库。
+					- `pluginRepositories`
+					  collapsed:: true
+						- 作用：发现插件的远程仓库列表。
+						- 内容：
+							- 和`repository`类似，只是`repository`是管理jar包依赖的仓库，`pluginRepositories`则是管理插件的仓库。
+							- maven插件是一种特殊类型的构件。由于这个原因，插件仓库独立于其它仓库。`pluginRepositories`元素的结构和`repositories`元素的结构类似。每个`pluginRepository`元素指定一个Maven可以用来寻找新插件的远程地址。
+					- 常用的全局配置
+					  collapsed:: true
+						- 配置JDK版本的全局配置
+							- 代码
+							  ```xml
+							  <profile>
+							      <id>jdk1.8</id>
+							      <activation>
+							          <activeByDefault>true</activeByDefault>
+							          <jdk>1.8</jdk>
+							      </activation>
+							      <properties>
+							          <maven.compiler.source>1.8</maven.compiler.source>
+							          <maven.compiler.target>1.8</maven.compiler.target>
+							          <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+							          <maven.compiler.encoding>utf-8</maven.compiler.encoding>
+							      </properties>
+							  </profile>
+							  ```
+							- 参考文章
+								- [maven设置全局和局部jdk版本](https://www.cnblogs.com/cookiewu/p/10547586.html)
+					- 参考文章
+					  collapsed:: true
+						- [maven全局配置文件settings.xml详解](https://www.cnblogs.com/jingmoxukong/p/6050172.html)
+				- 用户配置：`setting.xmlnote`
+					- 基本不用
+				- 项目配置：`pom.xml`
+					- 项目基础信息配置
+						- parent
+						  collapsed:: true
+							- 继承的父项目的依赖声明。
+						- modelVersion
+						  collapsed:: true
+							- pom模型的版本，一般配置为4.0.0
+						- groupId
+						- artifactId
+						- packaging
+						- version
+						- name
+						- url
+						- developers
+						- contributors
+						- licenses
+						- organization
+					- 项目构建环境配置
+					- 项目仓库管理配置
+					- 项目依赖管理配置
+					- 项目报表信息配置
+					- 项目部署分发配置
 		- 插件
 		  collapsed:: true
 			- maven内建的插件
+			  collapsed:: true
 				- [maven内建插件](https://maven.apache.org/plugins/index.html)
 			- spring-boot-maven-plugin
 			  collapsed:: true
@@ -5064,7 +5188,6 @@
 			  collapsed:: true
 				- 功能：用来执行集成测试的。
 			- maven-surefire-plugin
-			  collapsed:: true
 				- 功能：用来执行单元测试的。
 			- maven-jar-plugin
 			  collapsed:: true
@@ -5076,10 +5199,17 @@
 					- 提供了在 Maven 构建过程中执行外部命令的功能，常用于在构建过程中执行一些自定义脚本或命令行工具。
 					- 如果你想在maven生命周期内，运行一段java代码，或者一段独立的程序，或者说我们所指的预执行，初始化某些值，生成某些不能预先生成的文件。
 			- tomcat7-maven-plugin
+			  collapsed:: true
 				- 可以使用maven命令的方式运行tomcat。
+		- mvn命令
+		  collapsed:: true
+			- `-U`：强制更新releases、snapshots类型的插件或依赖库(否则maven一天只会更新一次snapshot依赖)。
+			- `--setting`：有些时候打包的时候需要指定Maven settings.xml（譬如从内部Nexus 私服获取依赖）。
+			- 参考文章
+			  collapsed:: true
+				- [Maven常用参数说明](https://www.jianshu.com/p/25aff2bf6e56)
 		- 常见问题
 			- 创建Maven项目，挂死在构建项目环境报`Generating project in Batch mode`
-			  collapsed:: true
 				- 原因是：国内防火墙阻止或延缓了访问在国外的Maven仓库。
 - ORM框架
   collapsed:: true

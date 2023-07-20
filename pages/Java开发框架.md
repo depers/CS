@@ -1434,7 +1434,6 @@
 						  id:: 64914b97-f025-4e65-81ba-17f3dae60e5b
 							- 后置增强，相当于AfterReturningAdvice。
 						- `@Around`
-						  collapsed:: true
 							- 环绕增强，相当于MethodInterceptor。
 						- `@AfterThrowing`
 						  id:: 64914bad-d263-4fa2-8071-d0d8ee7f1e5a
@@ -1616,6 +1615,57 @@
 			- 9.其他
 				-
 		- 第九章 Spring SpEL
+			- 1.SpEL诞生的背景
+			  collapsed:: true
+				- Java语言不支持像动态语言那样表达式语句的动态解析。
+				- 动态语言的显著特征是在运行时可以改变程序结构或变量类型。比如下面这段JavaScript代码：
+				  ```JavaScript
+				  function sum(a, b) {
+				      return a + b;
+				  }
+				  undefined
+				  
+				  sum(1, 2)
+				  3
+				  
+				  sum('hello', 'world')
+				  'helloworld'
+				  
+				  function a() {
+				      return 1;
+				  }
+				  undefined
+				  
+				  function b() {
+				      return 2;
+				  }
+				  undefined
+				  
+				  sum(a(), b())
+				  3
+				  ```
+					-
+			- 2.概述
+			  collapsed:: true
+				- SpEL（Spring动态语言）是一个支持运行时查询和操作对象图的强大的动态语言。
+				- SpEL是一个独立的模块，不依赖与Spring的其他组件运行，可以单独使用。
+				- 使用时，只需要在pom中添加`spring-expression`模块依赖即可。
+			- 3.SpEL的核心接口
+			  collapsed:: true
+				- SpEL的类和接口都定义在org.springframework.expression包下。
+				- `ExpressionParser`接口
+				  collapsed:: true
+					- 作用：用来解析表达式字符串。表达式字符串是一个用单引号或用转义的双引号标注的字符串。
+				- `Expression`接口
+				  collapsed:: true
+					- 作用：用来计算表达式字符串的值。
+				- 在单独使用SpEL时，需要创建一个`ExpressionParser`解析器，并提供一个`EvaluationContext`求值上下文。
+				- `EvaluationContext`接口
+				  collapsed:: true
+					- 作用
+						- 提供了针对属性、方法、字段的解析器和类型转换器。
+					- 默认实现的`StandardEvaluationContext`的内部是使用反射操作对象的。
+					- 默认使用的类型转换器的是引用了Spring核心包的`ConversionService`接口，该接口自动会根据源类型语目标类型选择合适的转换器。
 		- 第十章 Spring对DAO的支持
 		- 第十一章 Spring的事务管理
 		- 第十二章 Spring事务管理难点剖析
