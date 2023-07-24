@@ -148,7 +148,6 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
-		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -202,8 +201,8 @@
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 			- BeanFactory、ApplicationContext和WebApplicationContext
+			  collapsed:: true
 				- BeanFactory
-				  collapsed:: true
 					- 功能
 						- 一般称BeanFactory为Ioc容器
 						- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
@@ -279,7 +278,6 @@
 							- `DisposableBeandestroy()`：当容器关闭时，将调用该方法，可以在这里编写释放资源、记录日志等操作。
 						- 容器级生命周期接口方法，由如下两个接口实现，他们的实现类被称为"**后置处理器**"
 							- `InstantiationAwareBeanPostProcessor`接口
-							  collapsed:: true
 								- `postProcessBeforeInstantiation()`：在实例化之前调用
 								- `postProcessAfterInstantiation()`：在实例化之后调用
 								- `postProcessPropertyValues()`：在为Bean设置属性值之前调用
@@ -288,8 +286,10 @@
 								- `postProcessBeforeInitialization()`：使用该方法对Bean进行特殊处理
 								- `postProcessAfterInitialization()`：使用该方法对Bean进行特殊处理
 								- `BeanPostProcessor`接口十分重要，Spring容器提供的AOP和动态代理等功能都是通过它进行实施的。
-							- `InitDestroyAnnotationBeanPostProcessor`类
-								- 用于对加了`@PostConstruct`、`@PreDestory`注解的Bean进行处理
+							- 值得注意的点
+							  collapsed:: true
+								- `InitDestroyAnnotationBeanPostProcessor`类
+									- 用于对加了`@PostConstruct`、`@PreDestory`注解的Bean进行处理
 							- 后处理器的特点
 								- 他们独立于Bean，他们的实现类以容器附加的形式注册到Spring容器中，并通过反射被Spring容器扫描识别。
 								- 后处理器是作用范围是**全局性的（容器级的）**
@@ -306,13 +306,18 @@
 							- 新增了调用`ApplicationContextAware.setApplicationContext()`方法
 						- 工厂后置处理器接口方法
 							- 新增了调用`BeanFactoryPostProcessor.postProcessBeanFactory()`方法
-								- 发生在应用上下文在装载配置文件之后，在Bean实例化之前调用，用于对配置文件中Bean的信息进行加工处理
+								- 发生在应用上下文在装载配置文件之后，在Bean实例化之前调用，用于对配置文件中Bean的信息进行加工处理.
+								- 所有的bean定义都已加载，但还没有实例化任何bean。可以**对bean属性进行覆盖或添加操作**。
+							- `BeanFactoryPostProcessor`接口
+								- `BeanDefinitionRegistryPostProcessor`接口
+									- 该接口继承自`BeanFactoryPostProcessor`接口，`BeanDefinitionRegistryPostProcessor.postProcessBeanDefinitionRegistry()`此时我们已经可以访问到所有常规bean定义，但还没有实例化任何bean。可以**在下一个后处理阶段开始之前添加新的bean定义**。
+									- 具体实践
+										- 这里讨论了Bean替换的实现，具体参考：spring/spring4.x/chapter4/src/main/java/cn/bravedawn/beanreplace
 					- 具体实践：spring-demo/cn/bravedawn/chapter4/applicationbeanfactorydemo
 				- `ApplicationContext`与`BeanFactory`的不同之处
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
-		  collapsed:: true
 			- 1.Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
@@ -347,6 +352,7 @@
 				- Bean的命名
 					- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
 			- 3.依赖注入
+			  collapsed:: true
 				- 属性注入
 				  id:: 646b109c-232c-4c0a-82e6-31cac5b6dd72
 					- 定义：属性注入是指通过setXX()方法注入Bean的属性朱或依赖对象。
@@ -799,10 +805,8 @@
 			- 13.通过编码方式动态添加Bean
 			  collapsed:: true
 				- 为什么要动态的添加Bean，直接声明（或者说是定义）Bean不就行了吗？
-				  collapsed:: true
 					- 在向Spring容器添加Bean的时候，我们可能需要根据配置做相关逻辑的判断，按照上面xml、注解、Java类的方式等不足以满足我们的需求，因为他们都是静态添加，尽管Groovy DSL可以通过条件判断进行注入的逻辑，但是无法满足将bean的添加到Spring的逻辑。所以我们需要在Spring启动的时候动态的添加Bean实例到Spring容器中。
 				- 方法一：通过`DefaultListaleBeanFactory`
-				  collapsed:: true
 					- `BeanFactoryPostProcessor`接口
 						- 作用：为了实现在Spring启动阶段能够动态注入自定义Bean，保证动态注入的Bean能够被AOP所增强，需要实现Bean工厂后置处理器接口`BeanFactoryPostProcessor`。
 					- `DefaultListableBeanFactory`类
@@ -810,7 +814,6 @@
 						- 提供了扩展配置、循环枚举的功能
 						- 通过此类可以实现Bean的动态注入
 				- 方法二：扩展自定义标签
-				  collapsed:: true
 					- 实现步骤
 						- 1.创建一个需要扩展的组件，也就是编写bean的Java类定义
 						- 2.采用XSD描述自定义标签的元素属性
@@ -821,13 +824,11 @@
 					- 参考文章
 						- [Spring自定义标签的实现](https://zhuanlan.zhihu.com/p/107837020)
 				- 这里有一些参考文章
-				  collapsed:: true
 					- [SpringBoot动态注入Bean](https://www.jianshu.com/p/faa6ac6f2ce2)
 					- [spring动态创建bean:动态创建方式的时机影响（一）](https://blog.csdn.net/qq_37207266/article/details/120389752)
 			- 14.不同配置方式的比较
 			  collapsed:: true
 				- Bean不同配置方式的比较
-				  collapsed:: true
 					- 书中总结图片
 					  ![Bean不同配置方式的比较.png](../assets/Bean不同配置方式的比较_1685860855635_0.png)
 					  ![Bean不同配置方式的比较2.png](../assets/Bean不同配置方式的比较2_1685860862388_0.png)
@@ -1615,6 +1616,7 @@
 			- 9.其他
 				-
 		- 第九章 Spring SpEL
+		  collapsed:: true
 			- 1.SpEL诞生的背景
 			  collapsed:: true
 				- Java语言不支持像动态语言那样表达式语句的动态解析。

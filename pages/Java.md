@@ -1,5 +1,4 @@
 - Java语言
-  collapsed:: true
 	- Java基础
 		- 语言基础
 		  collapsed:: true
@@ -311,7 +310,6 @@
 			- 数组操作
 			  collapsed:: true
 				- 初始化数组
-				  collapsed:: true
 					- int[] a = new int[5]; int类型数组初始化之后是0
 					- int[] b = {1, 2, 3, 4, 5};
 				- 数组操作
@@ -1342,6 +1340,7 @@
 				- 由工具处理.class文件使用的注解，比如有些工具会在加载class的时候，对class做动态修改，实现一些特殊的功能。这类注解会被编译进入.class文件，但加载结束后并不会存在于内存中。这类注解只被一些底层库使用，一般我们不必自己处理。
 				- 跟踪代码依赖性，实现替代配置文件功能。在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解。
 			- 元注解
+			  collapsed:: true
 				- `@Documented`：注解是否将包含在JavaDoc中
 				- `@Retention`： 什么时候使用该注解，定义注解的生命周期
 				  collapsed:: true
@@ -2557,9 +2556,9 @@
 		- IO
 		  collapsed:: true
 			- 五种IO模型
+			  collapsed:: true
 				- 同步阻塞-Blocking I/O
 					- 阻塞IO模型
-					  collapsed:: true
 						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
 						- 示例图
 						  ![阻塞IO.webp](../assets/阻塞IO_1685864250927_0.webp)
@@ -2568,7 +2567,6 @@
 						- 示例图
 						  ![io复用.webp](../assets/io复用_1685864464711_0.webp)
 				- 同步非阻塞-Non-blocking I/O
-				  collapsed:: true
 					- 非阻塞IO模型
 						- 非阻塞IO就是当应用发起读取数据申请时，如果内核数据没有准备好会即刻告诉应用，不会让应用在这里等待。
 						- 示例图
@@ -2606,6 +2604,7 @@
 				- 参考文章
 					- [Byte Streams](https://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html)
 			- 字符流
+			  collapsed:: true
 				- 特点
 					- 所有字符流类都派生自 `Reader` 和 `Writer`。
 					- Java 平台使用 Unicode 约定存储字符值。 字符流 I/O 自动将此内部格式与本地字符集相互转换。
@@ -4922,6 +4921,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -4945,16 +4945,12 @@
 		- 删除本地仓库的缓存：`git rm -r cached .`
 - 构建工具
 	- Maven
-	  collapsed:: true
 		- 基础知识
 			- maven项目的一般结构
-			  collapsed:: true
 				- 结构图
 				  ![Maven文件结构图.png](../assets/Maven文件结构图_1688650829563_0.png)
 			- 基础组件：仓库-Repository
-			  collapsed:: true
 				- 仓库的类型
-				  collapsed:: true
 					- 远程仓库/中央仓库
 					- 本地仓库
 					- 私有服务器
@@ -4996,7 +4992,6 @@
 				- 以上面这段配置来做说明，它将 `spring-boot-dependencies`  中 `DependencyManagement` 下的 `Dependencies` 插入到当前工程的 `DependencyManagement` 中，所以不存在依赖传递。
 				- 当没有 `<scope>import</scope>` 时，意思是将 `spring-boot-dependencies`  的 `Dependencies` 全部插入到当前工程的 `Dependencies` 中，并且会依赖传递。
 			- 指定jdk编译版本号
-			  collapsed:: true
 				- 参见如下代码
 				  ```xml
 				  <build>
@@ -5030,6 +5025,7 @@
 				- 配置maven3的环境变量
 					- 直接将bin目录配置到系统变量的`path`中即可，不用配MAVEN_HOME。
 				- 全局配置：`setting.xml`
+				  collapsed:: true
 					- `localRespository`
 					  collapsed:: true
 						- 作用：用于配置本地仓库。
@@ -5109,6 +5105,7 @@
 					- 基本不用
 				- 项目配置：`pom.xml`
 					- 项目基础信息配置
+					  collapsed:: true
 						- parent
 						  collapsed:: true
 							- 继承的父项目的依赖声明。
