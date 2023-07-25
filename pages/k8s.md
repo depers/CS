@@ -1,4 +1,5 @@
 - 《Kubernetes实战》
+  collapsed:: true
 	- 第一章 Kubernetes介绍
 		- 单体应用部署遇到的问题
 		- 微服务应用部署遇到的问题
@@ -41,12 +42,10 @@
 			- ReplicationController
 				- ReplicationController用于复制Pod，即创建Pod的多个副本，并让他们保持运行。
 	- 第三章 pod：运行于kubernetes中的容器
-	  collapsed:: true
 		- 1.介绍Pod
 			- 一个Pod总是运行在一个工作节点上，他不会跨越多个工作节点。
 			- 一个Pod中应该包含一个容器还是多个容器。
 			- 同一Pod内的多个容器可以资源共享
-			  collapsed:: true
 				- Pod内的多个容器运行在**相同的Network命名空间**下，所以他们共享相同的IP地址和端口空间，当然也包括loopback接口，我们在容器中可以通过localhost加端口访问不同容器中的应用程序。
 				- Pod内的多个容器运行在**相同的IPC命名空间**下，因此他们可以利用IPC进行通信。
 				- **PID命名空间**也是可以共享的，但是默认是关闭的。
@@ -55,14 +54,15 @@
 			- 尽量将一个容器运行在一个pod上。
 				- 这样做有助于提高基础资源的利用率。
 				- pod是扩缩容的基本单位，所以这样做方便进行扩缩容。
-				-
 		- 2.通过yaml或是json描述文件创建Pod
 			- Pod描述文件的主要部分
+			  collapsed:: true
 				- *metadata*：包括名称、命名空间、标签和关于该容器的其他信息。
 				- *spec*：包含 Pod 内容的实际说明，例如Pod的容器、卷和其他数据。
 				- *status*：包含运行中pod的当前信息。在创建新的Pod时，这部分信息不需要定义。
 			- 通过`kubectl explain pods`或是`kubectl explain pods.spec`来查看pod的描述信息。
 			- 为pod创建一个简单的yaml描述文件
+			  collapsed:: true
 				- 代码
 				  ```yaml
 				  apiVersion: v1
@@ -77,9 +77,11 @@
 				        - containerPort: 8080
 				          protocol: TCP
 				  ```
-			- 创建一个Pod
+			- 使用`kubectl create`创建一个Pod
 			- 查看Pod中的应用日志
+				-
 			- 向Pod发送请求
+			-
 - 《Kubernetes修炼手册》
   collapsed:: true
 	- 第二章 Kubernetes
@@ -185,7 +187,6 @@
 		- Kubernetes服务发现的过程
 			-
 - kubectl的命令
-  collapsed:: true
 	- kubectl
 	  collapsed:: true
 		- kubectl是在进行Kubernetes管理的过程中使用的主要命令行工具。
@@ -193,16 +194,15 @@
 	- `kubectl get pods`
 		- 查看Pod信息。
 		- 拓展命令
-		  collapsed:: true
 			- `-o wide`：能够多输出几列信息。
-			- `-o yaml`：能够返回集群存储中的一份完整的关于Pod的清单。
+			- `-o yaml`：能够返回集群存储中的一份完整的关于Pod的yaml清单。
+			- `-o json`：返回pod的json格式定义清单。
 	- `kubectl get services`
 	- `kubectl get ReplicationControllers`
 	- `kubectl get rs`
 	  collapsed:: true
 		- 查看ReplicaSet。
 	- `kubectl get Pods <pod名称> -o yaml`
-	  collapsed:: true
 		- 获取pod完整的YAML定义。
 	- `kubectl create -f <pod描述文件.yaml>`
 	  collapsed:: true
@@ -222,7 +222,6 @@
 	  collapsed:: true
 		- 将清单文件发送到API Server。
 	- `kubectl describe Pods <pod名称>`
-	  collapsed:: true
 		- 该命令会打印出所查看对象的总览信息，其多行格式易于阅读。内容中还包含对象的重要的生命周期事件。
 	- `kubectl exec`
 	  collapsed:: true
@@ -239,6 +238,15 @@
 	- `kubectl expose`
 	  collapsed:: true
 		- 创建一个新的Service
+	- `kubectl explain`
+	  collapsed:: true
+		- 通过该命令我们可以查看每个API对象支持哪些属性，比如查看pods的属性，可以使用`kubectl explain pods`
+	- `kubectl create`
+	  collapsed:: true
+		- 可以使用该命令来创建pod。
+		- 拓展命令
+			- `-f xxx.yaml`：指定yaml或是json的配置文件。
+			-
 - docker
 	- docker的三个概念
 		- 镜像（image）：镜像中包含了应用软件运行的基础设施和应用软件本身。镜像的名称一般由`镜像名:TAG`组成。
@@ -285,6 +293,7 @@
 		  collapsed:: true
 			-
 	- Dockerfile
+	  collapsed:: true
 		- 命令参数
 			- `FROM`：构建镜像基于哪个镜像。
 			  collapsed:: true

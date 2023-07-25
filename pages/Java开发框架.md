@@ -1,4 +1,5 @@
 - Spring
+  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
 		- 第一章 Spring概述
 		  collapsed:: true
