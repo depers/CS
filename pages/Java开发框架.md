@@ -1,6 +1,6 @@
 - Spring
-  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
+	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -149,6 +149,7 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
+		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -319,6 +320,7 @@
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
+		  collapsed:: true
 			- 1.Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
@@ -1654,7 +1656,6 @@
 				- SpEL是一个独立的模块，不依赖与Spring的其他组件运行，可以单独使用。
 				- 使用时，只需要在pom中添加`spring-expression`模块依赖即可。
 			- 3.SpEL的核心接口
-			  collapsed:: true
 				- SpEL的类和接口都定义在org.springframework.expression包下。
 				- `ExpressionParser`接口
 				  collapsed:: true
@@ -1666,9 +1667,47 @@
 				- `EvaluationContext`接口
 				  collapsed:: true
 					- 作用
+					  collapsed:: true
 						- 提供了针对属性、方法、字段的解析器和类型转换器。
 					- 默认实现的`StandardEvaluationContext`的内部是使用反射操作对象的。
-					- 默认使用的类型转换器的是引用了Spring核心包的`ConversionService`接口，该接口自动会根据源类型语目标类型选择合适的转换器。
+					- 默认使用的类型转换器的是引用了Spring核心包的`ConversionService`接口，该接口自动会根据源类型与目标类型选择合适的转换器。
+				- SpEL编译器
+				  collapsed:: true
+					- SpelCompiler编译器
+						- 诞生背景
+						  collapsed:: true
+							- spel表达式只会在求值的时候才会进行表达式计算，但对于同一表达式每次计算都会进行动态解析，会很影响表达式的执行效率。
+							- 如果同一个表达式被频繁调用，则会对性能有很大的影响。
+						- spel编译器原理
+						  collapsed:: true
+							- 他会直接将表达式编译成字节码，若表达式不发生变化，则避免在每次调用时进行语法解析所产生的时间消耗，可以有效的提高效率。
+							- 若表达式发生变化，则需要重新解析语法生成字节码。
+						- spel表达式适用场景
+						  collapsed:: true
+							- 适用于表达式不经常发生变动且重复调用频率较高的场景。
+						- 代码实践
+							- 具体参考：spring/spring4.x/chapter9/src/main/java/cn/bravedawn/spelcompiler/SpelCompilerExample.java
+			- 4.SpEL表达式基础
+				- 文本字符解析
+				  collapsed:: true
+					- 文本表达式支持字符串、日期、布尔值、数字和null值的解析。
+					- 其中字符串需要使用单引号或反斜杠+双引号包含起来，如`"'hello world'"`，`\"hello world\"`。
+					- 代码实践
+					  collapsed:: true
+						- 具体参考：spring/spring4.x/chapter9/src/main/java/cn/bravedawn/basicexpression/LiteralExprSample.java
+				- 对象属性解析
+				  collapsed:: true
+					- 在spel中，可以使用"xxx.yyy.zzz"对属性路径轻松的访问对象的属性值。
+					- 代码实践
+					  collapsed:: true
+						- 具体参考：spring/spring4.x/chapter9/src/main/java/cn/bravedawn/basicexpression/PropertyExprSample.java
+				- 数组、集合类型解析
+				  collapsed:: true
+					- SpEL支持数组、集合类型（Map，List）的解析，目前暂不支持多维数组。
+					- 代码实践
+					  collapsed:: true
+						- 具体参考：spring/spring4.x/chapter9/src/main/java/cn/bravedawn/basicexpression/CollectionExprSample.java
+				-
 		- 第十章 Spring对DAO的支持
 		- 第十一章 Spring的事务管理
 		- 第十二章 Spring事务管理难点剖析
@@ -1953,23 +1992,28 @@
 			  collapsed:: true
 				-
 	- Spring Boot
-	  collapsed:: true
 		- SpringBoot注解
+		  collapsed:: true
 			- @ConditionalOnProperty
 				- 使用这个注解我们可以判断Property的某些属性是不是需要的值，也就是说可以做属性值的判断。
 			- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
 				- 这两个注解用于判断该程序是否web应用程序。
 		- 依赖管理
+		  collapsed:: true
 			- Spring Boot 的每个版本都提供了它支持的依赖项列表，因此，我们在引入其他的依赖时不需要在配置中指定依赖项的版本，Spring Boot会自行管理。具体可以参考文章：[springboot依赖的一些配置：spring-boot-dependencies、spring-boot-starter-parent、io.spring.platform](https://www.cnblogs.com/leeego-123/p/12665279.html)
 		- 上传文件
+		  collapsed:: true
 			- 在Spring Boot上传文件的时候，如果你上传的文件是0kb，spring是会报错的，报的错是：`Error parsing HTTP request header java.io.EOFException: null`
 		- 重要接口
 			- Interface `ApplicationRunner` 和 `CommandLineRunner`
 				- 作用：
-					-
+					- 在Spring容器加载完之后，执行一些操作，且只执行一次。
+				- 区别
+					- 这两个接口的方法入参不同，ApplicationRunner是`ApplicationArguments args`，CommandLineRunner是`String... args`。
 				- 参考文章
 					- https://www.jianshu.com/p/5d4ffe267596
 					- https://www.baeldung.com/running-setup-logic-on-startup-in-spring
+					- [【Spring系列】应用启动后回调机制CommandLineRunner和ApplicationRunner接口](https://blog.csdn.net/chenlixiao007/article/details/113881768)
 		- 日志
 			- Spring Boot 默认使用 SLF4J+Logback 记录日志，其中SLF4J提供了日志接口，Logback提供的日志实现。
 			- 日志配置的级别
