@@ -1656,6 +1656,7 @@
 				- SpEL是一个独立的模块，不依赖与Spring的其他组件运行，可以单独使用。
 				- 使用时，只需要在pom中添加`spring-expression`模块依赖即可。
 			- 3.SpEL的核心接口
+			  collapsed:: true
 				- SpEL的类和接口都定义在org.springframework.expression包下。
 				- `ExpressionParser`接口
 				  collapsed:: true
@@ -1688,6 +1689,7 @@
 						- 代码实践
 							- 具体参考：spring/spring4.x/chapter9/src/main/java/cn/bravedawn/spelcompiler/SpelCompilerExample.java
 			- 4.SpEL表达式基础
+			  collapsed:: true
 				- 文本字符解析
 				  collapsed:: true
 					- 文本表达式支持字符串、日期、布尔值、数字和null值的解析。
@@ -1707,6 +1709,36 @@
 					- 代码实践
 					  collapsed:: true
 						- 具体参考：spring/spring4.x/chapter9/src/main/java/cn/bravedawn/basicexpression/CollectionExprSample.java
+				- 方法解析
+				  collapsed:: true
+					- 方法调用解析支持Java可访问的方法，包括对象方法、静态方法、并支持可变参数方法。但是不支持私有方法，会报错。
+					- 可以调用String类型所有可访问的方法。
+					- 代码实践：cn.bravedawn.basicexpression.MethodExprSample
+				- 操作符解析
+				  collapsed:: true
+					- 关系操作符
+					  collapsed:: true
+						- 支持关系操作符：等于、不等于、小于、小于等于、大于、大于等于、正则表达式、instanceof关键字
+					- 逻辑操作符
+					  collapsed:: true
+						- 支持与操作：`&&`、`and`
+						- 支持或操作：`||`、`or`
+						- 非操作：`!`
+					- 算术运算操作符
+					  collapsed:: true
+						- 加法运算符可以用于数字、字符串和日期。
+						- 减法运算符可以用于数组和日期。
+						- 乘法和除法运算符仅可用于数字。
+						- 支持的其他运算符还有取余`%`，指数幂`^`。
+						- 算术运算符优先级遵守Java优先级规则。
+				- 安全导航操作符
+				  collapsed:: true
+					- 安全导航操作符来源于Groovy，作用是通常我们在访问对象方法或是属性时，可以帮我们避免空指针异常。
+					- 采用安全导航操作符，它只会返回null值，而不会直接抛出异常。
+					- 在访问属性的`.`操作符钱加一个问号`?`，比如`user?.name`
+				- 三元操作符
+				  collapsed:: true
+					- 可在表达式中使用if-then-else的条件逻辑三元操作符。
 				-
 		- 第十章 Spring对DAO的支持
 		- 第十一章 Spring的事务管理

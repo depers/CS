@@ -1731,6 +1731,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -4927,6 +4928,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -4956,7 +4958,6 @@
 		- 删除本地仓库的缓存：`git rm -r cached .`
 		- 修改最新commit的message信息：`git commit --amend`
 - 构建工具
-  collapsed:: true
 	- Maven
 		- 基础知识
 			- maven项目的一般结构
@@ -5812,6 +5813,7 @@
 						  </distributionManagement> 
 						  ```
 			- Maven的gav坐标
+			  collapsed:: true
 				- gav坐标
 				  collapsed:: true
 					- groupId：项目ID，当前项目和其他项目的唯一标志，也就是公司域名。
@@ -5830,7 +5832,34 @@
 						- Stable：表示正在发行的稳定版本。
 						- RELEASE/R/GA：也表示正在发行的稳定版本。
 						- FINAL：表示最终版本，也是正式版本的一直表示方式。
+			- Maven命令操作
+			  collapsed:: true
+				- 项目构建命令
+					- `mvn --version`：查看maven的版本。
+					- `mvn archetype:generate`：使用项目模板创建项目。
+				- 项目清理/编译/打包
+					- `mvn clean`：清理target目录下的编译文件和数据。
+					- `mvn compile`：编译java代码，将编译后的代码放到target目录下。
+					- `mvn package`：将项目打成jar或是war。
+				- 项目运行/测试/发布
+					- `mvn tomcat:run`：使用tomcat插件运行web应用程序
+					- `mvn test`：运行test目录下的测试代码，并生成测试报告。
+					- `mvn site`：生成项目的文档。
+					- `mvn dependency:tree`：查看项目的依赖。
+					- `mvn install`：将项目打包并发布到本地仓库中。
+					- `mvn deploy`：将项目打包并发布到远程仓库中。
+			- Maven的生命周期
+				- Maven三个标准的生命周期
+				  collapsed:: true
+					- clean生命周期
+						- 功能：项目清理的处理。
+					- default生命周期
+						- 功能：项目部署的处理。
+					- site生命周期
+						- 功能：项目站点文档创建的处理。
+				- 文档： [Maven生命周期](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference)
 		- 插件
+		  collapsed:: true
 			- maven内建的插件
 				- [maven内建插件](https://maven.apache.org/plugins/index.html)
 			- spring-boot-maven-plugin
