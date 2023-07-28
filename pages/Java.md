@@ -5849,6 +5849,7 @@
 					- `mvn install`：将项目打包并发布到本地仓库中。
 					- `mvn deploy`：将项目打包并发布到远程仓库中。
 			- Maven的生命周期
+			  collapsed:: true
 				- Maven三个标准的生命周期
 				  collapsed:: true
 					- clean生命周期

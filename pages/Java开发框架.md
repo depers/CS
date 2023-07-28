@@ -263,6 +263,7 @@
 					- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
 					- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
 			- Bean的生命周期
+			  collapsed:: true
 				- `BeanFactory`中Bean的生命周期
 				  id:: 6469b072-85f3-479d-87c3-ccb6560739bb
 					- 生命周期图
@@ -1619,7 +1620,6 @@
 			- 9.其他
 				-
 		- 第九章 Spring SpEL
-		  collapsed:: true
 			- 1.SpEL诞生的背景
 			  collapsed:: true
 				- Java语言不支持像动态语言那样表达式语句的动态解析。
@@ -1689,7 +1689,6 @@
 						- 代码实践
 							- 具体参考：spring/spring4.x/chapter9/src/main/java/cn/bravedawn/spelcompiler/SpelCompilerExample.java
 			- 4.SpEL表达式基础
-			  collapsed:: true
 				- 文本字符解析
 				  collapsed:: true
 					- 文本表达式支持字符串、日期、布尔值、数字和null值的解析。
@@ -1739,8 +1738,85 @@
 				- 三元操作符
 				  collapsed:: true
 					- 可在表达式中使用if-then-else的条件逻辑三元操作符。
-				-
+				- Elvis操作符
+					- Elvis操作符是Groovy语言中的三元操作符的缩写。
+					- Evis操作符的格式是：name?:'UnKnown'，如果**name**是**null**就返回**UnKnown**，否则返回**name**本身
+				- 赋值、类型、构造器、变量
+					- 赋值
+						- 方式一：通过`Expression`结构提供的`setValue()`方法为对象属性赋值。
+						- 方式二：通过调用`getValue()`方法时通过赋值表达式赋值。
+					- 类型
+						- 通过`T`操作符加载类`Class`对象。
+						- 通过`T`操作符直接调用类的静态方法。
+					- 构造器
+						- 使用`new`操作符调用构造器创建一个对象的实例。
+					- 变量
+						- 可是使用`EvaluationContext#setVariable(var, value)`为变量赋值。
+				- 集合过滤
+					- 可以使用`#this`变量来指代当前变量。
+					- 可以使用`?[selectExpression]`对集合进行过滤。
+					- 可以使用`^[...]`获得第一个匹配值，使用`$[...]`获得最后一个匹配值。
+				- 集合转换
+					- 可以使用`![projectionExpression]`表达式对集合中的元素进行计算。
+			- 5.在Spring中使用SpEL
+				- 基于XML的配置
+					- 在beans.xml文件中声明bean
+						- 使用SpEL表达式可以引用环境变量
+						- 使用SpEL表达式可以引用其他bean的属性
+				- 基于注解的配置
+					- 使用@Value注解可以自动注入属性文件中的属性选项值。
+						- 第一种通过`#{properties['属性名']}`
+						- 第二种通过`${属性名}`，这里需要一些额外的配置，具体看代码。
 		- 第十章 Spring对DAO的支持
+			- 1.Spring的DAO理念
+			  collapsed:: true
+				- Spring提供了DAO（Data Access Object，用于访问数据的对象）上层抽象，屏蔽了底层Hibernate、MyBatis、JPA、JDP持久层技术的差异，提供了统一的方式进行调用和事务管理，避免了持久层技术对业务层代码的入侵。
+			- 2.统一的异常体系
+			  collapsed:: true
+				- 背景
+					- 原有JDK提供的API因为检查型异常的泛滥，导致很难使用，对业务代码又入侵。
+					- 统一异常体系是整合不同持久层的关键。
+				- Spring DAO异常体系
+					- 第一层次的异常类
+						- 如下图所示，下面异常类都要多个子类进行了异常的细分
+						  ![异常体系.png](../assets/异常体系_1690552766058_0.png)
+				- JDBC异常转换器
+					- JDBC API几乎所有的数据操作问题都会抛出相同的SQLException。
+					- `SQLException`有两个代表异常原因的属性：错误码和SQL状态码。
+					- Spring会根据`SQLException`的**错误码**和**SQL状态码**翻译成Spring DAO异常体系对应的异常。
+					- 接口`SQLExceptionTranslator`，第一个实现类`SQLErrorCodeSQLExceptionTranslator`处理错误码，第二个实现类`SQLStateSQLExceptionTranslator`处理SQL状态码的翻译工作。
+					- 其他持久化技术的异常转换器
+						- 如下图所示
+						  ![异常转换器.png](../assets/异常转换器_1690553205044_0.png)
+			- 3.统一的数据访问模板
+				- 传统的JDBC数据访问的代码，具体见代码。
+				- Spring将传统的数据方法方式进行了模板化，将数据访问中固定和变化的部分做了区分，保证了模板类的线程安全，以便多个数据访问线程共享同一个模板实例。
+				- Spring DAO模板和回调
+				  collapsed:: true
+					- 如下图所示，DAO模板是固定的，DAO回调是变化的
+					  ![spring dao模板.png](../assets/spring_dao模板_1690553461296_0.png)
+				- Spring为不同持久化层提供的模板类
+					- 不同持久化层对应的模板类
+						- 如下图所示
+						  ![模板类.png](../assets/模板类_1690553721208_0.png)
+					- 不同持久化层对应的支持类
+						- 如下图所示，下面这些类都继承自`dao.support.DaoSupport`类，这个类实现了`InitializingBean`接口，会在`afterPropertiesSet()`接口方法中检查模板对象和数据源是否正确设置，否则会报错。
+						  ![支持类.png](../assets/支持类_1690553734098_0.png)
+			- 4.数据源
+				- 数据源的作用：所有的持久化技术都需要数据连接才能进行具体操作，数据源负责**提供**和**管理**数据连接。
+				- Spring依赖的两个数据源实现
+					- Apache的DBCP
+					  collapsed:: true
+						- DBCP是依赖Jakarta commons-pool对象池机制的数据源，需要引这个包。
+						- DBCP的设置参数说明，这个自己看书。
+						- 关于配置的几个关键点
+							- `testOnBorrow`属性
+							  collapsed:: true
+								- 存在的问题：该属性默认是true，也就意味着每次获取数据连接的时候，都需要先检查这个连接是否是可用的，如果该连接有问题，数据库会关闭该连接，数据源会重新拿一个连接给DAO，所以不会有MySQL的8小时问题，但是这样做的后果就是在高并发的程序中会有性能问题，因为这样会导致更多的数据库访问请求。
+								- 解决办法：将testOnBorrow设置为false，而将testWhileIdle设置为true，接着再设置好timeBetweenEvictionRUnsMillis的值，该值应该小于8小时。这样DBCP会通过一个后台线程定时检测空闲连接，当发现无用连接时，就会将他们清除掉，保证了DAO每次获取的连接都是可用的。
+							- MySQL连接的8小时关闭问题
+								- 这个时间可以通过变量`interactive-timeout`来调整，单位是秒。
+					- C3P0
 		- 第十一章 Spring的事务管理
 		- 第十二章 Spring事务管理难点剖析
 		- 第十三章 使用Spring JDBC访问数据库
@@ -2024,6 +2100,7 @@
 			  collapsed:: true
 				-
 	- Spring Boot
+	  collapsed:: true
 		- SpringBoot注解
 		  collapsed:: true
 			- @ConditionalOnProperty
