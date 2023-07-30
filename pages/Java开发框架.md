@@ -1620,6 +1620,7 @@
 			- 9.其他
 				-
 		- 第九章 Spring SpEL
+		  collapsed:: true
 			- 1.SpEL诞生的背景
 			  collapsed:: true
 				- Java语言不支持像动态语言那样表达式语句的动态解析。
@@ -1768,6 +1769,7 @@
 						- 第一种通过`#{properties['属性名']}`
 						- 第二种通过`${属性名}`，这里需要一些额外的配置，具体看代码。
 		- 第十章 Spring对DAO的支持
+		  collapsed:: true
 			- 1.Spring的DAO理念
 			  collapsed:: true
 				- Spring提供了DAO（Data Access Object，用于访问数据的对象）上层抽象，屏蔽了底层Hibernate、MyBatis、JPA、JDP持久层技术的差异，提供了统一的方式进行调用和事务管理，避免了持久层技术对业务层代码的入侵。
@@ -1789,6 +1791,7 @@
 						- 如下图所示
 						  ![异常转换器.png](../assets/异常转换器_1690553205044_0.png)
 			- 3.统一的数据访问模板
+			  collapsed:: true
 				- 传统的JDBC数据访问的代码，具体见代码。
 				- Spring将传统的数据方法方式进行了模板化，将数据访问中固定和变化的部分做了区分，保证了模板类的线程安全，以便多个数据访问线程共享同一个模板实例。
 				- Spring DAO模板和回调
@@ -1803,11 +1806,13 @@
 						- 如下图所示，下面这些类都继承自`dao.support.DaoSupport`类，这个类实现了`InitializingBean`接口，会在`afterPropertiesSet()`接口方法中检查模板对象和数据源是否正确设置，否则会报错。
 						  ![支持类.png](../assets/支持类_1690553734098_0.png)
 			- 4.数据源
+			  collapsed:: true
 				- 数据源的作用：所有的持久化技术都需要数据连接才能进行具体操作，数据源负责**提供**和**管理**数据连接。
 				- Spring依赖的两个数据源实现
 					- Apache的DBCP
 					  collapsed:: true
 						- DBCP是依赖Jakarta commons-pool对象池机制的数据源，需要引这个包。
+						- DBCP的数据源是`BasicDataSource`
 						- DBCP的设置参数说明，这个自己看书。
 						- 关于配置的几个关键点
 							- `testOnBorrow`属性
@@ -1817,7 +1822,117 @@
 							- MySQL连接的8小时关闭问题
 								- 这个时间可以通过变量`interactive-timeout`来调整，单位是秒。
 					- C3P0
+					  collapsed:: true
+						- C3P0是一个开源的JDBC数据源实现项目。
+						- C3P0的数据源是`ComboPooledDataSource`。
+						- C3P0的设置参数说明，这个自己看书。
+						- 其中提到的和DBCP一样的关于检测数据库连接是否有效的方法，在C3P0中使用`idleConnectionTestPeriod`或`automaticTestTable`等方法去处理。
+							- `idleConnectionTestPeriod`的意思是说：间隔多少秒去检查所有连接池中的空闲连接，默认为0，表示不检查。
+							- `automaticTestTable`的意思是说：C3P0将自己创建一张Test表去测试连接的有效性。
+				- 获取JNDI数据源
+					- Spring支持应用服务器提供的数据源，应用服务器的数据源通过JNDI的方式开放给调用者使用，Spring提供了专门引用JNDI数据源的`JndiObjectFactoryBean`类。
+				- Spring数据源的实现类
+					- Spring通过实现`javax.sql.DataSource`接口实现了自己的数据源实现类`DriverManagerDataSource`。
+					- 该数据源没有提供连接池的功能，只能通过`getConnection()`方法简单的创建一个新的连接，所以不推荐在业务代码中使用，比较适合在单元测试和简单项目中使用。
 		- 第十一章 Spring的事务管理
+			- 1.数据库事务基础知识
+			  collapsed:: true
+				- 数据库事务
+				  collapsed:: true
+					- 定义：事务是一个或一系列操作的最小逻辑单元。在这个逻辑单元中的所有语句，要不都执行成功，要么都执行失败，不存在任何中间状态，一旦事务执行失败，那么所有的操作都会被撤销，一旦事务执行成功，那么所有的操作结果都会被保存。
+					- 特性
+					  collapsed:: true
+						- 原子性
+						  collapsed:: true
+							- 表示组成一个事务的多个数据库操作时一个不可分割的原子单元。一荣俱荣，一损共损。
+						- 一致性
+						  collapsed:: true
+							- 事务操作成功后，数据库的数据和业务逻辑规则是保持一致的。
+						- 隔离性
+						  collapsed:: true
+							- 在并发操作时，不同事务拥有各自的数据空间，互不影响。
+						- 持久性
+						  collapsed:: true
+							- 事务操作成功后，数据操作涉及的数据都被保持到数据库了。
+				- 数据的并发问题
+				  collapsed:: true
+					- 3类数据读问题
+					  collapsed:: true
+						- 脏读
+						- 不可重复读
+						- 幻读
+					- 2类数据更新问题
+					  collapsed:: true
+						- 第一类丢失问题（我称它为事务回滚覆盖问题）
+						  collapsed:: true
+							- A事务首先读取了数据
+							- B事务读取数据，修改数据，并提交事务。
+							- A修改了自己之前读取的数据，接着又回滚了事务，这倒好，他把B事务的修改直接抹掉了。
+						- 第二类丢失问题（我称它为事务提交覆盖问题）
+						  collapsed:: true
+							- A事务首先读取了数据
+							- B事务读取数据，修改数据，并提交事务。
+							- A修改了自己之前读取的数据，这倒好直接把B食物的修改给抹掉了。
+				- 事务锁机制
+				  collapsed:: true
+					- 锁按照粒度分为：表锁和行锁
+					- 锁按照行为方式分为：共享锁和独占锁
+					- 数据库自动为用户提供了锁的机制，对于开发来讲无需关系其具体实现细节。
+				- 事务隔离级别
+				  collapsed:: true
+					- 数据库会根据设定的隔离级别，自动为数据资源添加合适的锁。
+					- 分四级，按递增的属性并发性能逐渐减低，并发问题的处理能力越好
+					  collapsed:: true
+						- 读未提交
+						- 读提交
+						- 可重复读
+						- 串行化
+				- JDBC对事务的支持
+				  collapsed:: true
+					- JDBC可以通过`DatabaseMetaData`对象获取对底层数据库的支持情况。
+					- JDBC默认情况下是自动提交的，可以通过`Connection.setAutoCommit(false)`阻止自动提交。
+					- JDBC支持设置事务的隔离级别。
+					- JDBC支持提交和回滚事务。
+					- JDBC3.0支持保存点特性。
+			- 2.ThreadLocal基础知识
+			  collapsed:: true
+				- 多线程环境下，线程安全对象的构建思路两个
+				  collapsed:: true
+					- 一通过`synchronized`进行线程同步，用时间换空间，实现难度较大。
+					- 二通过`ThreadLocal`构建当前线程的本地变量副本，用空间换时间，实现简单。
+				- `ThreadLocal`的实现思路
+				  collapsed:: true
+					- ThreadLocal作为保存线程本地化对象的容器，实现上会使用一个MAP，键为当前线程的id，值则为线程所要保存的对象。
+					- ThreadLocal支持泛型。
+					- `InheritableThreadLocal`继承于ThreadLocal，它会自动为子线程复制一份从父线程那里继承而来的本地变量。
+				- `ThreadLocal`的接口方法，这个自己看书吧。
+				- Spring是通过ThreadLocal对一些非线程安全的有状态的对象进行封装，使其变得线程安全。
+			- 3.Spring对事务管理的支持
+				- 事务管理的关键抽象
+					- TransactionDefinition
+					  collapsed:: true
+						- 负责事务的定义。
+						- 属性
+						  collapsed:: true
+							- 事务隔离，配置事务的隔离级别，和数据库隔离级别是一个东西。它有一个默认的配置，意思是使用底层数据库的默认隔离级别。
+							- 事务传播，配置事务的传播属性，不同的事务传播逻辑，对业务逻辑是有影响的。
+							- 事务超时，配置事务的生命时长，如果超时，事务将会回滚。
+							- 只读状态，只读事务不能修改数据，只读事务在某些场景下是十分有用的，有很好的性能。
+					- TransactionStatus
+					  collapsed:: true
+						- 负责描述事物具体运行的状态，可以间接回滚事务。
+						- 该接口继承于SavepointManager接口，提供了分段事务控制能力。
+					- PlalfromTransactionManager
+					  collapsed:: true
+						- 负责管理事务。
+						- 三个接口方法
+							- getTransaction()：从事务环境返回一个事务或是新建一个事务。
+							- commit()：提交事务。
+							- rollback()：回滚事务。
+			- 4.编程式事务管理
+			- 5.使用XML配置声明式事务
+			- 6.使用注解配置声明式事务
+			- 7.集成特定的应用服务器
 		- 第十二章 Spring事务管理难点剖析
 		- 第十三章 使用Spring JDBC访问数据库
 		- 第十四章 整合其他ORM框架
