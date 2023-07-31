@@ -4958,6 +4958,7 @@
 		- 删除本地仓库的缓存：`git rm -r cached .`
 		- 修改最新commit的message信息：`git commit --amend`
 - 构建工具
+  collapsed:: true
 	- Maven
 		- 基础知识
 			- maven项目的一般结构
