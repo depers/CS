@@ -2011,6 +2011,7 @@
 						- 第一种通过`#{properties['属性名']}`
 						- 第二种通过`${属性名}`，这里需要一些额外的配置，具体看代码。
 		- 第十章 Spring对DAO的支持
+		  collapsed:: true
 			- 1.Spring的DAO理念
 			  collapsed:: true
 				- Spring提供了DAO（Data Access Object，用于访问数据的对象）上层抽象，屏蔽了底层Hibernate、MyBatis、JPA、JDP持久层技术的差异，提供了统一的方式进行调用和事务管理，避免了持久层技术对业务层代码的入侵。
@@ -2087,8 +2088,8 @@
 					- Spring通过实现`javax.sql.DataSource`接口实现了自己的数据源实现类`DriverManagerDataSource`。
 					- 该数据源没有提供连接池的功能，只能通过`getConnection()`方法简单的创建一个新的连接，所以不推荐在业务代码中使用，比较适合在单元测试和简单项目中使用。
 		- 第十一章 Spring的事务管理
-		  collapsed:: true
 			- 1.数据库事务基础知识
+			  collapsed:: true
 				- 数据库事务
 				  collapsed:: true
 					- 定义：事务是一个或一系列操作的最小逻辑单元。在这个逻辑单元中的所有语句，要不都执行成功，要么都执行失败，不存在任何中间状态，一旦事务执行失败，那么所有的操作都会被撤销，一旦事务执行成功，那么所有的操作结果都会被保存。
@@ -2147,6 +2148,7 @@
 					- JDBC支持提交和回滚事务。
 					- JDBC3.0支持保存点特性。
 			- 2.ThreadLocal基础知识
+			  collapsed:: true
 				- 多线程环境下，线程安全对象的构建思路两个
 				  collapsed:: true
 					- 一通过`synchronized`进行线程同步，用时间换空间，实现难度较大。
@@ -2160,12 +2162,12 @@
 				- Spring是通过ThreadLocal对一些非线程安全的有状态的对象进行封装，使其变得线程安全。
 			- 3.Spring对事务管理的支持
 				- 事务管理的关键抽象
-				  collapsed:: true
 					- `TransactionDefinition`
-					  collapsed:: true
+					  id:: 64c61efd-4e86-497a-95b0-0d20d0e0c124
 						- 负责事务的定义。
 						- 属性
-							- 事务隔离，配置事务的隔离级别，和数据库隔离级别是一个东西。它有一个默认的配置，意思是使用底层数据库的默认隔离级别。
+						  collapsed:: true
+							- 事务隔离的级别，配置事务的隔离级别，和数据库隔离级别是一个东西。它有一个默认的配置，意思是使用底层数据库的默认隔离级别。
 							- 事务传播，配置事务的传播属性，不同的事务传播逻辑，对业务逻辑是有影响的。
 							- 事务超时，配置事务的生命时长，如果超时，事务将会回滚。
 							- 只读状态，只读事务不能修改数据，只读事务在某些场景下是十分有用的，有很好的性能。
@@ -2177,6 +2179,7 @@
 					  collapsed:: true
 						- 负责管理事务。
 						- 三个接口方法
+						  collapsed:: true
 							- `getTransaction()`：从事务环境返回一个事务或是新建一个事务。
 							- `commit()`：提交事务。
 							- `rollback()`：回滚事务。
@@ -2189,40 +2192,174 @@
 				- 事务同步管理器
 				  collapsed:: true
 					- 背景
+					  collapsed:: true
 						- JDBC的Connection、Hibernate的iSession等访问数据库的连接或是会话对象，Spring将其统称为**资源**，这写资源在同一时刻是不能被多个线程共享使用的。
 						- 为了保证Spring中DAO、Service层对象的Singleton，**Spring事务同步管理器**使用`ThreadLocal`为不同事物的线程提供了独立的资源副本，同时维护了当前线程事务的配置属性和运行状态信息。
 						- `SynchronizationManager`事务同步管理器是Spring事务管理的基石。
 					- 资源获取工具类
 					  id:: 64c7c795-0563-474d-a5e0-1f1e0c0fef62
+					  collapsed:: true
 						- Spring为不同持久化框架提供的从`TransactionSynchronizationManager`中获取对应线程绑定资源的工具类，如下图所示
 						  ![获取线程绑定资源的工具类.png](../assets/获取线程绑定资源的工具类_1690811433175_0.png)
 						- 这些工具类的作用
+						  collapsed:: true
 							- 需要摆脱模板类，手工操作底层持久化技术的原生API。这里可以参考 ((64c3cc82-43e2-421a-a50e-60523725d0f1))。
 							- 可以使用这些工具将特定的持久化技术的异常，转换为Spring的DAO异常。
 							- 可以直接通过这些资源获取工具访问线程相关的资源。
 				- 事务的传播行为
-				  collapsed:: true
+				  id:: 64c7bd56-3a43-4d07-8c04-2a24e9643088
 					- 作用
+					  collapsed:: true
 						- Spring通过事务传播行为控制当前的事务是如何传播到嵌套调用的目标类方法中的。
 						- 通俗来讲我们如果给A方法加了事务，在A方法里面又调用了B方法，那么B方法的事务传播行为该如果定义。因为A此时已经有了事务。所以事务的传播行为就是用来协调事务嵌套的一种规则。
 					- 事务传播行为的类型
 						- 如下图所示
 						  ![事务传播行为的类型.png](../assets/事务传播行为的类型_1690812042703_0.png)
 			- 4.编程式事务管理
+			  collapsed:: true
 				- Spring的事务管理模板类
 				  collapsed:: true
 					- `TransactionTemplate`是Spring提供的事务管理模板类，是线程安全的，可以使用该类实现编程式事务管理。
 					- `TransactionTemplate`的两个重要方法
+					  collapsed:: true
 						- `setTransactionManager()`：设置事务管理器。
 						- `execute(TransactionCallBack action)`：在`TransactionCallBack`回调接口中定义需要以事务方式组织的数据访问逻辑，就是就在这个接口中编写需要手工执行事务的逻辑。
+						  collapsed:: true
 							- 若手工执行事务的逻辑有返回值，使用`TransactionCallBack`。
 							- 若手工执行事务的逻辑没有返回值，使用`TransactionWithoutResult`。
 							- 值得注意的是：在回调接口方法中需要显式访问底层数据连接，必须通过 ((64c7c795-0563-474d-a5e0-1f1e0c0fef62))得到绑定的数据连接。
 			- 5.使用XML配置声明式事务
-				-
+			  collapsed:: true
+				- 背景
+				  collapsed:: true
+					- 在Spring的早期阶段，使用`TransactionProxyFactoryBean`代理类对事务管理的业务类进行代理。
+					- Spring2.0后，可以通过使用`aop/tx`命名空间声明事务。
+				- 方式一：使用原始的`TransactionProxyFactoryBean`
+				  collapsed:: true
+					- 配置步骤
+					  collapsed:: true
+						- 1.配置好`datasource`，`jdbcTemplate`，`transactionTemplate`。
+						- 2.配置事务管理器`transactionManager`。
+						- 3.配置需要实施事务增强的业务目标Bean。
+						- 4.使用事务代理工厂类`TransactionProxyFactoryBean`为目标业务Bean提供事务增强。
+						  collapsed:: true
+							- 4.1指定事物管理器
+							- 4.2指定目标业务Bean
+							- 4.3配置**事务属性**
+							  collapsed:: true
+								- 事务属性配置的规则，如下图所示，具体细节请查书。这里针对于一次的配置过于繁琐和复杂，不建议使用方式一，这种方式去做配置。
+								  ![事务属性配置的规则.png](../assets/事务属性配置的规则_1690890069445_0.png)
+				- 方式二：基于aop/tx命名空间配置
+				  collapsed:: true
+					- 背景：由于Spring2.0引入了AspectJ切面定义语言的配置，所以事务方法切面描述的问题就容易解决了。
+					- 配置步骤
+					  collapsed:: true
+						- 1.配置事务管理器。
+						- 2.使用切点表达式定义目标方法。
+						- 3.配置事务增强。
 			- 6.使用注解配置声明式事务
+			  collapsed:: true
+				- 使用@Transactional注解
+				  collapsed:: true
+					- 配置步骤
+					  collapsed:: true
+						- 1.在Spring的Beans配置文件中添加如下配置，告知Spring对`@Transactional`注解进行处理
+						  collapsed:: true
+						  ```xml
+						  <bean id="txManager"
+						            class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+						            p:dataSource-ref="dataSource"/>
+						  
+						  <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+						  ```
+							- `transaction-manager`属性
+							  collapsed:: true
+								- 若用户配置的事务管理器id为`transactionManager`，则可以忽略改配置，直接配置`<tx:annotation-driven>`
+							- `proxy-target-class`属性
+							  collapsed:: true
+								- 若为`true`，Spring将通过创建子类的方式来代理目标类，这里需要使用CGLib。
+								- 若为`false`，Spring使用JDK的代理技术，基于接口的实现来做代理。
+							- `order`属性
+							  collapsed:: true
+								- 控制事务切面在目标连接点的织入顺序。
+						- 2.直接在业务代码中使用`@Transaction`。
+					- `@Transacational`的属性
+					  collapsed:: true
+						- 注解属性说明
+						  ![注解的属性说明.png](../assets/注解的属性说明_1690891142114_0.png)
+					- 在哪里使用`@Transactional`注解
+					  collapsed:: true
+						- `@Transactional`的配置位置
+						  collapsed:: true
+							- 接口定义
+							- 接口方法
+							- 类定义
+							- 类的`public`方法
+						- 如果在接口和接口方法上使用了`@Transactional`注解，在其实现类上该注解不会被继承，实现类和其方法是不会启用事务机制的。
+						- Spring建议在具体的业务类上使用`@Transactional`注解。
+					- 在方法上使用`@Transactional`，会覆盖类定义处的注解。
+					- 使用不同的事务管理器
+					  collapsed:: true
+						- 如果希望在不同的地方使用不同的事务管理器，有两种方案
+						  collapsed:: true
+							- 一在使用`@Transactional`注解时可以配置注解的属性`transactionManager`，指定特定的事务管理器的bean名称。
+							- 二是自定义一个绑定到特定事务管理器的注解，如下面代码所示，该自定义注解绑定的是`form`事务管理器
+							  ```java
+							  @Target({ElementType.METHOD, ElementType.TYPE})
+							  @Retention(RetentionPolicy.RUNTIME)
+							  @Transactional("forum")
+							  public @interface ForumTransactional {
+							  }
+							  
+							  ```
+				- 通过AspectJ LTW引入事务切面
+				  collapsed:: true
+					- 可以使用AspectJ提供的`AnnotationTransactionAspect`切面来，为`@Transactional`注解的业务类提供事务增强。
 			- 7.集成特定的应用服务器
+			  collapsed:: true
+				- Spring的事务抽象与应用服务器是无关的，如果想使用特定的事务管理器对象，获取更多的事务管理功能，Spring也为这些服务器提供了适配器。
+				- BEA WebLogic
+				- WebSphere
 		- 第十二章 Spring事务管理难点剖析
+			- 1.DAO层和事务管理存在的一些问题的讨论
+			  collapsed:: true
+				- DAO层指的就是我们的ORM框架，比如Spring JDBC、Spring JPA、Hibernate和MyBatis等等。
+				- JDBC和事务管理之间的问题
+					- 默认情况下，datasource数据源的autoCommit被设置为true，所以通过模板类JdbcTemplate执行的语句会马上提交，没有事务。
+					- 如果讲autoCommit设置为false，则JdbcTemplate必须显式的提交事务，否则所做的数据库操作并没有提交到数据库。
+					- 如果数据库本身不支持事务，就没有必要再去Spring配置事务管理器，因为配置了也没有用。
+				- Hibernate和事务管理器之间的问题
+					- Hibernate不会直接向数据库发送SQL语句，只有在**提交事务**和**`flush`一级缓存**的时候才会真正向数据库发送SQL。
+					- 如果不使用Spring为Hibernate提供的事务管理器，Spring就会采用默认的事务管理策略也就是只支持**只读的事务**，如果涉及更新操作会报异常。
+					- 综上所述，Hibernate在Spring中，在没有事务管理器的情况下，**只能读取数据而无法修改数据**。
+			- 2.应用分层的问题
+			  collapsed:: true
+				- 在Spring的web开发模式中一直倡导三层模式，分别是Controller，Service和Dao层。
+				- 其中Service层我们经常会先声明接口，然后再进行实现。其余两层基本上不做接口和实现的分离。
+				- 个人觉得，你可以直接讲三层合并到Controller来做，这样其实也是没错的，怎么方便怎么来。
+			- 3.事务方法嵌套调用的问题
+			  collapsed:: true
+				- 之前我曾在 ((64c61efd-4e86-497a-95b0-0d20d0e0c124))和 ((64c7bd56-3a43-4d07-8c04-2a24e9643088))中介绍了事务传播行为的配置和类型。
+				- 当嵌套的方法包含数据库操作时，数据库操作默认情况下事务的传播行为是`PROPAGATION_REQUIRED`，通俗来说就是当前有事务就加入，当前没事务就新建事务。
+			- 4.多线程中事务传播行为的问题
+			  collapsed:: true
+				- 一个类**是否线程安全**，换种说法**是否“无状态”**，即一个类不能有状态化的成员变量。
+				- Spring已经通过`ThreadLocal`将Bean无状态化。
+				- 换一种玩法：启动独立的线程去调用事务方法
+					- 具体步骤
+						- 模式事务的传播行为为`PROPAGATION_REQUIRED`。
+						  id:: 64c9085f-1eca-47b1-84ad-e3f2bd4b7755
+						- 在方法A中，先执行数据库操作。
+						- 然后再方法A中新启一个线程去执行B方法中的数据库操作。
+					- 实验结论
+						- 方法A的执行是在一个线程一个事务中的。
+						- 方法B的执行新启了一个线程，同时也新启了一个事务。
+						- 两个线程和事务互不影响。
+			- 5.在一个项目中使用两种不同的持久化框架
+				- Spring支持在一个项目中使用两个不同的持久化框架，假如你使用Hibernate+Spring JDBC的持久化方案，Hibernate使用的是会话对数据库进行操作，而JDBC使用的是连接，Spring会将同一个事务线程中让Hibernate的会话去封装后者的连接，从而只需使用Hibernate的事务管理器就可以提供事务管理的能力了。
+				- Spring为不同框架组合提供的事务管理器
+				  ![事务管理器.png](../assets/事务管理器_1690896845974_0.png)
+				- 上面说的这种方式不推荐。
 		- 第十三章 使用Spring JDBC访问数据库
 		- 第十四章 整合其他ORM框架
 		- 第十五章 Spring Cache
