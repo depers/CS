@@ -187,6 +187,7 @@
 		- Kubernetes服务发现的过程
 			-
 - kubectl的命令
+  collapsed:: true
 	- kubectl
 	  collapsed:: true
 		- kubectl是在进行Kubernetes管理的过程中使用的主要命令行工具。
@@ -248,6 +249,7 @@
 			- `-f xxx.yaml`：指定yaml或是json的配置文件。
 			-
 - docker
+  collapsed:: true
 	- docker的三个概念
 		- 镜像（image）：镜像中包含了应用软件运行的基础设施和应用软件本身。镜像的名称一般由`镜像名:TAG`组成。
 		- 容器（container）：容器是镜像创建的运行实例。
@@ -379,4 +381,12 @@
 		- [只要一小时，零基础入门Docker](https://zhuanlan.zhihu.com/p/23599229)
 		- [Docker进阶：容器中的数据管理](https://zhuanlan.zhihu.com/p/23630443)
 - 比较好的博客文章
+  collapsed:: true
 	- [一文带你了解虚拟化、虚拟机、Docker及裸金属服务器](https://www.a-programmer.top/2022/07/23/%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E4%BA%86%E8%A7%A3%E8%99%9A%E6%8B%9F%E5%8C%96%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%81Docker%E5%8F%8A%E8%A3%B8%E9%87%91%E5%B1%9E%E6%9C%8D%E5%8A%A1%E5%99%A8/)
+- youtube k8s
+	- Kubernetes的官方定义
+		- 开源的容器编排工具
+		- google
+	- Kubernetes解决了什么问题
+	- 编排工具提供了哪些功能
+		-

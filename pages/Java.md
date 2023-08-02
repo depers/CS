@@ -1,8 +1,6 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -347,7 +345,6 @@
 					- 参考博客：
 						- [System.arraycopy() in Java](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 			- 关键字final和static
-			  collapsed:: true
 				- final
 				  collapsed:: true
 					- 修饰类
@@ -390,10 +387,8 @@
 										- 在构造函数中初始化该字段
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/basic/keyword/final_
 				- static
-				  collapsed:: true
 					- 静态变量
 					- 静态方法
-					  collapsed:: true
 						- 只能访问所属类的静态字段和静态方法，方法中不能有 this 和 super 关键字，因为这两个关键字与具体对象关联。
 					- 静态语句块
 					- 静态内部类
@@ -586,9 +581,7 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
-		  collapsed:: true
 			- Object通用方法
-			  collapsed:: true
 				- equals
 				  collapsed:: true
 					- Java SE中针对equals()的原则
@@ -877,7 +870,6 @@
 							- Instance initializer block
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/instanceinitializerblock
 				- 抽象类和接口
-				  collapsed:: true
 					- 抽象类
 						- 背景：由于多态的存在，每个子类都可以覆写父类的方法。我们发现父类的方法其实并没有实际的意义，想要去掉方法的执行语句
 						- 定义
@@ -891,13 +883,22 @@
 					- 接口
 						- 如果一个抽象类没有字段，所有方法全部都是抽象方法，就可以将该抽象类改写为接口
 						- 特点
-							- 一个类可以实现多个interface
-							- 接口定义的所有方法默认都是public abstract的
-							- 接口是无法实例化的。可以通过实现一个匿名内部类来实例化对象
-							- 接口中是无法定义静态语句块的
+							- 一个类可以实现多个interface。
+							- 接口定义的所有方法默认都是public abstract的。
+							- 接口是无法实例化的。可以通过实现一个匿名内部类来实例化对象。
+							- 接口中是无法定义静态语句块的。
+							- 接口变量的默认修饰符是`public static final`，所以很适合在接口中声明常量。
 						- 与抽象类的比较
-						  collapsed:: true
-							-
+							- 语法层面上
+							  collapsed:: true
+								- 抽象类可以提供成员方法的实现细节，而接口中只能存在 public abstract 方法；
+								- 抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是 public static final 类型的；
+								- 接口中不能含有静态代码块，而抽象类可以有静态代码块；
+								- 一个类只能继承一个抽象类，而一个类却可以实现多个接口。
+							- 设计层面上
+							  collapsed:: true
+								- 抽象类是对一种事物的抽象，即对类抽象，继承抽象类的子类和抽象类本身是一种 `is-a` 的关系。而接口是对行为的抽象。
+								- 抽象类是对整个类整体进行抽象，包括属性、行为，但是接口却是对类局部（行为）进行抽象。
 						- default
 						  collapsed:: true
 							- 在接口中可以有自己的方法实现，通过default方法（JDK>=1.8）

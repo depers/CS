@@ -2013,16 +2013,13 @@
 		- 第十章 Spring对DAO的支持
 		  collapsed:: true
 			- 1.Spring的DAO理念
-			  collapsed:: true
 				- Spring提供了DAO（Data Access Object，用于访问数据的对象）上层抽象，屏蔽了底层Hibernate、MyBatis、JPA、JDP持久层技术的差异，提供了统一的方式进行调用和事务管理，避免了持久层技术对业务层代码的入侵。
 			- 2.统一的异常体系
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 原有JDK提供的API因为检查型异常的泛滥，导致很难使用，对业务代码又入侵。
 					- 统一异常体系是整合不同持久层的关键。
 				- Spring DAO异常体系
-				  collapsed:: true
 					- 第一层次的异常类
 					  collapsed:: true
 						- 如下图所示，下面异常类都要多个子类进行了异常的细分
@@ -2041,22 +2038,20 @@
 				- 传统的JDBC数据访问的代码，具体见代码。
 				- Spring将传统的数据方法方式进行了模板化，将数据访问中固定和变化的部分做了区分，保证了模板类的线程安全，以便多个数据访问线程共享同一个模板实例。
 				- Spring DAO模板和回调
-				  collapsed:: true
 					- 如下图所示，DAO模板是固定的，DAO回调是变化的
 					  ![spring dao模板.png](../assets/spring_dao模板_1690553461296_0.png)
 				- Spring为不同持久化层提供的模板类
 				  id:: 64c3cc82-43e2-421a-a50e-60523725d0f1
 					- 不同持久化层对应的模板类
+					  id:: 64c3cc8e-2300-4130-9a3e-0f602004c388
 						- 如下图所示
 						  ![模板类.png](../assets/模板类_1690553721208_0.png)
 					- 不同持久化层对应的支持类
 						- 如下图所示，下面这些类都继承自`dao.support.DaoSupport`类，这个类实现了`InitializingBean`接口，会在`afterPropertiesSet()`接口方法中检查模板对象和数据源是否正确设置，否则会报错。
 						  ![支持类.png](../assets/支持类_1690553734098_0.png)
 			- 4.数据源
-			  collapsed:: true
 				- 数据源的作用：所有的持久化技术都需要数据连接才能进行具体操作，数据源负责**提供**和**管理**数据连接。
 				- Spring依赖的两个数据源实现
-				  collapsed:: true
 					- Apache的DBCP
 					  collapsed:: true
 						- DBCP是依赖Jakarta commons-pool对象池机制的数据源，需要引这个包。
@@ -2084,10 +2079,10 @@
 				  collapsed:: true
 					- Spring支持应用服务器提供的数据源，应用服务器的数据源通过JNDI的方式开放给调用者使用，Spring提供了专门引用JNDI数据源的`JndiObjectFactoryBean`类。
 				- Spring数据源的实现类
-				  collapsed:: true
 					- Spring通过实现`javax.sql.DataSource`接口实现了自己的数据源实现类`DriverManagerDataSource`。
 					- 该数据源没有提供连接池的功能，只能通过`getConnection()`方法简单的创建一个新的连接，所以不推荐在业务代码中使用，比较适合在单元测试和简单项目中使用。
 		- 第十一章 Spring的事务管理
+		  collapsed:: true
 			- 1.数据库事务基础知识
 			  collapsed:: true
 				- 数据库事务
@@ -2184,21 +2179,17 @@
 							- `commit()`：提交事务。
 							- `rollback()`：回滚事务。
 				- Spring事务管理器的实现类
-				  collapsed:: true
 					- 不同持久化技术对应的事务管理器的实现类，如下图所示
 					  ![不同持久化技术事务管理器的实现类1.png](../assets/不同持久化技术事务管理器的实现类1_1690810773289_0.png)
 					  ![不同持久化技术事务管理器的实现类2.png](../assets/不同持久化技术事务管理器的实现类2_1690810786144_0.png)
 					- 接着书中又介绍了Spring JDBC、MyBatis、JPA、Hibernate、JTA的事务管理器的具体配置，这个这里就不再细说。
 				- 事务同步管理器
-				  collapsed:: true
 					- 背景
-					  collapsed:: true
 						- JDBC的Connection、Hibernate的iSession等访问数据库的连接或是会话对象，Spring将其统称为**资源**，这写资源在同一时刻是不能被多个线程共享使用的。
 						- 为了保证Spring中DAO、Service层对象的Singleton，**Spring事务同步管理器**使用`ThreadLocal`为不同事物的线程提供了独立的资源副本，同时维护了当前线程事务的配置属性和运行状态信息。
 						- `SynchronizationManager`事务同步管理器是Spring事务管理的基石。
 					- 资源获取工具类
 					  id:: 64c7c795-0563-474d-a5e0-1f1e0c0fef62
-					  collapsed:: true
 						- Spring为不同持久化框架提供的从`TransactionSynchronizationManager`中获取对应线程绑定资源的工具类，如下图所示
 						  ![获取线程绑定资源的工具类.png](../assets/获取线程绑定资源的工具类_1690811433175_0.png)
 						- 这些工具类的作用
@@ -2229,15 +2220,12 @@
 							- 若手工执行事务的逻辑没有返回值，使用`TransactionWithoutResult`。
 							- 值得注意的是：在回调接口方法中需要显式访问底层数据连接，必须通过 ((64c7c795-0563-474d-a5e0-1f1e0c0fef62))得到绑定的数据连接。
 			- 5.使用XML配置声明式事务
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 在Spring的早期阶段，使用`TransactionProxyFactoryBean`代理类对事务管理的业务类进行代理。
 					- Spring2.0后，可以通过使用`aop/tx`命名空间声明事务。
 				- 方式一：使用原始的`TransactionProxyFactoryBean`
-				  collapsed:: true
 					- 配置步骤
-					  collapsed:: true
 						- 1.配置好`datasource`，`jdbcTemplate`，`transactionTemplate`。
 						- 2.配置事务管理器`transactionManager`。
 						- 3.配置需要实施事务增强的业务目标Bean。
@@ -2258,11 +2246,8 @@
 						- 2.使用切点表达式定义目标方法。
 						- 3.配置事务增强。
 			- 6.使用注解配置声明式事务
-			  collapsed:: true
 				- 使用@Transactional注解
-				  collapsed:: true
 					- 配置步骤
-					  collapsed:: true
 						- 1.在Spring的Beans配置文件中添加如下配置，告知Spring对`@Transactional`注解进行处理
 						  collapsed:: true
 						  ```xml
@@ -2322,11 +2307,10 @@
 				- WebSphere
 		- 第十二章 Spring事务管理难点剖析
 			- 1.DAO层和事务管理存在的一些问题的讨论
-			  collapsed:: true
 				- DAO层指的就是我们的ORM框架，比如Spring JDBC、Spring JPA、Hibernate和MyBatis等等。
 				- JDBC和事务管理之间的问题
-					- 默认情况下，datasource数据源的autoCommit被设置为true，所以通过模板类JdbcTemplate执行的语句会马上提交，没有事务。
-					- 如果讲autoCommit设置为false，则JdbcTemplate必须显式的提交事务，否则所做的数据库操作并没有提交到数据库。
+					- 默认情况下，`datasource`数据源的`autoCommit`被设置为`true`，所以通过模板类JdbcTemplate执行的语句会马上提交，没有事务。
+					- 如果讲`autoCommit`设置为`false`，则JdbcTemplate必须显式的提交事务，否则所做的数据库操作并没有提交到数据库。
 					- 如果数据库本身不支持事务，就没有必要再去Spring配置事务管理器，因为配置了也没有用。
 				- Hibernate和事务管理器之间的问题
 					- Hibernate不会直接向数据库发送SQL语句，只有在**提交事务**和**`flush`一级缓存**的时候才会真正向数据库发送SQL。
@@ -2338,7 +2322,6 @@
 				- 其中Service层我们经常会先声明接口，然后再进行实现。其余两层基本上不做接口和实现的分离。
 				- 个人觉得，你可以直接讲三层合并到Controller来做，这样其实也是没错的，怎么方便怎么来。
 			- 3.事务方法嵌套调用的问题
-			  collapsed:: true
 				- 之前我曾在 ((64c61efd-4e86-497a-95b0-0d20d0e0c124))和 ((64c7bd56-3a43-4d07-8c04-2a24e9643088))中介绍了事务传播行为的配置和类型。
 				- 当嵌套的方法包含数据库操作时，数据库操作默认情况下事务的传播行为是`PROPAGATION_REQUIRED`，通俗来说就是当前有事务就加入，当前没事务就新建事务。
 			- 4.多线程中事务传播行为的问题
@@ -2356,11 +2339,37 @@
 						- 方法B的执行新启了一个线程，同时也新启了一个事务。
 						- 两个线程和事务互不影响。
 			- 5.在一个项目中使用两种不同的持久化框架
+			  collapsed:: true
 				- Spring支持在一个项目中使用两个不同的持久化框架，假如你使用Hibernate+Spring JDBC的持久化方案，Hibernate使用的是会话对数据库进行操作，而JDBC使用的是连接，Spring会将同一个事务线程中让Hibernate的会话去封装后者的连接，从而只需使用Hibernate的事务管理器就可以提供事务管理的能力了。
 				- Spring为不同框架组合提供的事务管理器
 				  ![事务管理器.png](../assets/事务管理器_1690896845974_0.png)
 				- 上面说的这种方式不推荐。
+			- 6.哪些方法是不能实施Spring AOP事务的
+			  collapsed:: true
+				- 背景：Spring的事务管理是基于接口代理和动态字节码技术的。其中基于接口代理就是JDK的动态代理技术，他会创建接口的代理类，CGLib则是通过创建目标类的子类的方式去进行AOP增强的织入的。
+				- 不能被Spring AOP事务增强的方法，如下图所示
+				  ![不能被aop事务增强的方法.png](../assets/不能被aop事务增强的方法_1690982019998_0.png)
+					- 值得注意的是
+						- 这些方法和被事务增强的方法的唯一区别：是否可以主动的启动一个新的事务。后者是可以的。
+						- 这些方法如果被外层事务增强的方法调用了，由于Spring事务传播的特性，内部的方法是可以共享外部方法的事务上下文的，也就是说也是受事务增强范围内的。
+			- 7.数据连接泄露问题
+				- 切记：只要你的程序中使用了 ((64c3cc8e-2300-4130-9a3e-0f602004c388))进行数据访问，就一定不会存在数据泄露问题。
+				- 背景：使用模板类**直接获取数据连接**，会造成连接泄露的问题。
+				- 如果我们想直接获取被Spring管理的数据连接而不会造成连接泄露呢，有两种办法
+					- 第一种：使用 ((64c7c795-0563-474d-a5e0-1f1e0c0fef62))
+						- 这里有分两种情况，第一种在开启事务管理的情况下
+							- 使用资源获取工具直接获取数据连接，而不需要再担心连接的释放问题，Spring会自动帮我们释放。
+						- 第二种情况，在没有无事务环境下
+							- 使用资源获取工具获取数据连接后，需要在`finally`子句中手动的释放连接。
+					- 第二种：对数据源进行代理
+						- 可以通过TransactionAwareDataSourceProxy对数据源进行代理，然后数据源就有了感知事务上下文的能力，这样你通过模板类直接获取数据连接的方式就不会造成连接泄露了。
+						- 不同数据访问技术框架下TransactionAwareDataSourceProxy的等价类
+						  ![等价类.png](../assets/等价类_1690984021600_0.png)
 		- 第十三章 使用Spring JDBC访问数据库
+			- 1.使用Spring JDBC
+				- 在Dao层使用JdbcTemplate的步骤
+					- 1.在Spring的配置文件中定义`DataSoure`和`JdbcTemplate`。
+					- 2.在Dao层的代码逻辑中注入`JdbcTemplate`去执行sql。
 		- 第十四章 整合其他ORM框架
 		- 第十五章 Spring Cache
 		- 第十六章 任务调度和异步执行器
