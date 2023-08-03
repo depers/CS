@@ -345,6 +345,7 @@
 					- 参考博客：
 						- [System.arraycopy() in Java](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 			- 关键字final和static
+			  collapsed:: true
 				- final
 				  collapsed:: true
 					- 修饰类
@@ -3908,6 +3909,7 @@
 - Java EE
   collapsed:: true
 	- Servlet
+	  collapsed:: true
 		- Java web application介绍
 		  collapsed:: true
 			- 静态和动态网站的区别
@@ -4828,9 +4830,7 @@
 			- 注意
 				- 关于</welcome-file>不能指定Servlet的解决办法：https://www.cnblogs.com/taoweiji/p/3248847.html，我这里采用的是<meta http-equiv="refresh" content="0;URL=/ServletJNDIByServer">
 	- JDBC
-	  collapsed:: true
 		- JDBC核心API
-		  collapsed:: true
 			- 驱动管理器接口：java.sql.DriverManager
 			  collapsed:: true
 				- 获取Driver的实现
@@ -4852,6 +4852,7 @@
 					- driversIterator.next()方法会执行ServiceLoader#next()方法，这个方法会主动触发 ClassLoader 加载，将SPI获取的驱动类进行实例化，将驱动注册到JDBC。
 					- 看这个方法：java.util.ServiceLoader.LazyIterator#nextService。
 			- 建立连接 - java.sql.Connection
+			  collapsed:: true
 				- 建立连接的方式
 					- `Connection DriverManager.getContection(String url, String user, String password);`：建立一个数据库连接，返回一个Connection对象
 					- **推荐**：使用DataSource对象获取数据源
@@ -4864,6 +4865,7 @@
 							- CUD（增删改）：int java.sql.Statement#executeUpdate(java.lang.String)
 						- DDL 语句
 							- 使用boolean java.sql.Statement#execute(java.lang.String)
+							  collapsed:: true
 								- 成功的话：不需要返回值（返回值 false）
 								- 失败的话：SQLException
 					- 关闭操作
@@ -4877,7 +4879,6 @@
 				- 存储过程 SQL 命令 - java.sql.CallableStatement
 					- 功能：用于执行可能包含输入和输出参数的存储过程。
 					- 继承了` java.sql.PreparedStatement`
-				-
 			- 执行SQL
 			  collapsed:: true
 				- 核心方法
@@ -4885,12 +4886,10 @@
 					- **executeQuery**：返回一个ResultSet对象。
 					- **executeUpdate**：返回一个整数，表示受 SQL 语句影响的行数。 如果您正在使用 INSERT、DELETE 或 UPDATE SQL 语句，请使用此方法
 			- 处理结果，结果集接口 - java.sql.ResultSet
-			  collapsed:: true
 				- 可以通过游标访问 ResultSet 对象中的数据。
 				- 调用 ResultSet 对象中定义的各种方法来移动光标。
 			- 关闭连接
-			  collapsed:: true
-				- 在使用完一个`Connection`，`Statement`，或者`ResultSet`对象之后，应该使用他们的close方法释放资源。
+				- 在使用完一个`Connection`，`Statement`，或者`ResultSet`对象之后，应该使用他们的`close`方法释放资源。
 				- 或者，使用 **try-with-resources** 语句自动关闭 Connection、Statement 和 ResultSet 对象，无论是否抛出 SQLException。
 		- 使用DataSource对象获取数据源
 		  collapsed:: true

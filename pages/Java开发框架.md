@@ -1,5 +1,6 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
+	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -2306,7 +2307,9 @@
 				- BEA WebLogic
 				- WebSphere
 		- 第十二章 Spring事务管理难点剖析
+		  collapsed:: true
 			- 1.DAO层和事务管理存在的一些问题的讨论
+			  collapsed:: true
 				- DAO层指的就是我们的ORM框架，比如Spring JDBC、Spring JPA、Hibernate和MyBatis等等。
 				- JDBC和事务管理之间的问题
 					- 默认情况下，`datasource`数据源的`autoCommit`被设置为`true`，所以通过模板类JdbcTemplate执行的语句会马上提交，没有事务。
@@ -2322,6 +2325,7 @@
 				- 其中Service层我们经常会先声明接口，然后再进行实现。其余两层基本上不做接口和实现的分离。
 				- 个人觉得，你可以直接讲三层合并到Controller来做，这样其实也是没错的，怎么方便怎么来。
 			- 3.事务方法嵌套调用的问题
+			  collapsed:: true
 				- 之前我曾在 ((64c61efd-4e86-497a-95b0-0d20d0e0c124))和 ((64c7bd56-3a43-4d07-8c04-2a24e9643088))中介绍了事务传播行为的配置和类型。
 				- 当嵌套的方法包含数据库操作时，数据库操作默认情况下事务的传播行为是`PROPAGATION_REQUIRED`，通俗来说就是当前有事务就加入，当前没事务就新建事务。
 			- 4.多线程中事务传播行为的问题
@@ -2353,6 +2357,7 @@
 						- 这些方法和被事务增强的方法的唯一区别：是否可以主动的启动一个新的事务。后者是可以的。
 						- 这些方法如果被外层事务增强的方法调用了，由于Spring事务传播的特性，内部的方法是可以共享外部方法的事务上下文的，也就是说也是受事务增强范围内的。
 			- 7.数据连接泄露问题
+			  collapsed:: true
 				- 切记：只要你的程序中使用了 ((64c3cc8e-2300-4130-9a3e-0f602004c388))进行数据访问，就一定不会存在数据泄露问题。
 				- 背景：使用模板类**直接获取数据连接**，会造成连接泄露的问题。
 				- 如果我们想直接获取被Spring管理的数据连接而不会造成连接泄露呢，有两种办法
@@ -2366,7 +2371,9 @@
 						- 不同数据访问技术框架下TransactionAwareDataSourceProxy的等价类
 						  ![等价类.png](../assets/等价类_1690984021600_0.png)
 		- 第十三章 使用Spring JDBC访问数据库
+		  collapsed:: true
 			- 1.使用Spring JDBC
+			  collapsed:: true
 				- 在Dao层使用JdbcTemplate的步骤
 					- 1.在Spring的配置文件中定义`DataSoure`和`JdbcTemplate`。
 					- 2.在Dao层的代码逻辑中注入`JdbcTemplate`去执行sql。
