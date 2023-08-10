@@ -2375,8 +2375,13 @@
 			- 1.使用Spring JDBC
 			  collapsed:: true
 				- 在Dao层使用JdbcTemplate的步骤
+				  collapsed:: true
 					- 1.在Spring的配置文件中定义`DataSoure`和`JdbcTemplate`。
 					- 2.在Dao层的代码逻辑中注入`JdbcTemplate`去执行sql。
+			- 2.基本的数据操作
+			- 3.BLOB/CLOB类型数据的操作
+			- 4.自增键和行集
+			- 5.NamedParameterJdbcTemplate模版类
 		- 第十四章 整合其他ORM框架
 		- 第十五章 Spring Cache
 		- 第十六章 任务调度和异步执行器

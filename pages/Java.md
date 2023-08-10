@@ -1,6 +1,8 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -582,6 +584,7 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
+		  collapsed:: true
 			- Object通用方法
 				- equals
 				  collapsed:: true
@@ -871,6 +874,7 @@
 							- Instance initializer block
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/instanceinitializerblock
 				- 抽象类和接口
+				  collapsed:: true
 					- 抽象类
 						- 背景：由于多态的存在，每个子类都可以覆写父类的方法。我们发现父类的方法其实并没有实际的意义，想要去掉方法的执行语句
 						- 定义
@@ -1733,9 +1737,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
-		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -1837,7 +1839,6 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
-			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -2015,7 +2016,6 @@
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
 				- List的比较和使用场景
 				- List的应用
-				  collapsed:: true
 					- 多维列表
 					  collapsed:: true
 						- 创建二维数组：ArrayList<ArrayList<Integer>>
@@ -2547,7 +2547,6 @@
 				  collapsed:: true
 					- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 		- 并发
-		  collapsed:: true
 			- Thread
 			  collapsed:: true
 				- 核心方法
@@ -2747,6 +2746,7 @@
 				- Converting With Java 9 –  *InputStream.readAllBytes()*
 				- 参考文章：[Java InputStream to String](https://www.baeldung.com/convert-input-stream-to-string)
 			- 文件下载
+			  collapsed:: true
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
