@@ -2,7 +2,6 @@
 	- Java基础
 	  collapsed:: true
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -959,8 +958,8 @@
 						- 在实现序列化接口的时候，我们一般显式的给serialVersionUID设置一个固定值。这样无论类后期增加成员变量还是删除成员变量，都不会发生错误。
 						- 如果在实现Serializable接口的时候，没有显式指定一个固定值，java序列化机制是会自动生成一个serialVersionUID，这个自动值会受类名称、它所实现的接口、以及所有的共有的私有的和受保护的成员变量的影响。如果这些值改变，那么这个自动值也会改变。在反序列化时，便会出错。
 		- 异常处理
-		  collapsed:: true
 			- 异常体系
+			  collapsed:: true
 				- 分类
 					- 检查性异常：需强制捕获
 					- 运行时异常：无需强制捕获
@@ -972,31 +971,41 @@
 					- throw：用于抛出异常
 					- throws：用在方法签名中，用于声明该方法可能抛出的异常
 			- 捕获异常
+			  collapsed:: true
 				- 多catch语句
+				  collapsed:: true
 					- catch的顺序非常重要：子类必须写在前面
 					- 多个catch语句只有一个能被执行
 				- finally语句
+				  collapsed:: true
 					- finally语句不是必须的，可写可不写
 					- finally总是最后执行
 					- finally是用来保证一些代码必须执行的
 				- 捕获多种异常
+				  collapsed:: true
 					- 一个catch语句也可以匹配多个非继承关系的异常
 					- 因为处理异常的逻辑想通过，可以用`|`合并到一起，像这样catch (IOException | NumberFormatException e)
 			- 抛出异常
+			  collapsed:: true
 				- 调用printStackTrace()可以打印异常的传播栈，对于调试非常有用
 				- 保存原始的Exception信息
+				  collapsed:: true
 					- A方法调用B方法，两个方法相继抛出异常，A方法的异常信息将会丢失，说明新的异常丢失了原始异常信息
 					- 为了追踪到完整的异常栈，在构造异常的时候，把原始的Exception实例传进去，新的Exception就可以持有原始Exception信息
 				- 屏蔽异常（抑制异常）
+				  collapsed:: true
 					- 定义：若在catch和finally中都抛出异常，原来在catch中的异常就会消失，因为只能抛出一个异常。没有被抛出的异常（catch中的异常），称为“被屏蔽”的异常（Suppressed Exception）
 					- 保存输出屏蔽异常的方法
+					  collapsed:: true
 						- 方法一：将catch中的异常使用一个变量进行保存，然后在finally的异常中，使用e.addSuppressed(origin)方法添加到屏蔽异常的数组中
 						- 方法二：try-with-resource代码块可以直接捕获屏蔽异常
 			- 自定义异常
 				- Java标准库定义的常用异常
+				  collapsed:: true
 					- Exception
 					  collapsed:: true
 						- RuntimeException
+						  collapsed:: true
 							- NullPointerException
 							- IndexOutOfBoundsException
 							- SecurityException
@@ -1013,11 +1022,14 @@
 						- SQLException
 						- TimeoutException
 				- 大型项目中定义异常的继承体系
+				  collapsed:: true
 					- 1. 定义一个BaseException作为根异常
 					- 2. BaseException通常从RuntimeException派生
 			- NullPointerException
+			  collapsed:: true
 				- 查看NullPointerException的详细信息，我们可以看到具体的对象是否为null，可以添加JVM参数开启该功能：-XX:+ShowCodeDetailsInExceptionMessages
 			- 断言
+			  collapsed:: true
 				- assert的语法：`assert x > 0 : "<提示话术>";` 这句代码的意思就是说，如果x > 0为false，就会抛出AssertionError，并终止执行
 				- 断言会抛出AssertionError异常，导致程序结束退出
 				- assert如果断言失败会抛出，JVM默认是会关闭断言指令，需要给Java虚拟机传递-enableassertions（可简写为`-ea`）参数启用断言
@@ -1040,6 +1052,7 @@
 						- 来自 java.lang.reflect包
 						- 是必检类型的异常
 				- UndeclaredThrowableException
+				  collapsed:: true
 					- 特点
 					  collapsed:: true
 						- 来自 java.lang.reflect包
@@ -1236,20 +1249,22 @@
 				  collapsed:: true
 					- [使用 Java 读取 X.509 证书信息](https://janking.netlify.app/post/x509.html)
 		- 泛型
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 解决的问题：Java数据类型和自定义对象类型较多，一种公共的数据结构或是算法，需要针对不同的类型和对象进行不同的处理。而且特别容易出错，例如类型强转错误
 				- 定义：泛型编写模板代码来适应任意类型，又通过编译器保证了类型安全。例如ArrayList<T>，然后在代码中为用到的类创建对应的ArrayList<类型>，就可以创建任意类型的ArrayList
 			- 相关名词
+			  collapsed:: true
 				- 类型变量（Type Varibles）：也称为泛型参数，用于指定一个泛型类型名称的标识符。也就是我们常见的E，T，K等标记符。
 				- 参数化类型（Parameterized Types）：泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。这是一种行为。
 			- 特点
+			  collapsed:: true
 				- 泛型的好处是使用时不必对类型进行强制转换，它通过编译器对类型进行检查
 				- 泛型的继承关系：可以把ArrayList<Integer>向上转型为List<Integer>（T不能变，这里的T指的是Integer），但不能把ArrayList<Integer>向上转型为ArrayList<Number>或List<Number>（T不能变成父类）
 				- 泛型可以同时定义多种类型，例如Map<K, V>
 				- Java的泛型只能在类、构造器和方法上进行声明
 			- Java中的泛型标记符
+			  collapsed:: true
 				- E - Element (在集合中使用，因为集合中存放的是元素)
 				- T - Type（Java 类）
 				- K - Key（键）
@@ -1257,6 +1272,7 @@
 				- N - Number（数值类型）
 				- ？ - 表示不确定的 java 类型
 			- 泛型的使用
+			  collapsed:: true
 				- 泛型类
 				  collapsed:: true
 					- 泛型类的定义
@@ -1281,16 +1297,21 @@
 					- 泛型类中的泛型方法
 					- 静态方法和泛型
 			- 擦拭法
+			  collapsed:: true
 				- Java泛型的局限性
 					- 局限一：<T>不能是基本类型，例如int，因为实际类型是Object，Object类型无法持有基本类型
 					- 局限二：无法取得带泛型对象的Class
+					  collapsed:: true
 						- 特殊案例
+						  collapsed:: true
 							- 可以通过类的继承和接口实现关系，获取泛型的Class对象
 							- 具体实现：cn.bravedawn.generic.typeerasure.tclass.Main
 						- [Java 获取泛型类型](https://www.jianshu.com/p/6bb9b8d6ee7a)
 					- 局限三：无法判断带泛型的类型，这里是有解决办法的，这个可以参考cn.bravedawn.generic.typeerasure.GenericType
 					- 局限四：不能实例化T类型
+					  collapsed:: true
 						- 泛型中不能new T()的原因有两个
+						  collapsed:: true
 							- 一是因为擦除，不能确定类型
 							- 二是无法确定T中是否包含无参构造函数
 					- 局限五：不能定义泛型参数化的静态成员变量
@@ -1300,16 +1321,18 @@
 					  collapsed:: true
 						- public class GenericException<T> extends Exception {}
 				- 不恰当的覆写方法
+				  collapsed:: true
 					- 不能覆写Object方法的equals(Object)为equals(T)
 				- 泛型继承
+				  collapsed:: true
 					- 继承泛型类型的情况下，子类可以获取父类的泛型类型。这里可以参考cn.bravedawn.generic.typeerasure.IntPair
 			- 限定通配符
+			  collapsed:: true
 				- `<? extends T>`
 					- 作用：对泛型参数的上界进行限制，必须是泛型T或是他的子类
 					- 作为方法参数时控制泛型参数类型为指定类型或是他的子类
 					- 上界描述符`extends`适合读取（get）的场景（可以获取具体类型和Object类型），并不适合写入（set，传入null除外）的场景
 					- 当`<? extends T>`作为泛型方法参数或是泛型变量声明的时候，这条规则都适用
-					  collapsed:: true
 						- 泛型方法参数声明：cn.bravedawn.generic.wildcards.upperbounds.v2.Main
 						- 泛型变量声明：cn.bravedawn.generic.wildcards.upperbounds.v3.Test*#main*
 				- `<? super T>`
@@ -1332,6 +1355,7 @@
 					- 作用：实现jdk1.5之前代码的兼容
 					- 定义：在编译一个继承泛型类或是实现泛型接口的类和接口的时候，编译器会创建一个合成方法。称为桥接方法，他是类型擦除过程中的一部分。
 			- 参考文章：
+			  collapsed:: true
 				- [廖雪峰-泛型](https://www.liaoxuefeng.com/wiki/1252599548343744/1265104600263968)
 		- 注解
 		  collapsed:: true
@@ -1422,10 +1446,12 @@
 			- Class类
 			  collapsed:: true
 				- 特点
+				  collapsed:: true
 					- 除基本类型外，Java的其他类型都是Class（包括interface），Class的本质是数据类型
 					- 每个类的Class对象是在装载类时，由JVM通过调用类装载器中的`defineClass()`方法自动构建的。
 					- 由于JVM为每个加载的类创建了对应的Class实例，并在实例中保存了该类的所有信息，包括类名、包名、父类、实现的接口、所有方法、字段等，因此，如果获取了某个Class实例，我们就可以通过这个Class实例获取到该实例对应的类的所有信息。
 				- 获取Class实例的方法
+				  collapsed:: true
 					- 方法一：直接通过一个类的静态变量class获取
 					- 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取
 					- 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取
@@ -1448,14 +1474,17 @@
 					- `class.newInstance()`： 会直接调用该类的无参构造函数进行实例化
 					- `class.getDeclaredConstructor(Class<?>... parameterTypes).newInstance()`：`getDeclaredConstructor()`方法会根据他的参数对该类的构造函数进行搜索并返回对应的构造函数，没有参数就返回该类的无参构造函数，然后再通过newInstance进行实例化。
 					- `classA.isAssignableFrom(classB)`：判断a是否是b的父类。这里classA和classB都是Class对象
-					- classA.isInstance(objectB)
+					- `classA.isInstance(objectB)`
+					  collapsed:: true
 						- 表示objectB是否能强转为classA类型
 						- 与 ((644252a4-2aa6-4b41-ad86-f99f7cb65ac8))的区别
+						  collapsed:: true
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
 			- 访问字段
 			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
+				  collapsed:: true
 					- `Field getField(name)`：根据字段名获取某个public的field（包括父类）
 					- `Field getDeclaredField(name)`：根据字段名获取当前类的某个field（不包括父类）
 					- `Field[] getFields()`：获取所有public的field（包括父类）
@@ -1469,6 +1498,7 @@
 				- 获取字段值：field.get(object)
 				- 设置字段值：field.set(object, value)
 			- 调用方法
+			  collapsed:: true
 				- 通过Class实例获取Method信息，Class提供了 以下几个方法来获取方法
 				  collapsed:: true
 					- Method getMethod(name, Class...)：获取某个public的Method（包括父类）
@@ -1483,13 +1513,16 @@
 					- getModifiers()：返回方法的修饰符，它是一个int，不同的bit表示不同的含义。
 				- 允许调用非public方法需：`setAccessible(true)`
 				- 方法参数
+				  collapsed:: true
 					- Java反射无法获取方法的参数名
 			- 调用构造方法
 			  collapsed:: true
 				- Class.newInstance()的局限
+				  collapsed:: true
 					- 只能调用该类的public无参数构造方法
 					- 如果构造方法带有参数，或者不是public，就无法直接通过Class.newInstance()来调用
 				- 通过Class实例获取Constructor的方法
+				  collapsed:: true
 					- `getConstructor(Class...)`：获取某个public的Constructor；
 					- `getDeclaredConstructor(Class...)`：获取某个Constructor；
 					- `getConstructors()`：获取所有public的Constructor；
@@ -1508,6 +1541,7 @@
 			- 动态代理
 			  collapsed:: true
 				- 定义
+				  collapsed:: true
 					- 若一个接口没有实现类，但在代码运行期动态创建了一个接口对象的方式，我们称之为动态代码。JDK提供动态创建接口对象的方式，就叫动态代理。
 				- Java标准库提供了动态代理功能，允许在运行期动态创建一个接口的实例
 				- 动态代理是通过Proxy创建代理对象，然后将接口方法“代理”给InvocationHandler完成的
@@ -1517,7 +1551,10 @@
 			- 方法句柄
 			  collapsed:: true
 				- 方法句柄MethodHandle
+				  collapsed:: true
 					- 类似于反射，可以实现方法的间接调用。
+			- Type类型
+				-
 		- 模块（Java Platform Module System，JPMS）
 		  collapsed:: true
 			- 背景
@@ -2016,6 +2053,7 @@
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
 				- List的比较和使用场景
 				- List的应用
+				  collapsed:: true
 					- 多维列表
 					  collapsed:: true
 						- 创建二维数组：ArrayList<ArrayList<Integer>>
@@ -2547,6 +2585,7 @@
 				  collapsed:: true
 					- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 		- 并发
+		  collapsed:: true
 			- Thread
 			  collapsed:: true
 				- 核心方法
@@ -2554,7 +2593,6 @@
 						- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
 						- 具体实践：jvm-demo:cn.bravedawn.jvm.tool.ThreadGetAllStackTraces
 			- 线程切换
-			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
 		  collapsed:: true

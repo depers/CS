@@ -1,6 +1,5 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
-	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -2383,6 +2382,7 @@
 			- 4.自增键和行集
 			- 5.NamedParameterJdbcTemplate模版类
 		- 第十四章 整合其他ORM框架
+			-
 		- 第十五章 Spring Cache
 		- 第十六章 任务调度和异步执行器
 		- 第十七章 Spring MVC
