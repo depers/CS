@@ -1,7 +1,7 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -958,6 +958,7 @@
 						- 在实现序列化接口的时候，我们一般显式的给serialVersionUID设置一个固定值。这样无论类后期增加成员变量还是删除成员变量，都不会发生错误。
 						- 如果在实现Serializable接口的时候，没有显式指定一个固定值，java序列化机制是会自动生成一个serialVersionUID，这个自动值会受类名称、它所实现的接口、以及所有的共有的私有的和受保护的成员变量的影响。如果这些值改变，那么这个自动值也会改变。在反序列化时，便会出错。
 		- 异常处理
+		  collapsed:: true
 			- 异常体系
 			  collapsed:: true
 				- 分类
@@ -1000,6 +1001,7 @@
 						- 方法一：将catch中的异常使用一个变量进行保存，然后在finally的异常中，使用e.addSuppressed(origin)方法添加到屏蔽异常的数组中
 						- 方法二：try-with-resource代码块可以直接捕获屏蔽异常
 			- 自定义异常
+			  collapsed:: true
 				- Java标准库定义的常用异常
 				  collapsed:: true
 					- Exception
@@ -1249,6 +1251,7 @@
 				  collapsed:: true
 					- [使用 Java 读取 X.509 证书信息](https://janking.netlify.app/post/x509.html)
 		- 泛型
+		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 解决的问题：Java数据类型和自定义对象类型较多，一种公共的数据结构或是算法，需要针对不同的类型和对象进行不同的处理。而且特别容易出错，例如类型强转错误
@@ -1876,6 +1879,7 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
+			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -2595,7 +2599,6 @@
 			- 线程切换
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
-		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
@@ -2679,6 +2682,15 @@
 							- 例如，在每次调用`println()`或`format()`时，自动刷新`PrintWriter`对象都会刷新缓冲区。
 						- `fluash()`方法任何输出流都可以调用，但是只对缓冲流有效果。
 					- 具体实践：cn/bravedawn/io/bufferedstreams/CopyCharacters.java
+			- 带缓冲的字节数组流
+			  collapsed:: true
+				- `ByteArrayOutputStream`
+				- `ByteArrayInputStream`
+				- `FastByteArrayOutputStream`，这个类是Spring提供的。
+				- 参考文章：
+				  collapsed:: true
+					- [Java - FastByteArrayOutputStream](https://blog.csdn.net/qq_42292831/article/details/130629400)
+				- 具体实践：JavaTrain/src/main/java/cn/bravedawn/io/bytearraystreams
 			- Scanner          
 			  collapsed:: true
 				- `Scanner` 类型的对象有助于将格式化的输入分解为标记，并根据标记的数据类型转换单个标记。
@@ -2787,6 +2799,9 @@
 			  collapsed:: true
 				- 参考文章
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
+			- 获取当前项目路径以及classpath
+			  collapsed:: true
+				- 具体实践：cn.bravedawn.io.path.PathExample
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
 		  collapsed:: true
 			- 第二章 Java的内存区域
