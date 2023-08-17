@@ -1,5 +1,4 @@
 - 《Kubernetes实战》
-  collapsed:: true
 	- 第一章 Kubernetes介绍
 		- 单体应用部署遇到的问题
 		- 微服务应用部署遇到的问题
@@ -81,7 +80,30 @@
 			- 查看Pod中的应用日志
 				-
 			- 向Pod发送请求
-			-
+		- k8s的命名空间
+			- 作用
+			  collapsed:: true
+				- 使用命名空间对k8s中的对象进行分组，并为分组中的对象提供一个作用域。如果未明确指定命名空间，默认为default命名空间。
+				- 命名空间的主要作用是用来实现多套环境的资源隔离，或者说是多租户的资源隔离。
+				- 命名空间允许你对指定命名空间下的对象进行操作。
+			- 创建命名空间
+			  collapsed:: true
+				- 可以通过yaml配置和命令的方式创建命名空间。
+			- 管理其他命名空间中的对象
+			  collapsed:: true
+				- 命名空间的切换
+				- 在创建的命名空间中创建资源
+			- 命名空间提供的隔离
+			  collapsed:: true
+				- 命名空间并不是开箱即用的，不同命名空间pod的互相通信不受命名空间的约束，这个取决于k8s所采用的网络策略。
+			- 涉及到的相关命令
+				- 查询集群中所有的命名空间：`kubectl get namespace`
+				- 查看指定命名空间下的pod：
+					- `kubectl get po --namespace <命名空间名称>`
+					- `kubectl get po --n <命名空间名称>`
+				- 创建命名空间的命令：
+					- 使用yaml：`kubectl create -f custom-namespace.yaml`
+					- 使用命令：`kubectl create namespace custom-namespace`
 - 《Kubernetes修炼手册》
   collapsed:: true
 	- 第二章 Kubernetes
@@ -251,11 +273,14 @@
 - docker
   collapsed:: true
 	- docker的三个概念
+	  collapsed:: true
 		- 镜像（image）：镜像中包含了应用软件运行的基础设施和应用软件本身。镜像的名称一般由`镜像名:TAG`组成。
 		- 容器（container）：容器是镜像创建的运行实例。
 		- 仓库（Repository）：存放镜像的仓库，类似与Maven的仓库。
 	- 构建镜像的两种方式
+	  collapsed:: true
 		- 一基于现有镜像启动一个容器，然后利用容器创建一个新的镜像
+		  collapsed:: true
 			- 启动现有镜像：`docker run -it $image_name /bin/bash`
 			  logseq.order-list-type:: number
 			- 对现有镜像进行修改，例如安装一个新的软件到镜像中。
@@ -263,8 +288,10 @@
 			- 根据容器的更改创建新映像：`docker commit -m "$commit messages" -a "$作者的用户名" $容器id $新的镜像名`
 			  logseq.order-list-type:: number
 		- 二利用Dockerfile创建镜像
+		  collapsed:: true
 			- 构建命令：`docker build -t $image_name -f $Dockerfile_path`
 	- 容器的基本操作
+	  collapsed:: true
 		- 基于镜像启动容器：`docker run -it 镜像名称/镜像tag /bin/bash`
 		  collapsed:: true
 			- `-i`：表示打开并保持标准输出。
@@ -284,6 +311,7 @@
 		- 推送本地仓库镜像到远程仓库：`docker push $image_name`
 		- 拉取远程仓库镜像到本地：`docker pull $image_name`
 		- 更新镜像的两种方式，与创建镜像的两种方式一样
+		  collapsed:: true
 			- 创建容器之后做更改，之后commit生成镜像，然后push到仓库中。
 			- 更新Dockerfile。在工作时一般建议这种方式，更简洁明了。
 	- 容器中的数据管理
@@ -297,6 +325,7 @@
 	- Dockerfile
 	  collapsed:: true
 		- 命令参数
+		  collapsed:: true
 			- `FROM`：构建镜像基于哪个镜像。
 			  collapsed:: true
 				- 作用：定制的镜像都是基于 FROM 的镜像，通过这个命令指定基础镜像。
@@ -306,6 +335,7 @@
 				- 作用：用于执行后面跟着的命令行命令。
 				- **值得注意**的是docker每运行一次`RUN`命令都会在镜像文件上新建一层，使用多条RUN命令会造成镜像文件过大。建议多条`RUN`命令使用`&&`连接为一条指令，这样只会创建一层镜像。
 				- 命令格式
+				  collapsed:: true
 					- shell命令：`RUN <shell命令>`
 					  logseq.order-list-type:: number
 					- 可执行文件：`RUN ["可执行文件", "参数1", "参数2"]`
@@ -314,10 +344,12 @@
 			  collapsed:: true
 				- 作用：为启动的容器指定默认要运行的程序，程序运行结束，容器也就结束。`CMD`指令指定的程序可被`docker run`命令行参数中指定要运行的程序所覆盖。
 				- 类似于 RUN 指令，用于运行程序，但二者运行的时间点不同。
+				  collapsed:: true
 					- `CMD` 在`docker run` 时运行。
 					- `RUN` 是在`docker build`。
 				- **注意**：如果 Dockerfile 中如果存在多个`CMD`指令，仅最后一个生效。
 				- 命令格式
+				  collapsed:: true
 					- `CMD <shell 命令>`
 					  logseq.order-list-type:: number
 					- `CMD ["<可执行文件或命令>","<param1>","<param2>",...]`
@@ -327,6 +359,7 @@
 			- `ENTRYPOINT`：运行容器时执行的shell命令。
 			  collapsed:: true
 				- 作用
+				  collapsed:: true
 					- 类似`CMD`指令，但其参数不会被`docker run`的命令行参数指定的指令所覆盖，其命令行参数会被当作参数送给 `ENTRYPOINT` 指令指定的程序。
 					- 如果运行`docker run`时使用了`--entrypoint`选项，将覆盖`ENTRYPOINT`指令指定的程序。
 				- **优点**：在执行`docker run`的时候可以指定`ENTRYPOINT`运行所需的参数。
@@ -349,19 +382,29 @@
 			  collapsed:: true
 				- 作用：用于定义构建参数。它允许在构建镜像时从外部传递参数。
 				- 当我们使用`docker build`命令构建映像时，可以使用`--build-arg`选项来传递该参数的值。例如：`docker build --build-arg VERSION=2.0 .`这里将`VERSION`参数的值设置成了2.0。
+				- 如果要在dockerfile文件中使用`ARG`命令配置的参数，需要使用`$`符号，如下：
+				   ```docker
+				   AGR APP_NAME=my-app
+				   WORKDIR $APP_NAME
+				  ```
 			- `ENV`：设置容器环境变量。
 			  collapsed:: true
 				- 作用：用于定义环境变量。这些变量在容器运行时是可用的，并且可以在容器内部的任何进程中使用。
 				- `ENV`与`ARG`的区别
+				  collapsed:: true
 					- `ARG`和`ENV`指令的最大区别在于它们的**作用域**。`ARG`指令定义的参数**仅在构建映像期间可用**，而`ENV`指令定义的环境变量**在容器运行时可用**。因此，你可以使用`ARG`指令来**传递构建参数**，而使用`ENV`指令来**设置容器的环境变量**。
 					  ![arg和env的区别.webp](../assets/arg和env的区别_1689575028581_0.webp)
 			- `EXPOSE`：声明容器的服务端口（仅仅是声明）。
+			  collapsed:: true
 				- 作用
+				  collapsed:: true
 					- 声明端口，帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射。
 					- 在运行时使用随机端口映射时，也就是`docker run -P`时，会自动随机映射`EXPOSE`的端口。
 				- 命令格式：`EXPOSE <端口1> [<端口2>...]`
 			- `WORKDIR`：为 `RUN`、`CMD`、`ENTRYPOINT`、`COPY` 和 `ADD` 设置工作目录，就是切换目录。
+			  collapsed:: true
 				- 作用
+				  collapsed:: true
 					- 指定工作目录。
 					- 用`WORKDIR`指定的工作目录，会在构建镜像的每一层中都存在。`docker build`构建镜像过程中的，每一个`RUN`命令都是新建的一层。只有通过`WORKDIR`创建的目录才会一直存在。
 				- 命令格式：`WORKDIR <工作目录路径>`
@@ -370,6 +413,7 @@
 			- `USER`：指定后续执行的用户组和用户。
 			- `HEALTHCHECH`：健康检测指令。
 		- 上下文路径
+		  collapsed:: true
 			- 定义：是指 docker 在构建镜像，有时候想要使用到本机的文件（比如复制），`docker build`命令得知这个路径后，会将路径下的所有内容打包。
 			- 如果未说明最后一个参数，那么默认上下文路径就是 Dockerfile 所在的位置。这个参数一般在最后，比如下面的`.`
 			  ```shell
@@ -384,6 +428,7 @@
   collapsed:: true
 	- [一文带你了解虚拟化、虚拟机、Docker及裸金属服务器](https://www.a-programmer.top/2022/07/23/%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E4%BA%86%E8%A7%A3%E8%99%9A%E6%8B%9F%E5%8C%96%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%81Docker%E5%8F%8A%E8%A3%B8%E9%87%91%E5%B1%9E%E6%9C%8D%E5%8A%A1%E5%99%A8/)
 - youtube k8s
+  collapsed:: true
 	- Kubernetes的官方定义
 		- 开源的容器编排工具
 		- google

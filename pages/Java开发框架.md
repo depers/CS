@@ -2370,20 +2370,125 @@
 						- 不同数据访问技术框架下TransactionAwareDataSourceProxy的等价类
 						  ![等价类.png](../assets/等价类_1690984021600_0.png)
 		- 第十三章 使用Spring JDBC访问数据库
-		  collapsed:: true
 			- 1.使用Spring JDBC
-			  collapsed:: true
-				- 在Dao层使用JdbcTemplate的步骤
+				- 在Dao层使用`JdbcTemplate`的简单步骤
 				  collapsed:: true
 					- 1.在Spring的配置文件中定义`DataSoure`和`JdbcTemplate`。
 					- 2.在Dao层的代码逻辑中注入`JdbcTemplate`去执行sql。
+				- 在Spring中配置DAO的基本步骤，下面这些配置都是基于Spring xml进行配置的，其实第三和第四步可以使用`@Repository`注解代替xml配置。
+				  collapsed:: true
+					- 1.定义`DataSource`。
+					- 2.定义`JdbcTemplate`。
+					- 3.定义一个抽象的`BaseDao`，将`JdbcTemplate`作为属性注入进来，并封装一些通用的数据库操作的方法。
+					- 4.继承`BaseDao`，实现具体的Dao。
 			- 2.基本的数据操作
+				- 1.更改数据
+				- 2.返回数据库的表自增主键值
+				- 3.批量更改数据
+				- 4.查询数据
+					- 1）使用`RowCallbackHandler`处理结果集
+					- 2）使用`RowMapper<T>`处理结果集
+					- 3）`RowCallBackHandler`和`RowMapper<T>`的比较
+				- 5.查询单值数据
+					- 1）int类型的单值查询接口（已过期，不建议使用）
+					- 2）long类型的单值查询接口（已过期，不建议使用）
+					- 3）其他类型的单值查询接口
+				- 6.调用存储过程
 			- 3.BLOB/CLOB类型数据的操作
 			- 4.自增键和行集
-			- 5.NamedParameterJdbcTemplate模版类
+			- 5.`NamedParameterJdbcTemplate`模版类
 		- 第十四章 整合其他ORM框架
-			-
+		  collapsed:: true
+			- 1.Spring整合ORM技术
+			  collapsed:: true
+				- Spring为ORM技术提供的整合方案
+				  collapsed:: true
+					- 1.方便基础设施的搭建，包括数据源，配置文件，框架初始化等方面进行了统一抽象。
+					- 2.异常封装，将ORM框架的异常进行转换和统一处理。
+					- 3.统一的事务管理。
+					- 4.允许混合使用多个ORM框架。
+					- 5.方便单元测试。
+			- 2.在Spring中使用Hibernate
+			  collapsed:: true
+				- 配置`SessionFactory`
+				  collapsed:: true
+					- 1.基于Hibernate原有配置的方式
+					- 2.基于Spring的配置
+				- 使用`HibernateTemplate`
+				  collapsed:: true
+					- 1.常用的API方法
+					- 2.使用回调接口
+					- 3.在Spring配置DAO
+				- 处理LOB类型的数据
+				- 添加Hibernate事件监听器
+				- 使用原生的Hibernate API
+				- 使用注解配置
+				- 事务处理
+				- 延迟加载的问题
+			- 3.在Spring中使用Mybatis
+			  collapsed:: true
+				- 配置原生的Mybatis
+				- 在Spring中配置Mybatis
+				- 编写Mybatis的DAO
+					- 1.使用`SqlSessionTemplate`
+					- 2.使用映射接口
+			- 4.DAO层设计
+			  collapsed:: true
+				- 背景
+				- DAO层基类设计
+				- 查询接口方法设计
+					- 方式一：每个条件项对应一个参数
+					- 方式二：使用数组传递条件项参数
+					- 方式三：使用Java5.0提供的不定参数
+					- 方式四：将查询条件项参数封装成对象
+					- 方式五：使用Map传递条件项参数
+				- 分页查询接口的设计
+					- 分页技术的分类
+						- 客户端分页
+						- 数据库分页
+						- 服务端分页
 		- 第十五章 Spring Cache
+		  collapsed:: true
+			- 1.缓存概述
+			  collapsed:: true
+				- 缓存的概念
+					- 1.缓存命中率
+					- 2.过期策略
+				- 使用Spring Cache
+					- 1.自己的缓存实现
+					- 2.使用Spring Cache的简单缓存管理器实现
+			- 2.Spring的缓存抽象
+			  collapsed:: true
+				- 缓存注解
+				  collapsed:: true
+					- 1.`@Cacheable`
+					  collapsed:: true
+						- 1）键生成器
+						- 2）带条件的缓存
+					- 2.@CachePut
+					- 3.`@CacheEvict`
+					  collapsed:: true
+						- 1）`allEntries`属性
+						- 2）`beforeInvocation`属性
+					- 4.`@Caching`
+					- 5.`@CacheConfig`
+				- 缓存管理器
+				  collapsed:: true
+					- 1.`SimpleCacheManager`
+					- 2.`NoOpCacheManager`
+					- 3.`ConcurrentMapCacheManager`
+					- 4.`CompositeCacheManager`
+				- 使用SpEL表达式
+				- 基于XML的Cache声明
+				- 以编程的方式初始化缓存
+				- 自定义缓存注解
+			- 3.配置Cache存储
+			  collapsed:: true
+				- EhCache
+				- Guava
+				- HazelCast
+				- GemFire
+				- JSR-107 Cache
 		- 第十六章 任务调度和异步执行器
 		- 第十七章 Spring MVC
 		- 第十八章 实战案例开发

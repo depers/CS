@@ -954,9 +954,11 @@
 				  id:: 641475d2-462e-43b7-a273-77ab40289cde
 				  collapsed:: true
 					- serialVersionUID
+					  collapsed:: true
 						- 定义为代表类定义的版本，在反序列化时，jvm会将字节流状态的类中的serialVersionUID与本地类中的serialVersionUID进行比较，如果相同，则进行序列化，不相同就抛InvalidClassException异常。
 						- 在实现序列化接口的时候，我们一般显式的给serialVersionUID设置一个固定值。这样无论类后期增加成员变量还是删除成员变量，都不会发生错误。
 						- 如果在实现Serializable接口的时候，没有显式指定一个固定值，java序列化机制是会自动生成一个serialVersionUID，这个自动值会受类名称、它所实现的接口、以及所有的共有的私有的和受保护的成员变量的影响。如果这些值改变，那么这个自动值也会改变。在反序列化时，便会出错。
+					-
 		- 异常处理
 		  collapsed:: true
 			- 异常体系
@@ -1329,6 +1331,28 @@
 				- 泛型继承
 				  collapsed:: true
 					- 继承泛型类型的情况下，子类可以获取父类的泛型类型。这里可以参考cn.bravedawn.generic.typeerasure.IntPair
+			- 类型系统中的重要概念：变型（variant）
+			   collapsed:: true
+			  collapsed:: true
+				- 变型分为三种
+				  collapsed:: true
+					- 协变（covariant），Java的数组采用了协变的规则
+					- 逆变（contravariant）
+					- 不变（invariant）,其中Java泛型采用了不变的规则
+				- 变型的作用
+				  collapsed:: true
+					- 这些规则规定了类型构造器是如何界定父子类型之间关系的。
+					- 我声明了两个类，一个是`Animal`类，一个是`Dog`类，其中`Dog`是`Animal`类的子类，`f(type)`就是指`type`类型经过`f()`类型构造器的处理转换为一个新的类型。
+						- 协变：就是指`f(Dog)`是`f(Animal)`的子类，也就是说`Dog`类经过类型构造器的处理后是`Animal`类经过类型构造器处理后的子类。
+						- 逆变：就是指`f(Animal)`是`f(Dog)`的子类。
+						- 不变：就是指`f(Dog)`和`f(Animal)`之前没有关系。既不是协变也不是逆变。
+					- 类型构造器f(type)可以是
+						- 泛型：`List<Animal>`、`List<Dog>`
+						- 数组：`Animal[]`、`Dog[]`
+						- 函数/方法：`method(Animal)`、`method(Dog)`
+				- 泛型为什么需要协变
+				  collapsed:: true
+					- 多态，相同逻辑的方法不需要因为参数类型的不同而重复写多遍。
 			- 限定通配符
 			  collapsed:: true
 				- `<? extends T>`
@@ -1635,26 +1659,25 @@
 				- [使用JDK9提供的模块化系统，来定义自己的模块](https://blog.csdn.net/gybshen/article/details/116886776)
 				- [Java平台模块系统（3）- JDK工具](https://zhuanlan.zhihu.com/p/97284537)
 		- SPI机制
-		  collapsed:: true
 			- 定义
-				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用
-				- 核心思想是解耦
+				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。
+				- 核心思想是解耦。
 			- 实现
-				- 定义一个接口
-				- 为接口提供不同的实现
-				- 在resources下新建META-INF/services/目录，以接口名新建一个文件，然后将接口实现类的全限定名写在该文件中
+				- 定义一个接口。
+				- 为接口提供不同的实现。
+				- 在`resources`下新建`META-INF/services/`目录，以**接口名**新建一个文件，然后将**接口实现类的全限定名**写在该文件中。
 			- SPI机制的使用
 				- JDBC DriverManager
-					- 在Java17中可以参考java.sql.DriverManager#ensureDriversInitialized这个方法
-					- 在SPI加载驱动的时候相应jar包对java.sql.Driver接口的实现类都会被实例化
+					- 在Java17中可以参考`java.sql.DriverManager#ensureDriversInitialized`这个方法
+					- 在SPI加载驱动的时候相应jar包对`java.sql.Driver`接口的实现类都会被实例化
 				- Common-Logging
-					- 这里定义的接口是org.apache.commons.logging.LogFactory
-					- 具体的接口逻辑参考：org.apache.commons.logging.LogFactory#getFactory，这里面就有尝试使用java spi服务发现机制，在META-INF/services下寻找org.apache.commons.logging.LogFactory的实现
+					- 这里定义的接口是`org.apache.commons.logging.LogFactory`
+					- 具体的接口逻辑参考：`org.apache.commons.logging.LogFactory#getFactory`，这里面就有尝试使用java spi服务发现机制，在`META-INF/services`下寻找`org.apache.commons.logging.LogFactory`的实现
 				- 插件体系
 					- Eclipse使用OSGi作为插件系统的基础，通过规定固定的文件结构去管理插件的生命周期
 				- Spring中SPI机制
-					- Spring在做自动装配的时候，会加载META-INF/spring.factories文件，而加载的过程是由SpringFactoriesLoader加载的。
-					- Spring中具体的代码在org.springframework.core.io.support.SpringFactoriesLoader#loadFactoryNames
+					- Spring在做自动装配的时候，会加载`META-INF/spring.factories`文件，而加载的过程是由`SpringFactoriesLoader`加载的。
+					- Spring中具体的代码在`org.springframework.core.io.support.SpringFactoriesLoader#loadFactoryNames`
 			- SPI深入原理
 				- 使用流程
 				  collapsed:: true
@@ -1778,6 +1801,7 @@
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
 		- 集合框架
+		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -2599,6 +2623,7 @@
 			- 线程切换
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
+		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
@@ -5099,7 +5124,6 @@
 				  collapsed:: true
 					- [maven中snapshot快照库和release发布库的区别和作用](https://www.cnblogs.com/panchanggui/p/12110186.html)
 			- Maven配置
-			  collapsed:: true
 				- 配置maven3的环境变量
 				  collapsed:: true
 					- 直接将bin目录配置到系统变量的`path`中即可，不用配MAVEN_HOME。
@@ -5323,6 +5347,13 @@
 						  ```
 					- 项目构建环境配置
 					  collapsed:: true
+						- maven配置打包文件的名称，如下：
+						   ```xml
+						   <build>
+						     <!-- 打包名称 使用配置文件名称 -->
+						     <finalName>${project.artifactId}</finalName>
+						   </build>
+						   ```
 						- 代码
 						  ```xml
 						  <!--描述了这个项目构建环境中的前提条件。 -->  
