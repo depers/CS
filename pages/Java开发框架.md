@@ -1245,7 +1245,7 @@
 						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
 		  collapsed:: true
-			- 本章主要讨论了基于接口的切面技术。
+			- 本章主要讨论了基于接口的切面技术。Spring的AOP技术主要有两类，一类是Spring自己实现基础的AOP，一类是基于@AspectJ注解的AOP，后者我们会在第八章进行讨论。
 			- 1.AOP概述
 			  collapsed:: true
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
@@ -1541,6 +1541,7 @@
 				  collapsed:: true
 					- `DefaultAdvisorAutoProxyCreator`能够扫描容器中的Advisor，并将Advisor自动注入到匹配的目标Bean中，也就是为目标Bean自动创建代理。
 				- AOP如何实现方法的嵌套调用增强
+				  id:: 64884b5d-dea2-4314-9faf-b644bcb0f22f
 				  collapsed:: true
 					- 问题
 					  collapsed:: true
@@ -1559,7 +1560,6 @@
 				- 可以无缝集成AscpectJ。
 			- 2.Java注解的基础知识
 			- 3.着手使用`@AspectJ`
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过`Advisor`整合切点和增强描述切面。
@@ -1733,7 +1733,6 @@
 					  collapsed:: true
 						- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 			- 6.AspectJ进阶
-			  collapsed:: true
 				- 切点的复合运算
 				  collapsed:: true
 					- 通过使用切点的 ((649147c6-bbc4-4d05-a97e-930559e2066a)) ，来实现具有复合切点的切面。
@@ -1793,13 +1792,11 @@
 					- 连接点抛出的异常必须使用 ((64914bad-d263-4fa2-8071-d0d8ee7f1e5a))注解的`throwing`成员进行绑定。
 			- 7.基于Schema配置切面
 			  id:: 649c3d9e-c035-4acd-a460-5033e994ad68
-			  collapsed:: true
 				- 背景：前6节中，我们讨论的基于@Aspect注解的切面，但是在Java5.0之前，也就是没有注解之前，我们可以使用Spring提供的基于Schema配置的方式去声明切面。
 				- 说白了基于Schema配置切面就是在xml中进行相关配置。
 				- 基于Schema配置的切面也可以通过配置命名切点，实现切点的复用。这里和 ((649274ea-aada-484f-8d0c-c91e52487567))是一样的。
 				- 基于Schema可以配置的增强类型
 				  id:: 649c3f6b-d362-4246-8143-a2de3a1e4b27
-				  collapsed:: true
 					- 前置增强
 					- 后置增强
 					- 环绕增强
@@ -1843,7 +1840,6 @@
 					- 图
 					  ![切面不同定义方式具体实现比较.png](../assets/切面不同定义方式具体实现比较_1688480129319_0.png)
 			- 9.其他
-				-
 		- 第九章 Spring SpEL
 		  collapsed:: true
 			- 1.SpEL诞生的背景
@@ -2370,7 +2366,9 @@
 						- 不同数据访问技术框架下TransactionAwareDataSourceProxy的等价类
 						  ![等价类.png](../assets/等价类_1690984021600_0.png)
 		- 第十三章 使用Spring JDBC访问数据库
+		  collapsed:: true
 			- 1.使用Spring JDBC
+			  collapsed:: true
 				- 在Dao层使用`JdbcTemplate`的简单步骤
 				  collapsed:: true
 					- 1.在Spring的配置文件中定义`DataSoure`和`JdbcTemplate`。
@@ -2395,6 +2393,11 @@
 					- 3）其他类型的单值查询接口
 				- 6.调用存储过程
 			- 3.BLOB/CLOB类型数据的操作
+				- 为什么要获取数据源的本地JDBC对象
+				- 相关的操作接口
+					- LobCreator
+					- LobHandler
+				- 插入LOB类型的数据
 			- 4.自增键和行集
 			- 5.`NamedParameterJdbcTemplate`模版类
 		- 第十四章 整合其他ORM框架
@@ -2473,7 +2476,6 @@
 					- 4.`@Caching`
 					- 5.`@CacheConfig`
 				- 缓存管理器
-				  collapsed:: true
 					- 1.`SimpleCacheManager`
 					- 2.`NoOpCacheManager`
 					- 3.`ConcurrentMapCacheManager`
@@ -2489,7 +2491,68 @@
 				- HazelCast
 				- GemFire
 				- JSR-107 Cache
+			- 4.实战经验
+			  collapsed:: true
+				- 1.非public方法的问题
+				  collapsed:: true
+					- 这种情况下，我们就不能使用Spring基于JDK和CGLib的动态代理了，因为子类和接口的实现类是无法对非public进行实现的。
+					- 可以可以参考AspectJ LTW解决方案，因为他是在类加载期通过字节码技术将切面逻辑织入到目标类中的，并不是在运行期动态生成代理类去做的。
+				- 2.基于Proxy的Spring AOP带来的内部调用问题
+				  collapsed:: true
+					- 这个问题和 ((64884b5d-dea2-4314-9faf-b644bcb0f22f)) 类似，可以参考相同的解决办法。
+				- 3.`@CacheEvict`的可靠性问题
+				  collapsed:: true
+					- 这个注解在使用的时候就要注意了，它是在方法之后完之后会将缓存中的数据进行清空操作，如果方法在执行的过程中遇到异常，则缓存清空的操作将不会执行。
+				- 4.运行期开发
+				  collapsed:: true
+					- 如果我们在项目中使用了Spring Cache，但是在开发的时候没有可用的缓存服务容器，这个时候我们可以**禁用缓存**，从而不会影响我们代码的开发和调试。
 		- 第十六章 任务调度和异步执行器
+		  collapsed:: true
+			- 1.任务调度概述
+			- 2.Quartz快速进阶
+			  collapsed:: true
+				- Quartz基础结构
+					- 1.`Job`
+					- 2.`JobDetails`
+					- 3.`Tigger`
+					- 4.`Calendar`
+					- 5.`Scheduler`
+					- 6.`ThreadPool`
+				- 使用`SimpleTrigger`
+				- 使用`CronTrigger`
+				- 使用`Calendar`
+				- 任务调度信息存储
+			- 3.在Spring中使用Quartz
+			  collapsed:: true
+				- 创建`JobDetail`
+				  collapsed:: true
+					- 1.`JobDetailBean`
+					- 2.`MethodInvokingJobDeatilFactoryBean`
+				- 创建`Tigger`
+				  collapsed:: true
+					- 1.`SimpleTriggerFactoryBean`
+					- 2.`CronTriggerFactoryBean`
+				- 创建`Scheduler`
+			- 4.在Spring中使用JDK `Timer`
+			  collapsed:: true
+				- `Timer`和`TimerTask`
+				- Spring对JDK `Timer`的支持
+				  collapsed:: true
+					- 1.`ScheduledTimerTask`
+					- 2.`MethodInvokingTimerTaskFactoryBean`
+					- 3.`TimerFactoryBean`
+			- 5.Spring对Java5.0 `Executor`的支持
+			  collapsed:: true
+				- 了解Java 5.0 的`Executor`
+				- Spring对`Executor`所提供的抽象
+			- 6.实际应用中的任务调度
+			  collapsed:: true
+				- 如何生产任务
+					- 在业务流程中动态触发产生
+					- 有扫描任务周期性的产生
+				- 任务调度对应用程序集群的影响
+				- 任务调度云
+				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
 		- 第十八章 实战案例开发
 		- 第十九章 Spring OXM
