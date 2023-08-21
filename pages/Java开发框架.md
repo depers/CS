@@ -160,7 +160,6 @@
 			  collapsed:: true
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
-		  collapsed:: true
 			- Ioc概念的解释
 			  collapsed:: true
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -220,11 +219,10 @@
 						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 			- BeanFactory、ApplicationContext和WebApplicationContext
+			  id:: 6466b122-89a0-4701-8d24-6b17bf44e7d9
 			  collapsed:: true
 				- BeanFactory
-				  collapsed:: true
 					- 功能
-					  collapsed:: true
 						- 一般称BeanFactory为Ioc容器
 						- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
 						- BeanFactory是Spring最核心的接口，他提供了高级的Ioc配置机制。
@@ -240,14 +238,11 @@
 						- `singletonBeanRegistry`：定义了在运行期向容器注册单实例Bean的方法。
 						- `BeanDefinitionRegistry`：提供了向容器手工注册BeanDefinition对象的方法。
 				- ApplicationContext
-				  collapsed:: true
 					- 功能
-					  collapsed:: true
 						- 一般称Application为**Spring容器**
 						- ApplicationContext是面向使用Spring的开发者，几乎所有的场合可以直接使用ApplicationContext而不是BeanFactory。
 						- ApplictionContext是建立在BeanFactory之上的，提供了更多面向应用的功能。
 					- 与BeanFactory的重大区别
-					  collapsed:: true
 						- BeanFacotry在初始化容器的时候，并未实例化Bean，直到第一次访问某个Bean时才实例化目标Bean。此一次访问这个Bean时会消耗过多的时间。
 						- Application在初始化应用上下文时就实例化所有的单实例的bean，ApplicationContext的初始化时间比BeanFactory的时间会长一点，但是第一次访问Bean就会很快。
 					- ApplicationContext的初始化
@@ -270,25 +265,19 @@
 					  collapsed:: true
 						- [The Spring ApplicationContext](https://www.baeldung.com/spring-application-context)
 				- WebApplicationContext
-				  collapsed:: true
 					- 功能
-					  collapsed:: true
 						- WebApplicationContext是专门为web程序服务的，他允许相对于Web根目录的路径中装载文件完成初始化工作。
 					- WebApplicationContext的类体系结构
-					  collapsed:: true
 						- WebApplicationContext作为属性放置在ServletContext中，Spring提供了`WebApplicationContextUtils`工具类，可以通过该类的`getWebApplicationContext(ServletContext sc)`方法，从`ServletContext`中获取`WebApplicationContext`实例。
 						- 在非web应用的环境下，Bean只有`singleton`和`prototype`两种作用域，WebApplicationContext提供了三个新的作用域：`request`、`session`、`global session`。
 						- `ConfigurableWebApplicationContext`扩展了WebApplicationContext，允许我们通过配置化的方式实例化WebApplicationContext。
 					- WebApplicationContext的初始化
 					  id:: 64671339-5f03-4f81-93dc-13517bb386c0
-					  collapsed:: true
 						- 可以在web.xml配置**自启动的Servlet**或**定义Web容器监听器**（ServletContextListener），
 				- 父子容器
-				  collapsed:: true
 					- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
 					- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
 			- Bean的生命周期
-			  collapsed:: true
 				- `BeanFactory`中Bean的生命周期
 				  id:: 6469b072-85f3-479d-87c3-ccb6560739bb
 				  collapsed:: true
@@ -365,7 +354,6 @@
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
-		  collapsed:: true
 			- 1.Spring配置概述
 			  collapsed:: true
 				- Spring容器的高层视图
@@ -955,9 +943,7 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
-		  collapsed:: true
 			- 1.Spring容器技术内幕
-			  collapsed:: true
 				- Spring的内部工作机制
 				  id:: 647d7431-b322-4e39-9e76-221c5fa193a8
 				  collapsed:: true
@@ -2554,6 +2540,45 @@
 				- 任务调度云
 				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
+			- 1.Spring MVC体系概述
+				- 体系结构
+				- 配置`DispatcherServlet`
+				  collapsed:: true
+					- 三个问题
+						- 1.`DispatcherServlet`框架是如何截获特定的HTTP请求并交由Spring MVC框架处理的？
+							- 通过在web.xml中声明`DispatcherServlet`和他所拦截的URL匹配规则。
+						- 2.位于Web层的Spring容器（`WebApplicationContext`）如何与位于业务层的Spring容器（`ApplicationContext`）建立关联，以使Web层的Bean可以调用业务层的Bean？
+						  collapsed:: true
+							- 在web.xml中声明如下配置，从而建立Spring容器和Web容器之间的关系：
+							  ```xml
+							  <context-param>
+							    <param-name>contextConfigLocation</param-name>
+							    <param-value>classpath:/applicationContext.xml</param-value>
+							  </context-param>
+							  ```
+							- 关于这点，我觉得还可以参考 ((6466b122-89a0-4701-8d24-6b17bf44e7d9))。
+						- 3.如何初始化Spring MVC的各个组件，并将他们装配到`DispatcherServlet`中？
+							- 探究DispatcherServlet的内部逻辑
+								- 代码
+								  ```java
+								  protected void initStrategies(ApplicationContext context) {
+								    this.initMultipartResolver(context);
+								    this.initLocaleResolver(context);
+								    this.initThemeResolver(context);
+								    this.initHandlerMappings(context);
+								    this.initHandlerAdapters(context);
+								    this.initHandlerExceptionResolvers(context);
+								    this.initRequestToViewNameTranslator(context);
+								    this.initViewResolvers(context);
+								    this.initFlashMapManager(context);
+								  }
+								  ```
+								- DispatcherServlet装配各类型组件的逻辑
+								  :LOGBOOK:
+								  CLOCK: [2023-08-21 Mon 22:09:42]
+								  :END:
+								  ![DispatcherServlet装配各类型组件的逻辑1.png](../assets/DispatcherServlet装配各类型组件的逻辑1_1692626978188_0.png)
+								  ![DispatcherServlet装配各类型组件的逻辑2.png](../assets/DispatcherServlet装配各类型组件的逻辑2_1692626990699_0.png)
 		- 第十八章 实战案例开发
 		- 第十九章 Spring OXM
 		- 第二十章 实战型单元测试

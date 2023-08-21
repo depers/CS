@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -3985,7 +3986,6 @@
 				- 这种方式在框架代码中比较常见。
 		- 类型：结构型
 - Java EE
-  collapsed:: true
 	- Servlet
 	  collapsed:: true
 		- Java web application介绍
@@ -4163,7 +4163,6 @@
 			  collapsed:: true
 				- web.xml文件是 web 应用程序的部署描述符，包含 servlet (3.0之前)、欢迎页面、安全配置、会话超时设置等的映射。
 		- Servlet简介
-		  collapsed:: true
 			- 开头
 			  collapsed:: true
 				- Servlet中的主要api是由javax.servlet-api提供的，主要的接口和类在javax.servlet和javax.servlet.http下面
@@ -4286,6 +4285,7 @@
 					- Servlet容器根据客户端请求创建ServletRequest对象，并将其传递给Servlet service()方法进行处理。
 					- ServletRequest的子接口是HttpServletRequest，它包含一些用于会话管理、cookie和请求授权的其他方法。
 				- 方法
+				  collapsed:: true
 					- Object getAttribute(String name)
 					  collapsed:: true
 						- 此方法将指定属性的值返回为Object，如果不存在则返回null。
@@ -4319,6 +4319,7 @@
 					- Servlet容器创建ServletResponse对象，并将其传递给Servlet service()方法，然后使用响应对象为客户机生成HTML响应。
 					- ServletResponse的子接口是HttpServletResponse
 				- 方法
+				  collapsed:: true
 					- addCookie(Cookie cookie)
 					  collapsed:: true
 						- 用于在响应中添加cookie。
@@ -4338,24 +4339,20 @@
 					  collapsed:: true
 						- 用于设置响应的状态码。
 			- RequestDispatcher interface
-			  collapsed:: true
 				- 介绍
-				  collapsed:: true
-					- RequestDispatcher接口用于将请求转发到另一个资源，该资源可以是相同上下文中的HTML、JSP或其他servlet。
+					- `RequestDispatcher`接口用于将请求转发到另一个资源，该资源可以是相同上下文中的HTML、JSP或其他servlet。
 					- 我们还可以使用它将另一个资源的内容包含到响应中。
 					- 此接口用于同一上下文中的servlet通信协作
-					- 我们可以使用ServletContext.getRequestDisPatcher(String Path)方法在Servlet中获得RequestDisPatcher。该路径必须以一个/开头，并将其解释为相对于当前上下文的根。
+					- 我们可以使用`ServletContext.getRequestDisPatcher(String Path)`方法在Servlet中获得RequestDisPatcher。该路径必须以一个`/`开头，并将其解释为相对于当前上下文的根。
 				- 方法
-				  collapsed:: true
-					- forward(ServletRequest request, ServletResponse response)
-					  collapsed:: true
+					- `forward(ServletRequest request, ServletResponse response)`
 						- 将请求从servlet转发到服务器上的另一个资源(servlet、JSP文件或HTML文件)
-					- include(ServletRequest request, ServletResponse response)
-					  collapsed:: true
+					- `include(ServletRequest request, ServletResponse response)`
 						- 在响应中包含资源(servlet、JSP页面、HTML文件)的内容
 			- HttpServletRequest interface
 			  collapsed:: true
 				- 关于httpServletRequest path API的讨论
+				  collapsed:: true
 					- 附一张图
 					  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
 					- 参考文章：[HttpServletRequest Path Decoding](https://agiletribe.purplehillsbooks.com/2016/02/23/httpservletrequest-path-decoding/)
@@ -4454,7 +4451,6 @@
 						- 在给定的web应用程序上下文中，用于声明各种事件类型的监听器的注解
 				- 空笔记
 			- Servlet Life Cycle
-			  collapsed:: true
 				- web容器维护这Servlet实例的生命周期
 				  collapsed:: true
 					- 如下图所示，Servlet有三个状态：new，ready和end
@@ -4544,10 +4540,12 @@
 						- 运行bin目录下的startup.bat
 					- 6.访问Servlet
 			- Servlet是如何工作的
-			  collapsed:: true
 				- Servlet是如何工作的，详情参见下图：
+				  :LOGBOOK:
+				  CLOCK: [2023-08-21 Mon 21:25:39]--[2023-08-21 Mon 21:25:40] =>  00:00:01
+				  :END:
+				  ![Servlet是如何工作的.png](../assets/Servlet是如何工作的_1692625275181_0.png)
 				- web容器如何处理servlet请求
-				  collapsed:: true
 					- 1.将请求与 web.xml 文件中的 servlet 进行映射
 					- 2.为此请求创建请求和响应对象
 					- 3.调用线程上的service（javax.servlet.http.HttpServlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)）方法
