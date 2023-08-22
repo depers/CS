@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1254,7 +1253,6 @@
 				  collapsed:: true
 					- [使用 Java 读取 X.509 证书信息](https://janking.netlify.app/post/x509.html)
 		- 泛型
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 解决的问题：Java数据类型和自定义对象类型较多，一种公共的数据结构或是算法，需要针对不同的类型和对象进行不同的处理。而且特别容易出错，例如类型强转错误
@@ -1304,6 +1302,7 @@
 					- 静态方法和泛型
 			- 擦拭法
 			  collapsed:: true
+				- 如果要查看类的泛型类型擦除后的效果，可以使用`java -v a.class`去查看，使用idea和Java Compiler工具直接反编译的话，查看不了。
 				- Java泛型的局限性
 					- 局限一：<T>不能是基本类型，例如int，因为实际类型是Object，Object类型无法持有基本类型
 					- 局限二：无法取得带泛型对象的Class
@@ -1333,45 +1332,34 @@
 				  collapsed:: true
 					- 继承泛型类型的情况下，子类可以获取父类的泛型类型。这里可以参考cn.bravedawn.generic.typeerasure.IntPair
 			- 类型系统中的重要概念：变型（variant）
-			   collapsed:: true
-			  collapsed:: true
 				- 变型分为三种
-				  collapsed:: true
 					- 协变（covariant），Java的数组采用了协变的规则
 					- 逆变（contravariant）
-					- 不变（invariant）,其中Java泛型采用了不变的规则
+					- 不变（invariant），其中Java泛型采用了不变的规则
 				- 变型的作用
-				  collapsed:: true
 					- 这些规则规定了类型构造器是如何界定父子类型之间关系的。
 					- 我声明了两个类，一个是`Animal`类，一个是`Dog`类，其中`Dog`是`Animal`类的子类，`f(type)`就是指`type`类型经过`f()`类型构造器的处理转换为一个新的类型。
 						- 协变：就是指`f(Dog)`是`f(Animal)`的子类，也就是说`Dog`类经过类型构造器的处理后是`Animal`类经过类型构造器处理后的子类。
 						- 逆变：就是指`f(Animal)`是`f(Dog)`的子类。
-						- 不变：就是指`f(Dog)`和`f(Animal)`之前没有关系。既不是协变也不是逆变。
+						- 不变：就是指`f(Dog)`和`f(Animal)`之间没有关系。既不是协变也不是逆变。
 					- 类型构造器f(type)可以是
 						- 泛型：`List<Animal>`、`List<Dog>`
 						- 数组：`Animal[]`、`Dog[]`
 						- 函数/方法：`method(Animal)`、`method(Dog)`
 				- 泛型为什么需要协变
-				  collapsed:: true
-					- 多态，相同逻辑的方法不需要因为参数类型的不同而重复写多遍。
+					- 多态，相同逻辑的方法不能因为参数类型的不同而重复写多遍。
 			- 限定通配符
-			  collapsed:: true
 				- `<? extends T>`
 					- 作用：对泛型参数的上界进行限制，必须是泛型T或是他的子类
 					- 作为方法参数时控制泛型参数类型为指定类型或是他的子类
-					- 上界描述符`extends`适合读取（get）的场景（可以获取具体类型和Object类型），并不适合写入（set，传入null除外）的场景
-					- 当`<? extends T>`作为泛型方法参数或是泛型变量声明的时候，这条规则都适用
-						- 泛型方法参数声明：cn.bravedawn.generic.wildcards.upperbounds.v2.Main
-						- 泛型变量声明：cn.bravedawn.generic.wildcards.upperbounds.v3.Test*#main*
+					- 上界描述符`extends`适合读取（get）的场景（可以获取具体类型和Object类型），并不适合写入（set，传入null除外）的场景。
+					- 代码实践：JavaTrain/src/main/java/cn/bravedawn/generic/wildcards/upperbounds
 				- `<? super T>`
-				  collapsed:: true
 					- 作用：对泛型参数的下界进行限制，必须是泛型T或者他的父类
 					- 作为方法参数时控制泛型参数类型为指定类型或是他的父类
 					- 下界描述符super适合写入（set）的场景，并不适合读取（get只能拿到Object类型）的场景
 					- 也不是所有的父类类型都可以set的原因：`<? super Apple>`，可以set的元素可以是Apple的子类和她自己，他的父类是不行的，原因是我不知道他的父类有哪些
 				- PECS原则
-				  
-				  collapsed:: true
 					- Producer Extends Consumer Super
 					- 如果需要返回T，它是生产者（Producer），要使用`extends`通配符；如果需要写入T，它是消费者（Consumer），要使用`super`通配符
 				- 桥接方法
@@ -1660,6 +1648,7 @@
 				- [使用JDK9提供的模块化系统，来定义自己的模块](https://blog.csdn.net/gybshen/article/details/116886776)
 				- [Java平台模块系统（3）- JDK工具](https://zhuanlan.zhihu.com/p/97284537)
 		- SPI机制
+		  collapsed:: true
 			- 定义
 				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。
 				- 核心思想是解耦。
@@ -1801,6 +1790,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -3986,6 +3976,7 @@
 				- 这种方式在框架代码中比较常见。
 		- 类型：结构型
 - Java EE
+  collapsed:: true
 	- Servlet
 	  collapsed:: true
 		- Java web application介绍
