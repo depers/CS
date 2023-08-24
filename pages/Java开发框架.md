@@ -1923,6 +1923,7 @@
 				- 4.运行期开发
 					- 如果我们在项目中使用了Spring Cache，但是在开发的时候没有可用的缓存服务容器，这个时候我们可以**禁用缓存**，从而不会影响我们代码的开发和调试。
 		- 第十六章 任务调度和异步执行器
+		  collapsed:: true
 			- 1.任务调度概述
 				- Quartz可以解决绝大多数任务调度的功能。
 				- 从Java1.3开始，通过`java.util.Timer`和`TimerTask`提供了简单的调度功能。
@@ -1973,6 +1974,7 @@
 				- 任务调度云
 				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
+		  collapsed:: true
 			- 1.Spring MVC体系概述
 				- 体系结构
 				- 配置`DispatcherServlet`
@@ -1986,6 +1988,9 @@
 							    <param-name>contextConfigLocation</param-name>
 							    <param-value>classpath:/applicationContext.xml</param-value>
 							  </context-param>
+							  <listener>
+							    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+							  </listener>
 							  ```
 							- 关于这点，我觉得还可以参考 ((6466b122-89a0-4701-8d24-6b17bf44e7d9))。
 						- 3.如何初始化Spring MVC的各个组件，并将他们装配到`DispatcherServlet`中？

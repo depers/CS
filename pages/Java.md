@@ -1332,6 +1332,8 @@
 				  collapsed:: true
 					- 继承泛型类型的情况下，子类可以获取父类的泛型类型。这里可以参考cn.bravedawn.generic.typeerasure.IntPair
 			- 类型系统中的重要概念：变型（variant）
+			   collapsed:: true
+			  collapsed:: true
 				- 变型分为三种
 					- 协变（covariant），Java的数组采用了协变的规则
 					- 逆变（contravariant）
@@ -1349,6 +1351,7 @@
 				- 泛型为什么需要协变
 					- 多态，相同逻辑的方法不能因为参数类型的不同而重复写多遍。
 			- 限定通配符
+			  collapsed:: true
 				- `<? extends T>`
 					- 作用：对泛型参数的上界进行限制，必须是泛型T或是他的子类
 					- 作为方法参数时控制泛型参数类型为指定类型或是他的子类
