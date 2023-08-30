@@ -1,5 +1,7 @@
 - 《Kubernetes实战》
+  collapsed:: true
 	- 第一章 Kubernetes介绍
+	  collapsed:: true
 		- 单体应用部署遇到的问题
 		- 微服务应用部署遇到的问题
 		- 容器技术
@@ -41,6 +43,7 @@
 			- ReplicationController
 				- ReplicationController用于复制Pod，即创建Pod的多个副本，并让他们保持运行。
 	- 第三章 pod：运行于kubernetes中的容器
+	  collapsed:: true
 		- 1.介绍Pod
 			- 一个Pod总是运行在一个工作节点上，他不会跨越多个工作节点。
 			- 一个Pod中应该包含一个容器还是多个容器。
@@ -273,12 +276,10 @@
 - docker
   collapsed:: true
 	- docker的三个概念
-	  collapsed:: true
 		- 镜像（image）：镜像中包含了应用软件运行的基础设施和应用软件本身。镜像的名称一般由`镜像名:TAG`组成。
 		- 容器（container）：容器是镜像创建的运行实例。
 		- 仓库（Repository）：存放镜像的仓库，类似与Maven的仓库。
 	- 构建镜像的两种方式
-	  collapsed:: true
 		- 一基于现有镜像启动一个容器，然后利用容器创建一个新的镜像
 		  collapsed:: true
 			- 启动现有镜像：`docker run -it $image_name /bin/bash`
@@ -291,7 +292,6 @@
 		  collapsed:: true
 			- 构建命令：`docker build -t $image_name -f $Dockerfile_path`
 	- 容器的基本操作
-	  collapsed:: true
 		- 基于镜像启动容器：`docker run -it 镜像名称/镜像tag /bin/bash`
 		  collapsed:: true
 			- `-i`：表示打开并保持标准输出。
@@ -304,6 +304,11 @@
 		- 重启容器命令：`docker restart container_name或container_id`
 		- 启动容器之后想进入容器，输入命令：`docker attach container_name或container_id`
 		- 删除容器：`docker rm container_name或container_id`
+		- `docker images`
+		  collapsed:: true
+			- 功能：列出本地镜像。
+			- `-a`：列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；
+		- 查看运行中的镜像：`docker ps`
 	- 仓库的基本操作
 	  collapsed:: true
 		- 注册[docker hub](https://hub.docker.com/)公共仓库
@@ -325,7 +330,6 @@
 	- Dockerfile
 	  collapsed:: true
 		- 命令参数
-		  collapsed:: true
 			- `FROM`：构建镜像基于哪个镜像。
 			  collapsed:: true
 				- 作用：定制的镜像都是基于 FROM 的镜像，通过这个命令指定基础镜像。
@@ -366,9 +370,9 @@
 				- **注意**：如果 Dockerfile 中如果存在多个`ENTRYPOINT`指令，仅最后一个生效。
 				- 命令格式：`ENTRYPOINT ["<executeable>","<param1>","<param2>",...]`
 			- `COPY`：拷贝文件或目录到容器中，跟ADD类似，但不具备自动下载或解压的功能。
-			  collapsed:: true
 				- 作用：复制指令，将主机上的资源复制或加入到容器镜像中，都是在构建镜像的过程中完成的。
 				- 命令格式：`COPY <源路径1>...  <目标路径>`
+				- 这个命令执行文件复制时，复制的文件目录是以Dockerfile为根目录进行复制的，切记。
 			- `ADD`：拷贝文件或目录到容器中，如果是URL或压缩包便会自动下载或自动解压。
 			  collapsed:: true
 				- 作用：ADD 指令和 COPY 的使用格类似（同样需求下，官方推荐使用 COPY），功能也类似。
