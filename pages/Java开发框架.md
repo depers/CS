@@ -1,5 +1,4 @@
 - Spring
-  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
 	  collapsed:: true
 		- 第一章 Spring概述
@@ -125,14 +124,14 @@
 			- 运维支持
 				- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 		- 第四章 Ioc容器
-		  collapsed:: true
 			- Ioc概念的解释
+				- IOC，Inverse Control，控制反转。
 				- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
 			- Ioc的类型
 				- 一构造函数注入
 					- 在调用类的构造函数中将接口实现类的对象赋给接口实例，从而实现依赖注入
 					- 缺点
-						- 每次创建调用类对象时都要完成对实现类接口实例的注入，在某些场景下我们可能并不需要使用该实现类接口的实例，存在资源浪费的情况
+						- 每次创建调用类对象时都要完成对实现类接口实例的注入，在某些场景下我们可能并不需要实现接口的类实例作为构造函数的参数注入进来，无参构造器就行。这样我们每次就多实例化了一个实例，存在资源浪费的情况
 				- 二属性注入
 					- 属性注入是可以有选择的通过Setter方法完成对调用类所需依赖的实现类实例的注入，更加灵活
 				- 三接口注入
@@ -149,6 +148,18 @@
 					- [使用Resource](https://www.liaoxuefeng.com/wiki/1252599548343744/1282383017934882)
 					- [Access a File from the Classpath in a Spring Application](https://www.baeldung.com/spring-classpath-file-access)
 				- 资源加载
+					- Resource接口
+						- 继承图
+						  ![Resource及其实现类的关系.png](../assets/Resource及其实现类的关系_1694094307591_0.png)
+						- 整理一下上面的几个接口
+							- `WritableResource`：可写资源接口。
+							- `ByteArrayResource`：二进制数组表示的资源。
+							- `ClassPathResource`：类路径下的资源，资源以相对于类路径的方式表示。
+							- `FileSystemResource`：
+							- `InputStreamResource`
+							- `ServletContextResource`
+							- `UrlResource`
+							- `PathResource`
 					- 资源地址表达式
 						- `classpath:`和`classpath*:`的区别
 							- `classpath:com/smart/module*.xml`只会加载**一个**模块的配置文件

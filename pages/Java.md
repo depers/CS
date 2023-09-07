@@ -1,5 +1,4 @@
 - Java语言
-  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1956,7 +1955,6 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2780,7 +2778,6 @@
 			- 线程切换
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
-		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
@@ -2846,8 +2843,7 @@
 				  collapsed:: true
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
-			- 缓冲流（buffered streams）          
-			  collapsed:: true
+			- 缓冲流（buffered streams）
 				- 背景
 					- 使用未缓冲的IO操作每个读或写请求都由底层操作系统直接处理。这会降低程序的效率，因为每个这样的请求通常会触发磁盘访问、网络活动或其他一些相对昂贵的操作。
 					- **为了减少这种开销，Java 平台实现了缓冲的 I/O 流**。
@@ -2865,12 +2861,10 @@
 						- `fluash()`方法任何输出流都可以调用，但是只对缓冲流有效果。
 					- 具体实践：cn/bravedawn/io/bufferedstreams/CopyCharacters.java
 			- 带缓冲的字节数组流
-			  collapsed:: true
 				- `ByteArrayOutputStream`
 				- `ByteArrayInputStream`
 				- `FastByteArrayOutputStream`，这个类是Spring提供的。
 				- 参考文章：
-				  collapsed:: true
 					- [Java - FastByteArrayOutputStream](https://blog.csdn.net/qq_42292831/article/details/130629400)
 				- 具体实践：JavaTrain/src/main/java/cn/bravedawn/io/bytearraystreams
 			- Scanner          
@@ -3602,7 +3596,6 @@
 								- 死锁的代码演示：jvm-demo:cn.bravedawn.jvm.tool.SynAddRunnable
 			- 第六章 类文件结构
 			- 第七章 虚拟机类的加载机制
-			  collapsed:: true
 				- 类加载的时机
 					- 主动使用
 						- 主动引用的时机
