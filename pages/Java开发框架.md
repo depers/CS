@@ -2483,9 +2483,36 @@
 			- 参考文章
 			  collapsed:: true
 				- [阿里限流神器Sentinel夺命连环 17 问？](https://www.cnblogs.com/cbvlog/p/15385100.html)
+- Mybatis
+  collapsed:: true
+	- 一级缓存的问题
+		- 背景：今天我在写代码的时候发现，我在一个for循环里面重复执行一个sql，发现sql返回的实体对象还是之前的那个，多次循环查询都是一个对象，而且日志也没有打印sql，我怀疑Mybatis压根就没有执行这条sql。
+		- 原因
+			- mybatis会默认会开启一级缓存，一级缓存就是同一个`SqlSession`中，执行相同的sql语句，Mybatis会将第一次查询的数据写到缓存中（内存），第二次再次查询的时候就不会从数据库中查询，会直接范湖缓存中的结果。
+			- 一级缓存只是相对于同一个`SqlSession`而言。所以在参数和SQL完全一样的情况下，我们使用同一个`SqlSession`对象调用一个Mapper方法，往往只执行一次SQL，因为使用SelSession第一次查询后，MyBatis会将其放在缓存中，以后再查询的时候，如果没有声明需要刷新，并且缓存没有超时的情况下，`SqlSession`都会取出当前缓存的数据，而不会再次发送SQL到数据库。
+			- 如果要想每次查询都要去数据库查询，不使用Mybatis的一级缓存，只需要在查询sql中添加`flushCache`属性，将其设置为 `true` 后，只要语句被调用，都会导致本地缓存和二级缓存被清空，默认值：`false`。
+			- 我这边还做了一个实验，就是如果在一个`SqlSession`中对先查询了记录A，然后在后续的逻辑中修改了记录A，然后我第二次再次查询记录A的时候发现去数据库查了。也就是说，Mybatis中你对这条记录做了修改，他就会将上一次记录的一级缓存给删除了。
+		- 参考文章： [mybatis的缓存机制（一级缓存二级缓存和刷新缓存）和mybatis整合ehcache](https://blog.csdn.net/u012373815/article/details/47069223)
 - lombok
   collapsed:: true
-	- 官网：
+	- 注解
+	  collapsed:: true
+		- `@Data`注解：注在类上，提供类的`get`、`set`、`equals`、`hashCode`、`canEqual`、`toString`方法。
+		- `@AllArgsConstructor` ： 注在类上，提供类的全参构造。
+		- `@NoArgsConstructor` ： 注在类上，提供类的无参构造。
+		- `@Setter` ： 注在属性上，提供 set 方法。
+		- `@Getter` ： 注在属性上，提供 get 方法。
+		- `@EqualsAndHashCode` ：    注在类上，提供对应的 equals 和 hashCode 方法。
+		- `@Log4j/@Slf4j`： 注在类上，提供对应的 Logger 对象，变量名为 log。
+		- `@Builder`：采用构建者模式，链式创建对象。
+	- lombok默认是不会生成无参构造器的
+	  collapsed:: true
+		- 当你使用`@Builder`注解时，他会默认为你生成全参构造器。但是因为好多框架喜欢使用`Class.newInstance()`直接实例化对象，如果这个类没有无参构造器就会报错。
+		- 所以建议使用同时使用`@AllArgsConstructor`和`@NoArgsConstructor`两个构造器。
+	- 参考文章
+	  collapsed:: true
+		- [Lombok@Builder注解使用和需要注意的坑](https://blog.csdn.net/a648119398/article/details/120513865)
+		- [@Data注解 与 lombok](https://www.jianshu.com/p/c1ee7e4247bf)
 - xxl job
   collapsed:: true
 	- 路由策略配置

@@ -1,13 +1,14 @@
 - Java语言
   collapsed:: true
 	- Java基础
+	  collapsed:: true
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
 				  collapsed:: true
 					- 整型
+					  collapsed:: true
 						- byte，1个字节
 						- short，2个字节
 						- int，4个字节
@@ -163,11 +164,13 @@
 					- 整数类型：byte, short, int, long
 					- 溢出：整数由于存在范围限制，如果计算结果超出了范围，就会产生溢出
 					- 加减乘除
+					  collapsed:: true
 						- `+`/`+=`
 						- `-`/`-=`
 						- `*`/`*=`
 						- `/`/`/=`
 						- `++`和`--`
+						  collapsed:: true
 							- a++是先用当前值，后加1
 							- ++a是先加1，用加1之后的值
 							- a--也是先用当前值，后减1
@@ -183,6 +186,7 @@
 						- `>>`，右移相当于除2
 						- `>>>`，无符号右移，也相当于除2，与右移运算符不同的是
 					- 位运算
+					  collapsed:: true
 						- `&`，与预算
 						- `|`，或运算
 						- `~`，非运算
@@ -225,15 +229,18 @@
 				- 运算符
 				  collapsed:: true
 					- 逻辑运算符
+					  collapsed:: true
 						- 与：`&&`
 						- 或：`||`
 						- 非：`!`
 					- 算术运算符
+					  collapsed:: true
 						- 加：`+`/`+=`/`++`
 						- 减：`-`/`-=`/`--`
 						- 乘：`*`/`*=`
 						- 除：`/`/`/=`
 					- 移位运算符
+					  collapsed:: true
 						- `<<`
 						  collapsed:: true
 							- 运算规则：**左移位会丢弃左边指定位数，右边补0**。
@@ -311,6 +318,7 @@
 			- 数组操作
 			  collapsed:: true
 				- 初始化数组
+				  collapsed:: true
 					- int[] a = new int[5]; int类型数组初始化之后是0
 					- int[] b = {1, 2, 3, 4, 5};
 				- 数组操作
@@ -338,13 +346,16 @@
 				- System.arraycopy()
 				  collapsed:: true
 					- 功能
+					  collapsed:: true
 						- `java.lang.System.arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length)`方法将源数组从特定起始位置复制到目标数组中提到的位置。 要复制的参数数量由参数决定。 将 source_Position 到 source_Position + length – 1 处的组件从 destination_Position 到 destination_Position + length – 1 复制到目标数组。
 					- 特点
+					  collapsed:: true
 						- **深复制**：当数组为**一维数组**，且元素为**基本类型**或**String**类型（**String**的特殊是因为它的不可变性）时，属于深复制，即原数组与新数组的元素不会相互影响。
 						- **浅复制**：当数组为**多维数组**，或其中一维数组中的元素为**引用类型**时，属于浅复制，原数组与新数组的元素引用指向同一个对象。
 						- 可能会出现的异常
 					- 具体实践：JavaTrain/src/main/java/cn/bravedawn/basic/lang/systemarraycopy
 					- 参考博客：
+					  collapsed:: true
 						- [System.arraycopy() in Java](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 			- 关键字final和static
 			  collapsed:: true
@@ -390,8 +401,10 @@
 										- 在构造函数中初始化该字段
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/basic/keyword/final_
 				- static
+				  collapsed:: true
 					- 静态变量
 					- 静态方法
+					  collapsed:: true
 						- 只能访问所属类的静态字段和静态方法，方法中不能有 this 和 super 关键字，因为这两个关键字与具体对象关联。
 					- 静态语句块
 					- 静态内部类
@@ -422,6 +435,7 @@
 						- sss：毫秒
 					- Date
 					- SimpleDateFormat
+					  collapsed:: true
 						- 不是线程安全
 					- Calendar
 					  collapsed:: true
@@ -471,6 +485,7 @@
 						- Duration：表示两个时刻之间的时间间隔
 						- Period：表示两个日期之间的天数
 					- 时间格式类
+					  collapsed:: true
 						- DateTimeFormatter
 						  collapsed:: true
 							- 线程安全
@@ -498,6 +513,7 @@
 					- 匹配空格字符：`\s`可以匹配一个空格字符，注意空格字符不但包括空格，还包括tab字符（在Java中用`\t`表示）
 					- 匹配非数字：`\D`则匹配一个非数字
 					- 重复匹配
+					  collapsed:: true
 						- 修饰符`*`可以匹配任意个字符，包括0个字符
 						- 修饰符`+`可以匹配至少一个字符
 						- 修饰符`?`可以匹配0个或一个字符
@@ -507,9 +523,12 @@
 					- 匹配指定范围
 					- 或规则匹配
 					- 使用括号
+					  collapsed:: true
 						- 提取公共部分，括起子规则
+						  collapsed:: true
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.BracketExample
 						- 分组匹配
+						  collapsed:: true
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.GroupMatch
 				- 使用Pattern只做一次编译，不建议使用String.matches()
 				- 非贪婪匹配?
@@ -528,6 +547,7 @@
 				- 枚举类的作用：定义的普通常量类，编译器无法检查每个值的合理性
 				- 枚举的比较：相比equals方法，建议使用==
 				- 枚举的实例方法
+				  collapsed:: true
 					- `name()`
 					- `ordinal()`
 					- `values()`
@@ -584,17 +604,18 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
-		  collapsed:: true
 			- Object通用方法
 				- equals
 				  collapsed:: true
 					- Java SE中针对equals()的原则
+					  collapsed:: true
 						- 自反性（Reflexive）：对于非null的x来说，x.equals(x)必须返回true；
 						- 对称性（Symmetric）：对于非null的x和y来说，如果x.equals(y)为true，则y.equals(x)也必须为true；
 						- 传递性（Transitive）：对于非null的x、y和z来说，如果x.equals(y)为true，y.equals(z)也为true，那么x.equals(z)也必须为true；
 						- 一致性（Consistent）：对于非null的x和y来说，只要x和y状态不变，则x.equals(y)总是一致地返回true或者false；
 						- 对null的比较：x.equals(null)永远返回false
 					- 手动编写equals的步骤（可参考：JavaTrain：cn.bravedawn.obj.object.EqualsExample#equals）
+					  collapsed:: true
 						- 第一步：先确定实例“相等”的逻辑，即哪些字段相等，就认为实例相等；
 						- 第二步：用instanceof判断传入的待比较的Object是不是当前类型，如果是，继续比较，否则，返回false；
 						- 第三步：对引用类型用Objects.equals()比较，对基本类型直接用==比较；
@@ -763,12 +784,14 @@
 				- 重载
 				  collapsed:: true
 					- 特点（定义）
+					  collapsed:: true
 						- （Overload）存在于同一个类中，指一个方法与已经存在的方法名称上相同，但是参数类型、个数、顺序至少有一个不同。
 						- 返回类型不参与重载选择，可以相同也可以不同。
 						- 每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。
 						- 最常用的地方就是构造器的重载。
 						- Java中不允许用户重载运算符。
 					- Java中方法重载的三种方式
+					  collapsed:: true
 						- 更改参数的数量
 						- 更改参数的数据类型
 						- 改变方法参数的顺序
@@ -779,6 +802,7 @@
 						- 在类型升级的过程中，Java会自动将原始数据类型转为包装类型去类型转换匹配图中去寻找。
 						- 类型转换匹配图，例如实参如果是Byte类型，但是形参没有Byte类型，Java就会去找是否有Short、Integer....的重载方法。
 					- 返回值问题
+					  collapsed:: true
 						- 如果两个方法参数的参数类型、个数、顺序都相同。返回值不同，是无法通过编译的。
 						- 如果两个方法参数的参数类型、个数、顺序至少有一个不同，返回值可以相同也可以不同。
 					- 重载main方法
@@ -839,10 +863,12 @@
 					  collapsed:: true
 						- 使用：`obj instanceof 类名`
 						- 作用
+						  collapsed:: true
 							- 判断一个变量所指向的实例是否是指定类型，或者这个类型的子类。
 							- 用来测试对象是否属于给定类型的二元运算符。
 							- 它也称为类型比较运算符，因为它将实例与类型进行比较。
 						- 注意
+						  collapsed:: true
 							- 如果被比较的对象和它被比较的类型之间没有关系，则不能使用 `instanceof` 运算符。
 							- 如果一个引用变量为`null`，那么对任何instanceof的判断都为`false`。
 							- 在 Java 中，每个类都隐式继承自 Object 类。因此，使用带有 Object 类型的 instanceof 运算符将始终计算为 true。
@@ -855,9 +881,11 @@
 				- 多态
 				  collapsed:: true
 					- 多态
+					  collapsed:: true
 						- 多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法
 						- 多态具有一个非常强大的功能，就是允许添加更多类型的子类实现功能扩展，却不需要修改基于父类的代码
 					- 覆写
+					  collapsed:: true
 						- 定义：在继承关系中，子类如果定义了一个与父类方法签名完全相同的方法，被称为覆写（Override）
 						- 实际意义：如果子类覆写了父类的方法，子类的引用在实际调用这个方法的时候，调用的是子类的方法。
 					- 实例初始化代码块
@@ -876,24 +904,30 @@
 				- 抽象类和接口
 				  collapsed:: true
 					- 抽象类
+					  collapsed:: true
 						- 背景：由于多态的存在，每个子类都可以覆写父类的方法。我们发现父类的方法其实并没有实际的意义，想要去掉方法的执行语句
 						- 定义
+						  collapsed:: true
 							- 抽象方法用abstract修饰
 							- 抽象方法所在的类必须是抽象类
 							- 抽象类是无法实例化的。可以通过实现一个匿名内部类来实例化对象
 						- 优势
+						  collapsed:: true
 							- 上层代码只定义规范
 							- 通过抽象类Person类型去引用具体的子类实例
 							- 具体的业务逻辑由不同的子类实现
 					- 接口
+					  collapsed:: true
 						- 如果一个抽象类没有字段，所有方法全部都是抽象方法，就可以将该抽象类改写为接口
 						- 特点
+						  collapsed:: true
 							- 一个类可以实现多个interface。
 							- 接口定义的所有方法默认都是public abstract的。
 							- 接口是无法实例化的。可以通过实现一个匿名内部类来实例化对象。
 							- 接口中是无法定义静态语句块的。
 							- 接口变量的默认修饰符是`public static final`，所以很适合在接口中声明常量。
 						- 与抽象类的比较
+						  collapsed:: true
 							- 语法层面上
 							  collapsed:: true
 								- 抽象类可以提供成员方法的实现细节，而接口中只能存在 public abstract 方法；
@@ -925,13 +959,16 @@
 				- 内部类
 				  collapsed:: true
 					- 内部类
+					  collapsed:: true
 						- 可以用Outer.this引用Outer实例
 						- 可以修改Outer Class的private字段
 						- 可以访问Outer Class的private字段和方法
 					- 匿名内部类
+					  collapsed:: true
 						- 通过实现一个接口或是抽象类来定义一个匿名内部类，从而实例化一个接口或是抽象类
 						- 匿名类也完全可以继承自普通类
 					- 静态内部类
+					  collapsed:: true
 						- 和内部类类似，但是使用static修饰
 						- 不再依附于Outer的实例，而是一个完全独立的类，因此无法引用Outer.this
 						- 可以访问Outer的private静态字段和静态方法
@@ -965,10 +1002,12 @@
 			- 异常体系
 			  collapsed:: true
 				- 分类
+				  collapsed:: true
 					- 检查性异常：需强制捕获
 					- 运行时异常：无需强制捕获
 					- 错误：无需捕获的严重错误
 				- 关键字
+				  collapsed:: true
 					- try： 用于监听
 					- catch： 用于捕获异常
 					- finally：finally语句块总是会被执行
@@ -1072,73 +1111,95 @@
 			- 编码算法
 			  collapsed:: true
 				- ASCII码
+				  collapsed:: true
 					- 美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码
 					- ASCII 码一共规定了128个字符的编码
 				- Unicode码
+				  collapsed:: true
 					- 背景：世界上存在多种编码方式，同一个二进制数字可以被解释成不同的符号，很容易出现乱码
 					- Unicode将世界上所有的符号都纳入其中，每一个符号都给予了独一无二的编码
 					- Unicode存在的问题
+					  collapsed:: true
 						- 不能区分Unicode和ASCII码，无法确定多个字节表示一个符号还是多个符号。
 						- Unicode 的每个符号需要三到四个字节表示，但是英文字母只需要一个字节，十分浪费存储。导致Unicode出现了多种存储方式，也就是说有许多种不同的二进制格式，可以用来表示 Unicode
 					- 相关网站
+					  collapsed:: true
 						- Unicode字符百科
 						- Unicode
 				- UTF-8编码
+				  collapsed:: true
 					- UTF-8 是 Unicode 的实现方式之一
 					- uft-8是一种变长的编码方式，可以使用1~4个字表示一个符号，根据符号的不同变化字节长度
 				- URL编码
+				  collapsed:: true
 					- 背景：因为出于兼容性考虑，很多服务器只识别ASCII字符。但如果URL中包含中文、日文这些非ASCII字符怎么办
 					- URL编码规则
+					  collapsed:: true
 						- 如果字符是A~Z，a~z，0~9以及-、_、.、*，则保持不变；
 						- 如果是其他字符，先转换为UTF-8编码，然后对每个字节以%XX表示；
 					- 注意
+					  collapsed:: true
 						- URL编码是编码算法，不是加密算法
 						- URL编码的目的是把任意文本数据编码为%前缀表示的文本，编码后的文本仅包含A~Z，a~z，0~9，-，_，.，*和%，便于浏览器和服务器处理
 				- Base64编码
+				  collapsed:: true
 					- 背景：可以将二进制数据变成文本格式，这样好多文本中就可以处理二进制数据了。例如，电子邮件协议就是文本协议，如果要在电子邮件中添加一个二进制文件，就可以用Base64编码，然后以文本的形式传送。
 					- 作用
+					  collapsed:: true
 						- 是一种编码算法，不是加密算法。
 						- Base64编码可以把任意长度的二进制数据变为纯文本，且只包含A~Z、a~z、0~9、+、/、=这些字符
 					- 原理
+					  collapsed:: true
 						- 把3字节的二进制数据按6bit一组
 						- 每一组高位补两个0
 						- 用4个int整数表示，然后查Base64索引表，把int整数用索引对应到字符，得到编码后的字符串。
 					- 缺点
+					  collapsed:: true
 						- 传输效率会降低，因为它把原始数据的长度增加了1/3
 			- 哈希算法
 			  collapsed:: true
 				- 定义：哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。
 				- 特点
+				  collapsed:: true
 					- 无论输入的消息有多长，计算出来的消息摘要的长度总是固定的
 					- 消息摘要是 **伪随机的**
 					- 通常情况下，不同的输入必会产生不同的输出，相同的输入必会产生相同的输出
 					- 只能进行正向的信息摘要，而无法从摘要中恢复出任何原始的信息，甚至根本就找不到任何与原信息相关的信息
 				- 目的：为了验证原始数据是否被篡改
 				- Java字符串的hashcode方法
+				  collapsed:: true
 					- 它的输入是任意字符串，输出是固定的4字节int整数
 					- 两个相同的字符串永远会计算出相同的hashCode
 					- 在覆盖 equals() 方法时应当总是覆盖 hashCode()方法，保证等价的两个对象哈希值也相等。否则基于hashCode定位的HashMap就无法正常工作
 				- 哈希碰撞
+				  collapsed:: true
 					- 定义：两个不同的输入得到了相同的输出。哈希算法的输出长度越长，就越难产生碰撞，也就越安全
 					- 安全的哈希算法满足的条件
+					  collapsed:: true
 						- 碰撞概率低
 						- 不能猜测输出
 				- 常见的哈希算法
+				  collapsed:: true
 					- MD(Message Digest)：消息摘要算法
 					- SHA(Secure Hash Algorithm)：安全散列算法
 					- SM3：国密签名算法
 					- 相同点
+					  collapsed:: true
 						- 都是密码散列函数，加密不可逆。
 						- 都可以实现对任意长度对象加密，都不能防止碰撞。
 					- 不同点
+					  collapsed:: true
 						- SHA256（⼜称SHA2）的安全性最⾼，但是耗时要⽐MD5多很多。
 						- md5相对来说比较容易碰撞，安全性没这么高。
 					- 参考文章
+					  collapsed:: true
 						- [哈希算法的常见种类及特点有哪些？](https://juejin.cn/post/7089749167886565413)
 				- 用途
+				  collapsed:: true
 					- 验证软件安装文件是否被人篡改
 					- 数据库用户密码存储
 				- 加盐
+				  collapsed:: true
 					- 目的：使黑客的彩虹表失效，即使用户使用常用口令，也无法从MD5反推原始口令
 					- 彩虹表：提前计算好的密码和其哈希值对照表
 					- 定义：对密码额外添加随机数，这个方法称之为加盐（salt），其算法：digest = md5(salt+inputPassword)
@@ -1150,24 +1211,31 @@
 			  collapsed:: true
 				- Hmac算法就是一种基于密钥的消息认证码算法，它的全称是Hash-based Message Authentication Code，是一种更安全的消息摘要算法。
 				- HMAC算法包括一个秘密密钥和哈希函数。
+				  collapsed:: true
 					- 秘密密钥是一个唯一的信息或字符串。它是由发件人和消息的接收器所知。
 					- 散列函数是一种将一个序列转换为另一个序列的映射算法。
 				- HamcMd5相比于md5+salt的优势
+				  collapsed:: true
 					- HmacMD5使用的key长度是64字节，更安全
 					- Hmac是标准算法，同样适用于SHA-1等其他哈希算法
 					- Hmac输出和原有的哈希算法长度一致
 			- 对称加密算法
 			  collapsed:: true
 				- 定义：用一个密码进行加密和解密的算法
+				  collapsed:: true
 					- 加密：secret = encrypt(key, message);
 					- 解密：secret = encrypt(key, message);
 					- 需要指定算法名称、工作模式和填充模式
 				- DES
+				  collapsed:: true
 					- 注意：由于密钥过短，可以在短时间内被暴力破解，所以现在已经不安全了
 				- AES
+				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- 可以加密任意长度的明文
 					- 参考文章
+					  collapsed:: true
 						- [Java AES Encryption and Decryption](https://www.baeldung.com/java-aes-encryption-decryption)
 				- IDEA
 			- 口令加密算法
@@ -1175,29 +1243,38 @@
 				- 背景：由于用户输入的密码安全性较弱，并不能达到加密算法对密码的长度要求，而且安全性也远不如随机数产生的随机口令。
 				- 定义：使用用户口令（密码），采用随机数（salt），综合多种对称加密和摘要算法，生成密钥key。
 				- 用途
+				  collapsed:: true
 					- 设计一个通用的“口令”加密软件，将随机生成的salt存储在U盘中，在用户输入密码时读取U盘中的salt，这样就得到了一个USB key的加密软件。
 			- 密钥交换算法
 			  collapsed:: true
 				- 背景：为了解决在不安全的信道上面安全的传输密钥的问题
 				- Diffie-Hellman算法
+				  collapsed:: true
 					- DH算法的本质就是双方各自生成自己的私钥和公钥，私钥仅对自己可见，然后交换公钥，并根据自己的私钥和对方的公钥，生成最终的密钥secretKey，DH算法通过数学定律保证了双方各自计算出的secretKey是相同的
 					- 具体使用
+					  collapsed:: true
 						- 通过dh算法，通信双方确认密钥
 						- 使用确认的密钥，采用例如AES这样的加密算法进行加解密
 					- 缺点
+					  collapsed:: true
 						- 不能防止中间人攻击
 			- 非对称加密算法
+			  collapsed:: true
 				- 定义：非对称加密就是加密和解密使用的不是相同的密钥，只有同一个公钥-私钥对才能正常加解密。
 				- 特性
+				  collapsed:: true
 					- RSA密钥有256/512/1024/2048/4096等不同的长度。
 				- 优势
+				  collapsed:: true
 					- 对称加密可以安全地公开各自的公钥，在N个人之间通信的时候：使用非对称加密只需要N个密钥对，每个人只管理自己的密钥对。而对称加密则需要N*(N-1)/2个密钥，因此每个人需要管理N-1个密钥，密钥管理难度大，而且非常容易泄漏
 				- 缺点：
+				  collapsed:: true
 					- 运算速度非常慢，比对称加密要慢很多
 					- 长度越长，密码强度越大，当然计算速度也越慢
 					- 特定长度密钥只能加密一定长度的数据，例如使用512bit的RSA加密时，明文长度不能超过53字节，使用1024bit的RSA加密时，明文长度不能超过117字节
 					- 不能防止中间人攻击
 				- 应用案例
+				  collapsed:: true
 					- 小红和小明通信，他俩首先互换自己的RAS公钥给对方
 					- 小红将AES的密钥用小明的RSA公钥加密，小明用自己的RSA私钥解密得到AES密钥
 					- 双方使用这个共享的AES口令用AES加密通信
@@ -1205,28 +1282,36 @@
 			  collapsed:: true
 				- 目的：使用数字签名的目的是为了确认信息确实由某个发送的，任何人都不能伪造，并且发送方也不能抵赖
 				- 使用
+				  collapsed:: true
 					- 数字签名就是用发送方的私钥对原始数据进行签名，只有用发送方公钥才能通过签名验证
 					- 使用私钥加密生成数字签名：signature = encrypt(privateKey, sha256(message))，签名是针对原始消息的哈希进行签名
 					- 使用公钥解密验证签名：hash = decrypt(publicKey, signature)
 					- 使用解密后的哈希与原始消息的哈希进行对比
 				- 用途
+				  collapsed:: true
 					- 防止伪造
 					- 防止抵赖
 					- 检测篡改
 				- 常用的数字签名算法
+				  collapsed:: true
 					- MD5withRSA
 					- SHA1withRSA
 					- SHA256withRSA
 				- 国密SM2算法
 				- DSA签名
+				  collapsed:: true
 					- 算法
+					  collapsed:: true
 						- SHA1withDSA
 						- SHA256withDSA
 						- SHA512withDSA
 					- 优势
+					  collapsed:: true
 						- 和RSA数字签名相比，DSA的优点是更快
 				- ECDSA签名
+				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- 可以从私钥推出公钥
 						- 比特币的签名算法就采用了ECDSA算法
 						- BouncyCastle提供了ECDSA的完整实现
@@ -1254,6 +1339,7 @@
 				  collapsed:: true
 					- [使用 Java 读取 X.509 证书信息](https://janking.netlify.app/post/x509.html)
 		- 泛型
+		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 解决的问题：Java数据类型和自定义对象类型较多，一种公共的数据结构或是算法，需要针对不同的类型和对象进行不同的处理。而且特别容易出错，例如类型强转错误
@@ -1305,6 +1391,7 @@
 			  collapsed:: true
 				- 如果要查看类的泛型类型擦除后的效果，可以使用`java -v a.class`去查看，使用idea和Java Compiler工具直接反编译的话，查看不了。
 				- Java泛型的局限性
+				  collapsed:: true
 					- 局限一：<T>不能是基本类型，例如int，因为实际类型是Object，Object类型无法持有基本类型
 					- 局限二：无法取得带泛型对象的Class
 					  collapsed:: true
@@ -1336,34 +1423,42 @@
 			   collapsed:: true
 			  collapsed:: true
 				- 变型分为三种
+				  collapsed:: true
 					- 协变（covariant），Java的数组采用了协变的规则
 					- 逆变（contravariant）
 					- 不变（invariant），其中Java泛型采用了不变的规则
 				- 变型的作用
+				  collapsed:: true
 					- 这些规则规定了类型构造器是如何界定父子类型之间关系的。
 					- 我声明了两个类，一个是`Animal`类，一个是`Dog`类，其中`Dog`是`Animal`类的子类，`f(type)`就是指`type`类型经过`f()`类型构造器的处理转换为一个新的类型。
+					  collapsed:: true
 						- 协变：就是指`f(Dog)`是`f(Animal)`的子类，也就是说`Dog`类经过类型构造器的处理后是`Animal`类经过类型构造器处理后的子类。
 						- 逆变：就是指`f(Animal)`是`f(Dog)`的子类。
 						- 不变：就是指`f(Dog)`和`f(Animal)`之间没有关系。既不是协变也不是逆变。
 					- 类型构造器f(type)可以是
+					  collapsed:: true
 						- 泛型：`List<Animal>`、`List<Dog>`
 						- 数组：`Animal[]`、`Dog[]`
 						- 函数/方法：`method(Animal)`、`method(Dog)`
 				- 泛型为什么需要协变
+				  collapsed:: true
 					- 多态，相同逻辑的方法不能因为参数类型的不同而重复写多遍。
 			- 限定通配符
 			  collapsed:: true
 				- `<? extends T>`
+				  collapsed:: true
 					- 作用：对泛型参数的上界进行限制，必须是泛型T或是他的子类
 					- 作为方法参数时控制泛型参数类型为指定类型或是他的子类
 					- 上界描述符`extends`适合读取（get）的场景（可以获取具体类型和Object类型），并不适合写入（set，传入null除外）的场景。
 					- 代码实践：JavaTrain/src/main/java/cn/bravedawn/generic/wildcards/upperbounds
 				- `<? super T>`
+				  collapsed:: true
 					- 作用：对泛型参数的下界进行限制，必须是泛型T或者他的父类
 					- 作为方法参数时控制泛型参数类型为指定类型或是他的父类
 					- 下界描述符super适合写入（set）的场景，并不适合读取（get只能拿到Object类型）的场景
 					- 也不是所有的父类类型都可以set的原因：`<? super Apple>`，可以set的元素可以是Apple的子类和她自己，他的父类是不行的，原因是我不知道他的父类有哪些
 				- PECS原则
+				  collapsed:: true
 					- Producer Extends Consumer Super
 					- 如果需要返回T，它是生产者（Producer），要使用`extends`通配符；如果需要写入T，它是消费者（Consumer），要使用`super`通配符
 				- 桥接方法
@@ -1413,41 +1508,53 @@
 				  collapsed:: true
 					- 参考：JavaTrain/src/main/java/cn/bravedawn/annotation/repeatable
 			- 常见标准的Annotation
+			  collapsed:: true
 				- `@Override`，标记类型注解，用作标注方法。它说明了被标注的方法重写了父类的方法，起到了断言的作用。如果我们使用了这种注解在一个没有覆盖父类方法的方法时，java 编译器将以一个编译错误来警示。
 				- `@Deprecated`，标记类型注解，用于废弃代码。
 				- `@SuppressWarnings`，非标记类型注解，它的作用是告诉编译器对被注解的作用域内部警告保持静默。
+				  collapsed:: true
 					- `@SuppressWarnings("unchecked")`：执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型。
 					- `@SuppressWarnings("serial")`：某类实现`Serializable`(序列化)， 但没有定义 serialVersionUID 时的警告
 					- `@SuppressWarnings("deprecation")`：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
 			- 定义一个注解
-				- 1. 用`@interface`声明一个注解
+			  collapsed:: true
+				- collapsed:: true
+				  1. 用`@interface`声明一个注解
 					- Annotation 型定义为@interface，所有的Annotation 会自动继承`java.lang.annotation.Annotation`这一接口，并且不能再去继承别的类或是接口
-				- 2. 定义参数成员和默认值
+				- collapsed:: true
+				  2. 定义参数成员和默认值
 					- 参数成员只能用`public` 或默认(`default`) 这两个访问权修饰
 					- 参数成员只能用基本类型`byte`、`short`、`char`、`int`、`long`、`float`、`double`、`boolean`八种基本数据类型和其包装类。
 					- `String`、`enums`、`Class`等数据类型
 					- 以及以上类型的数组
 				- 3. 用元注解配置注解
 			- 处理注解
+			  collapsed:: true
 				- 使用反射API判断是否有Annotation修饰
+				  collapsed:: true
 					- Class.isAnnotationPresent(AnnotationClass)
 					- Field.isAnnotationPresent(AnnotationClass)
 					- Method.isAnnotationPresent(AnnotationClass)
 					- Constructor.isAnnotationPresent(AnnotationClass)
 				- 使用反射API读取Annotation
+				  collapsed:: true
 					- Class.getAnnotation(AnnotationClass)
 					- Field.getAnnotation(AnnotationClass)
 					- Method.getAnnotation(AnnotationClass)
 					- Constructor.getAnnotation(AnnotationClass)
 				- 使用反射API读取Annotation有两种方法（读取Class上面修饰的注解）
+				  collapsed:: true
 					- 方法一是先判断Annotation是否存在，如果存在，就直接读取
 					- 方法二是直接读取Annotation，如果Annotation不存在，将返回null
 				- 读取方法、字段和构造方法的Annotation和Class类似
+				  collapsed:: true
 					- 获取到Annotation之后，将注解进行强转，就可以获取注解的属性了
 					- 参考实现：cn.bravedawn.annotation.fruitexample.FruitInfoUtil
 				- 读取方法参数使用getParameterAnnotations()
+				  collapsed:: true
 					- 参考实现：cn.bravedawn.annotation.parameterexample.AnnotationParametersUtil
 				- 获取一个元素(Class、 Method、Constructor、Field)上的注解对象
+				  collapsed:: true
 					- getAnnotation(Class<T> annotationClass)
 					- getAnnotations()
 					- getAnnotationsByType(Class<T> annotationClass)
@@ -1574,23 +1681,31 @@
 				  collapsed:: true
 					- 类似于反射，可以实现方法的间接调用。
 			- Type类型
+			  collapsed:: true
 				-
 		- 模块（Java Platform Module System，JPMS）
 		  collapsed:: true
 			- 背景
+			  collapsed:: true
 				- jar文件就是class文件的容器，但是jar只是用于存放class的容器，它并不关心class之间的依赖。如果我们编写了一个jar，它还引用了多个jar的代码，如果我们要执行这个jar：java -cp app.jar:a.jar:b.jar:c.jar cn.bravedawn.sample.Main，这里我们要写一堆的三方包。如果漏写了某个运行时需要用到的jar，那么在运行期极有可能抛出ClassNotFoundException。
 				- Java 9开始引入的模块，主要是为了解决“依赖”这个问题。让程序在编译和运行的时候能自动定位到b.jar，这种自带“依赖关系”的class容器就是模块。
 			- 实现模块化的关键目标：可配置的封装隔离机制
+			  collapsed:: true
 				- 解决了两个问题
+				  collapsed:: true
 					- 一解决了JDK9之前基于类路径（classpath）来查找依赖的可靠性问题。
+					  collapsed:: true
 						- 原来：如果某个类在类路径上缺失，当程序运行时执行某个类的加载、链接动作时才会报出异常。
 						- 现在：模块在开发时就可以声明对其他模块的显式依赖，在虚拟机启动的时候会验证应用程序在开发阶段设定的依赖关系是否完备，如果缺失虚拟机直接会启动失败。从而避免了程序由于类型依赖引发的运行时异常。
 					- 二解决了原来在类路径上跨JAR文件的public类型的可访问性问题。
+					  collapsed:: true
 						- 原来：在JDK9之前，public访问权限的类意味着程序所有的代码都可以随意的访问他们。
 						- 现在：
+						  collapsed:: true
 							- 模块提供了更精细化的可访问控制，一个模块必须声明其中哪些public访问权限的类可以被哪些模块访问。
 							- 这种访问控制实在类的加载过程中完成的。
 			- 模块路径
+			  collapsed:: true
 				- 模块系统使用 **模块路径** 来查找在不同的模块工件（module artifact）中定义的模块。
 				- 在不同的阶段可以使用不同类型的模块路径，如下表所示。在使用`javac`编译时，表中的4个模块路径都可以适用。模块系统会首先检查`--module-source-path`指定的模块路径，其次`--upgrade-module-path`，接着是`--system`，最后是`--module-path`或`-p`。
 				  :LOGBOOK:
@@ -1599,21 +1714,27 @@
 				  ![模块路径.jpeg](../assets/模块路径_1673271258276_0.jpeg)
 				- 模块路径使用操作系统上路径分隔符来进行分隔：Windows上是分号（`;`），macOS和Linux上是冒号（`:`）。
 			- 模块的类型
+			  collapsed:: true
 				- 具名模块（Named Module）
+				  collapsed:: true
 					- 具名模块也称为应用模块（Application Module），通常在模块根目录下有module-info.java文件的话，那么这个模块就称为**具名模块**。
 				- 匿名模块（Unnamed Module）
+				  collapsed:: true
 					- **无名模块**指的就是不包含module-info.java的jar包，通常这些jar包都是java9之前构建的。值得注意的是：
 					  collapsed:: true
 						- 无名模块可以读取到其他所有的模块，并且会将自己包下的所有类都暴露给外界。
 						- 具名模块不能读取无名模块，因为具名模块无法在module-info.java中声明对无名模块的依赖。
 						- 无名模块导出所有包的目的在于让其他无名模块可以加载这些类。
 				- 自动模块（Automatic Module）
+				  collapsed:: true
 					- 任何匿名模块放到模块路径（module path）上会自动变为**自动模块**。
 			- 模块化系统是如何保证传统类路径依赖的程序运行在JDK9及其以后的JDK上的，规则如下：
+			  collapsed:: true
 				- JAR文件在类路径的访问规则：所有类路径下的JAR文件及其他资源文件，都被视为自动打包在一个**匿名模块（Unnamed Module）**里，这个匿名模块几乎是没有任何隔离的，它可以看到和使用类路径上所有的包、JDK系统模块中所有的导出包，以及模块路径上所有模块中导出的包。
 				- 模块在模块路径的访问规则：模块路径下的**具名模块（Named Module）**只能访问到它依赖定义中列明依赖的模块和包，匿名模块里所有的内容对具名模块来说都是不可见的，即具名模块看不见传统JAR包的内容。
 				- JAR文件在模块路径的访问规则：如果把一个传统的、不包含模块定义的JAR文件放置到模块路径中，它就会变成一个**自动模块**（Automatic Module）。尽管不包含module-info.class，但自动模块将默认依赖于整个模块路径中的所有模块，因此可以访问到所有模块导出的包。
 			- 编写模块
+			  collapsed:: true
 				- 编译：javac -d bin .\src\module-info.java .\src\cn\bravedawn*.java
 				  collapsed:: true
 					- -d：指定放置生成的类文件的位置
@@ -1631,56 +1752,74 @@
 					- –module-path：一个;目录分开的列表，每个目录都是一个目录的模块。指的是运行模块jar的目录
 					- –module：指定模块名
 			- 模块描述符
+			  collapsed:: true
 				- 作用
+				  collapsed:: true
 					- 为了描述模块之间的关系，用于定义模块信息，类似于Maven中的pom文件，Java9称之为模块描述符。
 					- 模块描述符是一个固定名称的java文件，所有的模块描述符文件名称固定位 **module-info.java**，其内部存在特定的结构。
 				- 关键字
+				  collapsed:: true
 					- module: 用来定义一个模块，后面紧跟模块名称，在同一个模块路径下，模块名称不允许相同。
 					- exports: 用来指定开放那个包作为API供外部调用，没有开放的api不允许被调用。
 					- requires: 用来执行依赖的模块，依赖必须显示指定。
 			- 打包JRE
+			  collapsed:: true
 				- 目的
+				  collapsed:: true
 					- 要分发我们自己的Java应用程序，只需要把这个jre目录打个包给对方发过去，对方直接运行上述命令即可，既不用下载安装JDK，也不用知道如何配置我们自己的模块，极大地方便了分发和部署。
 				- 步骤
+				  collapsed:: true
 					- 打包生产一个完整的并且带有我们自己opp.module模块的JRE：jlink –module-path hello.jmod –add-modules java.base,java.xml,hello.world –output jre/
 					- 运行jre：jre/bin/java –module opp.module
 			- 访问权限
+			  collapsed:: true
 				- Java的class的四级访问权限在模块中并不适用，class的这些访问权限只在一个模块内有效。
 				- A模块要想访问B模块的某个class，必要条件是B模块要明确地导出了可以访问的包。
 			- 参考文章
+			  collapsed:: true
 				- [Java模块系统介绍](http://ypk1226.com/2019/10/16/java/java9-module/)
 				- [使用JDK9提供的模块化系统，来定义自己的模块](https://blog.csdn.net/gybshen/article/details/116886776)
 				- [Java平台模块系统（3）- JDK工具](https://zhuanlan.zhihu.com/p/97284537)
 		- SPI机制
 		  collapsed:: true
 			- 定义
+			  collapsed:: true
 				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。
 				- 核心思想是解耦。
 			- 实现
+			  collapsed:: true
 				- 定义一个接口。
 				- 为接口提供不同的实现。
 				- 在`resources`下新建`META-INF/services/`目录，以**接口名**新建一个文件，然后将**接口实现类的全限定名**写在该文件中。
 			- SPI机制的使用
+			  collapsed:: true
 				- JDBC DriverManager
+				  collapsed:: true
 					- 在Java17中可以参考`java.sql.DriverManager#ensureDriversInitialized`这个方法
 					- 在SPI加载驱动的时候相应jar包对`java.sql.Driver`接口的实现类都会被实例化
 				- Common-Logging
+				  collapsed:: true
 					- 这里定义的接口是`org.apache.commons.logging.LogFactory`
 					- 具体的接口逻辑参考：`org.apache.commons.logging.LogFactory#getFactory`，这里面就有尝试使用java spi服务发现机制，在`META-INF/services`下寻找`org.apache.commons.logging.LogFactory`的实现
 				- 插件体系
+				  collapsed:: true
 					- Eclipse使用OSGi作为插件系统的基础，通过规定固定的文件结构去管理插件的生命周期
 				- Spring中SPI机制
+				  collapsed:: true
 					- Spring在做自动装配的时候，会加载`META-INF/spring.factories`文件，而加载的过程是由`SpringFactoriesLoader`加载的。
 					- Spring中具体的代码在`org.springframework.core.io.support.SpringFactoriesLoader#loadFactoryNames`
 			- SPI深入原理
+			  collapsed:: true
 				- 使用流程
 				  collapsed:: true
 					- 定义标准，比如java.sql.Driver
 					- 具体厂商或是开发者实现
+					  collapsed:: true
 						- 在META-INF/services/目录下定义接口全限定名的文件，填写实现类的全限定名
 						- 编写接口实现
 					- 开发人员使用，这里可以参考JavaTrain项目的cn.bravedawn.spi.example.Test
 				- SPI和API之间的区别
+				  collapsed:: true
 					- API是我们直接调用一个方法，以达到某一个目标，代码逻辑组织在实现者的包中
 					- SPI是我们需要拓展和实现，以达到某一个目标，代码逻辑组织在调用者的包中
 				- SPI机制的实现原理
@@ -1688,6 +1827,7 @@
 					- 源码类：java.util.ServiceLoader
 					- 具体阅读笔记参考：cn.bravedawn.spi.example.Test
 				- SPI的缺点
+				  collapsed:: true
 					- 不能按需加载，必须遍历所有实现并实例化，造成浪费
 					- 获取某个实现类的方式不够灵活，只能通过Iterator形式获取
 					- 多线程下使用ServiceLoader类的实例是不安全的
@@ -1697,9 +1837,11 @@
 		- XML
 		  collapsed:: true
 			- XML文档的定义文件
+			  collapsed:: true
 				- DTD（此类文件的后缀名为 dtd）
 				- XML Schema（此类文件的后缀名为 xsd）
 			- XPath（XML Path Language）
+			  collapsed:: true
 				- 一种小型的查询语言能够根据 XML结构树在树中寻找节点。
 				- javax.xml.xpath包提供了强大的 XPath解析功能，可以基于它实现 XML的解析。
 				-
@@ -1708,32 +1850,41 @@
 			- BigInteger
 			  collapsed:: true
 				- 背景
+				  collapsed:: true
 					- Java中，由CPU原生提供的整型最大范围是64位long型整数。使用long型整数可以直接通过CPU指令进行计算，速度非常快
 					- 若使用的整数范围超过了long型，此时就需要用软件来模拟一个大整数
 				- 定义：java.math.BigInteger就是用来表示任意大小的整数。BigInteger内部用一个int[]数组来模拟一个非常大的整数
 				- 特点
+				  collapsed:: true
 					- 是不可变类
 					- 没有范围限制，缺点是速度比较慢
 				- 转换为基本类型
+				  collapsed:: true
 					- xxxValue()：会丢失高位信息，结果不一定准确
 					- xxxValueExact()：精准的转换，如果转换超出范围，将直接抛出ArithmeticException异常
 				- 输出字节数组的16进制表示：new BigInteger(1, hash).toString(16)
 			- BigDecimal
 				- `RoundingModed`定义了8中舍入规则
-				  collapsed:: true
 					- `ROUND_UP`：向远离零的方向舍入
+					  collapsed:: true
 						- 若舍入位为非零，则对舍入部分的前一位数字加1；若舍入位为零，则直接舍弃。即为向外取整模式。
 					- `ROUND_DOWN`：向接近零的方向舍入
+					  collapsed:: true
 						- 不论舍入位是否为零，都直接舍弃。即为向内取整模式。
 					- `ROUND_CEILING`：向正无穷大的方向舍入
+					  collapsed:: true
 						- 若 BigDecimal 为正，则舍入行为与 ROUNDUP 相同；若为负，则舍入行为与 ROUNDDOWN 相同。即为向上取整模式。
 					- `ROUND_FLOOR`：向负无穷大的方向舍入
+					  collapsed:: true
 						- 若 BigDecimal 为正，则舍入行为与 ROUNDDOWN 相同；若为负，则舍入行为与 ROUNDUP 相同。即为向下取整模式。
 					- `ROUND_HAL_FUP`：向“最接近的”整数舍入
+					  collapsed:: true
 						- 若舍入位大于等于5，则对舍入部分的前一位数字加1；若舍入位小于5，则直接舍弃。即为四舍五入模式。
 					- `ROUND_HALF_DOWN`：向“最接近的”整数舍入
+					  collapsed:: true
 						- 若舍入位大于5，则对舍入部分的前一位数字加1；若舍入位小于等于5，则直接舍弃。即为五舍六入模式。
 					- `ROUND_HALF_EVEN`：向“最接近的”整数舍入
+					  collapsed:: true
 						- 若（舍入位大于5）或者（舍入位等于5且前一位为奇数），则对舍入部分的前一位数字加1；
 						- 若（舍入位小于5）或者（舍入位等于5且前一位为偶数），则直接舍弃。即为银行家舍入模式。
 					- `ROUND_UNNECESSARY`：
@@ -1756,12 +1907,18 @@
 						- *0*占位符的使用
 						- *#*号占位符的使用
 						- 占位符使用总结
+						  collapsed:: true
 							- 格式化数字，保留两位小数，**不足的小数部分用0代替**，这时候，我们就可以使用：**"0.00"**；
 							- 格式化数字，只保留有效数字，最多保留两位小数，这时候，我们就可以使用：**"#.##"**。
 						-
 					- 设置不同的舍入方式：`format.setRoundingMode(RoundingMode.DOWN);`
 					- 参考文章
+					  collapsed:: true
 						- [DecimalFormat - 格式化数据](https://www.jianshu.com/p/c1dec1796062)
+				- BigDecimal的比较
+				  collapsed:: true
+					- 比较两个 `BigDecimal` 大小,请使用`java.math.BigDecimal.compareTo(BigDecimal)`  方法，而不要使用 `java.math.BigDecimal.equals(Object)`方法。
+					- 因为`equals()`方法认为，两个表示同一个数但换算值不同（例如， 100.00 和 100.000 ）的 `BigDecimal` 值是不相等的。 然而， `compareTo()` 方法会认为这两个数是相等的，所以在从数值上比较两个 `BigDecimal` 值时，应该使用 `compareTo()` 而不是 `equals()` 。
 			- Serializable interfaces
 			  collapsed:: true
 				- 参考 ((641475d2-462e-43b7-a273-77ab40289cde))
@@ -1775,14 +1932,18 @@
 			  collapsed:: true
 				- omparator 接口定义了一个带有两个参数的 compare(arg1, arg2) 方法，这些参数表示比较对象。
 				- 已经有 Comparable，为什么还要使用 Comparator 呢？
+				  collapsed:: true
 					- 一：有时我们无法修改要排序的对象的类的源代码，从而导致无法使用 Comparable。
 					- 二：使用比较器可以避免向我们的领域类添加额外的代码。
 					- 三：可以定义多种不同的比较策略，这在使用 Comparable 时是不可能的。
 				- 避免使用减法定义比较器
+				  collapsed:: true
 					- 由于整数溢出，“Integer.MAX_VALUE – (-1)”将小于零。具体代码实现参考：JavaTrain/src/main/java/cn/bravedawn/basic/coreclass/compare/java8/AvoidSubtractionTrick.java
 				- Java8
+				  collapsed:: true
 					- 静态工厂方法：Comparator.comparing()
 				- 参考文章
+				  collapsed:: true
 					- [Comparator and Comparable in Java](https://www.baeldung.com/java-comparator-comparable)
 			- AutoCloseable
 			- BeanInfo
@@ -1790,6 +1951,7 @@
 		- http
 		  collapsed:: true
 			- 参考文章
+			  collapsed:: true
 				- [Java11 HttpClient小试牛刀](https://juejin.cn/post/6844903685563088903)
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
@@ -5026,6 +5188,9 @@
 		- Mac使用Diagram功能
 		  collapsed:: true
 			- 在Diagrams中，如果要对类进行操作的话，需要将箭头选中类，然后**双指点击**，这样原本的右键菜单就会显示出来。
+		- idea每次修改代码，运行都需要重新`mvn install`
+		  collapsed:: true
+			- 网上看到的解决办法就是，在资源管理器中删除项目中的**.idea**文件，然后在idea中重新打开项目就好了。
 		- IntelliJ IDEA 的UML类图 解析，可以[参考文章](https://blog.csdn.net/weixin_39422586/article/details/120211288)
 	- VS Code
 	  collapsed:: true
@@ -5036,7 +5201,11 @@
 		- 修改最新commit的message信息：`git commit --amend`
 		- 查看所有的分支：`git branch -a`
 		- 切换分支：`git checkout <branch_name>`
+	- DBeaver
+	  collapsed:: true
+		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)
 - 构建工具
+  collapsed:: true
 	- Maven
 		- 基础知识
 			- maven项目的一般结构
@@ -5070,6 +5239,17 @@
 				  collapsed:: true
 					- `Dependencies`相对于`DependencyManagement`，所有生命在`Dependencies`里的依赖都会自动引入，并默认被所有的子项目继承。
 					- `DependencyManagement`里只是声明依赖，并不自动实现引入，因此子项目需要显式的声明需要用的依赖。如果不在子项目中声明依赖，是不会从父项目中继承下来的；只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且`version`和`scope`都读取自父pom；另外如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。
+				- DependencyManagement坑：依赖传递的包的版本会受DependencyManagement依赖声明版本的影响。
+				  collapsed:: true
+					- 我今天遇到了一种情况，我的子module中引用了一个mybatis-spring的包，我发现我项目里面真实引入的版本是1.3.1，但是这个依赖是另一个包A依赖传递过来的，在包A的pom里发现mybatis-spring的版本是2.0.5，为他现在的版本却是1.3.1呢？
+					  最后我发现，我在父级pom中引用的一个type为`pom`的pom依赖中，发现他声明的mybatis-spring的版本是1.3.1。因为这里声明的1.3.1的版本号将包A的依赖给覆盖了，导致我最后引用的版本号就是1.3.1。解决方法也很简单，我直接在父级pom的`DependencyManagement`添加如下依赖：
+					            ```xml
+					  <dependency>
+					    <groupId>org.mybatis</groupId>
+					    <artifactId>mybatis-spring</artifactId>
+					    <version>2.0.5</version>
+					  </dependency>
+					  ```
 			- scope的值为`import`
 			  collapsed:: true
 				- `<scope>import</scope>` 只能用在 `DependencyManagement` 块中
@@ -5123,7 +5303,32 @@
 				- 参考文章
 				  collapsed:: true
 					- [maven中snapshot快照库和release发布库的区别和作用](https://www.cnblogs.com/panchanggui/p/12110186.html)
+			- maven项目中引用本地的jar
+			  collapsed:: true
+				- 第一步：在引用本地包的module的pom中加入依赖：
+				  
+				    ```xml
+				    <dependency>
+				        <groupId>com.hikvision.ga</groupId>
+				        <artifactId>artemis-http-client</artifactId>
+				        <version>1.1.8</version>
+				        <systemPath>${basedir}/libs/artemis-http-client-1.1.8.jar</systemPath>
+				        <scope>system</scope>
+				    </dependency>
+				    ```
+				- 第二步：将本地jar打入package中：
+				    我这边其实还有另一种场景，就是我的A module中引入了本地的jar，但是我的B module又依赖A module，真正需要部署的时候只需要启动B module的jar，所以只需要在A module中加入第一步的配置，将下面的配置加到B module中就行。
+				    ```xml
+				    <plugin>
+				    	<groupId>org.springframework.boot</groupId>
+				    	<artifactId>spring-boot-maven-plugin</artifactId>
+				    	<configuration>
+				    	    <includeSystemScope>true</includeSystemScope>
+				    	</configuration>
+				    </plugin>
+				    ```
 			- Maven配置
+			  collapsed:: true
 				- 配置maven3的环境变量
 				  collapsed:: true
 					- 直接将bin目录配置到系统变量的`path`中即可，不用配MAVEN_HOME。
@@ -5214,6 +5419,7 @@
 				  collapsed:: true
 					- 基本不用
 				- 项目配置：`pom.xml`
+				  collapsed:: true
 					- 项目基础信息配置
 					  collapsed:: true
 						- 代码
@@ -5345,6 +5551,7 @@
 						  </organization>  
 						  ```
 					- 项目构建环境配置
+					  collapsed:: true
 						- maven配置打包文件的名称，如下：
 						   ```xml
 						   <build>
@@ -5943,21 +6150,23 @@
 						- 功能：项目站点文档创建的处理。
 				- 文档： [Maven生命周期](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference)
 		- 插件
-		  collapsed:: true
 			- maven内建的插件
 				- [maven内建插件](https://maven.apache.org/plugins/index.html)
 			- spring-boot-maven-plugin
+			  collapsed:: true
 				- 作用
 					- maven项目的pom.xml中，添加了*org.springframework.boot:spring-boot-maven-plugin*插件，当运行`mvn package`进行打包时，会打包成一个可以直接运行的 JAR 文件，使用“Java -jar”命令就可以直接运行。
 					- spring-boot-maven-plugin插件，在很大程度上简化了应用的部署，只需要安装了 JRE 就可以运行。
 				- 参考文章
 					- [spring-boot-maven-plugin插件的作用](https://www.cnblogs.com/acm-bingzi/p/mavenspringbootplugin.html)
 			- maven-compiler-plugin
+			  collapsed:: true
 				- 背景
 					- `maven`是个项目管理工具，如果我们不告诉它我们的代码要使用什么样的`jdk`版本编译的话，它就会用`maven-compiler-plugin`默认的`jdk`版本来进行处理，这样就容易出现版本不匹配，以至于可能导致编译不通过的问题。
 				- 作用
 					- 使用`maven-compiler-plugin`插件可以指定项目源码的`jdk`版本，编译后的`jdk`版本，以及`编码`。
 			- flatten-maven-plugin
+			  collapsed:: true
 				- 使用场景：适合父子项目时使用
 				- 配置
 					- **FlattenMode=resolveCiFriendliesOnly**，设置该属性表示flatten只`${revision}`, `${sha1}` and/or `${changelist}`这个几个占位符。
@@ -5982,12 +6191,16 @@
 					- https://zhuanlan.zhihu.com/p/270574226
 					- https://www.cnblogs.com/jonath/p/7729903.html
 			- maven-failsafe-plugin
+			  collapsed:: true
 				- 功能：用来执行集成测试的。
 			- maven-surefire-plugin
+			  collapsed:: true
 				- 功能：用来执行单元测试的。
 			- maven-jar-plugin
+			  collapsed:: true
 				- 功能：配置mainClass和指定classpath。
 			- exec-maven-plugin
+			  collapsed:: true
 				- 功能
 					- 提供了在 Maven 构建过程中执行外部命令的功能，常用于在构建过程中执行一些自定义脚本或命令行工具。
 					- 如果你想在maven生命周期内，运行一段java代码，或者一段独立的程序，或者说我们所指的预执行，初始化某些值，生成某些不能预先生成的文件。

@@ -107,6 +107,10 @@
 				- 创建命名空间的命令：
 					- 使用yaml：`kubectl create -f custom-namespace.yaml`
 					- 使用命令：`kubectl create namespace custom-namespace`
+	- 第七章 ConfigMap和Secret：配置应用程序
+	  collapsed:: true
+		- 参考文章
+			- [K8s 集群使用 ConfigMap 优雅加载 Spring Boot 配置文件](https://blog.csdn.net/aixiaoyang168/article/details/90116097#1Spring_Boot__1)
 - 《Kubernetes修炼手册》
   collapsed:: true
 	- 第二章 Kubernetes
@@ -276,10 +280,12 @@
 - docker
   collapsed:: true
 	- docker的三个概念
+	  collapsed:: true
 		- 镜像（image）：镜像中包含了应用软件运行的基础设施和应用软件本身。镜像的名称一般由`镜像名:TAG`组成。
 		- 容器（container）：容器是镜像创建的运行实例。
 		- 仓库（Repository）：存放镜像的仓库，类似与Maven的仓库。
 	- 构建镜像的两种方式
+	  collapsed:: true
 		- 一基于现有镜像启动一个容器，然后利用容器创建一个新的镜像
 		  collapsed:: true
 			- 启动现有镜像：`docker run -it $image_name /bin/bash`
@@ -292,6 +298,7 @@
 		  collapsed:: true
 			- 构建命令：`docker build -t $image_name -f $Dockerfile_path`
 	- 容器的基本操作
+	  collapsed:: true
 		- 基于镜像启动容器：`docker run -it 镜像名称/镜像tag /bin/bash`
 		  collapsed:: true
 			- `-i`：表示打开并保持标准输出。
@@ -345,15 +352,12 @@
 					- 可执行文件：`RUN ["可执行文件", "参数1", "参数2"]`
 					  logseq.order-list-type:: number
 			- `CMD`：运行容器时执行的shell环境。
-			  collapsed:: true
 				- 作用：为启动的容器指定默认要运行的程序，程序运行结束，容器也就结束。`CMD`指令指定的程序可被`docker run`命令行参数中指定要运行的程序所覆盖。
 				- 类似于 RUN 指令，用于运行程序，但二者运行的时间点不同。
-				  collapsed:: true
-					- `CMD` 在`docker run` 时运行。
-					- `RUN` 是在`docker build`。
+					- CMD 是在`docker run`时运行。
+					- RUN 是在`docker build`时运行。
 				- **注意**：如果 Dockerfile 中如果存在多个`CMD`指令，仅最后一个生效。
 				- 命令格式
-				  collapsed:: true
 					- `CMD <shell 命令>`
 					  logseq.order-list-type:: number
 					- `CMD ["<可执行文件或命令>","<param1>","<param2>",...]`
@@ -373,6 +377,8 @@
 				- 作用：复制指令，将主机上的资源复制或加入到容器镜像中，都是在构建镜像的过程中完成的。
 				- 命令格式：`COPY <源路径1>...  <目标路径>`
 				- 这个命令执行文件复制时，复制的文件目录是以Dockerfile为根目录进行复制的，切记。
+				- `COPY ./floder1 /var/`：这句命令的意思是将floder1文件夹下的文件全部复制到容器的/var目录下。
+				- `COPY ./floder1 /var/floder1/`：这句命令的意思是将floder1文件夹复制到/var目录下。
 			- `ADD`：拷贝文件或目录到容器中，如果是URL或压缩包便会自动下载或自动解压。
 			  collapsed:: true
 				- 作用：ADD 指令和 COPY 的使用格类似（同样需求下，官方推荐使用 COPY），功能也类似。
