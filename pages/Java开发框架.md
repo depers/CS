@@ -1,9 +1,9 @@
 - Spring
 	- 《Spring4.x企业级应用开发实战》
-	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
+			  collapsed:: true
 				- IoC
 					- IoC容器
 						- 用配置的方式对类的依赖关系进行描述
@@ -25,7 +25,6 @@
 				- WebSocket
 			- Spring对Java版本的要求
 				- 推荐使用Java8.0，最低Java6.0
-				-
 			- Spring的新特性
 				- 全面支持Java8
 					- [jarjar工具](https://code.google.com/archive/p/jarjar/)
@@ -71,7 +70,6 @@
 				- 即包含视图信息，又包括视图渲染所需的模型数据信息
 				- ModelAndView的第一个参数代表视图的逻辑名，第二个参数代表数据模型名称，第三个参数代表数据模型对象。其中数据模型对象将以数据模型名称为参数名放置到request的属性中：`request.setAttribute(name, value)`
 		- 第三章 Spring Boot
-		  collapsed:: true
 			- 安装配置
 				- 基于Maven环境配置
 					- 简化依赖的版本管理方式
@@ -155,30 +153,36 @@
 							- `WritableResource`：可写资源接口。
 							- `ByteArrayResource`：二进制数组表示的资源。
 							- `ClassPathResource`：类路径下的资源，资源以相对于类路径的方式表示。
-							- `FileSystemResource`：
-							- `InputStreamResource`
-							- `ServletContextResource`
-							- `UrlResource`
+							- `FileSystemResource`：文件系统资源，资源以文件系统路径的方式表示。
+							- `InputStreamResource`：以输入流返回表示的资源。
+							- `ServletContextResource`：可以访问以相对于Web应用根目录的路径加载资源。
+							- `UrlResource`：可以访问通过URL表示的资源（Web服务器和FTP服务器）。
 							- `PathResource`
+								- Spring4.x提供的读取文件的新类。
+								- Path封装了`java.net.URL`，`java.nio.file.Path`、文件系统提供的资源。
+								- 可以访问通过URL、Path和文件路径表示的资源。
+							- `EncodedResource`：如果资源文件使用了特殊的编码格式，可以通过这个类对资源进行编码处理，保证资源内容操作的正确性。
 					- 资源地址表达式
 						- `classpath:`和`classpath*:`的区别
-							- `classpath:com/smart/module*.xml`只会加载**一个**模块的配置文件
-							- `classpath*:com/smart/module*.xml`会加载com/smart目录下**所有的**以mudule开头的xml文件
+							- `classpath:com/smart/module*.xml`只会加载**一个**模块的配置文件。
+							- `classpath*:com/smart/module*.xml`会加载com/smart目录下**所有的**以mudule开头的xml文件。
 						- 支持的地址前缀
-							- `classpath:`：从类路径中加载，后面跟类的绝对地址
-							- `file:`：使用`UrlResource`从文件系统中加载资源，可以是绝对地址或相对地址
-							- `http://`：使用`UrlResource`从文件系统中加载资源
-							- `ftp://`：使用`UrlResource`从FTP服务器加载资源
-							- `没有前缀`：根据`ApplicationContext`的具体实现类采用对应类型的`Resource`
+							- `classpath:`：从类路径中加载，后面跟类的绝对地址。
+							- `file:`：使用`UrlResource`从文件系统中加载资源，可以是绝对地址或相对地址。
+							- `http://`：使用`UrlResource`从文件系统中加载资源。
+							- `ftp://`：使用`UrlResource`从FTP服务器加载资源。
+							- `没有前缀`：根据`ApplicationContext`的具体实现类采用对应类型的`Resource`。
 						- 支持Ant风格带通配符的资源地址，支持以下三种通配符
 							- `?`：匹配文件名中的一个字符
 							- `*`：匹配文件名中的任意字符
 							- `**`：匹配多层路径
 					- 资源加载器
-						- ResourceLoader接口，仅支持带资源类型前缀的表达式，不支持Ant风格的资源路径表达式
-						- ResourcePatternResolver，扩展了ResourceLoader接口，支持带资源类型前缀的表达式和Ant风格的资源路径表达式
-						- PathMatchingResourcePatternResolver，是Spring提供的标准表达式
-					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
+						- 资源加载器类的接口和实现类
+						  ![资源加载器的接口和实现类.png](../assets/资源加载器的接口和实现类_1694435608388_0.png)
+						- `ResourceLoader`接口，仅支持带资源类型前缀的表达式，不支持Ant风格的资源路径表达式。
+						- `ResourcePatternResolver`，扩展了`ResourceLoader`接口，支持带资源类型前缀的表达式和Ant风格的资源路径表达式。
+						- `PathMatchingResourcePatternResolver`，是Spring提供的标准实现类。
+						- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 			- BeanFactory、ApplicationContext和WebApplicationContext
 			  id:: 6466b122-89a0-4701-8d24-6b17bf44e7d9
 				- BeanFactory
@@ -199,14 +203,14 @@
 				- ApplicationContext
 					- 功能
 						- 一般称Application为**Spring容器**
-						- ApplicationContext是面向使用Spring的开发者，几乎所有的场合可以直接使用ApplicationContext而不是BeanFactory。
-						- ApplictionContext是建立在BeanFactory之上的，提供了更多面向应用的功能。
-					- 与BeanFactory的重大区别
-						- BeanFacotry在初始化容器的时候，并未实例化Bean，直到第一次访问某个Bean时才实例化目标Bean。此一次访问这个Bean时会消耗过多的时间。
-						- Application在初始化应用上下文时就实例化所有的单实例的bean，ApplicationContext的初始化时间比BeanFactory的时间会长一点，但是第一次访问Bean就会很快。
+						- `ApplicationContext`是面向使用Spring的开发者，几乎所有的场合可以直接使用`ApplicationContext`而不是`BeanFactory`。
+						- `ApplictionContext`是建立在`BeanFactory`之上的，提供了更多面向应用的功能。
+					- 与`BeanFactory`的重大区别
+						- `BeanFacotry`在初始化容器的时候，并未实例化Bean，直到第一次访问某个Bean时才实例化目标Bean。因此第一次访问这个Bean时会消耗过多的时间。
+						- Application在初始化应用上下文时就实例化所有的单实例的bean，`ApplicationContext`的初始化时间比`BeanFactory`的时间会长一点，但是第一次访问Bean就会很快。
 					- ApplicationContext的初始化
-						- `ClassPathXmlApplicationContext`，若配置文件在类路径下，使用这个类初始化ApplicationContext
-						- `FileSystemXmlApplicationContext`，若配置文件在文件系统的路径下，使用这个类初始化ApplicationContext
+						- `ClassPathXmlApplicationContext`，若配置文件在类路径下，使用这个类初始化ApplicationContext。
+						- `FileSystemXmlApplicationContext`，若配置文件在文件系统的路径下，使用这个类初始化ApplicationContext。
 						- `ClassPathXmlApplicationContext`与`FileSystemXmlApplicationContext`的区别在于在不显示声明资源类型前缀的情况下，他两分别会将路径解析为类路径和文件系统路径。
 					- Spring支持基于注解的配置方式
 						- 这部分功能主要由JavaConfig这个项目来负责实现。
@@ -289,7 +293,6 @@
 					- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 					- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
 		- 第五章 在Ioc容器中装配Bean
-		  collapsed:: true
 			- 1.Spring配置概述
 				- Spring容器的高层视图
 					- Bean的配置信息是Bean的元数据信息，由以下四部分组成
@@ -740,7 +743,6 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
-		  collapsed:: true
 			- 1.Spring容器技术内幕
 				- Spring的内部工作机制
 				  id:: 647d7431-b322-4e39-9e76-221c5fa193a8
@@ -954,7 +956,6 @@
 						- 4.在bean的声明件中声明事件和监听器。
 						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
-		  collapsed:: true
 			- 本章主要讨论了基于接口的切面技术。Spring的AOP技术主要有两类，一类是Spring自己实现基础的AOP，一类是基于@AspectJ注解的AOP，后者我们会在第八章进行讨论。
 			- 1.AOP概述
 				- AOP的适用场景：只适合那些具有横切逻辑的应用场合，如性能监控、访问控制、事务管理及日志记录等场景。
@@ -1182,7 +1183,6 @@
 					- 解决办法
 						- 在目标类中增加一个设置代理类的实例属性，在容器启动之后调用该属性的setter方法，将生成好的代理类实例设置到代理类自身的实例属性中，这样调用时候就会方法两个方法都被增强了。
 		- 第八章 基于AspectJ和Schema的AOP
-		  collapsed:: true
 			- 1.Spring对AOP的支持
 				- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
 				- 新增了对AspectJ切点表达式语言的支持。
@@ -1394,7 +1394,6 @@
 					  ![切面不同定义方式具体实现比较.png](../assets/切面不同定义方式具体实现比较_1688480129319_0.png)
 			- 9.其他
 		- 第九章 Spring SpEL
-		  collapsed:: true
 			- 1.SpEL诞生的背景
 				- Java语言不支持像动态语言那样表达式语句的动态解析。
 				- 动态语言的显著特征是在运行时可以改变程序结构或变量类型。比如下面这段JavaScript代码：
@@ -1519,7 +1518,6 @@
 						- 第一种通过`#{properties['属性名']}`
 						- 第二种通过`${属性名}`，这里需要一些额外的配置，具体看代码。
 		- 第十章 Spring对DAO的支持
-		  collapsed:: true
 			- 1.Spring的DAO理念
 				- Spring提供了DAO（Data Access Object，用于访问数据的对象）上层抽象，屏蔽了底层Hibernate、MyBatis、JPA、JDP持久层技术的差异，提供了统一的方式进行调用和事务管理，避免了持久层技术对业务层代码的入侵。
 			- 2.统一的异常体系
@@ -1579,7 +1577,6 @@
 					- Spring通过实现`javax.sql.DataSource`接口实现了自己的数据源实现类`DriverManagerDataSource`。
 					- 该数据源没有提供连接池的功能，只能通过`getConnection()`方法简单的创建一个新的连接，所以不推荐在业务代码中使用，比较适合在单元测试和简单项目中使用。
 		- 第十一章 Spring的事务管理
-		  collapsed:: true
 			- 1.数据库事务基础知识
 				- 数据库事务
 					- 定义：事务是一个或一系列操作的最小逻辑单元。在这个逻辑单元中的所有语句，要不都执行成功，要么都执行失败，不存在任何中间状态，一旦事务执行失败，那么所有的操作都会被撤销，一旦事务执行成功，那么所有的操作结果都会被保存。
@@ -1758,7 +1755,6 @@
 				- BEA WebLogic
 				- WebSphere
 		- 第十二章 Spring事务管理难点剖析
-		  collapsed:: true
 			- 1.DAO层和事务管理存在的一些问题的讨论
 				- DAO层指的就是我们的ORM框架，比如Spring JDBC、Spring JPA、Hibernate和MyBatis等等。
 				- JDBC和事务管理之间的问题
@@ -1815,7 +1811,6 @@
 						- 不同数据访问技术框架下TransactionAwareDataSourceProxy的等价类
 						  ![等价类.png](../assets/等价类_1690984021600_0.png)
 		- 第十三章 使用Spring JDBC访问数据库
-		  collapsed:: true
 			- 1.使用Spring JDBC
 				- 在Dao层使用`JdbcTemplate`的简单步骤
 					- 1.在Spring的配置文件中定义`DataSoure`和`JdbcTemplate`。
@@ -1847,7 +1842,6 @@
 			- 4.自增键和行集
 			- 5.`NamedParameterJdbcTemplate`模版类
 		- 第十四章 整合其他ORM框架
-		  collapsed:: true
 			- 1.Spring整合ORM技术
 				- Spring为ORM技术提供的整合方案
 					- 1.方便基础设施的搭建，包括数据源，配置文件，框架初始化等方面进行了统一抽象。
@@ -1890,7 +1884,6 @@
 						- 数据库分页
 						- 服务端分页
 		- 第十五章 Spring Cache
-		  collapsed:: true
 			- 1.缓存概述
 				- 缓存的概念
 					- 1.缓存命中率
@@ -1935,7 +1928,6 @@
 				- 4.运行期开发
 					- 如果我们在项目中使用了Spring Cache，但是在开发的时候没有可用的缓存服务容器，这个时候我们可以**禁用缓存**，从而不会影响我们代码的开发和调试。
 		- 第十六章 任务调度和异步执行器
-		  collapsed:: true
 			- 1.任务调度概述
 				- Quartz可以解决绝大多数任务调度的功能。
 				- 从Java1.3开始，通过`java.util.Timer`和`TimerTask`提供了简单的调度功能。
@@ -1986,7 +1978,6 @@
 				- 任务调度云
 				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
-		  collapsed:: true
 			- 1.Spring MVC体系概述
 				- 体系结构
 				- 配置`DispatcherServlet`

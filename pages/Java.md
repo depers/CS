@@ -2843,7 +2843,8 @@
 				  collapsed:: true
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
-			- 缓冲流（buffered streams）
+			- 缓冲流（buffered streams）          
+			  collapsed:: true
 				- 背景
 					- 使用未缓冲的IO操作每个读或写请求都由底层操作系统直接处理。这会降低程序的效率，因为每个这样的请求通常会触发磁盘访问、网络活动或其他一些相对昂贵的操作。
 					- **为了减少这种开销，Java 平台实现了缓冲的 I/O 流**。
@@ -2856,6 +2857,7 @@
 				- 刷新缓冲区
 					- 作用：在临界点写出缓冲区通常是有意义的，而不需要等待它被填满。这就是所谓的冲洗缓冲区。也就是说在开发人员认为需要调用底层API将缓冲区的内容进行写入时调用。
 					- 注意点：
+					  collapsed:: true
 						- 一些缓冲输出类支持自动刷新，由可选的构造函数参数指定。
 							- 例如，在每次调用`println()`或`format()`时，自动刷新`PrintWriter`对象都会刷新缓冲区。
 						- `fluash()`方法任何输出流都可以调用，但是只对缓冲流有效果。
@@ -2921,7 +2923,6 @@
 					  collapsed:: true
 						- Java BufferedInputStream 类用于从流中读取信息。 它内部使用缓冲机制来提高性能。
 			- 构建文件路径
-			  collapsed:: true
 				- 使用*使用 **File.separator **或 **System.getProperty("file.separator")*
 				- 使用新的**File() API**来构造文件路径
 				- 检查系统操作系统并手动创建文件路径
