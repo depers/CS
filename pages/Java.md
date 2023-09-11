@@ -1955,6 +1955,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2778,6 +2779,7 @@
 			- 线程切换
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
+		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
@@ -5199,7 +5201,6 @@
 	  collapsed:: true
 		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)
 - 构建工具
-  collapsed:: true
 	- Maven
 		- 基础知识
 			- maven项目的一般结构
@@ -5322,12 +5323,10 @@
 				    </plugin>
 				    ```
 			- Maven配置
-			  collapsed:: true
 				- 配置maven3的环境变量
 				  collapsed:: true
 					- 直接将bin目录配置到系统变量的`path`中即可，不用配MAVEN_HOME。
 				- 全局配置：`setting.xml`
-				  collapsed:: true
 					- `localRespository`
 					  collapsed:: true
 						- 作用：用于配置本地仓库。
@@ -5413,7 +5412,6 @@
 				  collapsed:: true
 					- 基本不用
 				- 项目配置：`pom.xml`
-				  collapsed:: true
 					- 项目基础信息配置
 					  collapsed:: true
 						- 代码
@@ -6134,15 +6132,54 @@
 					- `mvn deploy`：将项目打包并发布到远程仓库中。
 			- Maven的生命周期
 			  collapsed:: true
+				- maven的生命周期本质上是描述项目的构建过程。
 				- Maven三个标准的生命周期
-				  collapsed:: true
-					- clean生命周期
-						- 功能：项目清理的处理。
-					- default生命周期
-						- 功能：项目部署的处理。
-					- site生命周期
-						- 功能：项目站点文档创建的处理。
+					- clean lifecycle
+						- 描述项目构建之前的清理环节。
+					- default lifecycle
+						- 描述项目编译和打包环节。
+					- site lifecycle
+						- 描述项目项目报告、站点信息、发布环节。
 				- 文档： [Maven生命周期](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html#Lifecycle_Reference)
+			- 手动构建Maven项目
+			  collapsed:: true
+				- Maven规定的目录结构
+				  ![maven的目录结构.png](../assets/maven的目录结构_1694439389530_0.png)
+				- 构建步骤
+				  collapsed:: true
+					- 1.按照上述目录在资源管理器中新建相应的文件夹。
+					- 2.在项目的一级目录中新建pom.xml文件，添加的文本内容如下：
+					  ```
+					  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+					      <modelVersion>4.0.0</modelVersion>
+					  
+					      <groupId>cn.bravedawn</groupId>
+					      <artifactId>example</artifactId>
+					      <version>1.0-SNAPSHOT</version>
+					      <packaging>jar</packaging>
+					      
+					      <dependencies>
+					      	<dependency>
+					          	<groupId>junit<groupId>
+					          	<artifactId>junit<artifactId>
+					          	<version>4.11</version>
+					          </dependency>
+					      	
+					          <dependency>
+					          	<groupId>log4j<groupId>
+					          	<artifactId>log4j<artifactId>
+					          	<version>1.2.17</version>
+					          </dependency>
+					      </dependencies>
+					      
+					  </project>
+					  ```
+					- 3.执行`mvn clean`命令对项目进行清理。
+					- 4.执行`mvn compile`命令对项目进行编译。
+					- 5.执行`mvn package`命令对项目进行打包。
+					- 6.执行`mvn exec:java -Dexec.mainClass="cn.bravedawn.HelloWorld"`命令运行项目。
+						-
 		- 插件
 			- maven内建的插件
 				- [maven内建插件](https://maven.apache.org/plugins/index.html)
