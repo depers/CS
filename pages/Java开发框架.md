@@ -70,6 +70,7 @@
 				- 即包含视图信息，又包括视图渲染所需的模型数据信息
 				- ModelAndView的第一个参数代表视图的逻辑名，第二个参数代表数据模型名称，第三个参数代表数据模型对象。其中数据模型对象将以数据模型名称为参数名放置到request的属性中：`request.setAttribute(name, value)`
 		- 第三章 Spring Boot
+		  collapsed:: true
 			- 安装配置
 				- 基于Maven环境配置
 					- 简化依赖的版本管理方式
@@ -186,6 +187,7 @@
 			- BeanFactory、ApplicationContext和WebApplicationContext
 			  id:: 6466b122-89a0-4701-8d24-6b17bf44e7d9
 				- BeanFactory
+				  collapsed:: true
 					- 功能
 						- 一般称BeanFactory为Ioc容器
 						- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
@@ -216,6 +218,8 @@
 						- 这部分功能主要由JavaConfig这个项目来负责实现。
 						- Spring为注解类的配置提供了`ApplicationContext`的实现类：`AnnotationConfigApplicationContext`。
 					- Spring4.0支持使用Groovy DSL来进行Bean定义的配置
+						- 因为Groovy可以提供更复杂的Bean逻辑配置。
+						- Spring专门为此提供了`ApplicationContext`的实现类：`GenericGroovyApplicationContext`。
 					- ApplicationContext的类体系结构
 						- `ApplicationEventPublisher`：让容器具有发布应用上下文事件的功能。
 						- `MessageSource`：为程序提供i18n国际化消息访问的功能。
@@ -229,10 +233,15 @@
 					- WebApplicationContext的类体系结构
 						- WebApplicationContext作为属性放置在ServletContext中，Spring提供了`WebApplicationContextUtils`工具类，可以通过该类的`getWebApplicationContext(ServletContext sc)`方法，从`ServletContext`中获取`WebApplicationContext`实例。
 						- 在非web应用的环境下，Bean只有`singleton`和`prototype`两种作用域，WebApplicationContext提供了三个新的作用域：`request`、`session`、`global session`。
-						- `ConfigurableWebApplicationContext`扩展了WebApplicationContext，允许我们通过配置化的方式实例化WebApplicationContext。
+						- `ConfigurableWebApplicationContext`扩展了`WebApplicationContext`，允许我们通过配置化的方式实例化`WebApplicationContext`。
 					- WebApplicationContext的初始化
 					  id:: 64671339-5f03-4f81-93dc-13517bb386c0
-						- 可以在web.xml配置**自启动的Servlet**或**定义Web容器监听器**（ServletContextListener），
+						- 与`BeanFactory`、`ApplicationContext`不同的是：`WebApplicationContext`的初始化需要**`ServletContext`实例**，也就是说他必须在拥有**Web容器**的前提下才能完成启动工作。
+						- 可以在web.xml配置**自启动的Servlet（已废除）**或**定义Web容器监听器**（`ServletContextListener`），来完成`WebApplicationContext`的初始化，启动Web容器并自动装配ApplicationContext的配置信息。
+						- 书上讲了好几个版本的配置，
+							- 1.配置Spring容器的配置文件位置，通过ContextLoaderListener来启动web容器，加载bean资源。
+							- 2.通过Web容器监听器启动Web容器，配置Spring `@Configuration`的注解方式配置bean资源，加载bean资源。
+							- 3.通过Web容器监听器启动Web容器，配置Spring Groovy DSL配置的bean资源，加载bean资源。
 				- 父子容器
 					- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
 					- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
