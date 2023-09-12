@@ -2,6 +2,7 @@
 	- Java基础
 	  collapsed:: true
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -603,7 +604,9 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
+		  collapsed:: true
 			- Object通用方法
+			  collapsed:: true
 				- equals
 				  collapsed:: true
 					- Java SE中针对equals()的原则
@@ -706,6 +709,7 @@
 					- 先判断两个对象是否相等，若是返回true，否则false；若两个参数都为null也返回true；
 					- 若第一个参数不为null，则调用他的equals方法进行判断；
 			- 面向对象
+			  collapsed:: true
 				- 类和接口的定义
 				  collapsed:: true
 					- 类：类是用户定义的蓝图或原型，可以从中创建对象。它表示对同一类型的所有对象通用的属性或方法的集合。
@@ -1468,6 +1472,11 @@
 						- 在jdk1.5之后引入了泛型, 因此集合的内容校验被提前到了编译期, 但是为了兼容jdk1.5之前的版本java使用了泛型擦除, 所以如果不生成桥接方法就和jdk1.5之前的字节码不兼容了。
 					- 作用：实现jdk1.5之前代码的兼容
 					- 定义：在编译一个继承泛型类或是实现泛型接口的类和接口的时候，编译器会创建一个合成方法。称为桥接方法，他是类型擦除过程中的一部分。
+			- 泛型数组
+			  collapsed:: true
+				- 创建泛型数组的方法
+					- 1.通过`Array.newInstance()`方法，但是需要强转。
+					- 2.通过可变参数创建泛型数组。
 			- 参考文章：
 			  collapsed:: true
 				- [廖雪峰-泛型](https://www.liaoxuefeng.com/wiki/1252599548343744/1265104600263968)
@@ -1863,7 +1872,9 @@
 					- xxxValueExact()：精准的转换，如果转换超出范围，将直接抛出ArithmeticException异常
 				- 输出字节数组的16进制表示：new BigInteger(1, hash).toString(16)
 			- BigDecimal
+			  collapsed:: true
 				- `RoundingModed`定义了8中舍入规则
+				  collapsed:: true
 					- `ROUND_UP`：向远离零的方向舍入
 					  collapsed:: true
 						- 若舍入位为非零，则对舍入部分的前一位数字加1；若舍入位为零，则直接舍弃。即为向外取整模式。
@@ -1887,11 +1898,13 @@
 						- 若（舍入位大于5）或者（舍入位等于5且前一位为奇数），则对舍入部分的前一位数字加1；
 						- 若（舍入位小于5）或者（舍入位等于5且前一位为偶数），则直接舍弃。即为银行家舍入模式。
 					- `ROUND_UNNECESSARY`：
+					  collapsed:: true
 						- 断言请求的操作具有精确的结果，因此不需要舍入。
 						- 如果对获得精确结果的操作指定此舍入模式，则抛出ArithmeticException。
 				- BigDecimal的三个toString方法
 				  collapsed:: true
 					- 三个方法
+					  collapsed:: true
 						- `toEngineeringString`：有必要时使用工程计数法。工程记数法是一种工程计算中经常使用的记录数字的方法，与科学技术法类似，但要求10的幂必须是3的倍数
 						- `toPlainString`：不使用任何指数
 						- `toString`：有必要时使用科学计数法
@@ -1955,16 +1968,14 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
-		  collapsed:: true
 			- Java Collection Framwork
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 集合框架是在Java 1.2之后推出的，之前对Java对象进行集合操作的类是Array，Vectors或是HashTable，这些集合类都没有公共接口，尽管所有集合的主要目标是相同的，但所有这些集合的实现都是独立定义的，它们之间没有相关性。而且，用户很难记住每个集合类中出现的所有不同的方法、语法和构造函数。
 					- 这些集合(Array、Vector或Hashtable)都没有实现标准的成员访问接口，因此程序员很难编写适用于所有类型集合的算法。
 				- 集合框架的优点
+				  collapsed:: true
 					- 一致的API:：API有一组基本的接口，如Collection、set、List或Map，所有实现这些接口的类(ArrayList、LinkedList、Vector等)都有一些公共的方法集。
 					- 减少编程工作量：程序员不必担心Collection的设计，相反，他可以专注于在他的程序中最好地使用它。因此，面向对象编程(即)抽象的基本概念已经成功地实现了。
 					- 提高程序速度和质量：通过提供有用数据结构和算法的高性能实现来提高性能，因为在这种情况下，程序员不需要考虑特定数据结构的最佳实现。他可以简单地使用最好的实现来大幅提高算法/程序的性能。
@@ -1988,18 +1999,25 @@
 					- 16. spliterator()：用于在此集合中的元素上创建Spliterator
 					- 17. stream()：用于返回以此集合为源的顺序流
 					- 18. toArray()：用于返回包含此集合中所有元素的数组
-				- 集合框架的其他接口
-				  collapsed:: true
+				- 集合框架的接口
 					- Iterable Interface
+					  collapsed:: true
 						- 集合框架的根接口
 						- 功能：为集合提供一个迭代器
 						- 方法
+						  collapsed:: true
 							- iterator()：返回一个迭代器
 							- forEach(Consumer<? super T> action)：运行给定的action遍历元素
 							- spliterator()：创建一个Spliterator
+					- Iterator Interface
+					  collapsed:: true
+						- Java访问集合总是通过统一的方式——迭代器（Iterator）来实现，它最明显的好处在于无需知道集合内部元素是按什么方式存储的。
+						- `Enumeration<E>`已经被`Iterator<E>`取代。
 					- Enumeration Interface
+					  collapsed:: true
 						- 枚举从 1.0 版开始就出现在 Java 中。 它是一个接口，任何实现都允许一个一个地访问元素。 简单来说，它用于迭代 Vector 和 Hashtable 等对象的集合。
 						- 与Iterator的区别
+						  collapsed:: true
 							- ![iterator和enumeration的区别.png](../assets/iterator和enumeration的区别_1676257615300_0.png)
 					- Collection Interface
 					  collapsed:: true
@@ -2037,7 +2055,6 @@
 					  collapsed:: true
 						- Map是一种支持数据的键值对映射的数据结构。此接口不支持重复键，因为同一个键不能有多个映射。
 						- 实现该接口的类
-						  collapsed:: true
 							- HashMap
 							- TreeMap
 			- Collections
@@ -2444,7 +2461,6 @@
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
 			- Map
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -2457,15 +2473,15 @@
 						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉
 						- Map中存储的映射关系是不保证顺序的
 					- 基本操作
-						- put
-						- get
-							- 如果有值的话返回，没值的话返回null
-						- null可以作为键，null映射键值将会被放到下标为0的存储桶中
-						- remove
-						- 检查key或者value是否在映射中
+						- `put()`：添加键值。null可以作为键，null映射键值将会被放到下标为0的存储桶中。
+						- `get(key)`：根据键获取值，如果有值的话返回，没值的话返回null。
+						- `remove(key)`：移除一个元素。
+						- `containKey(key)`：检查key是否在映射中。
+						- `containsValue(value)`：检查value是否在映射中。
 						- Map的遍历
-							- 方法一：通过循环遍历Map实例的keySet()方法返回的Set集合
-							- 方法二：通过循环遍历Map实例的entrySet()方法返回的Set集合
+							- 方法一：通过循环遍历Map实例的keySet()方法返回的Set集合。
+							- 方法二：通过循环遍历Map实例的entrySet()方法返回的Set集合。
+							- 方法三：通过循环遍历Map实例的values()方法，直接遍历值。
 						- 具体实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/HashMapExample.java
 					- 关于key需要注意
 						- 可以在HashMap中使用任何类作为键。为了使映射正常工作，我们需要为equals()和hashCode()提供一个实现
@@ -2484,7 +2500,6 @@
 							- 即数组中的每个位置被当成一个桶，一个桶存放一个链表。
 							- HashMap 使用拉链法来解决冲突，同一个链表中存放哈希值和散列桶取模运算结果相同的 Entry。
 						- HashMap中检索一个元素的方法
-						  collapsed:: true
 							- 方法一：遍历所有元素，找到和键匹配的元素返回。这种时间复杂度是O(n)
 							- 方法二：使用HashMap的put()和get()方法，实现平均时间复杂度O(1)和空间复杂度O(n)
 						- HashMap中put和get操作的实现
@@ -2573,7 +2588,9 @@
 						- 实验一：map中包含一个键值对，当把key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，清空map。
 						- 实验二：map中包含两个键值对，当把其中一个key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，map会移除该key对应的键值对。
 				- ConcurrentHashMap
+				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- ConcurrentHashMap是线程安全的。
 						- ConcurrentHashMap中key和value是不允许存在null值的。
 						- 在多线程环境下，ConcurrentHashMap的性能较好。
@@ -5157,12 +5174,10 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
-  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
 	- IDEA
-	  collapsed:: true
 		- 快捷键
 		  collapsed:: true
 			- MAC
@@ -5188,6 +5203,19 @@
 		  collapsed:: true
 			- 网上看到的解决办法就是，在资源管理器中删除项目中的**.idea**文件，然后在idea中重新打开项目就好了。
 		- IntelliJ IDEA 的UML类图 解析，可以[参考文章](https://blog.csdn.net/weixin_39422586/article/details/120211288)
+		- idea中设置类文件模板
+		    collapsed:: true
+			- 在菜单File–>settings–>Editor–>File and Code Templates–>Includes中打开设置。
+			- 在File Header中新增如下内容：
+			  
+			    ```java
+			    /**
+			     * @Description : TODO
+			     * @Author : ${USER}
+			     * @Project : ${PROJECT_NAME}
+			     * @Date : Created in ${YEAR}-${MONTH}-${DAY} ${HOUR}:${MINUTE}
+			     */
+			    ```
 	- VS Code
 	  collapsed:: true
 		-
@@ -5201,6 +5229,7 @@
 	  collapsed:: true
 		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)
 - 构建工具
+  collapsed:: true
 	- Maven
 		- 基础知识
 			- maven项目的一般结构

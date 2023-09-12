@@ -278,7 +278,6 @@
 			- `-f xxx.yaml`：指定yaml或是json的配置文件。
 			-
 - docker
-  collapsed:: true
 	- docker的三个概念
 	  collapsed:: true
 		- 镜像（image）：镜像中包含了应用软件运行的基础设施和应用软件本身。镜像的名称一般由`镜像名:TAG`组成。
@@ -298,7 +297,6 @@
 		  collapsed:: true
 			- 构建命令：`docker build -t $image_name -f $Dockerfile_path`
 	- 容器的基本操作
-	  collapsed:: true
 		- 基于镜像启动容器：`docker run -it 镜像名称/镜像tag /bin/bash`
 		  collapsed:: true
 			- `-i`：表示打开并保持标准输出。
@@ -311,6 +309,8 @@
 		- 重启容器命令：`docker restart container_name或container_id`
 		- 启动容器之后想进入容器，输入命令：`docker attach container_name或container_id`
 		- 删除容器：`docker rm container_name或container_id`
+		- 删除镜像：`docker rmi image_name:tag/image_id`
+		- 为镜像image修改tag：`docker tag [IMAGE ID] [REPOSITORY名]:[TAG标识]`
 		- `docker images`
 		  collapsed:: true
 			- 功能：列出本地镜像。
