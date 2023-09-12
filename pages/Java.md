@@ -1,4 +1,5 @@
 - Java语言
+  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1968,8 +1969,10 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 			- Java Collection Framwork
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 集合框架是在Java 1.2之后推出的，之前对Java对象进行集合操作的类是Array，Vectors或是HashTable，这些集合类都没有公共接口，尽管所有集合的主要目标是相同的，但所有这些集合的实现都是独立定义的，它们之间没有相关性。而且，用户很难记住每个集合类中出现的所有不同的方法、语法和构造函数。
@@ -2461,6 +2464,7 @@
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
 			- Map
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -5174,6 +5178,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -5229,7 +5234,6 @@
 	  collapsed:: true
 		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)
 - 构建工具
-  collapsed:: true
 	- Maven
 		- 基础知识
 			- maven项目的一般结构
@@ -5352,6 +5356,7 @@
 				    </plugin>
 				    ```
 			- Maven配置
+			  collapsed:: true
 				- 配置maven3的环境变量
 				  collapsed:: true
 					- 直接将bin目录配置到系统变量的`path`中即可，不用配MAVEN_HOME。
@@ -6175,7 +6180,6 @@
 				- Maven规定的目录结构
 				  ![maven的目录结构.png](../assets/maven的目录结构_1694439389530_0.png)
 				- 构建步骤
-				  collapsed:: true
 					- 1.按照上述目录在资源管理器中新建相应的文件夹。
 					- 2.在项目的一级目录中新建pom.xml文件，添加的文本内容如下：
 					  ```
@@ -6208,7 +6212,21 @@
 					- 4.执行`mvn compile`命令对项目进行编译。
 					- 5.执行`mvn package`命令对项目进行打包。
 					- 6.执行`mvn exec:java -Dexec.mainClass="cn.bravedawn.HelloWorld"`命令运行项目。
-						-
+			- mvn命令构建Maven项目
+			  collapsed:: true
+				- 使用mvn提供的初始化命令（3.0.5之后的版本）
+				  ```
+				  mvn archetype:generate
+				  -DgroupID="cn.bravedawn"
+				  -DartifactId="app"
+				  -DpackageName="cn.bravedawn"
+				  -DArchetypeArtifactId=maven-archetype-quickstart/maven-archetype-webapp
+				  -DinteractiveMode=false
+				  ```
+				- 下面我对上面的命令进行一个简单的解析
+					- `-DpackageName="cn.bravedawn"`：指定新建后的包名。
+					- `-DArchetypeArtifactId`：指定使用的maven项目模板。一个是普通maven项目，一个是web项目。
+					- `-DinteractiveMode`：是否在交互模式中，若没有指定`-DArchetypeArtifactId`的参数的前提下，`true`的情况下，会在提示你输入模版名称；`false`的情况下，默认会使用`maven-archetype-quickstart`作为默认的模板。
 		- 插件
 			- maven内建的插件
 				- [maven内建插件](https://maven.apache.org/plugins/index.html)
