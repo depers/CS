@@ -1,7 +1,5 @@
 - Java语言
-  collapsed:: true
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1224,22 +1222,17 @@
 					- Hmac是标准算法，同样适用于SHA-1等其他哈希算法
 					- Hmac输出和原有的哈希算法长度一致
 			- 对称加密算法
-			  collapsed:: true
 				- 定义：用一个密码进行加密和解密的算法
 				  collapsed:: true
 					- 加密：secret = encrypt(key, message);
 					- 解密：secret = encrypt(key, message);
 					- 需要指定算法名称、工作模式和填充模式
 				- DES
-				  collapsed:: true
 					- 注意：由于密钥过短，可以在短时间内被暴力破解，所以现在已经不安全了
 				- AES
-				  collapsed:: true
 					- 特点
-					  collapsed:: true
 						- 可以加密任意长度的明文
 					- 参考文章
-					  collapsed:: true
 						- [Java AES Encryption and Decryption](https://www.baeldung.com/java-aes-encryption-decryption)
 				- IDEA
 			- 口令加密算法
@@ -5234,6 +5227,7 @@
 	  collapsed:: true
 		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)
 - 构建工具
+  collapsed:: true
 	- Maven
 		- 基础知识
 			- maven项目的一般结构
