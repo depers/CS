@@ -1,7 +1,6 @@
 - Java语言
 	- Java基础
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -357,7 +356,6 @@
 					  collapsed:: true
 						- [System.arraycopy() in Java](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 			- 关键字final和static
-			  collapsed:: true
 				- final
 				  collapsed:: true
 					- 修饰类
@@ -400,15 +398,52 @@
 										- 在构造函数中初始化该字段
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/basic/keyword/final_
 				- static
-				  collapsed:: true
 					- 静态变量
+					    collapsed:: true
+						- 背景
+						    collapsed:: true
+							- 代码：
+							  
+							    ```java
+							    class Student {  
+							         int rollno;   国际罗尔诺;
+							         String name;   字符串名称;
+							         String college="ITS";   字符串学院=“ITS”;
+							    }
+							    ```
+							- 假设我的大学有 500 名学生，现在每次创建对象时，所有实例数据成员都将获得内存。所有学生都有其唯一的rollno和名称，因此在这种情况下，实例数据成员是很好的。在这里，“学院”是指所有对象的共同属性。如果我们将其设置为静态，则此字段将仅获取一次内存。
+						- 定义：在变量上使用static关键字，称为静态变量，也叫类变量。
+						- 优点
+						    collapsed:: true
+							- Java 静态属性共享给所有对象。
+							- 它使您的程序内存高效（即，它节省了内存）。
+						- 使用场景
+						    collapsed:: true
+							- 静态变量可用于引用所有对象的公共属性（对于每个对象不是唯一的），例如员工的公司名称、学生的大学名称等。
+							- 在类加载时，静态变量仅在类区域中获取一次内存。
 					- 静态方法
-					  collapsed:: true
-						- 只能访问所属类的静态字段和静态方法，方法中不能有 this 和 super 关键字，因为这两个关键字与具体对象关联。
-					- 静态语句块
+					    collapsed:: true
+						- 定义：使用static修饰方法，称为静态方法，也称类方法。
+						- 特点
+							- 静态方法属于类，而不是类的对象。
+							- 可以调用静态方法，而无需创建类的实例。
+							- 静态方法可以访问静态数据成员，并可以更改其值。
+						- 限制
+							- 只能访问所属类的静态字段和静态方法，不能使用非静态数据成员或直接调用非静态方法。
+							- 方法中不能有 this 和 super 关键字，因为这两个关键字与具体对象关联。
+							- 子类无法复写父类中**static**修饰的方法。
+							- 子类无法实现接口中**static**修饰的方法。
+						- 问：为什么Java主方法是静态的？
+						    collapsed:: true
+							- 如果它是一个非静态方法，JVM首先创建一个对象，然后调用`main()`方法，这将导致额外内存分配的问题。
+					- 静态代码块
+					    collapsed:: true
+						- 这里可以参考： ((650cd83c-47db-4160-a561-8e4f2952788f))
 					- 静态内部类
 					- 静态导包
-					- 实例化顺序
+					- 参考文章
+					    collapsed:: true
+						- [Java static keyword](https://www.javatpoint.com/static-keyword-in-java)
 			- 日期与时间
 			  collapsed:: true
 				- 基本概念
@@ -603,7 +638,6 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
-		  collapsed:: true
 			- Object通用方法
 			  collapsed:: true
 				- equals
@@ -708,7 +742,6 @@
 					- 先判断两个对象是否相等，若是返回true，否则false；若两个参数都为null也返回true；
 					- 若第一个参数不为null，则调用他的equals方法进行判断；
 			- 面向对象
-			  collapsed:: true
 				- 类和接口的定义
 				  collapsed:: true
 					- 类：类是用户定义的蓝图或原型，可以从中创建对象。它表示对同一类型的所有对象通用的属性或方法的集合。
@@ -881,7 +914,6 @@
 					  collapsed:: true
 						- 继承是is关系，组合是has关系
 				- 多态
-				  collapsed:: true
 					- 多态
 					  collapsed:: true
 						- 多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法
@@ -890,19 +922,41 @@
 					  collapsed:: true
 						- 定义：在继承关系中，子类如果定义了一个与父类方法签名完全相同的方法，被称为覆写（Override）
 						- 实际意义：如果子类覆写了父类的方法，子类的引用在实际调用这个方法的时候，调用的是子类的方法。
-					- 实例初始化代码块
+					- 代码块和加载顺序
+					  id:: 650cd83c-47db-4160-a561-8e4f2952788f
 					  collapsed:: true
-						- 实例初始化代码块（Instance Initializer block）用于初始化实例数据成员。每次创建类的对象时都会运行它。
-						- 实例初始化代码块的执行顺序
-						  collapsed:: true
-							- 1. 先执行实例类的构造器中父类构造器（super()方法）
-							- 2. 执行实例初始化代码块
-							- 3. 执行实例类的构造器中的代码
-							- 参考图
+						- 代码块
+							- 局部代码块
+							    collapsed:: true
+								- 方法代码块，也就是具体方法的声明。
+								- 作用：限定变量的声明周期，尽早释放，节省内存。
+								- 调用：方法中的局部代码块一般进行一次性调用，调用完立刻释放内存空间，避免在接下来的调用过程中占用栈空间。栈空间内存有限，方法的调用会产生很多局部变量导致栈内存不足，使用局部代码块可以避免这个问题。
+							- 实例初始化代码块（普通代码块）
+							    collapsed:: true
+								- 没有关键字，一个花括号包裹的代码。
+								- 作用
+								    collapsed:: true
+									- 实例初始化代码块（instance-initializer-block）用于初始化实例数据成员。每次创建类的对象时都会运行它。
+								- 实例初始化代码块的执行顺序
+								    collapsed:: true
+									- 先执行类的构造器中父类构造器（super()方法）
+									- 执行实例初始化代码块
+									- 执行实例类的构造器中的代码
+								- 调用：每new一个对象，就会执行一次。
+							- 静态代码块
+							    collapsed:: true
+								- static修饰的代码块。
+								- 作用
+								    collapsed:: true
+									- 用于初始化静态数据成员。
+									- 它在类加载时在main方法之前执行。
+								- 调用：当new多个对象时，只有在第一次new对象的时候调用一次静态代码块，因为静态代码块和类变量一样，是属于类的，所有对象共享一份。
+						- 加载顺序
+							- **无继承关系的调用顺序**：静态代码块 -> 实例初始化代码块 -> 构造函数代码块
+							- **有继承关系的调用顺序**：父类静态静态代码块（静态成员变量） -> 子类静态静态代码块（静态成员变量） -> 父类普通代码块（普通成员变量） -> 子类普通代码块（普通成员变量） -> 父类构造函数代码块 -> 子类构造函数代码块
 						- 参考文章
-						  collapsed:: true
-							- Instance initializer block
-						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/instanceinitializerblock
+							- [Instance initializer block](https://www.javatpoint.com/instance-initializer-block)
+						- 实践：javaTrain:src/main/java/cn/bravedawn/obj/inherit/polymorphic/codeblock
 				- 抽象类和接口
 				  collapsed:: true
 					- 抽象类

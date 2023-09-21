@@ -1,6 +1,7 @@
 - Spring
   collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
+	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -755,6 +756,7 @@
 					- 书中总结的图片
 					  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 		- 第六章 Spring容器高级主题
+		  collapsed:: true
 			- 1.Spring容器技术内幕
 			  collapsed:: true
 				- Spring的内部工作机制
@@ -1036,6 +1038,7 @@
 						- 4.在bean的声明件中声明事件和监听器。
 						- 5.使用`ClassPathXmlApplicationContext`加载配置文件，启动容器。
 		- 第七章 Spring AOP基础
+		  collapsed:: true
 			- 本章主要讨论了基于接口的切面技术。Spring的AOP技术主要有两类，一类是Spring自己实现基础的AOP，一类是基于@AspectJ注解的AOP，后者我们会在第八章进行讨论。
 			- 1.AOP概述
 			  collapsed:: true
