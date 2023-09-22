@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 			- 数据类型
 			  collapsed:: true
@@ -356,6 +357,7 @@
 					  collapsed:: true
 						- [System.arraycopy() in Java](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 			- 关键字final和static
+			  collapsed:: true
 				- final
 				  collapsed:: true
 					- 修饰类
@@ -2016,8 +2018,8 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
+		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -3557,7 +3559,6 @@
 						- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 						- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
 			- 第四章 虚拟机性能监控、故障处理工具
-			  collapsed:: true
 				- 基础故障处理工具
 					- jps：虚拟机进程状况工具
 					  collapsed:: true
@@ -3644,12 +3645,17 @@
 						- 功能：用于生成虚拟机当前时刻的线程快照（一般称之为threadump或者javacore文件）。
 						- 线程快照：当前虚拟机每一条线程正在执行的方法堆栈的集合，生成线程快照的目的通常是为了定位线程出现长时间停顿的原因，比如线程间死锁、死循环、请求外部资源导致的长时间挂起等。
 					- java：java运行工具，用于运行Class文件或JAR文件
-					  collapsed:: true
+						- 示例
+						    collapsed:: true
+							- `java -cp .;commons-logging-1.2.jar Main`：注意到传入的classpath有两部分：一个是`.`，一个是commons-logging-1.2.jar，用`;`分割。`.`表示当前目录，如果没有这个`.`，JVM不会在当前目录搜索Main.class，就会报错。
 						- 命令选项
-						  collapsed:: true
-							- `-cp`：
-							- `-jar`：执行jar文件
+						    collapsed:: true
+							- `-cp`：**用于运行带有参数的不可执行的JAR**，`java -cp jar-file-name main-class-name [args...]`。这里我们需要提供主类，主类里面使用了JAR的代码。
+							- `-jar`：**用于运行带参数的可执行JAR**，`java -jar jar-file-name args1 args2...`。在调用可执行 JAR 时，我们不需要在命令行上指定主类名。我们只需在 JAR 文件名后添加参数。
 					- javac：用于Java编程语言的编译器
+						- 示例
+						  collapsed:: true
+							- `javac -cp commons-logging-1.2.jar Main.java`：用javac编译Main.java，编译的时候要指定classpath，不然编译器找不到我们引用的org.apache.commons.logging包。
 					- javap：Java字节码分析工具
 					- javadoc：Java的API文档生成工具
 				- 可视化故障处理工具
@@ -3667,6 +3673,7 @@
 								- 死锁的代码演示：jvm-demo:cn.bravedawn.jvm.tool.SynAddRunnable
 			- 第六章 类文件结构
 			- 第七章 虚拟机类的加载机制
+			  collapsed:: true
 				- 类加载的时机
 					- 主动使用
 						- 主动引用的时机
@@ -5230,6 +5237,7 @@
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
 	- IDEA
+	  collapsed:: true
 		- 快捷键
 		  collapsed:: true
 			- MAC
@@ -5277,6 +5285,23 @@
 		- 修改最新commit的message信息：`git commit --amend`
 		- 查看所有的分支：`git branch -a`
 		- 切换分支：`git checkout <branch_name>`
+		- 基于已有分支创建新的分支
+		  collapsed:: true
+			- 创建新分支并切换：`git checkout -b new_branch_name origin/source_branch`
+			- 将代码推送到远程：`git push origin new_branch_name`
+		- 删除远程分支：`git push origin --delete [分支名称]`，其中分支名称取remote/origin后面的字符串。
+		- 删除本地分支：`git branch -d delete_branch_name`，删除分支时需要切到其他分支再删除。
+		- 重命名分支
+		  collapsed:: true
+			- 重命名本地分支
+				- 在当前分支时：`git branch -m new_branch_name`
+				- 当不在当前分支时：`git branch -m old_branch_name new_branch_name`
+			- 重命名远程分支
+				- 重命名本地分支：`git branch -m new_branch_name`
+				- 删除远程分支：`git push --delete origin old_branch_name`
+				- 上传新命名的本地分支：`git push origin new_branch_name`
+				- 关联修改后的本地分支与远程分支：`git branch --set-upstream-to origin/new_branch_name`
+					-
 	- DBeaver
 	  collapsed:: true
 		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)

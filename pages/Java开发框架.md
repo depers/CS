@@ -2807,16 +2807,45 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
-  collapsed:: true
+	- 使用日志的好处
+	  collapsed:: true
+		- 可以设置输出样式，避免自己每次都写"ERROR: " + var；
+		- 可以设置输出级别，禁止某些级别输出。例如，只输出错误日志；
+		- 可以被重定向到文件，这样可以在程序运行结束后查看日志；
+		- 可以按包名控制日志级别，只输出某些包打的日志；
 	- Java.util.logging
+	  collapsed:: true
+		- JDK的Logging定义了7个日志级别，从严重到普通：
+		    collapsed:: true
+			- SEVERE
+			- WARNING
+			- INFO（默认的级别）
+			- CONFIG
+			- FINE
+			- FINER
+			- FINEST
+		- 局限
+		    collapsed:: true
+			- Logging系统在JVM启动时读取配置文件并完成初始化，一旦开始运行main()方法，就无法修改配置。
+			- 配置文件需要通过在JVM启动时传递参数`-Djava.util.logging.config.file=<config-file-name>`。
+	- Commons Logging
+	  collapsed:: true
+		- common-logging 是 apache 的一个开源项目。也称Jakarta Commons Logging，缩写 JCL。
+		- common-logging是一个日志门面。
+		- commons logging的功能是提供日志功能的 API 接口，本身并不提供日志的具体实现是在运行时动态的绑定日志实现组件来工作。
+		- commons logging 默认会搜索使用Log4j、JDK Logging作为自己的日志系统。
+		- 参考文章： [使用Commons Logging](https://www.liaoxuefeng.com/wiki/1252599548343744/1264738932870688)
 	- Log4j2
-		- 参考文章
+	  collapsed:: true
+		- Log4j是一个日志的具体实现。
+		- Log4j的架构
+		    collapsed:: true
+			- ![log4j2架构.png](../assets/log4j2架构_1695396536639_0.png)
+		- Commons Logging和Log4j的搭配使用
 		  collapsed:: true
-			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
-			- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
-			- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)
-			- [Apache Log4j 2 Tutorials](https://mkyong.com/logging/apache-log4j-2-tutorials/)
-			- [Log4j2实现不同线程不同级别日志输出到不同的文件中](http://codepub.cn/2016/12/18/Log4j2-to-achieve-different-levels-of-different-threads-log-output-to-a-different-file/)
+			- Commons Logging，可以作为“日志接口”来使用。而真正的“日志实现”可以使用Log4j。
+			- 使用Log4j只需要把log4j2.xml和相关jar放入classpath，分别是log4j-api-2.x.jar、log4j-core-2.x.jar、log4j-jcl-2.x.jar。
+			- 只有扩展Log4j时，才需要引用Log4j的接口（例如，将日志加密写入数据库的功能，需要自己开发）。
 		- 主要的三个组件
 		  collapsed:: true
 			- Logger：用于记录消息。
@@ -3056,6 +3085,7 @@
 				- 根记录器没有名称属性。
 				- 根记录器不支持additivity属性，因为它没有父记录器。
 		- 使用MDC（Mapped Diagnostic Context）增强日志
+		  collapsed:: true
 			- 参考文章
 			  collapsed:: true
 				- [Improved Java Logging with Mapped Diagnostic Context (MDC)](https://www.baeldung.com/mdc-in-log4j-2-logback)
@@ -3175,20 +3205,31 @@
 					- IfLastModified：匹配文件修改时间
 					  collapsed:: true
 						- age：匹配超过180天的文件，单位D、H、M、S分别表示天、小时、分钟、秒
+		- 参考文章
+			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
+			- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
+			- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)
+			- [Apache Log4j 2 Tutorials](https://mkyong.com/logging/apache-log4j-2-tutorials/)
+			- [Log4j2实现不同线程不同级别日志输出到不同的文件中](http://codepub.cn/2016/12/18/Log4j2-to-achieve-different-levels-of-different-threads-log-output-to-a-different-file/)
+			- [使用Log4j](https://www.liaoxuefeng.com/wiki/1252599548343744/1264739436350112)
 		- 实践
 		  collapsed:: true
 			- Log4j2的简单实战
 			  collapsed:: true
 				- 项目：Log4j2Example
 				- 参考文章：https://examples.javacodegeeks.com/java-development/enterprise-java/log4j/log4j-2-getting-started-example/
-	- commons-logging
 	- Slf4j
 	  collapsed:: true
+		- SLF4J是一个日志门面。
+		- 对比一下Commons Logging和SLF4J的接口：
+			- ![log4j和commons-logging的比较.png](../assets/log4j和commons-logging的比较_1695396646095_0.png)
+		- SLF4J和Logback的搭配使用
+			- 使用SLF4J和Logback需要引入的依赖：slf4j-api-1.7.x.jar、logback-classic-1.2.x.jar、logback-core-1.2.x.jar。
 		- 是一个门面框架，只定义接口，没有具体的实现。在日常使用时调用Slf4j的接口就行，底层的日志实现有具体的日志实现框架去做。
 		- 背景
-		  collapsed:: true
 			- 市面上出现多种日志实现工具，场面十分混乱，因为这些日志系统互相没有关联，替换和统一也就变成了比较棘手的一件事。
 	- Logback
+		- Logback是一个日志的具体实现。
 	- 日志级别（以下等级由高到低，等级越低输出的日志信息越多）
 	  collapsed:: true
 		- Fatal：致命等级的日志，指发生了严重的会导致应用程序退出的事件
