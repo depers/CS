@@ -1,5 +1,4 @@
 - 《Kubernetes实战》
-  collapsed:: true
 	- 第一章 Kubernetes介绍
 	  collapsed:: true
 		- 单体应用部署遇到的问题
@@ -111,6 +110,51 @@
 	  collapsed:: true
 		- 参考文章
 			- [K8s 集群使用 ConfigMap 优雅加载 Spring Boot 配置文件](https://blog.csdn.net/aixiaoyang168/article/details/90116097#1Spring_Boot__1)
+	- 第14章 计算资源管理
+		- 申请资源
+			- 一个例子
+				- ```yaml
+				    resources:
+				    	requests:
+				        	cpu: 200m # 容器申请了200毫核（即一个CPU核心时间的1/5）
+				            memory: 10Mi # 容器申请了10MB的内存
+				    ```
+			- 若不指定requests，表示我们不关系系统为容器内的进程分配了多少CPU时间，最坏的情况下进程可能分不到CPU时间。
+			- 调度器如何判断一个pod是否可以调度到某个节点
+				- 通过设置资源requests，来指定pod对资源需求的最小值。
+				- 调度器在将pod调度到节点的过程中，只会调度**未分配资源量大于pod需求量**的节点，否则说明该节点没有能力提供pod对资源的最小使用量，就不会将该pod调度到这个节点。
+			- 调度器如何利用pod requests为其选择最佳的节点
+				- 调度器根据优先级函数来进行判定
+					- LeastRequestedPriority：优先将pod分配到拥有**更多未分配资源**的节点。
+					- MostRequestedPriority：优先将pod分配到拥有**更少未分配资源**的节点。
+			- 查看节点的资源总量
+				- 查看节点的资源总量和可分配资源命令：`kubectl describe nodes`。
+				- 查看节点已分配的资源：`kubectl describe node`。
+			- CPU requests如何影响CPU的时间分配
+				- CPU request不仅影响资源调度时的逻辑，还会决定剩余（未使用）的CPU时间是如何分配的。
+				- 比如：假设在不设置limits限制时，A pod调度时请求了200毫核的CPU，B pod调度时请求了400毫核的CPU，那么该节点剩余的CPU则会按照1:2的比例来分配给这两个pod来使用。
+		- 限制资源
+			- 通过限制容器的可用资源，可以指定容器消耗资源的最大量。
+			- CPU是一种可压缩资源，意味着我们可以在保证容器内进程正常运行的同时，对其使用量进行限制。
+			- 内存是一种不可压缩资源，一旦操作系统Wie进程分配了一块内存，在这块内存主动释放之前是无法回收的。
+				- 这是我们限制容器的最大内存分配量的根本原因。
+				- 如果不限制内存的最大分配量，工作节点上的pod（容器）可能会吃掉所有的可用内存，对该节点上运行的其他pod和新调度的pod造成影响。
+			- 一个例子
+				- ```yaml
+				    resources:
+				    	limits:
+				        	cpu: 1 # 容器允许最大只能使用1核的CPU
+				            memory: 20Mi # 容器允许最大使用20MB内存
+				    ```
+			- limits可以超卖
+				- 资源limits不受节点剩余可分配资源的限制，可以允许设置超过节点100%内存使用量的内存。
+				- 这会导致一些容器被杀掉。
+			- 容器中的应用是如何看待limits的
+				- 在容器内看到的始终是节点的内存，而不是容器本身的内存。
+				- 在容器内看到的是节点所有的CPU，而不是容器本省的CPU。
+		- pod Qos等级
+		    collapsed:: true
+			- QoS（Quality of Service），大部分译为 “服务质量等级”，又译作 “服务质量保证”，是作用在 Pod 上的一个配置，当 Kubernetes 创建一个 Pod 时，它就会给这个 Pod 分配一个 QoS 等级。
 - 《Kubernetes修炼手册》
   collapsed:: true
 	- 第二章 Kubernetes
@@ -278,6 +322,7 @@
 			- `-f xxx.yaml`：指定yaml或是json的配置文件。
 			-
 - docker
+  collapsed:: true
 	- docker的三个概念
 	  collapsed:: true
 		- 镜像（image）：镜像中包含了应用软件运行的基础设施和应用软件本身。镜像的名称一般由`镜像名:TAG`组成。

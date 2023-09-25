@@ -2807,6 +2807,7 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
+  collapsed:: true
 	- 使用日志的好处
 	  collapsed:: true
 		- 可以设置输出样式，避免自己每次都写"ERROR: " + var；

@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 			- 数据类型
 			  collapsed:: true
@@ -916,6 +915,7 @@
 					  collapsed:: true
 						- 继承是is关系，组合是has关系
 				- 多态
+				  collapsed:: true
 					- 多态
 					  collapsed:: true
 						- 多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法
@@ -2018,6 +2018,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -3559,6 +3560,7 @@
 						- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 						- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
 			- 第四章 虚拟机性能监控、故障处理工具
+			  collapsed:: true
 				- 基础故障处理工具
 					- jps：虚拟机进程状况工具
 					  collapsed:: true
@@ -5232,7 +5234,6 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
-  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -5280,7 +5281,6 @@
 	  collapsed:: true
 		-
 	- Git
-	  collapsed:: true
 		- 删除本地仓库的缓存：`git rm -r cached .`
 		- 修改最新commit的message信息：`git commit --amend`
 		- 查看所有的分支：`git branch -a`
@@ -5302,6 +5302,7 @@
 				- 上传新命名的本地分支：`git push origin new_branch_name`
 				- 关联修改后的本地分支与远程分支：`git branch --set-upstream-to origin/new_branch_name`
 					-
+		- 查看本地分支对应的远程分支：`git status`
 	- DBeaver
 	  collapsed:: true
 		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)
