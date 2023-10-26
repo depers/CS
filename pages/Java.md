@@ -1,6 +1,7 @@
 - Java语言
 	- Java基础
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -639,6 +640,7 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
+		  collapsed:: true
 			- Object通用方法
 			  collapsed:: true
 				- equals
@@ -1215,7 +1217,6 @@
 					  collapsed:: true
 						- 传输效率会降低，因为它把原始数据的长度增加了1/3
 			- 哈希算法
-			  collapsed:: true
 				- 定义：哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。
 				- 特点
 				  collapsed:: true
@@ -1236,8 +1237,26 @@
 					  collapsed:: true
 						- 碰撞概率低
 						- 不能猜测输出
+					- 哈希碰撞的解决办法
+					  collapsed:: true
+						- 拉链法
+						    collapsed:: true
+							- 将哈希值相同的值存储在同一个线性链表中。
+						- 开放地址法
+						    collapsed:: true
+							- 开放地址法有个非常关键的特征，就是所有输入的元素全部存放在哈希表里，也就是说，位桶的实现是不需要任何的链表来实现的，换句话说，也就是这个哈希表的装载因子不会超过1。它的实现是在插入一个元素的时候，先通过哈希函数进行判断，若是发生哈希冲突，就以当前地址为基准，根据再寻址的方法（探查序列），去寻找下一个地址，若发生冲突再去寻找，直至找到一个为空的地址为止。所以这种方法又称为再散列法。
+							- 开放地址法的公式：`Hi=(H(key)+di) MOD m`，`i=1,2,…,k(k<=m-1)`。其中`m`是哈希表的长度，`di` 是产生冲突的时候的增量序列。
+							- 线性探测再散列
+								- di=1，2，3，…，m-1；这种方法的特点是：冲突发生时，顺序查看表中下一单元，直到找出一个空单元或查遍全表。
+							- 二次探测再散列
+								- 如果`di`取1，则每次冲突之后，向后移动1个位置.如果di取值可能为`1,-1,2,-2,4,-4,9,-9,16,-16,…k*k,-k*k(k<=m/2)`
+							- 随机探测再散列
+								- 如果`di`取值可能为伪随机数列。
+						- 再哈希法
+						    collapsed:: true
+							- 当发生冲突时，使用第二个、第三个、哈希函数计算地址，直到无冲突时。缺点：计算时间增加。
+							    比如上面第一次按照姓首字母进行哈希，如果产生冲突可以按照姓字母首字母第二位进行哈希，再冲突，第三位，直到不冲突为止
 				- 常见的哈希算法
-				  collapsed:: true
 					- MD(Message Digest)：消息摘要算法
 					- SHA(Secure Hash Algorithm)：安全散列算法
 					- SM3：国密签名算法
@@ -1253,11 +1272,9 @@
 					  collapsed:: true
 						- [哈希算法的常见种类及特点有哪些？](https://juejin.cn/post/7089749167886565413)
 				- 用途
-				  collapsed:: true
 					- 验证软件安装文件是否被人篡改
 					- 数据库用户密码存储
 				- 加盐
-				  collapsed:: true
 					- 目的：使黑客的彩虹表失效，即使用户使用常用口令，也无法从MD5反推原始口令
 					- 彩虹表：提前计算好的密码和其哈希值对照表
 					- 定义：对密码额外添加随机数，这个方法称之为加盐（salt），其算法：digest = md5(salt+inputPassword)
@@ -1278,6 +1295,7 @@
 					- Hmac是标准算法，同样适用于SHA-1等其他哈希算法
 					- Hmac输出和原有的哈希算法长度一致
 			- 对称加密算法
+			  collapsed:: true
 				- 定义：用一个密码进行加密和解密的算法
 				  collapsed:: true
 					- 加密：secret = encrypt(key, message);
@@ -2018,9 +2036,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
-		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -2145,6 +2161,7 @@
 					- List接口允许我们添加重复的元素
 					- List允许添加null值
 					- List是一个有序列表
+					- **注意**：如果`List`的元素是一个对象的话，如果你需要使用`List`的`contains()`和`indexOf()`方法，该元素对象就需要复写他的`equals()`方法。
 				- 操作
 				  collapsed:: true
 					- 创建List
@@ -2513,6 +2530,22 @@
 				- 参考文章
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
+			  collapsed:: true
+				- `Set`用于存储不重复的元素集合。
+				- 关键方法
+				    collapsed:: true
+					- 将元素添加进`Set<E>`：`boolean add(E e)`
+					- 将元素从`Set<E>`删除：`boolean remove(Object e)`
+					- 判断是否包含元素：`boolean contains(Object e)`
+				- HashSet
+				    collapsed:: true
+					- HashSet是HashMap的一个简单封装。
+					- HashSet是无序的。
+					- HashSet内部存储元素还是利用的HashMap的Key进行存储的。所以使用HashSet的元素对象，必须也要实现`hashcode()`和`equals()`方法。
+				- TreeSet
+				    collapsed:: true
+					- `TreeSet`是有序的，因为它实现了`SortedSet`接口。
+					- 使用`TreeSet`和使用`TreeMap`的要求一样，添加的元素必须正确实现`Comparable`接口，如果没有实现`Comparable`接口，那么创建`TreeSet`时必须传入一个`Comparator`对象。
 			- Map
 			  collapsed:: true
 				- 背景
@@ -2523,9 +2556,10 @@
 						- 使用map的话插入和检索一个元素，需要的时间复杂度是O(1)
 				- HashMap
 					- 特点
-						- Map是一种key-value映射表的数据结构
-						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉
-						- Map中存储的映射关系是不保证顺序的
+						- Map是一种key-value映射表的数据结构。
+						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉。
+						- Map中存储的映射关系是不保证顺序的。
+						- **注意**：如果Map的元素是一个对象的话。我们在`put()`和`get()`一个元素的时候，会分别调用该元素的`hashcode()`和`equals()`方法。
 					- 基本操作
 						- `put()`：添加键值。null可以作为键，null映射键值将会被放到下标为0的存储桶中。
 						- `get(key)`：根据键获取值，如果有值的话返回，没值的话返回null。
@@ -2820,6 +2854,23 @@
 						- `of()`：可以添加多对键值构造map
 						- 特点：生成的不可变map，即不能直接修改也不能间接修改
 			- Queue
+			  collapsed:: true
+				- 介绍
+					- `Queue`接口在 `java.util` 包中可用，并且确实扩展了`Collection`接口。它用于保留以先进先出 （FIFO） 方式处理的元素。它是对象的有序列表，其中元素的插入发生在列表的末尾，元素的删除发生在列表的开头。
+					- 作为一个接口，队列需要声明的具体类，最常见的类是Java中的`LinkedList`和`PriorityQueue`。这些类完成的实现不是线程安全的。如果需要具有线程安全实现，则 `PriorityBlockingQueue` 是一个可用的选项。
+				- 功能
+					- PriorityQueue、ArrayBlockingQueue 和 LinkedList 是使用最频繁的实现。
+					- 如果对 BlockingQueues 执行了任何空操作，则会引发 NullPointerException。
+					- util 包中存在的那些队列称为无限队列。
+					- util.concurrent 包中存在的那些队列称为有界队列。
+				- 关键方法
+					- boolean add(object)：它用于将指定的元素插入此队列，并在成功时返回 true。
+					- boolean offer(object)：它用于将指定的元素插入到此队列中。
+					- Object remove()：它用于检索和删除此队列的头部。
+					- Object poll()：它用于检索和删除此队列的头部，如果此队列为空，则返回 null。
+					- Object element()：它用于检索但不删除此队列的头部。
+					- Object peek()：它用于检索但不删除此队列的头部，或者如果此队列为空，则返回 null。
+					- int size()：返回队列的大小。
 			- Fail-fast and Fail-safe
 			  collapsed:: true
 				- Fail-fast
@@ -5234,6 +5285,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -5281,6 +5333,7 @@
 	  collapsed:: true
 		-
 	- Git
+	  collapsed:: true
 		- 删除本地仓库的缓存：`git rm -r cached .`
 		- 修改最新commit的message信息：`git commit --amend`
 		- 查看所有的分支：`git branch -a`

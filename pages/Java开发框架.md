@@ -2751,9 +2751,7 @@
 			- 连接管理器超时 (http.connection-manager.timeout) ：等待来自连接管理器/池的连接的时间。
 			- [Apache HttpClient Timeout](https://www.baeldung.com/httpclient-timeout)
 - Nginx
-  collapsed:: true
 	- 静态资源配置
-	  collapsed:: true
 		- 参考文章
 			- [nginx配置静态资源访问](https://www.cnblogs.com/qingshan-tang/p/12763522.html)
 - Netty
