@@ -2036,6 +2036,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 			- Java Collection Framwork
 			  collapsed:: true
@@ -5285,7 +5286,6 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
-  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -5333,8 +5333,7 @@
 	  collapsed:: true
 		-
 	- Git
-	  collapsed:: true
-		- 删除本地仓库的缓存：`git rm -r cached .`
+		- 删除本地仓库的缓存：`git rm -r --cached .`
 		- 修改最新commit的message信息：`git commit --amend`
 		- 查看所有的分支：`git branch -a`
 		- 切换分支：`git checkout <branch_name>`
