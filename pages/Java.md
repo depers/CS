@@ -640,7 +640,6 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
-		  collapsed:: true
 			- Object通用方法
 			  collapsed:: true
 				- equals
@@ -867,7 +866,6 @@
 						- Method Overloading in Java
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/overloading
 				- 继承
-				  collapsed:: true
 					- Java只允许一个class继承自一个类，因此，一个类有且仅有一个父类。只有Object特殊，它没有父类。
 					- 里氏替换原则
 					  collapsed:: true
@@ -917,7 +915,6 @@
 					  collapsed:: true
 						- 继承是is关系，组合是has关系
 				- 多态
-				  collapsed:: true
 					- 多态
 					  collapsed:: true
 						- 多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法
@@ -2036,8 +2033,8 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
+		  collapsed:: true
 			- Java Collection Framwork
 			  collapsed:: true
 				- 背景
@@ -2130,6 +2127,7 @@
 			- Collections
 			  collapsed:: true
 				- 基本操作
+				  collapsed:: true
 					- 获取list，map，set的不变实体
 					- addAll()：方法添加集合到另一个集合
 					- copy()：复制元素
@@ -2557,11 +2555,13 @@
 						- 使用map的话插入和检索一个元素，需要的时间复杂度是O(1)
 				- HashMap
 					- 特点
+					  collapsed:: true
 						- Map是一种key-value映射表的数据结构。
 						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉。
 						- Map中存储的映射关系是不保证顺序的。
 						- **注意**：如果Map的元素是一个对象的话。我们在`put()`和`get()`一个元素的时候，会分别调用该元素的`hashcode()`和`equals()`方法。
 					- 基本操作
+					  collapsed:: true
 						- `put()`：添加键值。null可以作为键，null映射键值将会被放到下标为0的存储桶中。
 						- `get(key)`：根据键获取值，如果有值的话返回，没值的话返回null。
 						- `remove(key)`：移除一个元素。
@@ -2573,9 +2573,11 @@
 							- 方法三：通过循环遍历Map实例的values()方法，直接遍历值。
 						- 具体实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/HashMapExample.java
 					- 关于key需要注意
+					  collapsed:: true
 						- 可以在HashMap中使用任何类作为键。为了使映射正常工作，我们需要为equals()和hashCode()提供一个实现
 						- hashCode()和equals()只需要在我们希望用作映射键的类中重写
 					- Java8新增的方法
+					  collapsed:: true
 						- forEach()
 						- getOrDefault()
 						- putIfAbsent()
@@ -2584,11 +2586,13 @@
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/java8
 					- HashMap的内部实现
 						- 存储结构
+						  collapsed:: true
 							- 内部包含了一个 Entry 类型的数组 table。也就是我们说的桶数组。
 							- Entry 存储着键值对。它包含了四个字段，从 next 字段我们可以看出 Entry 是一个链表。
 							- 即数组中的每个位置被当成一个桶，一个桶存放一个链表。
 							- HashMap 使用拉链法来解决冲突，同一个链表中存放哈希值和散列桶取模运算结果相同的 Entry。
 						- HashMap中检索一个元素的方法
+						  collapsed:: true
 							- 方法一：遍历所有元素，找到和键匹配的元素返回。这种时间复杂度是O(n)
 							- 方法二：使用HashMap的put()和get()方法，实现平均时间复杂度O(1)和空间复杂度O(n)
 						- HashMap中put和get操作的实现
@@ -2606,6 +2610,7 @@
 							- 要使其正确工作，相等的键必须具有相同的散列，然而，不同的键可以具有相同的散列。如果两个不同的键具有相同的散列，则属于它们的两个值将存储在同一个bucket中。在桶内，值存储在一个列表中，并通过遍历所有元素来检索。它的代价是O(n) ，这里的n指的是桶里键值对的大小。
 							- 从Java 8(参见JEP 180)开始，如果一个桶包含8个或更多的值，则存储在一个桶内的值的数据结构将从链表更改为红黑树，这将使性能提高到O(log n)，这里的n指的是桶里键值对的大小。如果某个时刻桶中只剩下2到6个键值对时，则将回退回链表。
 						- 容量和负载因子
+						  collapsed:: true
 							- 为了避免多个桶具有多个值，如果75%(负载系数)的桶变为非空的，则容量将翻倍。
 							- 默认负载系数为75%，初始容量为16。两者都可以在构造函数中设置。
 						- 底层代码解析：Java HashMap的底层实现
@@ -2677,9 +2682,7 @@
 						- 实验一：map中包含一个键值对，当把key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，清空map。
 						- 实验二：map中包含两个键值对，当把其中一个key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，map会移除该key对应的键值对。
 				- ConcurrentHashMap
-				  collapsed:: true
 					- 特点
-					  collapsed:: true
 						- ConcurrentHashMap是线程安全的。
 						- ConcurrentHashMap中key和value是不允许存在null值的。
 						- 在多线程环境下，ConcurrentHashMap的性能较好。
@@ -5286,6 +5289,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -5333,6 +5337,7 @@
 	  collapsed:: true
 		-
 	- Git
+	  collapsed:: true
 		- 删除本地仓库的缓存：`git rm -r --cached .`
 		- 修改最新commit的message信息：`git commit --amend`
 		- 查看所有的分支：`git branch -a`

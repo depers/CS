@@ -2151,12 +2151,21 @@
 				- 任务调度云
 				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
-		  collapsed:: true
 			- 1.Spring MVC体系概述
 				- 体系结构
+					- DispatcherServlet的作用
+						- 负责协调和组织不同组件以完成请求处理并返回响应的工作。
+					- DispatcherServlet的默认实现组件
+						- 组件的配置文件：spring-webmvc包的`org\springframework\web\servlet\DispatcherServlet.properties`
+						- 比较重要的组件
+						- 处理器映射器：`DefaultAnnotationHandlerMapping`
+						- 处理器适配器：`RequestMappingHandlerAdapter`
+						- 视图解析器：`InternalResourceViewResolver`
 				- 配置`DispatcherServlet`
 					- 三个问题
+					  collapsed:: true
 						- 1.`DispatcherServlet`框架是如何截获特定的HTTP请求并交由Spring MVC框架处理的？
+						  collapsed:: true
 							- 通过在web.xml中声明`DispatcherServlet`和他所拦截的URL匹配规则。
 						- 2.位于Web层的Spring容器（`WebApplicationContext`）如何与位于业务层的Spring容器（`ApplicationContext`）建立关联，以使Web层的Bean可以调用业务层的Bean？
 							- 在web.xml中声明如下配置，从而建立Spring容器和Web容器之间的关系：
@@ -2172,6 +2181,7 @@
 							- 关于这点，我觉得还可以参考 ((6466b122-89a0-4701-8d24-6b17bf44e7d9))。
 						- 3.如何初始化Spring MVC的各个组件，并将他们装配到`DispatcherServlet`中？
 							- 探究DispatcherServlet的内部逻辑
+							  collapsed:: true
 								- 代码
 								  ```java
 								  protected void initStrategies(ApplicationContext context) {
@@ -2192,6 +2202,84 @@
 								  :END:
 								  ![DispatcherServlet装配各类型组件的逻辑1.png](../assets/DispatcherServlet装配各类型组件的逻辑1_1692626978188_0.png)
 								  ![DispatcherServlet装配各类型组件的逻辑2.png](../assets/DispatcherServlet装配各类型组件的逻辑2_1692626990699_0.png)
+			- 2.注解驱动的控制器
+				- `@RequestMapping`的使用，这个注解有四个值
+				  collapsed:: true
+					- value：请求的url
+					- method：请求的方法
+					- param：请求的参数
+					- headers：报文头的映射条件
+				- 请求的方法签名
+				    collapsed:: true
+					- `@RequestParam`
+					- `@RequestHeader`
+					- `@PathValiable`
+					- `HttpServletRequest`
+					- 报文体对象
+				- 使用矩阵变量绑定参数
+				    collapsed:: true
+					- `@MatrixVariable`：矩阵变量，请求参数中包含多个`;`，类似于请求参数中包含：`GET /book/22;a=1;b=2 `
+				- 请求处理参数详解
+				    collapsed:: true
+					- `@RequestParam`
+					    collapsed:: true
+						- value
+						- require
+						- defaultValue
+					- `@CookieValue`
+					- `@RequestHeader`
+					- 使用命令/表单对象绑定请求参数值
+					- 使用Servlet API对象作为入参
+					    collapsed:: true
+						- HttpServletRequest
+						- HttpServletResponse：如果该参数作为入参，则方法签名的返回值设置成void即可。
+						- HttpSession
+					- 将IO对象作为入参
+					  collapsed:: true
+						- `java.io.InputStream/Reader`
+						- `java.io.OutputStrean/Writer`
+				- 使用`HttpMessageConverter<T>`接口
+					- 功能
+					  collapsed:: true
+						- 将请求信息转换为一个对象，将一个对象输出为响应信息。
+						- 这个接口的实现是由处理器适配器`RequestMappingHandlerAdapter`使用的，通过这些实现类实现请求消息转换为对象，对象转换为响应信息的功能。
+					- 实现类
+					  collapsed:: true
+						- Spring为HttpMessageConverter提供了很多的默认的实现类，这些实现类定义了读取和响应数据的**类型**和**读写转换逻辑**。
+					- 如何使用HttpMessageConverter<T>将请求消息转换并绑定到方法的入参，Spring MVC提供了两种方案，从而实现选择合适数据转换器的功能：
+					  collapsed:: true
+						- 第一种：使用`@RequestBody`（标记方法入参）和@`ResponseBody`（标记方法）对处理的方法进行标记。
+						- 第二种：使用`HttpEntity<T>`/`ResponseEntity<T>`作为方法的入参或返回值。
+						- 值得注意的是
+						  collapsed:: true
+							- 只有使用了上面两种办法，Spring MVC才会使用注册的HttpMessageConverter<T>对请求和响应数据做处理，也就是说如果没有用这两种方法，只会用Spring默认的四种转换器，不会用你配置的。
+							- 这两种方法都是根据http请求头的Accpet字段判断数据类型的，如果找不到就会报错。
+							- `@RequestBody`和`@ResponseBody`不需要承兑出现，也就是说，这两个使用一个就成，一般我们都用`@RequestBody`就行，因为通过请求参数的格式，我们就可以选择出处理请求和响应的合适的数据转换器来。
+							- 这两种方法的功能是相似的，不同的是第二种方法是可以获取到报文的头信息的。
+					- 在接收到Http请求时，Spring MVC是如何知道消息的格式的？
+					  collapsed:: true
+						- 请求数据格式：通过`Accept`
+						- 响应数据格式：通过`Content-Type`
+				- `@RestController`
+				  collapsed:: true
+					- 这个注解大家很熟悉了，就是`@Controller`和`@ResponseBody`注解的结合体。
+				- AsyncRestTemplate
+				  collapsed:: true
+					- 这个类和普通的`RestTemplate`的区别是这个类可以实现异步无阻塞的访问请求。
+					- `AsyncRestTemplate`的底层访问组件是`SimpleClientHttpResquestFactory`进行http操作。
+				- 处理模型数据
+				  collapsed:: true
+					- 目的
+					- 输出模型数据的方法
+						- ModelAndView
+							- 这个比较简单，在这个对象中可以存储逻辑视图和数据模型。
+						- @ModelAttribute
+							- 两个功能
+								- 第一个：如果这个参数修饰路由方法的入参，那么这个入参对象就会自动放置到响应视图的上下文中，供响应的视图去访问这个数据对象。
+								- 第二个：可以修饰一个普通方法，与此同时一个路由方法也使用这个注解修饰了同一个数据对象，那么在访问路由方法之前会先执行普通方法，普通方法的返回值会放置到这个视图中，然后路由方法的入参中，我们就可以直接访问到已经被普通方法处理的数据对象，最后这个数据对象还会被放到这个方法的响应视图的上下文中。
+						- Map和Model，也就是ModelMap
+						- @SessionAttribute
+					-
 		- 第十八章 实战案例开发
 		- 第十九章 Spring OXM
 		- 第二十章 实战型单元测试
