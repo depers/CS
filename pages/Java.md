@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -640,6 +641,7 @@
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- 面向对象
+		  collapsed:: true
 			- Object通用方法
 			  collapsed:: true
 				- equals
@@ -1071,13 +1073,11 @@
 					- throw：用于抛出异常
 					- throws：用在方法签名中，用于声明该方法可能抛出的异常
 			- 捕获异常
-			  collapsed:: true
 				- 多catch语句
 				  collapsed:: true
 					- catch的顺序非常重要：子类必须写在前面
 					- 多个catch语句只有一个能被执行
 				- finally语句
-				  collapsed:: true
 					- finally语句不是必须的，可写可不写
 					- finally总是最后执行
 					- finally是用来保证一些代码必须执行的
@@ -2905,7 +2905,6 @@
 			- 线程切换
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 		- IO
-		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
@@ -2991,6 +2990,7 @@
 						- `fluash()`方法任何输出流都可以调用，但是只对缓冲流有效果。
 					- 具体实践：cn/bravedawn/io/bufferedstreams/CopyCharacters.java
 			- 带缓冲的字节数组流
+			  collapsed:: true
 				- `ByteArrayOutputStream`
 				- `ByteArrayInputStream`
 				- `FastByteArrayOutputStream`，这个类是Spring提供的。
@@ -3051,6 +3051,7 @@
 					  collapsed:: true
 						- Java BufferedInputStream 类用于从流中读取信息。 它内部使用缓冲机制来提高性能。
 			- 构建文件路径
+			  collapsed:: true
 				- 使用*使用 **File.separator **或 **System.getProperty("file.separator")*
 				- 使用新的**File() API**来构造文件路径
 				- 检查系统操作系统并手动创建文件路径
@@ -3107,6 +3108,21 @@
 			- 获取当前项目路径以及classpath
 			  collapsed:: true
 				- 具体实践：cn.bravedawn.io.path.PathExample
+			- `Path`
+			  collapsed:: true
+				- File类的缺点
+				    collapsed:: true
+					- 错误处理不当。许多方法不会告诉我们遇到问题的任何详细信息，甚至根本不会抛出异常。
+					- java.io 包中的 File 类的元数据支持较差，这会导致跨不同平台的问题，即 I/O 操作需要有关文件的元信息。
+					- 性能问题。
+				- 功能映射
+				    collapsed:: true
+					- Oracle给出了原有IO的缺点摘要和迁移方法：[Legacy File I/O Code](https://docs.oracle.com/javase/tutorial/essential/io/legacy.html)
+					- `File`和`Path`实例的创建
+					- 管理文件和目录
+					- 获取文件的路径
+					- 读取元数据
+				- 参考文章：[Java – Path vs File](https://www.baeldung.com/java-path-vs-file)
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
 		  collapsed:: true
 			- 第二章 Java的内存区域
@@ -4272,7 +4288,6 @@
 - Java EE
   collapsed:: true
 	- Servlet
-	  collapsed:: true
 		- Java web application介绍
 		  collapsed:: true
 			- 静态和动态网站的区别
@@ -4624,6 +4639,7 @@
 					  collapsed:: true
 						- 用于设置响应的状态码。
 			- RequestDispatcher interface
+			  collapsed:: true
 				- 介绍
 					- `RequestDispatcher`接口用于将请求转发到另一个资源，该资源可以是相同上下文中的HTML、JSP或其他servlet。
 					- 我们还可以使用它将另一个资源的内容包含到响应中。
@@ -4637,7 +4653,6 @@
 			- HttpServletRequest interface
 			  collapsed:: true
 				- 关于httpServletRequest path API的讨论
-				  collapsed:: true
 					- 附一张图
 					  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
 					- 参考文章：[HttpServletRequest Path Decoding](https://agiletribe.purplehillsbooks.com/2016/02/23/httpservletrequest-path-decoding/)
@@ -5191,6 +5206,7 @@
 			- 注意
 				- 关于</welcome-file>不能指定Servlet的解决办法：https://www.cnblogs.com/taoweiji/p/3248847.html，我这里采用的是<meta http-equiv="refresh" content="0;URL=/ServletJNDIByServer">
 	- JDBC
+	  collapsed:: true
 		- JDBC核心API
 			- 驱动管理器接口：java.sql.DriverManager
 			  collapsed:: true

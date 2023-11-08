@@ -2894,7 +2894,6 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
-  collapsed:: true
 	- 使用日志的好处
 	  collapsed:: true
 		- 可以设置输出样式，避免自己每次都写"ERROR: " + var；
@@ -2924,7 +2923,6 @@
 		- commons logging 默认会搜索使用Log4j、JDK Logging作为自己的日志系统。
 		- 参考文章： [使用Commons Logging](https://www.liaoxuefeng.com/wiki/1252599548343744/1264738932870688)
 	- Log4j2
-	  collapsed:: true
 		- Log4j是一个日志的具体实现。
 		- Log4j的架构
 		    collapsed:: true
@@ -2984,15 +2982,12 @@
 				- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 			- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 		- Log4j2 Appenders
-		  collapsed:: true
 			- ConsoleAppender
 			  collapsed:: true
 				- 功能：将日志输出到系统控制台。
 			- FileAppender
-			  collapsed:: true
 				- 功能：将日志写入文件。
 			- RollingFileAppender，滚动文件追加器
-			  collapsed:: true
 				- 功能：将日志写入滚动日志文件。
 				- 解决的问题：将所有内容都记录到一个文件中并不理想。定期滚动活动日志文件通常要好得多。也就是说他会在某个条件被触发的时候将现有的日志文件存档，新起一个文件进行日志记录。
 				- 参考配置
@@ -3178,9 +3173,7 @@
 			  collapsed:: true
 				- [Improved Java Logging with Mapped Diagnostic Context (MDC)](https://www.baeldung.com/mdc-in-log4j-2-logback)
 		- 日志记录方式
-		  collapsed:: true
 			- 方式
-			  collapsed:: true
 				- 同步
 				  collapsed:: true
 					- 我们正常定义的Appender和Logger都是同步的。
@@ -3317,6 +3310,7 @@
 		- 背景
 			- 市面上出现多种日志实现工具，场面十分混乱，因为这些日志系统互相没有关联，替换和统一也就变成了比较棘手的一件事。
 	- Logback
+	  collapsed:: true
 		- Logback是一个日志的具体实现。
 	- 日志级别（以下等级由高到低，等级越低输出的日志信息越多）
 	  collapsed:: true
