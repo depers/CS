@@ -1,4 +1,5 @@
 - Java语言
+  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -1675,10 +1676,8 @@
 					- `class.getDeclaredConstructor(Class<?>... parameterTypes).newInstance()`：`getDeclaredConstructor()`方法会根据他的参数对该类的构造函数进行搜索并返回对应的构造函数，没有参数就返回该类的无参构造函数，然后再通过newInstance进行实例化。
 					- `classA.isAssignableFrom(classB)`：判断a是否是b的父类。这里classA和classB都是Class对象
 					- `classA.isInstance(objectB)`
-					  collapsed:: true
 						- 表示objectB是否能强转为classA类型
 						- 与 ((644252a4-2aa6-4b41-ad86-f99f7cb65ac8))的区别
-						  collapsed:: true
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
 			- 访问字段
@@ -2938,11 +2937,9 @@
 					- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
 					- [Java NIO浅析](https://tech.meituan.com/2016/11/04/nio.html)
 			- System.out/System.err
-			  collapsed:: true
 				- 值得注意的点
 					- 标准输出（System.out）和标准错误输出（System.err）中打印的信息收集起来。但标准输出设备是整个虚拟机进程全局共享的资源，如果使用`System.setOut()`/`System.setErr()`方法把输出流重定向到自己定义的`PrintStream`对象上固然可以收集到输出信息，但也会对原有程序产生影响：会把其他线程向标准输出中打印的信息也收集了。
 			- 字节流
-			  collapsed:: true
 				- 特点
 					- 所有字节流类都继承于 `InputStream` 和 `OutputStream` 。
 					- 不同类型字节流的使用方式差别不大，主要是构造方法有区别。
@@ -2954,7 +2951,6 @@
 				- 参考文章
 					- [Byte Streams](https://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html)
 			- 字符流
-			  collapsed:: true
 				- 特点
 					- 所有字符流类都派生自 `Reader` 和 `Writer`。
 					- Java 平台使用 Unicode 约定存储字符值。 字符流 I/O 自动将此内部格式与本地字符集相互转换。
@@ -2964,10 +2960,8 @@
 					- 有两种通用的字节到字符“桥接”流：InputStreamReader 和 OutputStreamWriter。 当没有满足您需要的预打包字符流类时，使用它们来创建字符流。
 					- 字符 I/O 通常以比单个字符更大的单元出现。 一个常见的单位是行：一串字符，末尾有行终止符。 行终止符可以是回车/换行序列（“\r\n”）、单个回车（“\r”）或单个换行（“\n”）。具体可以参考`System.lineSeparator()`，他返回特定操作系统的换行符。
 				- 派生类
-				  collapsed:: true
 					- 专门用于文件 I/O 的字符流类：*FileReader 和 FileWriter*。
 				- 具体实践
-				  collapsed:: true
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
 			- 缓冲流（buffered streams）          

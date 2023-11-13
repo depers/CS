@@ -1,7 +1,5 @@
 - Spring
-  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
-	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -2151,6 +2149,7 @@
 				- 任务调度云
 				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
+		  collapsed:: true
 			- 1.Spring MVC体系概述
 				- 体系结构
 					- DispatcherServlet的作用
@@ -2282,7 +2281,49 @@
 					-
 		- 第十八章 实战案例开发
 		- 第十九章 Spring OXM
+			- 1.认识XML解析技术
+				- XML是可扩展标记语言，主要用于数据配置、数据传输和数据存储。
+				- XML的处理技术
+					- DOM
+					    collapsed:: true
+						- 会将整个XML读入内存，并提供了遍历XML树，访问元素、值和属性的编程接口。
+						- 缺点是内存开销过大。
+					- SAX
+					    collapsed:: true
+						- 采用事件驱动的方式处理xml解析。
+						- 解决了DOM内存开销过大的问题，但是无法随机读取文档。
+					- StAX
+					    collapsed:: true
+						- 基于流的模型去解析xml。
+						- 两种方式
+						    collapsed:: true
+							- 基于指针
+							- 将文档解析操作拆解为一系统事件对象。
 		- 第二十章 实战型单元测试
+		  collapsed:: true
+			- 1.单元测试概述
+			    collapsed:: true
+				- 单元测试
+					- 就是对单个功能的测试，一小段代码。
+					- 一般对Service或是Dao的方法层面的测试。
+				- 集成测试
+					- 就是对一个功能模块的测试，比如一个接口。
+					- 一般对web层或是业务层进行模块测试。
+			- 2.TestNG
+			- 3.Mockito
+			    collapsed:: true
+				- 这个工具的功能是它可以构建一个实例对象，该实例对象的行为（方法）可以按照测试中自己的想法去定制，比如模拟一个接口调用的实例对象。
+			- 4.Unitils
+			    collapsed:: true
+				- 这个工具继承了Spring、Hibernate和DbUint。
+				- 这个工具可以实现对dao、service和contrller层的测试。
+				- 但是过于复杂了，不建议使用。
+			- 5.Dbunit
+			    collapsed:: true
+				- 这个工具主要是用来做数据库层面的数据校验的，但是配置复杂，数据准备比较繁琐，不建议使用。
+			- 6.Controller层的测试
+			    collapsed:: true
+				- 建议使用Restemplate进行测试。
 	- spring-core
 	  collapsed:: true
 		- IOC
@@ -2894,6 +2935,7 @@
 			- 为什么要在@PulsarConsumer中写subscriptionName？
 				- pulsar支持同一个topic可以有多个不同订阅模式的订阅，每个订阅下面可以有多个消费者。这里的订阅类似于Kafka中消费者组的概念。
 - 日志框架
+  collapsed:: true
 	- 使用日志的好处
 	  collapsed:: true
 		- 可以设置输出样式，避免自己每次都写"ERROR: " + var；
