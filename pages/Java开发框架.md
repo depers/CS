@@ -813,21 +813,17 @@
 					  collapsed:: true
 						- Spring容器从BeanfDefinition中获取Bean属性的配置信息PropertyValue，并使用属性编辑器对PropertryValue进行转换以得到Bean的属性值。对Bean的其他属性重复这个过程就可以完成属性填充工作。
 			- 2.属性编辑器
-			  collapsed:: true
 				- 作用
 				  collapsed:: true
 					- Spring配置文件中Bean的属性一般是通过字面值为其设置属性值，但是Bean的类型却有很多种。属性编辑器负责完成配置文件字面值到JVM内部类型的类型转换工作。说白了就是一个类型转换器。
 				- JavaBean的属性编辑器
-				  collapsed:: true
 					- 背景
 					  collapsed:: true
 						- Sun制定的JavaBean很大程度上是为IDE的开发准备的，也就是为Java GUI程序的开发准备的
 					- PropertyEditor
-					  collapsed:: true
 						- 任何实现java.beans.PropertyEditor接口的类都是属性编辑器。
 						- PropertyEditor是属性编辑器的接口，它规定了将外部设置值转换为内部JavaBean属性值的转换接口方法
 					- BeanInfo
-					  collapsed:: true
 						- 主要描述了JavaBean的那些属性可以编辑以及对应的属性编辑器。
 				- Spring默认属性编辑器
 				  collapsed:: true
@@ -2149,8 +2145,8 @@
 				- 任务调度云
 				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
-		  collapsed:: true
 			- 1.Spring MVC体系概述
+			  collapsed:: true
 				- 体系结构
 					- DispatcherServlet的作用
 						- 负责协调和组织不同组件以完成请求处理并返回响应的工作。
@@ -2160,12 +2156,19 @@
 						- 处理器映射器：`DefaultAnnotationHandlerMapping`
 						- 处理器适配器：`RequestMappingHandlerAdapter`
 						- 视图解析器：`InternalResourceViewResolver`
+					- Spring MVC处理请求的过程
+						- 第一步：服务端接收到客户端的请求，判断是否匹配DispatcherServlet的请求映射路径。
+						- 第二步：DispatcherServlet根据请求的相关信息，利用**处理器映射器**查找可以处理请求的Handler。
+						- 第三步：DispatcherServlet利用上一步查找的Handler，通过**处理器适配器**的统一接口对Handler的方法进行调用。
+						- 第四步：Handler完成业务逻辑的处理后，返回一个ModelAndView给DispatcherServlet，ModelAndView中包含了**视图逻辑名**和**数据模型**。
+						- 第五步：DispatcherServlet利用**视图解析器**，完成逻辑视图名到**真实视图对象**的解析工作。
+						- 第六步：DispatcherServlet利用ModelAndView中的**数据模型**，对上一步中的真实视图对象进行**视图渲染**。
+						- 第七步：客户端接收响应信息。
 				- 配置`DispatcherServlet`
 					- 三个问题
-					  collapsed:: true
 						- 1.`DispatcherServlet`框架是如何截获特定的HTTP请求并交由Spring MVC框架处理的？
-						  collapsed:: true
-							- 通过在web.xml中声明`DispatcherServlet`和他所拦截的URL匹配规则。
+							- 通过在**web.xml**中声明`DispatcherServlet`和他所拦截的URL匹配规则。
+							- Spring4.x支持Servlet3.0，可以通过**编程的方式**配置Servlet容器。
 						- 2.位于Web层的Spring容器（`WebApplicationContext`）如何与位于业务层的Spring容器（`ApplicationContext`）建立关联，以使Web层的Bean可以调用业务层的Bean？
 							- 在web.xml中声明如下配置，从而建立Spring容器和Web容器之间的关系：
 							  ```xml
@@ -2180,7 +2183,6 @@
 							- 关于这点，我觉得还可以参考 ((6466b122-89a0-4701-8d24-6b17bf44e7d9))。
 						- 3.如何初始化Spring MVC的各个组件，并将他们装配到`DispatcherServlet`中？
 							- 探究DispatcherServlet的内部逻辑
-							  collapsed:: true
 								- 代码
 								  ```java
 								  protected void initStrategies(ApplicationContext context) {
@@ -2202,56 +2204,59 @@
 								  ![DispatcherServlet装配各类型组件的逻辑1.png](../assets/DispatcherServlet装配各类型组件的逻辑1_1692626978188_0.png)
 								  ![DispatcherServlet装配各类型组件的逻辑2.png](../assets/DispatcherServlet装配各类型组件的逻辑2_1692626990699_0.png)
 			- 2.注解驱动的控制器
+			  collapsed:: true
 				- `@RequestMapping`的使用，这个注解有四个值
 				  collapsed:: true
-					- value：请求的url
-					- method：请求的方法
-					- param：请求的参数
-					- headers：报文头的映射条件
+					- `value`：请求的url
+					- `method`：请求的方法
+					- `param`：请求的参数
+					- `headers`：报文头的映射条件
 				- 请求的方法签名
 				    collapsed:: true
-					- `@RequestParam`
-					- `@RequestHeader`
-					- `@PathValiable`
-					- `HttpServletRequest`
+					- `@RequestParam`：url参数
+					- `@RequestHeader`：请求头
+					- `@PathValiable`：获取url中的占位符参数，类似：`/user/{userId}`中的userId
+					- `HttpServletRequest`：Http请求对象
 					- 报文体对象
 				- 使用矩阵变量绑定参数
 				    collapsed:: true
-					- `@MatrixVariable`：矩阵变量，请求参数中包含多个`;`，类似于请求参数中包含：`GET /book/22;a=1;b=2 `
+					- `@MatrixVariable`：矩阵变量，请求参数中包含多个`;`，类似于请求参数中包含：`GET /book/22;a=1;b=2 `，可以利用矩阵变量获取a和b的参数值。
 				- 请求处理参数详解
 				    collapsed:: true
 					- `@RequestParam`
 					    collapsed:: true
-						- value
-						- require
-						- defaultValue
+						- `value`：url参数的参数名
+						- `require`：是否必须
+						- `defaultValue`：默认值
 					- `@CookieValue`
 					- `@RequestHeader`
 					- 使用命令/表单对象绑定请求参数值
 					- 使用Servlet API对象作为入参
 					    collapsed:: true
-						- HttpServletRequest
-						- HttpServletResponse：如果该参数作为入参，则方法签名的返回值设置成void即可。
-						- HttpSession
+						- `HttpServletRequest`
+						- `HttpServletResponse`：如果该参数作为入参，则方法签名的返回值设置成void即可。
+						- `HttpSession`
 					- 将IO对象作为入参
 					  collapsed:: true
 						- `java.io.InputStream/Reader`
 						- `java.io.OutputStrean/Writer`
 				- 使用`HttpMessageConverter<T>`接口
+				  collapsed:: true
 					- 功能
 					  collapsed:: true
 						- 将请求信息转换为一个对象，将一个对象输出为响应信息。
 						- 这个接口的实现是由处理器适配器`RequestMappingHandlerAdapter`使用的，通过这些实现类实现请求消息转换为对象，对象转换为响应信息的功能。
 					- 实现类
 					  collapsed:: true
-						- Spring为HttpMessageConverter提供了很多的默认的实现类，这些实现类定义了读取和响应数据的**类型**和**读写转换逻辑**。
-					- 如何使用HttpMessageConverter<T>将请求消息转换并绑定到方法的入参，Spring MVC提供了两种方案，从而实现选择合适数据转换器的功能：
+						- Spring为`HttpMessageConverter`接口提供了很多的默认的实现类，这些实现类定义了读取和响应数据的**类型**和**读写转换逻辑**。
+						- 具体的实现类包含了请求参数和响应参数的两种处理逻辑。
+					- 如何使用`HttpMessageConverter<T>`将请求消息转换并绑定到方法的入参，Spring MVC提供了两种方案，从而实现选择合适数据转换器的功能：
 					  collapsed:: true
 						- 第一种：使用`@RequestBody`（标记方法入参）和@`ResponseBody`（标记方法）对处理的方法进行标记。
 						- 第二种：使用`HttpEntity<T>`/`ResponseEntity<T>`作为方法的入参或返回值。
 						- 值得注意的是
 						  collapsed:: true
-							- 只有使用了上面两种办法，Spring MVC才会使用注册的HttpMessageConverter<T>对请求和响应数据做处理，也就是说如果没有用这两种方法，只会用Spring默认的四种转换器，不会用你配置的。
+							- 只有使用了上面两种办法，Spring MVC才会使用注册的`HttpMessageConverter<T>`对请求和响应数据做处理。
 							- 这两种方法都是根据http请求头的Accpet字段判断数据类型的，如果找不到就会报错。
 							- `@RequestBody`和`@ResponseBody`不需要承兑出现，也就是说，这两个使用一个就成，一般我们都用`@RequestBody`就行，因为通过请求参数的格式，我们就可以选择出处理请求和响应的合适的数据转换器来。
 							- 这两种方法的功能是相似的，不同的是第二种方法是可以获取到报文的头信息的。
@@ -2262,41 +2267,72 @@
 				- `@RestController`
 				  collapsed:: true
 					- 这个注解大家很熟悉了，就是`@Controller`和`@ResponseBody`注解的结合体。
-				- AsyncRestTemplate
+				- `AsyncRestTemplate`
 				  collapsed:: true
 					- 这个类和普通的`RestTemplate`的区别是这个类可以实现异步无阻塞的访问请求。
-					- `AsyncRestTemplate`的底层访问组件是`SimpleClientHttpResquestFactory`进行http操作。
+					- `AsyncRestTemplate`的底层访问组件是`SimpleClientHttpRequestFactory`进行http操作。
 				- 处理模型数据
-				  collapsed:: true
 					- 目的
+					  collapsed:: true
+						- 下面的四种类型参数都是为了实现请求上下文中参数的共享。
 					- 输出模型数据的方法
-						- ModelAndView
+					  collapsed:: true
+						- `ModelAndView`
+						  collapsed:: true
 							- 这个比较简单，在这个对象中可以存储逻辑视图和数据模型。
-						- @ModelAttribute
+						- `@ModelAttribute`
+						  collapsed:: true
 							- 两个功能
+							  collapsed:: true
 								- 第一个：如果这个参数修饰路由方法的入参，那么这个入参对象就会自动放置到响应视图的上下文中，供响应的视图去访问这个数据对象。
-								- 第二个：可以修饰一个普通方法，与此同时一个路由方法也使用这个注解修饰了同一个数据对象，那么在访问路由方法之前会先执行普通方法，普通方法的返回值会放置到这个视图中，然后路由方法的入参中，我们就可以直接访问到已经被普通方法处理的数据对象，最后这个数据对象还会被放到这个方法的响应视图的上下文中。
-						- Map和Model，也就是ModelMap
-						- @SessionAttribute
-					-
+								- 第二个：可以修饰一个普通方法，与此同时一个路由方法也使用这个注解修饰了同一个数据对象，那么在访问路由方法之前会先执行普通方法，普通方法的返回值会放置到这个视图中，然后放入路由方法的入参中，我们就可以直接访问到已经被普通方法处理的数据对象，最后这个数据对象还会被放到这个方法的响应视图的上下文中。
+							- 值得注意的是：如果方法的入参使用了`@ModelAttribute`注解，那么就不能再使用`@RequestParam`或是`@CookieValue`了。
+						- `ModelMap`
+						  collapsed:: true
+							- 如果路由方法的入参包含一个ModelMap的参数，如果该Controller上下文中包含@ModelAttribute，则会默认将@ModelAttribute**标注的对象**隐式的放置到ModelMap中，这样在这个路由方法中我们就可以直接获取这个**标注的对象**了。
+						- `@SessionAttribute`
+						  collapsed:: true
+							- 两个功能
+							  collapsed:: true
+								- 一将相关属性放入session会话中，方便请求方法复用。
+								- 二可以将**隐含对象**中所有类型为xxx.class的属性添加到会话中。
+			- 3.处理方法的参数绑定
+				- a.数据绑定流程解析
+					- 参数解析是通过**反射机制**对目标方法进行解析并绑定的。
+					- 解析步骤
+						- 第一步：ServletRequest会将Controller的入参对象传递给DataBinder，由DataBinder负责完成数据的绑定工作。
+						- 第二步：`DataBinder`首先会调用**`ConversionService`组件**完**成数据类型转换、数据格式化**等工作。将ServletRequest中的**消息数据填充到入参对象中**。
+						- 第三步：`DataBinder`会调用**`Validator`组件**对已经绑定消息数据的**入参对象进行参数校验**。
+						- 第四步：`DataBinder`会将最终生成的**数据绑定到`BindingResult`对象**中。`BindingResult`对象包含了**入参对象**和**校验错误结果对象**。
+				- b.数据类型转换
+					- 背景
+						- Java标准的属性编辑器`PropertyEditor`
+						  collapsed:: true
+							- 核心功能是将**一个字符串**转换为**一个Java对象**。
+							- 缺点
+								- 只能用于**字符串和Java对象的转换**，无法实现任意两个Java类型的转换。
+								- 对源对象和目标对象的**上下文信息不敏感**，无法利用上下文信息。
+						- Spring在核心模块中添加了类型转换模块，位于spring-core项目的`org.springframework.core.convert`包中。
+					- `ConversionService`
+						- 这个类是Spring类型转换的核心类。
+					- Spring支持哪些转换器
+						- `Converter<S, T>`
+							- 只负责将一个类型的对象转换为另一个类型的对象，并没有考虑对象所在宿主类的上下文信息，因此不能做负责的类型转换工作。
+						-
 		- 第十八章 实战案例开发
 		- 第十九章 Spring OXM
 			- 1.认识XML解析技术
 				- XML是可扩展标记语言，主要用于数据配置、数据传输和数据存储。
 				- XML的处理技术
 					- DOM
-					    collapsed:: true
 						- 会将整个XML读入内存，并提供了遍历XML树，访问元素、值和属性的编程接口。
 						- 缺点是内存开销过大。
 					- SAX
-					    collapsed:: true
 						- 采用事件驱动的方式处理xml解析。
 						- 解决了DOM内存开销过大的问题，但是无法随机读取文档。
 					- StAX
-					    collapsed:: true
 						- 基于流的模型去解析xml。
 						- 两种方式
-						    collapsed:: true
 							- 基于指针
 							- 将文档解析操作拆解为一系统事件对象。
 		- 第二十章 实战型单元测试

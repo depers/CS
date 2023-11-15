@@ -4280,7 +4280,6 @@
 				- 这种方式在框架代码中比较常见。
 		- 类型：结构型
 - Java EE
-  collapsed:: true
 	- Servlet
 		- Java web application介绍
 		  collapsed:: true
