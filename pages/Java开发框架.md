@@ -1,5 +1,7 @@
 - Spring
+  collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
+	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -2145,6 +2147,7 @@
 				- 任务调度云
 				- Web应用程序中调度器的启动和关闭问题
 		- 第十七章 Spring MVC
+		  collapsed:: true
 			- 1.Spring MVC体系概述
 			  collapsed:: true
 				- 体系结构
@@ -2297,6 +2300,7 @@
 								- 一将相关属性放入session会话中，方便请求方法复用。
 								- 二可以将**隐含对象**中所有类型为xxx.class的属性添加到会话中。
 			- 3.处理方法的参数绑定
+			  collapsed:: true
 				- a.数据绑定流程解析
 					- 参数解析是通过**反射机制**对目标方法进行解析并绑定的。
 					- 解析步骤
@@ -2320,6 +2324,7 @@
 						-
 		- 第十八章 实战案例开发
 		- 第十九章 Spring OXM
+		  collapsed:: true
 			- 1.认识XML解析技术
 				- XML是可扩展标记语言，主要用于数据配置、数据传输和数据存储。
 				- XML的处理技术
@@ -3000,6 +3005,7 @@
 		- commons logging 默认会搜索使用Log4j、JDK Logging作为自己的日志系统。
 		- 参考文章： [使用Commons Logging](https://www.liaoxuefeng.com/wiki/1252599548343744/1264738932870688)
 	- Log4j2
+	  collapsed:: true
 		- Log4j是一个日志的具体实现。
 		- Log4j的架构
 		    collapsed:: true
@@ -3059,6 +3065,7 @@
 				- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 			- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 		- Log4j2 Appenders
+		  collapsed:: true
 			- ConsoleAppender
 			  collapsed:: true
 				- 功能：将日志输出到系统控制台。
@@ -3250,6 +3257,7 @@
 			  collapsed:: true
 				- [Improved Java Logging with Mapped Diagnostic Context (MDC)](https://www.baeldung.com/mdc-in-log4j-2-logback)
 		- 日志记录方式
+		  collapsed:: true
 			- 方式
 				- 同步
 				  collapsed:: true
@@ -3364,12 +3372,16 @@
 					  collapsed:: true
 						- age：匹配超过180天的文件，单位D、H、M、S分别表示天、小时、分钟、秒
 		- 参考文章
+		  collapsed:: true
 			- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
 			- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
 			- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)
 			- [Apache Log4j 2 Tutorials](https://mkyong.com/logging/apache-log4j-2-tutorials/)
 			- [Log4j2实现不同线程不同级别日志输出到不同的文件中](http://codepub.cn/2016/12/18/Log4j2-to-achieve-different-levels-of-different-threads-log-output-to-a-different-file/)
 			- [使用Log4j](https://www.liaoxuefeng.com/wiki/1252599548343744/1264739436350112)
+			- [Spring Boot Logback and Log4j2 Extensions](https://www.baeldung.com/spring-boot-logback-log4j2)
+			  collapsed:: true
+				- 主要介绍了Spring Boot项目中引入Logback和Log4j2框架的方法和步骤。
 		- 实践
 		  collapsed:: true
 			- Log4j2的简单实战
@@ -3407,8 +3419,8 @@
 		- 任何日志框架都允许开发人员将调试信息记录到可以用作过滤标准的日志级别，即可以禁用属于特定日志级别的消息。例如，在生产环境中，开发人员更关心WARN消息而不是DEBUG消息。
 		- 日志框架可以产生更好的输出和元数据，这有助于故障排除和调试。例如，Log4j2允许通过指定格式化模式来打印格式化输出，即使用PatternLayout可以包括时间戳、类名等。
 - 测试框架
-  collapsed:: true
 	- Junit
+	  collapsed:: true
 		- 架构
 		  collapsed:: true
 			- JUnit Platform
@@ -3456,3 +3468,17 @@
 			-
 		- 参考文章
 			- [Spring Boot 基于 JUnit 5 实现单元测试](https://www.jianshu.com/p/4648fd55830e)
+	- mokito
+	  collapsed:: true
+		- [Mockito.mock() vs @Mock vs @MockBean](https://www.baeldung.com/java-spring-mockito-mock-mockbean)
+			- `Mockito.mock()`：我们可以用它来模拟类字段和方法的本地模拟。
+			- `@Mock`：必须在测试类中使用它，通过使用 `MockitoJUnitRunner` 运行测试，效果和`Mockotp.mock()`一样。
+			- `MockBean`：
+			  collapsed:: true
+				- 可以使用 @MockBean 将模拟对象添加到 Spring 应用程序上下文中。模拟将替换应用程序上下文中任何相同类型的现有 bean。
+				- 要使用此注解，我们必须使用 SpringRunner 来运行测试。
+- 数据库连接池
+  collapsed:: true
+	- HikariCP
+	    collapsed:: true
+		- [为HikariCP配置MetricRegistry监控](https://blog.csdn.net/qq330983778/article/details/124807931)

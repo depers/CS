@@ -2896,14 +2896,62 @@
 		- 并发
 		  collapsed:: true
 			- Thread
-			  collapsed:: true
+				- 线程的创建
 				- 核心方法
+				  collapsed:: true
 					- `getAllStackTraces`：用于获取虚拟机中所有线程的StackTraceElement对象
 						- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
 						- 具体实践：jvm-demo:cn.bravedawn.jvm.tool.ThreadGetAllStackTraces
-			- 线程切换
-				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
+				- 线程切换
+				  collapsed:: true
+					- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
+				- 线程的状态
+				  collapsed:: true
+					- 六种状态
+						- New：新创建的线程，尚未执行；
+						- Runnable：运行中的线程，正在执行`run()`方法的Java代码；
+						- Blocked：运行中的线程，因为某些操作被阻塞而挂起；
+						- Waiting：运行中的线程，因为某些操作在等待中；
+						- Timed Waiting：运行中的线程，因为执行`sleep()`方法正在计时等待；
+						- Terminated：线程已终止，因为`run()`方法执行完毕；
+					- 状态转移图
+					- 线程终止的原因
+						- 线程正常终止：run()方法执行到return语句返回；
+						- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
+						- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
+				- 线程的方法
+				    collapsed:: true
+					- `start()`：启动新线程，这里面会调用run()方法
+					- `run()`：补充该线程需要执行的内容
+					- `join()`
+						- 通过对另一个线程对象调用join()方法可以等待其执行结束。
+						- 可以指定等待时间，超过等待时间线程仍然没有结束就不再等待。
+						- 对已经运行结束的线程调用join()方法会立刻返回。
+					- `interrupt()`：请求中断一个线程。
+					- `isInterrupted()`：判断当前线程是否被中断。
+				- 中断线程
+				    collapsed:: true
+					- 对目标线程调用`interrupt()`方法可以请求中断一个线程，目标线程通过检测`isInterrupted()`标志获取自身是否已中断。如果目标线程处于等待状态，该线程会捕获到`InterruptedException`；
+					- 目标线程检测到`isInterrupted()`为`true`或者捕获了`InterruptedException`都应该立刻结束自身线程；
+					- 通过标志位判断需要正确使用`volatile`关键字；
+					- `volatile`关键字解决了共享变量在线程间的可见性问题。
+				- 守护线程
+				  collapsed:: true
+					- 功能
+					  collapsed:: true
+						- 守护线程是指为其他线程服务的线程。在JVM中，所有非守护线程都执行完毕后，无论有没有守护线程，虚拟机都会自动退出。
+					- 创建
+					  collapsed:: true
+						- 方法和普通线程一样，只是在调用`start()`方法前，调用`setDaemon(true)`把该线程标记为守护线程。
+			- 关键字
+				- `volatile`
+					- 功能
+						- 每次访问变量时，总是获取主内存的最新值；
+						- 每次修改变量后，立刻回写到主内存。
+						- `volatile`关键字解决的是可见性问题：当一个线程修改了某个共享变量的值，其他线程能够立刻看到修改后的值。
+				-
 		- IO
+		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
@@ -4280,7 +4328,9 @@
 				- 这种方式在框架代码中比较常见。
 		- 类型：结构型
 - Java EE
+  collapsed:: true
 	- Servlet
+	  collapsed:: true
 		- Java web application介绍
 		  collapsed:: true
 			- 静态和动态网站的区别
@@ -4456,6 +4506,7 @@
 			  collapsed:: true
 				- web.xml文件是 web 应用程序的部署描述符，包含 servlet (3.0之前)、欢迎页面、安全配置、会话超时设置等的映射。
 		- Servlet简介
+		  collapsed:: true
 			- 开头
 			  collapsed:: true
 				- Servlet中的主要api是由javax.servlet-api提供的，主要的接口和类在javax.servlet和javax.servlet.http下面
@@ -5298,7 +5349,6 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
-  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
@@ -5369,6 +5419,13 @@
 				- 关联修改后的本地分支与远程分支：`git branch --set-upstream-to origin/new_branch_name`
 					-
 		- 查看本地分支对应的远程分支：`git status`
+		- `git remote`命令
+			- 列出当前仓库中已配置的远程仓库（返回的是远程仓库的名称）：`git remote`
+			- 列出当前仓库中已配置的远程仓库，并显示它们的 URL：`git remote -v`
+			- 添加一个新的远程仓库。指定一个远程仓库的名称和 URL，将其添加到当前仓库中：`git remote add  <remote_name> <remote_url> `
+			- 将已配置的远程仓库重命名：`git remote rename <old_name> <new_name>`
+			- 从当前仓库中删除指定的远程仓库：`git remote remove <remote_name>`
+			- 显示指定远程仓库的详细信息，包括 URL 和跟踪分支：`git remote show <remote_name>`
 	- DBeaver
 	  collapsed:: true
 		- DBeaver导出数据和表结构的方法： [DBeaver 导出数据库结构和数据](https://blog.csdn.net/WTUDAN/article/details/120767542)
