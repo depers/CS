@@ -2908,14 +2908,30 @@
 				- 线程的状态
 				  collapsed:: true
 					- 六种状态
-						- New：新创建的线程，尚未执行；
-						- Runnable：运行中的线程，正在执行`run()`方法的Java代码；
-						- Blocked：运行中的线程，因为某些操作被阻塞而挂起；
-						- Waiting：运行中的线程，因为某些操作在等待中；
-						- Timed Waiting：运行中的线程，因为执行`sleep()`方法正在计时等待；
-						- Terminated：线程已终止，因为`run()`方法执行完毕；
+					  collapsed:: true
+						- New（初始状态）：新创建的线程，尚未执行；
+						- Runnable
+						    collapsed:: true
+							- READY（就绪状态)
+							    collapsed:: true
+								- 就绪状态只是说你资格运行，调度程序没有挑选到你，你就永远是就绪状态。
+								- 调用线程的`start()`方法，此线程进入就绪状态。
+								- 当前线程`sleep()`方法结束、其他线程`join()`结束、等待用户输入完毕、某个线程拿到对象锁。这些线程也将进入就绪状态。
+								- 当前线程时间片用完了，调用当前线程的`yield()`方法，当前线程进入就绪状态。
+								- 锁池里的线程拿到对象锁后，进入就绪状态。
+							- RUNNING（运行中状态）
+							    collapsed:: true
+								- 运行中的线程，正在执行`run()`方法的Java代码；
+						- Blocked（阻塞状态）：运行中的线程，因为某些操作被阻塞而挂起；
+						- Waiting（等待）：运行中的线程，因为某些操作在等待中；
+						- Timed Waiting（超时等待）：运行中的线程，因为执行`sleep()`方法正在计时等待；
+						- Terminated（终止等待）：线程已终止，因为`run()`方法执行完毕；
+						- 参考文章
+						    collapsed:: true
+							- [Java线程的6种状态及切换(透彻讲解)](https://blog.csdn.net/pange1991/article/details/53860651)
 					- 状态转移图
 					- 线程终止的原因
+					  collapsed:: true
 						- 线程正常终止：run()方法执行到return语句返回；
 						- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 						- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
@@ -2929,6 +2945,18 @@
 						- 对已经运行结束的线程调用join()方法会立刻返回。
 					- `interrupt()`：请求中断一个线程。
 					- `isInterrupted()`：判断当前线程是否被中断。
+					- `sleep()`：一定是当前线程调用此方法，当前线程进入TIMED_WAITING状态，但不释放对象锁，millis后线程自动苏醒进入就绪状态。作用：给其它线程执行机会的最佳方式。
+					- `yield()`
+					    collapsed:: true
+						- 即 "谦让"，也是 Thread 类的方法。它让掉当前线程 CPU 的时间片，使正在运行中的线程重新变成就绪状态，并重新竞争 CPU 的调度权。它可能会获取到，也有可能被其他线程获取到。
+						- 一定是当前线程调用此方法，当前线程放弃获取的CPU时间片，但不释放锁资源，由运行状态变为就绪状态，让OS再次选择线程。作用：让相同优先级的线程轮流执行，但并不保证一定会轮流执行。实际中无法保证`yield()`达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。`Thread.yield()`不会导致阻塞。该方法与`sleep()`类似，只是不能由用户指定暂停多长时间。
+						- 参考文章
+						    collapsed:: true
+							- [多线程 Thread.yield 方法到底有什么用](https://zhuanlan.zhihu.com/p/50374332)
+					- `join()/join(long millis)`：一定是当前线程调用此方法，当前线程进入TIMED_WAITING状态，但不释放对象锁，millis后线程自动苏醒进入就绪状态。作用：给其它线程执行机会的最佳方式。
+					- `obj.wait()`，当前线程调用对象的wait()方法，当前线程释放对象锁，进入等待队列。依靠notify()/notifyAll()唤醒或者wait(long timeout) timeout时间到自动唤醒。
+					- `obj.notify()`唤醒在此对象监视器上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象监视器上等待的所有线程。
+					- `LockSupport.park()/LockSupport.parkNanos(long nanos)`：LockSupport.parkUntil(long deadlines), 当前线程进入WAITING/TIMED_WAITING状态。对比wait方法,不需要获得锁就可以让线程进入WAITING/TIMED_WAITING状态，需要通过LockSupport.unpark(Thread thread)唤醒。
 				- 中断线程
 				    collapsed:: true
 					- 对目标线程调用`interrupt()`方法可以请求中断一个线程，目标线程通过检测`isInterrupted()`标志获取自身是否已中断。如果目标线程处于等待状态，该线程会捕获到`InterruptedException`；
@@ -5255,7 +5283,6 @@
 			- 驱动管理器接口：java.sql.DriverManager
 			  collapsed:: true
 				- 获取Driver的实现
-				  collapsed:: true
 					- collapsed:: true
 					  1. 通过Class.forName("com.mysql.jdbc.Driver")，这种方式需要我们显示的在代码中体现
 						- 类加载过程会触发一个静态初始化逻辑，实例化com.mysql.jdbc.Driver类，数据库驱动就会调用java.sql.DriverManager#registerDriver(java.sql.Driver)方法进行驱动注册。
@@ -5272,15 +5299,27 @@
 				  collapsed:: true
 					- driversIterator.next()方法会执行ServiceLoader#next()方法，这个方法会主动触发 ClassLoader 加载，将SPI获取的驱动类进行实例化，将驱动注册到JDBC。
 					- 看这个方法：java.util.ServiceLoader.LazyIterator#nextService。
+				- 核心方法
+					- 获取Driver对象
+						- `Driver getDriver(String url)`：通过jdbcUrl获取底层的驱动。
+						- `Enumeration<Driver> getDrivers()`：获取目前可以检索到的驱动程序枚举。
 			- 建立连接 - java.sql.Connection
 			  collapsed:: true
 				- 建立连接的方式
+				  collapsed:: true
 					- `Connection DriverManager.getContection(String url, String user, String password);`：建立一个数据库连接，返回一个Connection对象
 					- **推荐**：使用DataSource对象获取数据源
+				- 核心方法
+				  collapsed:: true
+					- `void setNetworkTimeout(Executor executor, int milliseconds)`：在Java中，setNetworkTimeout方法被用来设置连接到数据库的网络超时时间。当连接到数据库时，有时会出现网络连接超时的情况，这会影响到程序的正常运行。通过设置网络超时时间，我们可以避免长时间等待数据库连接，增加程序的效率。
+					- `boolean isValid(int timeout)`：在timeout时间内，通过驱动程序的具体实现验证连接**是否没有关闭且有效**，如果超时则返回false。
+					- `boolean isClosed()`：isClosed是判断一个connection是否被关闭，而是否被关闭是停留在java程序层的判断，不会去检测是否与数据库连通。
 			- SQL 命令接口 - java.sql.Statement
+			  collapsed:: true
 				- 普通 SQL 命令 - java.sql.Statement
 					- 功能：用于实现简单的没有参数的SQL语句
 					- DDL语句和DML语句
+					  collapsed:: true
 						- DML 语句 ：CRUD
 							- R（读操作）：ResultSet java.sql.Statement#executeQuery
 							- CUD（增删改）：int java.sql.Statement#executeUpdate(java.lang.String)
@@ -5293,6 +5332,9 @@
 					  collapsed:: true
 						- 使用statement.close()去关闭
 						- 或者使用Try With Resources进行关闭
+					- 核心方法
+					  collapsed:: true
+						- `setQueryTimeout(int seconds)`：将驱动程序等待`Statement`对象执行的秒数设置为给定的秒数。默认情况下，对正在运行的语句的完成时间没有限制。如果超过限制，则抛出`SQLTimeoutException`。JDBC驱动程序必须将此限制应用于`execute`、`executeQuery`和`executeUpdate`方法。
 				- 预编译 SQL 命令 - java.sql.PreparedStatement
 					- 功能：用于预编译可能包含输入参数的SQL语句。
 					- 继承了`java.sql.Statement`
@@ -5307,9 +5349,11 @@
 					- **executeQuery**：返回一个ResultSet对象。
 					- **executeUpdate**：返回一个整数，表示受 SQL 语句影响的行数。 如果您正在使用 INSERT、DELETE 或 UPDATE SQL 语句，请使用此方法
 			- 处理结果，结果集接口 - java.sql.ResultSet
+			  collapsed:: true
 				- 可以通过游标访问 ResultSet 对象中的数据。
 				- 调用 ResultSet 对象中定义的各种方法来移动光标。
 			- 关闭连接
+			  collapsed:: true
 				- 在使用完一个`Connection`，`Statement`，或者`ResultSet`对象之后，应该使用他们的`close`方法释放资源。
 				- 或者，使用 **try-with-resources** 语句自动关闭 Connection、Statement 和 ResultSet 对象，无论是否抛出 SQLException。
 		- 使用DataSource对象获取数据源
@@ -5349,6 +5393,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - 开发工具
+  collapsed:: true
 	- vmware
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4

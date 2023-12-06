@@ -3480,5 +3480,4 @@
 - 数据库连接池
   collapsed:: true
 	- HikariCP
-	    collapsed:: true
 		- [为HikariCP配置MetricRegistry监控](https://blog.csdn.net/qq330983778/article/details/124807931)
