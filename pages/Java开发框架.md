@@ -1,7 +1,6 @@
 - Spring
   collapsed:: true
 	- 《Spring4.x企业级应用开发实战》
-	  collapsed:: true
 		- 第一章 Spring概述
 		  collapsed:: true
 			- Spring的体系结构
@@ -2149,7 +2148,6 @@
 		- 第十七章 Spring MVC
 		  collapsed:: true
 			- 1.Spring MVC体系概述
-			  collapsed:: true
 				- 体系结构
 					- DispatcherServlet的作用
 						- 负责协调和组织不同组件以完成请求处理并返回响应的工作。

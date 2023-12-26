@@ -1,21 +1,15 @@
 - Java语言
   collapsed:: true
 	- Java基础
-	  collapsed:: true
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
-			  collapsed:: true
 				- 基本类型
-				  collapsed:: true
 					- 整型
-					  collapsed:: true
 						- byte，1个字节
 						- short，2个字节
 						- int，4个字节
 						- long，8个字节
 					- 浮点型
-					  collapsed:: true
 						- float，4个字节
 						- double，8个字节
 					- 布尔类型：boolean，这种数据类型表示一位信息，但它的“大小”并没有得到精确的定义。
@@ -2979,29 +2973,35 @@
 						- `volatile`关键字解决的是可见性问题：当一个线程修改了某个共享变量的值，其他线程能够立刻看到修改后的值。
 				-
 		- IO
-		  collapsed:: true
 			- 五种IO模型
 			  collapsed:: true
 				- 同步阻塞-Blocking I/O
+				  collapsed:: true
 					- 阻塞IO模型
+					  collapsed:: true
 						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
 						- 示例图
 						  ![阻塞IO.webp](../assets/阻塞IO_1685864250927_0.webp)
 					- IO复用模型（New IO，也就是Java中说的NIO）
+					  collapsed:: true
 						- 进程通过将一个或多个fd传递给select，阻塞在select操作上，select帮我们侦测多个fd是否准备就绪，当有fd准备就绪时，select返回数据可读状态，应用程序再调用recvfrom读取数据。
 						- 示例图
 						  ![io复用.webp](../assets/io复用_1685864464711_0.webp)
 				- 同步非阻塞-Non-blocking I/O
+				  collapsed:: true
 					- 非阻塞IO模型
+					  collapsed:: true
 						- 非阻塞IO就是当应用发起读取数据申请时，如果内核数据没有准备好会即刻告诉应用，不会让应用在这里等待。
 						- 示例图
 						  ![非阻塞IO.png](../assets/非阻塞IO_1685864787196_0.png)
 					- 信号驱动的IO模型
+					  collapsed:: true
 						- 首先开启套接口信号驱动IO功能，并通过系统调用sigaction执行一个信号处理函数，此时请求即刻返回，当数据准备就绪时，就生成对应进程的SIGIO信号，通过信号回调通知应用线程调用recvfrom来读取数据。
 						- IO复用模型里面的select虽然可以监控多个fd了，但select其实现的本质上还是通过不断的轮询fd来监控数据状态， 因为大部分轮询请求其实都是无效的，所以信号驱动IO意在通过这种建立信号关联的方式，实现了发出请求后只需要等待数据就绪的通知即可，这样就可以避免大量无效的数据状态轮询操作。
 						- 示例图
 						  ![信号驱动的io模型.webp](../assets/信号驱动的io模型_1685865059269_0.webp)
 				- 异步非阻塞/异步IO-Async I/O
+				  collapsed:: true
 					- 通过观察我们发现，不管是IO复用还是信号驱动，我们要读取一个数据总是要发起两阶段的请求，第一次发送select请求，询问数据状态是否准备好，第二次发送recevform请求读取数据。
 					- 应用只需要向内核发送一个read 请求，告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
 					- 示例图
@@ -3010,24 +3010,34 @@
 				- 阻塞和非阻塞的区别在于：应用进程在询问内核数据准备情况时，是否需要等待。
 				- 用通俗的话来讲：IO操作就像我们吃饭，首先我们要看饭做好了没有，然后再去吃饭。
 				- 参考文章
+				  collapsed:: true
 					- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
 					- [Java NIO浅析](https://tech.meituan.com/2016/11/04/nio.html)
 			- System.out/System.err
+			  collapsed:: true
 				- 值得注意的点
+				  collapsed:: true
 					- 标准输出（System.out）和标准错误输出（System.err）中打印的信息收集起来。但标准输出设备是整个虚拟机进程全局共享的资源，如果使用`System.setOut()`/`System.setErr()`方法把输出流重定向到自己定义的`PrintStream`对象上固然可以收集到输出信息，但也会对原有程序产生影响：会把其他线程向标准输出中打印的信息也收集了。
 			- 字节流
+			  collapsed:: true
 				- 特点
+				  collapsed:: true
 					- 所有字节流类都继承于 `InputStream` 和 `OutputStream` 。
 					- 不同类型字节流的使用方式差别不大，主要是构造方法有区别。
 					- 字节流应该用于最原始的I/O，其他流都是建立在字节流之上的。
 				- 派生类
+				  collapsed:: true
 					- 专门用于文件I/O的字节流类：*FileInputStream**和**FileOutputStream*
 				- 具体实践
+				  collapsed:: true
 					- JavaTrain/src/main/java/cn/bravedawn/io/bytestreams/CopyBytes.java
 				- 参考文章
+				  collapsed:: true
 					- [Byte Streams](https://docs.oracle.com/javase/tutorial/essential/io/bytestreams.html)
 			- 字符流
+			  collapsed:: true
 				- 特点
+				  collapsed:: true
 					- 所有字符流类都派生自 `Reader` 和 `Writer`。
 					- Java 平台使用 Unicode 约定存储字符值。 字符流 I/O 自动将此内部格式与本地字符集相互转换。
 					- 使用流类完成的输入和输出自动转换为本地字符集或从本地字符集转换。
@@ -3036,26 +3046,33 @@
 					- 有两种通用的字节到字符“桥接”流：InputStreamReader 和 OutputStreamWriter。 当没有满足您需要的预打包字符流类时，使用它们来创建字符流。
 					- 字符 I/O 通常以比单个字符更大的单元出现。 一个常见的单位是行：一串字符，末尾有行终止符。 行终止符可以是回车/换行序列（“\r\n”）、单个回车（“\r”）或单个换行（“\n”）。具体可以参考`System.lineSeparator()`，他返回特定操作系统的换行符。
 				- 派生类
+				  collapsed:: true
 					- 专门用于文件 I/O 的字符流类：*FileReader 和 FileWriter*。
 				- 具体实践
+				  collapsed:: true
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 					- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
 			- 缓冲流（buffered streams）          
 			  collapsed:: true
 				- 背景
+				  collapsed:: true
 					- 使用未缓冲的IO操作每个读或写请求都由底层操作系统直接处理。这会降低程序的效率，因为每个这样的请求通常会触发磁盘访问、网络活动或其他一些相对昂贵的操作。
 					- **为了减少这种开销，Java 平台实现了缓冲的 I/O 流**。
 				- 实现原理
+				  collapsed:: true
 					- 缓冲的输入流从称为缓冲区的内存区域读取数据; 只有当缓冲区为空时才调用本机输入 API。
 					- 缓冲的输出流将数据写入缓冲区，并且只有在缓冲区已满时才调用本机输出 API。
 				- 四个缓冲流类用于包装未缓冲流
+				  collapsed:: true
 					- `BufferedInputStream` 和 `BufferedOutputStream` 创建缓冲字节流。
 					- `BufferedReader` 和 `BufferedWriter` 创建缓冲字符流。
 				- 刷新缓冲区
+				  collapsed:: true
 					- 作用：在临界点写出缓冲区通常是有意义的，而不需要等待它被填满。这就是所谓的冲洗缓冲区。也就是说在开发人员认为需要调用底层API将缓冲区的内容进行写入时调用。
 					- 注意点：
 					  collapsed:: true
 						- 一些缓冲输出类支持自动刷新，由可选的构造函数参数指定。
+						  collapsed:: true
 							- 例如，在每次调用`println()`或`format()`时，自动刷新`PrintWriter`对象都会刷新缓冲区。
 						- `fluash()`方法任何输出流都可以调用，但是只对缓冲流有效果。
 					- 具体实践：cn/bravedawn/io/bufferedstreams/CopyCharacters.java
@@ -3065,6 +3082,7 @@
 				- `ByteArrayInputStream`
 				- `FastByteArrayOutputStream`，这个类是Spring提供的。
 				- 参考文章：
+				  collapsed:: true
 					- [Java - FastByteArrayOutputStream](https://blog.csdn.net/qq_42292831/article/details/130629400)
 				- 具体实践：JavaTrain/src/main/java/cn/bravedawn/io/bytearraystreams
 			- Scanner          
@@ -3072,9 +3090,12 @@
 				- `Scanner` 类型的对象有助于将格式化的输入分解为标记，并根据标记的数据类型转换单个标记。
 				- `Scanner`**还支持所有**Java**语言的基本类型**(char**除外**)以及**BigInteger**和**BigDecimal**的令牌。在读取的使用提供了一系列的`nextInt()`、`nextDouble()`...方法
 				- 支持读取用户输入
+				  collapsed:: true
 					- 使用next()方法读取用户的键盘输入的字符串
+					  collapsed:: true
 						- next()方法遇到空格就会结束读取
 					- 使用nextLine()读取用户的输入的字符串
+					  collapsed:: true
 						- nextLine()方法以Enter为结束符
 				- 具体实践：cn/bravedawn/io/scanning
 			- Formatting          
@@ -3084,7 +3105,9 @@
 				- `print()`和`println()`以标准方式格式化单个值。
 				- `format()`基于格式字符串格式化几乎任何数量的值，有许多精确格式化的选项。
 				- format说明符
+				  collapsed:: true
 					- 一般语法：
+					  collapsed:: true
 					  
 					    ```
 					    %[argument_index$][flags][width][.precision]conversion
@@ -3094,11 +3117,13 @@
 						- width：宽度
 						- .precision：精度
 				- 对于日期/时间表示
+				  collapsed:: true
 					- 一般语法：`%[argument_index$][flags][width]conversion`
 			- 创建文件
 			  collapsed:: true
 				- 推荐使用Java 7 nio Files.write 来创建和写入文件，因为它有更简洁的代码并自动关闭打开的资源。
 				- 实现
+				  collapsed:: true
 					- `Files.newBufferedWriter` (Java 8)
 					- `Files.write` (Java 7)
 					- `PrintWriter`
@@ -3109,6 +3134,7 @@
 			  collapsed:: true
 				- 新的 Java 8 `Files.lines` 在读取小型或大型文本文件方面表现良好，返回一个 Stream（灵活类型并支持并行），自动关闭资源，并且有一行干净的代码。
 				- 实现
+				  collapsed:: true
 					- `Files.lines`, return a `Stream` (Java 8)
 					- `Files.readString`, returns a `String` (Java 11), max file size 2G.
 					- `Files.readAllBytes`, returns a `byte[]` (Java 7), max file size 2G.
@@ -3174,6 +3200,7 @@
 			- 文件下载
 			  collapsed:: true
 				- 参考文章
+				  collapsed:: true
 					- [Download a File From an URL in Java](https://www.baeldung.com/java-download-file)
 			- 获取当前项目路径以及classpath
 			  collapsed:: true
@@ -3193,6 +3220,98 @@
 					- 获取文件的路径
 					- 读取元数据
 				- 参考文章：[Java – Path vs File](https://www.baeldung.com/java-path-vs-file)
+			- NIO
+			  collapsed:: true
+				- Channel 通道
+				    collapsed:: true
+					- Channel和IO流类似，但也有区别：
+					  collapsed:: true
+						- Channel-通道可以读取和写入通道。流通常是单向的（读取或写入）
+						- Channel异步读取和写入。
+						- Channel始终读取或写入缓冲区。
+					- Java NIO对Channel的重要实现
+					  collapsed:: true
+						- FileChannel：从文件中读取和向文件写入
+						- DatagramChannel：可以通过UDP网络读取和写入数据
+						- SocketChannel：可以通过TCP网络读取和写入数据
+						- ServerSocketChannel：监听TCP连接，对于每个传入的连接都会创建一个ScoketChannel
+				- Buffer 缓冲
+				    collapsed:: true
+					- 功能
+					    collapsed:: true
+						- Java NIO 缓冲区在与 NIO 通道交互时使用。如您所知，数据从通道读取到缓冲区，并从缓冲区写入通道。
+						- 缓冲区本质上是一个内存块，您可以在其中写入数据，然后可以稍后再次读取这些数据。
+					- 缓冲区的基本用法
+					    collapsed:: true
+						- 将数据写入缓冲区。
+						- 调用`buffer.flip()`方法，进行读写模式转换。
+						- 从缓冲区读取数据。
+						- 调用`buffer.clear()`或是`buffer.compact()`清理缓冲区。
+					- 核心参数
+					    collapsed:: true
+						- capacity
+							- 缓冲区的容量
+						- position
+							- 写入模式下，指向插入数据的下一个单元格，最大值为capacity-1。
+							- 读取模式下，指向下一个要读取数据的位置。
+						- limit
+							- 写入模式下，指的是写入缓冲区数据量的限制，等于capacity。
+							- 读取模式下，指的是从缓冲区可以读取数据量的限制。
+					- 缓冲区类型
+					    collapsed:: true
+						- ByteBuffer 字节缓冲区
+						- MappedByteBuffer MappedByte缓冲区
+						- CharBuffer 字符缓冲区
+						- DoubleBuffer 双浮点缓冲区
+						- FloatBuffer 浮点缓冲区
+						- IntBuffer 整型缓冲区
+						- LongBuffer 长整型缓冲区
+						- ShortBuffer 短整型缓冲区
+					- 核心方法
+						- `allocate()`：分配缓冲区大小
+						- 写入缓冲区
+							- 通过channel写入数据到缓冲区
+							- 通过缓冲区的put()方法
+						- 读取缓冲区
+							- 通过缓冲区将数据读取到channel中
+							- 通过缓冲区的get()方法
+						- `flip()`：切换读写模式
+						- `rewind()`：将position置为0，从而可以重新读取缓冲区的所有数据。
+						- `clear()`：清除缓冲区的所有数据。
+						- `compact()`：
+							- 如果缓冲区还有未读取的数据，想稍后再读，但需要先做一些写入操作，需要先调用compact()。
+							- compact() 将所有未读数据复制到 Buffer。然后，它设置为 position 最后一个未读元素之后的右边。该 limit 属性仍设置为 capacity ，就像 一样 clear() 。现在 已 Buffer 准备好写入，但您不会覆盖未读数据。
+						- `mark()`和`reset()`
+							- 通过调用该 `Buffer.mark()`方法标记 中的 Buffer 给定位置。然后，您可以稍后通过调用该 `Buffer.reset()`方法将位置重置回标记的位置。
+						- equals()
+						- compareTo()
+				- 分散和聚集
+				    collapsed:: true
+					- 分散读取
+						- 概念：将通道中的数据读取到多个缓冲区中的读取操作。
+						- 适用场景：分散读取在移动到下一个缓冲区之前会填满上一个缓冲区，这意味着它适合**固定大小**的消息部分。
+					- 聚集写入
+						- 概念：将多个缓冲区的数据写入到单个通道中的写入操作。
+						- 适用场景：如果缓冲区的容量为 128 字节，但仅包含 58 个字节，则只有 58 个字节从该缓冲区写入通道。因此，与分散读取相比，聚集写入适用于**动态调整大小**的消息部分。
+				- 通道间数据传输
+					- `fileChannel.transferFrom()`：将数据从fileChannlel传输到其他通道中
+					- `fileChannel.transferTo()`：将数据从源通道传输到fileChannel
+				- Selector 选择器
+					- 功能
+						- 一个多路复用器 Selector 可以同时轮询多个 Channel，并确定哪个通道已准备好进行通信，即读取或写入。
+						- 选择器用于使用单个线程处理多个通道。它只需要较少的线程来处理通道，对于操作系统来讲，线程之间的切换成本很高。
+					- 运作原理
+						- 基于事件驱动的 I/O 多路复用模型
+						- 通过 Selector 注册通道的事件，Selector 会不断地轮询注册在其上的 Channel。当事件发生时，比如：某个 Channel 上面有新的 TCP 连接接入、读和写事件，这个 Channel 就处于就绪状态，会被 Selector 轮询出来。Selector 会将相关的 Channel 加入到就绪集合中。通过 SelectionKey 可以获取就绪 Channel 的集合，然后对这些就绪的 Channel 进行响应的 I/O 操作。
+					- Selector 可以监听以下四种事件类型
+						- `SelectionKey.OP_ACCEPT`：表示通道接受连接的事件，这通常用于 `ServerSocketChannel`。
+						- `SelectionKey.OP_CONNECT`：表示通道完成连接的事件，这通常用于 `SocketChannel`。
+						- `SelectionKey.OP_READ`：表示通道准备好进行读取的事件，即有数据可读。
+						- `SelectionKey.OP_WRITE`：表示通道准备好进行写入的事件，即可以写入数据。
+					- 关键方法
+						- `int select()`：监控所有注册的 Channel，当它们中间有需要处理的 IO 操作时，该方法返回，并将对应的 SelectionKey 加入被选择的 SelectionKey 集合中，该方法返回这些 Channel 的数量。
+				- SocketChannel
+					- 功能：用于将通道与 TCP（传输控制协议）网络套接字连接起来。它等同于网络编程中使用的 Java 网络套接字。
 		- JVM（主要参考《深入理解Java虚拟机》记录的笔记）
 		  collapsed:: true
 			- 第二章 Java的内存区域
@@ -5398,7 +5517,6 @@
 	  collapsed:: true
 		- 许可证：NH001-8HJ06-18LJ3-0L926-98RP4
 	- IDEA
-	  collapsed:: true
 		- 快捷键
 		  collapsed:: true
 			- MAC
@@ -5418,7 +5536,6 @@
 			- 参考文章
 				- [idea中的debug奇淫巧技](https://juejin.cn/post/6947670922585178125)
 		- Mac使用Diagram功能
-		  collapsed:: true
 			- 在Diagrams中，如果要对类进行操作的话，需要将箭头选中类，然后**双指点击**，这样原本的右键菜单就会显示出来。
 		- idea每次修改代码，运行都需要重新`mvn install`
 		  collapsed:: true
