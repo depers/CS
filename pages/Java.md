@@ -1,6 +1,7 @@
 - Java语言
   collapsed:: true
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 			- 数据类型
 				- 基本类型
@@ -3223,22 +3224,17 @@
 			- NIO
 			  collapsed:: true
 				- Channel 通道
-				    collapsed:: true
 					- Channel和IO流类似，但也有区别：
-					  collapsed:: true
 						- Channel-通道可以读取和写入通道。流通常是单向的（读取或写入）
 						- Channel异步读取和写入。
 						- Channel始终读取或写入缓冲区。
 					- Java NIO对Channel的重要实现
-					  collapsed:: true
-						- FileChannel：从文件中读取和向文件写入
-						- DatagramChannel：可以通过UDP网络读取和写入数据
-						- SocketChannel：可以通过TCP网络读取和写入数据
-						- ServerSocketChannel：监听TCP连接，对于每个传入的连接都会创建一个ScoketChannel
-				- Buffer 缓冲
-				    collapsed:: true
+						- `FileChannel`：从文件中读取和向文件写入
+						- `DatagramChannel`：可以通过UDP网络读取和写入数据
+						- `SocketChannel`：可以通过TCP网络读取和写入数据
+						- `ServerSocketChannel`：监听TCP连接，对于每个传入的连接都会创建一个ScoketChannel
+				- ByteBuffer 缓冲
 					- 功能
-					    collapsed:: true
 						- Java NIO 缓冲区在与 NIO 通道交互时使用。如您所知，数据从通道读取到缓冲区，并从缓冲区写入通道。
 						- 缓冲区本质上是一个内存块，您可以在其中写入数据，然后可以稍后再次读取这些数据。
 					- 缓冲区的基本用法
@@ -3286,7 +3282,6 @@
 						- equals()
 						- compareTo()
 				- 分散和聚集
-				    collapsed:: true
 					- 分散读取
 						- 概念：将通道中的数据读取到多个缓冲区中的读取操作。
 						- 适用场景：分散读取在移动到下一个缓冲区之前会填满上一个缓冲区，这意味着它适合**固定大小**的消息部分。
@@ -3294,9 +3289,11 @@
 						- 概念：将多个缓冲区的数据写入到单个通道中的写入操作。
 						- 适用场景：如果缓冲区的容量为 128 字节，但仅包含 58 个字节，则只有 58 个字节从该缓冲区写入通道。因此，与分散读取相比，聚集写入适用于**动态调整大小**的消息部分。
 				- 通道间数据传输
+					- 这两个方法的功能：允许我们将一个通道和另一个通道直接相连。
 					- `fileChannel.transferFrom()`：将数据从fileChannlel传输到其他通道中
 					- `fileChannel.transferTo()`：将数据从源通道传输到fileChannel
 				- Selector 选择器
+				    collapsed:: true
 					- 功能
 						- 一个多路复用器 Selector 可以同时轮询多个 Channel，并确定哪个通道已准备好进行通信，即读取或写入。
 						- 选择器用于使用单个线程处理多个通道。它只需要较少的线程来处理通道，对于操作系统来讲，线程之间的切换成本很高。

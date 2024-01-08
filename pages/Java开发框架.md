@@ -2939,6 +2939,36 @@
 		- [Quartz框架系列文章](https://www.jianshu.com/p/2a5d3b6336ba)
 		- [Quartz Tutorials](https://www.javacodegeeks.com/quartz-tutorials)
 		- [Introduction to Quartz](https://www.baeldung.com/quartz)
+- Swagger
+	- 在Spring Boot项目中的使用
+	    collapsed:: true
+		- 1. 引入依赖
+		  
+		    ```
+		    <dependency>
+		         <groupId>io.springfox</groupId>
+		         <artifactId>springfox-boot-starter</artifactId>
+		         <version>3.0.0</version>
+		     </dependency>
+		    ```
+		- 2.暴露静态资源和接口访问路径，这个参考：https://blog.csdn.net/Yu1441/article/details/110130931
+	- 常用注解
+	    collapsed:: true
+		- 在controller方法上：
+		  
+		    ```java
+		    @ApiOperation(value = "接口名称", notes = "接口描述", httpMethod = "POST")
+		    ```
+		- 在请求或是响应的实体类上：
+		  
+		    ```java
+		    @ApiModel(value = "用户对象BO", description = "从客户端，由用户传入的数据封装在此entity中")
+		    ```
+		- 在请求或是响应的实体类的具体字段上：
+		  
+		    ```java
+		    @ApiModelProperty(value = "用户名", name = "username", example = "imooc", required = true)
+		    ```
 - ORM框架
   collapsed:: true
 	- Mybatis
@@ -3417,6 +3447,7 @@
 		- 任何日志框架都允许开发人员将调试信息记录到可以用作过滤标准的日志级别，即可以禁用属于特定日志级别的消息。例如，在生产环境中，开发人员更关心WARN消息而不是DEBUG消息。
 		- 日志框架可以产生更好的输出和元数据，这有助于故障排除和调试。例如，Log4j2允许通过指定格式化模式来打印格式化输出，即使用PatternLayout可以包括时间戳、类名等。
 - 测试框架
+  collapsed:: true
 	- Junit
 	  collapsed:: true
 		- 架构
