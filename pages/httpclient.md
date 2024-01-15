@@ -1,0 +1,6 @@
+- 客户端超时设置
+	- 参考文章
+		- 连接超时 (http.connection.timeout) ：与远程主机建立连接的时间。
+		- 套接字超时 (http.socket.timeout) ：建立连接后等待数据的时间； 两个数据包之间不活动的最长时间。
+		- 连接管理器超时 (http.connection-manager.timeout) ：等待来自连接管理器/池的连接的时间。
+		- [Apache HttpClient Timeout](https://www.baeldung.com/httpclient-timeout)

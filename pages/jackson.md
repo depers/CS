@@ -1,0 +1,15 @@
+- 自定义反序列化器
+	- 标准的反序列化器
+		- 要求
+			- 反序列化的类不能是内部类
+			- json必须完整的切合对象属性，才能反序列化成功
+	- 在ObjectMapper上自定义反序列化器
+		- 适用场景
+			- 只想获取json中一部分的json字段，不需要全部获取
+	- 为泛型类型添加反序列化器
+		- 适用场景
+			- 如果需要反序列化的对象中包含泛型字段，我们可以通过自定义反序列化器去做处理
+	- 参考文章
+		- [Getting Started with Custom Deserialization in Jackson](https://www.baeldung.com/jackson-deserialization)
+- 参考文章
+	- [jackson example](https://mkyong.com/tag/jackson/)
