@@ -1,5 +1,4 @@
 - 基础知识
-  collapsed:: true
 	- maven项目的一般结构
 	  collapsed:: true
 		- 结构图
