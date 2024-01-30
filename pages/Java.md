@@ -2684,7 +2684,6 @@
 						- size()和mappingCount()的底层逻辑相同，但是size返回int值，mappingCount返回long值。
 						- ConcurrentHashMap中的键没有排序。
 				- ConcurrentSkipListMap
-				  collapsed:: true
 					- 参考文章：Guide to the ConcurrentSkipListMap
 				- Hashtable
 				  collapsed:: true
