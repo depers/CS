@@ -79,9 +79,8 @@
 		  </build>
 		  ```
 	- 打包Spring Boot项目
-	  collapsed:: true
 		- 在maven添加spring-boot-maven-plugin依赖
-		- 使用`mvn -Dmaven.test.skip=true package spring-boot:repackage`进行打包
+		- 使用`mvn -Dmaven.test.skip=true clean package spring-boot:repackage`进行打包
 	- maven中snapshot快照库和release发布库的区别和作用
 	  collapsed:: true
 		- 快照版本
