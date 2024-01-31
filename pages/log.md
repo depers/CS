@@ -346,11 +346,9 @@
 			- `%msg`：将消息写入日志。
 			- `%n`：换行，输出与平台相关的行分隔符字符。
 	- Policy触发策略
-	  collapsed:: true
 		- Policy是用来控制日志文件何时(When)进行滚动的。
 		- 如果配置的是RollingFile或RollingRandomAccessFile，则必须配置一个Policy。
 		- 触发策略
-		  collapsed:: true
 			- SizeBasedTriggeringPolicy
 			  collapsed:: true
 				- 基于日志文件大小的触发策略。单位有：KB，MB，GB
@@ -358,43 +356,32 @@
 			  collapsed:: true
 				- 基于Cron表达式的触发策略，很灵活。
 			- TimeBasedTriggeringPolicy
-			  collapsed:: true
 				- 基于时间的触发策略。该策略主要是完成周期性的log文件封存工作。
 				- 配置参数
-				  collapsed:: true
 					- **interval**：日记压缩的时间间隔，这个配置与filePattern属性的精确时间相关，上面配置的是`%d{yyyy-MM-dd}-%i.log.gz`，结尾时间是dd，也就是按照天作为时间间隔配置的单位
 					- **modulate**：是否对压缩时间进行调制。比如说我们配置interval="4"，filePattern配置的单位是小时，也就是每两个小时做一次压缩备份。 那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00， 之后的封存时间依次为08:00，12:00，16:00
 	- Strategy策略
-	  collapsed:: true
 		- Strategy是用来控制日志文件如何(How)进行滚动的。
 		- DefaultRolloverStrategy
-		  collapsed:: true
 			- DefaultRolloverStrategy指定了当触发rollover时的默认策略。
 			- DefaultRolloverStrategy是Log4j2提供的默认的rollover策略，即使在log4j2.xml中没有显式指明，也相当于为RollingFile配置下添加了如下语句。DefaultRolloverStrategy默认的max为7。
 			  ```xml
 			  <DefaultRolloverStrategy max="7"/>
 			  ```
 			- 参数配置
-			  collapsed:: true
 				- max
-				  collapsed:: true
 					- max参数是与filePattern中的计数器`%i`配合起作用的，若filePattern为`filePattern="logs/app-%d{yyyy-MM-dd}.log"`，由于没有设置%i计数器，max参数将不起作用。
 					- max参数不是需要保留的文件的最大个数，而是**当前目录下**日记归档的一个**计数器**。
 					- 若计数器大小大于max时，他会删除之前的计数器为1的归档日志，然后对后续日志按照计数器从小到大依次进行重命名。
 		- 日志归档的保留策略：Delete on Rollove（滚动删除）
-		  collapsed:: true
 			- 配置参数
-			  collapsed:: true
 				- basePath：删除匹配到的过期备份文件
 				- maxDepth：由于备份文件保存在`${LOG_HOME}/$${date:yyyy-MM}`，所以目录深度设置为2
 				- IfFileName：匹配文件名称
-				  collapsed:: true
 					- glob：匹配2级目录深度下的以.log.gz结尾的备份文件
 				- IfLastModified：匹配文件修改时间
-				  collapsed:: true
 					- age：匹配超过180天的文件，单位D、H、M、S分别表示天、小时、分钟、秒
 	- 参考文章
-	  collapsed:: true
 		- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
 		- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
 		- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)
@@ -408,7 +395,6 @@
 		- 过滤器的配置：https://blog.csdn.net/yzx3105/article/details/106296250
 		- logger上additivity属性的文章：https://blog.csdn.net/chen_lay/article/details/122979095
 	- 实践
-	  collapsed:: true
 		- Log4j2的简单实战
 		  collapsed:: true
 			- 项目：Log4j2Example

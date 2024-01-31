@@ -67,7 +67,6 @@
 					- 方式二：如果不是用双引号声明的`String`对象，可以使用`String`提供的`intern`方法。intern 方法会从字符串常量池中查询当前字符串是否存在，若不存在就会将当前字符串放入常量池中。
 					- 方式三：`String s = new String("abc")`创建了2个对象，第一个对象是”abc”字符串存储在常量池中，第二个对象在JAVA Heap中的 String 对象。s指向的是Java堆上的对象。
 				- 基本操作
-				  collapsed:: true
 					- 比较：必须使用equals()
 					- 是否包含：contains()
 					- 去除首尾空格
@@ -122,23 +121,18 @@
 						- 安全性
 						- 线程安全
 				- Sting-StringBuffer-StringBuilder的比较
-				  collapsed:: true
 					- 可变性
-					  collapsed:: true
 						- String不可变
 						- StringBuffer和StringBuilder可变
 					- 线程安全
-					  collapsed:: true
 						- String不可变，是线程安全的
 						- StringBuilder 不是线程安全的
 						- StringBuffer 是线程安全的，内部使用 synchronized 进行同步
 				- String.intern()
 				  id:: 64043de8-605f-43aa-a7b0-a711a39e4d4a
-				  collapsed:: true
 					- 作用：如果字符串常量池中已经包含一个等于此String对象的字符串，则返回池中这个字符串的**String对象**；否则，将此String对象包含的字符串添加到常量池中，并且返回此**String对象**。
 					- JDK6中，常量池和堆是不同的内存区域，所以使用`new String("a")`是分别创建了两个不同的对象。
 					- JDK7新的变化
-					  collapsed:: true
 						- 将String常量池 从 Perm 区移动到了 Java Heap区
 						- 涉及到从常量池获取对象的时候，若这个对象在堆上已经存在，则不再常量池创建新的对象，而是返回堆上已经存在对象的引用地址。
 					- 可以保证相同内容的字符串变量引用同一的内存对象。
@@ -4355,7 +4349,6 @@
 			- reflectasm
 				- 空笔记
 	- 新特性
-	  collapsed:: true
 		- Java8
 		  collapsed:: true
 			- 我不会的函数
@@ -4401,19 +4394,20 @@
 					- [Why Do Local Variables Used in Lambdas Have to Be Final or Effectively Final?](https://www.baeldung.com/java-lambda-effectively-final-local-variables)
 					-
 	- 命令行工具
-	  collapsed:: true
 		- java
+		  collapsed:: true
 			- `-cp`：`java -cp`和`-classpath`一样，是指定类运行所依赖其他类的路径，通常是类库，jar包之类。用于启动JVM时设置`classpath`。
 		- javap
+		  collapsed:: true
 			- 介绍
 				- javap是jdk自带的反解析工具。它的作用就是根据class字节码文件，反解析出当前类对应的code区（汇编指令）、本地变量表、异常表和代码行偏移量映射表、常量池等等信息。
 			- 常用选项
 				- `javap -v`：不仅会输出行号、本地变量表信息、反编译汇编代码，还会输出当前类用到的常量池等信息。
 		- javac
+		  collapsed:: true
 			- `-source`：指定使用什么版本的JDK语法编译源代码
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - Java EE
-  collapsed:: true
 	- Servlet
 	  collapsed:: true
 		- Java web application介绍
@@ -5443,8 +5437,6 @@
 		- 参考文章
 			- [JSP tutorial](https://www.javatpoint.com/jsp-tutorial)
 	- JPA
-	  collapsed:: true
-		-
 	- 规范
 	  collapsed:: true
 		- JAX-RS(Java API for RESTful Web Services)

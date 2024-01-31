@@ -1,6 +1,7 @@
 - 参考文章
-  collapsed:: true
 	- [美团 - Quartz应用与集群原理分析](https://tech.meituan.com/2014/08/31/mt-crm-quartz.html)
 	- [Quartz框架系列文章](https://www.jianshu.com/p/2a5d3b6336ba)
 	- [Quartz Tutorials](https://www.javacodegeeks.com/quartz-tutorials)
 	- [Introduction to Quartz](https://www.baeldung.com/quartz)
+	- [Quartz定时任务2.3版本数据库表字段说明](https://juejin.cn/post/7012961939319947300)
+	- [定时任务quartz-动态管理任务&实现思路](https://java.isture.com/arch/manage-system/manage-system-job.html)
