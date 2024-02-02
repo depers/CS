@@ -2406,19 +2406,15 @@
 			- [Guide To Running Logic on Startup in Spring](https://www.baeldung.com/running-setup-logic-on-startup-in-spring)
 			- [Spring PostConstruct and PreDestroy Annotations](https://www.baeldung.com/spring-postconstruct-predestroy)
 - spring MVC
-  collapsed:: true
 	- 过滤器
 	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
-		  collapsed:: true
 			- 如下图
 			  ![10.png](../assets/10_1680702279599_0.png)
 		- 过滤器-Filter
-		  collapsed:: true
 			- Filter是Servlet提供的过滤器，与Spring无关
 			- 是所有过滤组件中最外层的，从粒度来说是最大的
 			- 使用场景
-			  collapsed:: true
 				- 可以获取到Http的请求和响应信息
 				- 将请求参数记录到日志文件
 				- 资源请求的认证和授权
@@ -2430,22 +2426,17 @@
 			- 不足
 				- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
 		- Spring的OncePreRequestFilter
-		  collapsed:: true
 			- 与Servlet Filter的区别
 			- 参考文章
 				- [What is OncePerRequestFilter](https://www.baeldung.com/spring-onceperrequestfilter)
 		- 拦截器-Intercepter
-		  collapsed:: true
 			- Interceptor是Spring提供的过滤器
 			- 在自定义Interceptor的时候需要实现`org.springframework.web.servlet.HandlerInterceptor`接口
 			- 不足
-			  collapsed:: true
 				- 通过preHandle方法的handle方法，我们可以**获取请求调用的Controller类和方法名**。但是并**不能获取请求的调用方法的具体参数**
 			- 使用场景
-			  collapsed:: true
 				- 可以在日志中统计请求处理的耗时
 		- Controller增强-`@ControllerAdvice`
-		  collapsed:: true
 			- 使用场景
 				- 全局异常处理
 				- 全局数据绑定
@@ -2473,26 +2464,20 @@
 			  }
 			  ```
 			- 缺点
-			  collapsed:: true
 				- 带注释的@ExceptionHandler方法只对特定的Controller有效，对整个应用程序不是全局的。当然，为每一个控制器添加一个@ExceptionHandler方法不太适合通用异常处理机制。
 		- 方法二：定义一个HandlerExceptionResolver，为Rest API实现统一的异常处理机制
 		  collapsed:: true
 			- 现有的实现
 				- `SimpleMappingExceptionResolver`
-				  collapsed:: true
 					- SimpleMappingExceptionResolver可以根据需要轻松地将任何异常映射到默认的错误视图。
 				- `DefaultHandlerExceptionResolver`
-				  collapsed:: true
 					- 这个解析器是Spring3.0中引入的，在DispatcherServlet中默认启用。
 					- 它用于将标准Spring异常解析为相应的HTTP状态码，即客户端错误4xx和服务器错误5xx状态码。下面是他处理的[Spring异常的完整列表](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-ann-rest-spring-mvc-exceptions)，以及它们如何映射到状态代码。
 					- 缺点
-					  collapsed:: true
 						- 虽然它正确的设置了响应的状态码，但有一个限制是它没有为响应体设置任何内容。对于REST API来说——状态码并不能提供给客户端足够的信息，响应也必须有一个主体，以允许应用程序提供关于故障的附加信息。
 				- `ExceptionHandlerExceptionResolver`
-				  collapsed:: true
 					- 这个解析器是Spring3.1中引入的，在DispatcherServlet中默认启用。这个处理器是@ExceptionHandler机制如何工作的核心组件。
 				- `ResponseStatusExceptionResolver`
-				  collapsed:: true
 					- 这个解析器是Spring3.0中引入的，在DispatcherServlet中默认启用。
 					- 它的主要职责是能在自定义异常上使用@ResponseStatus注解，并将这些异常映射到HTTP状态码上。
 					- 代码
@@ -2594,6 +2579,44 @@
 		- @RequestBody中的required默认是true，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将required设置为false。
 		- Spring Boot请求(状态码是406)Could not find acceptable representation原因
 			- 有可能是你的响应对象的属性没有写get/set方法导致的
+	- 全局异常处理器针对404、405的处理
+	  collapsed:: true
+		- 代码
+		  ```java
+		  @ControllerAdvice
+		  public class GlobalExceptionHandler{
+		      @ExceptionHandler(Exception.class)
+		      @ResponseBody
+		      public CommonReturnType doError(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Exception ex) {
+		          ex.printStackTrace();
+		          Map<String,Object> responseData = new HashMap<>();
+		          if( ex instanceof BusinessException){
+		              BusinessException businessException = (BusinessException)ex;
+		              responseData.put("errCode",businessException.getErrCode());
+		              responseData.put("errMsg",businessException.getErrMsg());
+		          }else if(ex instanceof ServletRequestBindingException){
+		              // 处理405，get方法没有传递请求参数会抛出的异常
+		              responseData.put("errCode",EmBusinessError.UNKNOWN_ERROR.getErrCode());
+		              responseData.put("errMsg","url绑定路由问题");
+		          }else if(ex instanceof NoHandlerFoundException){
+		              // 处理404
+		              responseData.put("errCode",EmBusinessError.UNKNOWN_ERROR.getErrCode());
+		              responseData.put("errMsg","没有找到对应的访问路径");
+		          }else{
+		              responseData.put("errCode", EmBusinessError.UNKNOWN_ERROR.getErrCode());
+		              responseData.put("errMsg",EmBusinessError.UNKNOWN_ERROR.getErrMsg());
+		          }
+		          return CommonReturnType.create(responseData,"fail");
+		      }
+		  }
+		  ```
+		- 404就是找不到处理这个url的控制器，这种情况下我们需要捕获的异常类是`NoHandlerFoundException`，此外还要在配置文件中添加两个配置
+		  ```properties
+		  spring.mvc.throw-exception-if-no-handler-found=true
+		  spring.resources.add-mappings=false
+		  ```
+		- 405当前方法不可用，可能的原因有请求参数没有传或是请求的http方法不支持
+	-
 - spring-tx
   collapsed:: true
 	- Spring对事务管理的支持

@@ -87,7 +87,6 @@
 			- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 		- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 	- Log4j2 Appenders
-	  collapsed:: true
 		- ConsoleAppender
 		  collapsed:: true
 			- 功能：将日志输出到系统控制台。
@@ -128,14 +127,12 @@
 			  </Configuration>
 			  ```
 			- 触发策略
-			  collapsed:: true
 				- 作用：触发策略确定是否应该执行翻转。
+				  collapsed:: true
 					-
 			- 滚动策略
-			  collapsed:: true
 				- 作用：滚动定义应该如何进行翻转，或者说是如何将现有的日志文件存档，创建一个新的文件。如果未配置 RolloverStrategy，RollingFileAppender 将使用 DefaultRolloverStrategy。
 			- 配置参数
-			  collapsed:: true
 				- append：如果为 true （默认值），则记录将附加到文件末尾。设置为 false 时，将在写入新记录之前清除该文件。
 				- bufferedIO：如果为 true （默认值），则记录将写入缓冲区，数据将在缓冲区已满时写入磁盘，或者，如果设置了 iminstantteFlush，则在写入记录时写入磁盘。文件锁定不能与缓冲 IO 一起使用。性能测试表明，即使启用了即时刷新，使用缓冲 I/O 也能显著提高性能。
 				- bufferSize：当 bufferedIO 为 true 时，这是缓冲区大小，默认值为 8192 字节。
@@ -146,7 +143,6 @@
 				- policy：用于确定是否应进行滚动更新的策略。
 				- strategy：用于确定存档文件的名称和位置的策略。
 			- 触发策略
-			  collapsed:: true
 				- 复合触发策略
 				    collapsed:: true
 					- 组合多个 `CompositeTriggeringPolicy` 触发策略，如果任何配置的策略返回 `true`，则返回 `true`。只需 `CompositeTriggeringPolicy` 将其他策略包装在 `Policies` 元素中即可进行配置。
@@ -154,13 +150,11 @@
 				    collapsed:: true
 					- 触发器基于 `CronTriggeringPolicy` cron 表达式的滚动更新。此策略由计时器控制，并且与处理日志事件是异步的，因此上一个或下一个时间段的日志事件可能会出现在日志文件的开头或结尾。追加器的 `filePattern` 属性应包含时间戳，否则目标文件将在每次翻转时被覆盖。
 				- 启动时触发策略
-				    collapsed:: true
 					- 如果日志文件早于当前 JVM 的启动时间，并且满足或超过最小文件大小，则该 `OnStartupTriggeringPolicy` 策略会导致滚动更新。
 				- 基于文件大小的触发策略
 				    collapsed:: true
 					- 一旦 `SizeBasedTriggeringPolicy` 文件达到指定大小，就会发生翻转。大小可以以字节为单位指定，后缀为 KB、MB、GB 或 TB，例如 20MB 。
 				- 基于时间的触发策略
-				    collapsed:: true
 					- TimeBasedTriggeringPolicy是基于`filePattern`中的`%d{yyyy-MM-dd-HH-mm-ss}`来决定到底采用哪种时间单位（天、小时、分钟、秒等）。
 					- 一旦 `TimeBasedTriggeringPolicy` 日期/时间模式不再适用于活动文件，就会出现翻转。此策略接受一个属性， interval 该属性指示根据时间模式和 modulate 布尔属性进行滚动更新的频率。
 					- 配置参数
@@ -168,10 +162,12 @@
 						- interval：根据日期模式中最具体的时间单位进行滚动更新的频率。例如filePattern的最后一位日期是小时，这里设置4，则表示每4个小时就生成一个新文件。
 						- modulate：是否对封存时间进行调制。若modulate=true， 则封存时间将以0点为边界进行偏移计算。比如，modulate=true，interval=4hours， 那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00， 之后的封存时间依次为08:00，12:00，16:00。。。
 					- 参考文章： [Log4j2日志滚动策略TimeBasedTriggeringPolicy的魔鬼槽点](https://blog.csdn.net/qq_17776287/article/details/110948948)
+					  collapsed:: true
 						-
 			- 滚动策略
 			  collapsed:: true
 				- 默认滚动更新策略
+				  collapsed:: true
 					- 更新策略
 					    collapsed:: true
 						- 默认翻转策略接受在滚动文件追加程序本身上指定的 filePattern 属性中的**日期/时间模式**和**整数**。
@@ -356,11 +352,13 @@
 			  collapsed:: true
 				- 基于Cron表达式的触发策略，很灵活。
 			- TimeBasedTriggeringPolicy
+			  collapsed:: true
 				- 基于时间的触发策略。该策略主要是完成周期性的log文件封存工作。
 				- 配置参数
 					- **interval**：日记压缩的时间间隔，这个配置与filePattern属性的精确时间相关，上面配置的是`%d{yyyy-MM-dd}-%i.log.gz`，结尾时间是dd，也就是按照天作为时间间隔配置的单位
 					- **modulate**：是否对压缩时间进行调制。比如说我们配置interval="4"，filePattern配置的单位是小时，也就是每两个小时做一次压缩备份。 那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00， 之后的封存时间依次为08:00，12:00，16:00
 	- Strategy策略
+	  collapsed:: true
 		- Strategy是用来控制日志文件如何(How)进行滚动的。
 		- DefaultRolloverStrategy
 			- DefaultRolloverStrategy指定了当触发rollover时的默认策略。
