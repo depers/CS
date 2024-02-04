@@ -2406,6 +2406,7 @@
 			- [Guide To Running Logic on Startup in Spring](https://www.baeldung.com/running-setup-logic-on-startup-in-spring)
 			- [Spring PostConstruct and PreDestroy Annotations](https://www.baeldung.com/spring-postconstruct-predestroy)
 - spring MVC
+  collapsed:: true
 	- 过滤器
 	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
@@ -2627,7 +2628,6 @@
 - Spring Boot
   collapsed:: true
 	- SpringBoot注解
-	  collapsed:: true
 		- @ConditionalOnProperty
 			- 使用这个注解我们可以判断Property的某些属性是不是需要的值，也就是说可以做属性值的判断。
 		- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
@@ -2639,6 +2639,7 @@
 	  collapsed:: true
 		- 在Spring Boot上传文件的时候，如果你上传的文件是0kb，spring是会报错的，报的错是：`Error parsing HTTP request header java.io.EOFException: null`
 	- 重要接口
+	  collapsed:: true
 		- Interface `ApplicationRunner` 和 `CommandLineRunner`
 			- 作用：
 				- 在Spring容器加载完之后，执行一些操作，且只执行一次。
@@ -2649,6 +2650,7 @@
 				- https://www.baeldung.com/running-setup-logic-on-startup-in-spring
 				- [【Spring系列】应用启动后回调机制CommandLineRunner和ApplicationRunner接口](https://blog.csdn.net/chenlixiao007/article/details/113881768)
 	- 日志
+	  collapsed:: true
 		- Spring Boot 默认使用 SLF4J+Logback 记录日志，其中SLF4J提供了日志接口，Logback提供的日志实现。
 		- 日志配置的级别
 			- 使用root级别，即项目的所有日志
@@ -2665,10 +2667,13 @@
 			- [使用SLF4J和Logback-廖雪峰](https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176)
 			- [Spring Boot日志配置及输出](http://c.biancheng.net/spring_boot/log-config.html)
 	- web相关
+	  collapsed:: true
 		- SpringBoot实现`Filter`过滤器的两种方式
 			- 通过`FilterRegistrationBean`
 			- 通过`@WebFilter`
 			- 推荐使用`FilterRegistrationBean`，因为他可以设置过滤器的优先级。
+	- 读取外部配置
+		- 使用`java -jar --spring.config.additional-location=<file.properties>`在jar启动时引入外部的配置项，他会覆盖jar中的同名配置。
 - Spring Test
   collapsed:: true
 	- 在单元测试中如果依赖Spring的RequestContext，怎么办

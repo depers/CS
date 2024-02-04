@@ -27,7 +27,6 @@
 	- commons logging 默认会搜索使用Log4j、JDK Logging作为自己的日志系统。
 	- 参考文章： [使用Commons Logging](https://www.liaoxuefeng.com/wiki/1252599548343744/1264738932870688)
 - Log4j2
-  collapsed:: true
 	- Log4j是一个日志的具体实现。
 	- Log4j的架构
 	    collapsed:: true
@@ -59,7 +58,6 @@
 		- 如果给定的记录器没有分配级别，那么它将从最接近的祖先继承一个级别。这就是为什么开发人员总是将日志级别分配给配置文件中的根日志记录器，即log4j2.rootLogger=DEBUG。
 		- 参考文章： [Log4j 2 Best Practices Example](https://examples.javacodegeeks.com/java-development/enterprise-java/log4j/log4j-2-best-practices-example/)
 	- 简单自定义Log4j2的配置
-	  collapsed:: true
 		- 简单配置
 		  ```xml
 		  <?xml version="1.0" encoding="UTF-8"?>
@@ -87,6 +85,7 @@
 			- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 		- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 	- Log4j2 Appenders
+	  collapsed:: true
 		- ConsoleAppender
 		  collapsed:: true
 			- 功能：将日志输出到系统控制台。
