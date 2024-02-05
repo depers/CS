@@ -61,7 +61,6 @@
 		- 以上面这段配置来做说明，它将 `spring-boot-dependencies`  中 `DependencyManagement` 下的 `Dependencies` 插入到当前工程的 `DependencyManagement` 中，所以不存在依赖传递。
 		- 当没有 `<scope>import</scope>` 时，意思是将 `spring-boot-dependencies`  的 `Dependencies` 全部插入到当前工程的 `Dependencies` 中，并且会依赖传递。
 	- 指定jdk编译版本号
-	  collapsed:: true
 		- 参见如下代码
 		  ```xml
 		  <build>
@@ -79,6 +78,7 @@
 		  </build>
 		  ```
 	- 打包Spring Boot项目
+	  collapsed:: true
 		- 在maven添加spring-boot-maven-plugin依赖
 		- 使用`mvn -Dmaven.test.skip=true clean package spring-boot:repackage`进行打包
 	- maven中snapshot快照库和release发布库的区别和作用
