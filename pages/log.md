@@ -225,10 +225,8 @@
 		- TRACE：跟踪等级的日志，指一些包含程序运行详细过程的信息。
 		- ALL 最低等级的，用于打开所有日志记录。
 	- 配置布局
-	  collapsed:: true
 		- 通过使用布局来定义日志消息的格式。
 		- Log4j2提供的常用布局：
-		  collapsed:: true
 			- *PatternLayout*：根据字符串规则配置消息格式
 			  collapsed:: true
 				- 该机制主要由包含转换说明符的转换模式驱动。每个说明符以% 符号开始，后面跟着控制消息的宽度和颜色等内容的修饰符，以及表示内容的转换字符，如日期或线程名称。
@@ -341,6 +339,7 @@
 			- `%msg`：将消息写入日志。
 			- `%n`：换行，输出与平台相关的行分隔符字符。
 	- Policy触发策略
+	  collapsed:: true
 		- Policy是用来控制日志文件何时(When)进行滚动的。
 		- 如果配置的是RollingFile或RollingRandomAccessFile，则必须配置一个Policy。
 		- 触发策略
@@ -393,7 +392,6 @@
 		- logger上additivity属性的文章：https://blog.csdn.net/chen_lay/article/details/122979095
 	- 实践
 		- Log4j2的简单实战
-		  collapsed:: true
 			- 项目：Log4j2Example
 			- 参考文章：https://examples.javacodegeeks.com/java-development/enterprise-java/log4j/log4j-2-getting-started-example/
 - Slf4j
