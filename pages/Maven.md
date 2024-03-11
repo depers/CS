@@ -61,6 +61,7 @@
 		- 以上面这段配置来做说明，它将 `spring-boot-dependencies`  中 `DependencyManagement` 下的 `Dependencies` 插入到当前工程的 `DependencyManagement` 中，所以不存在依赖传递。
 		- 当没有 `<scope>import</scope>` 时，意思是将 `spring-boot-dependencies`  的 `Dependencies` 全部插入到当前工程的 `Dependencies` 中，并且会依赖传递。
 	- 指定jdk编译版本号
+	  collapsed:: true
 		- 参见如下代码
 		  ```xml
 		  <build>
@@ -1002,18 +1003,15 @@
 			- `-DArchetypeArtifactId`：指定使用的maven项目模板。一个是普通maven项目，一个是web项目。
 			- `-DinteractiveMode`：是否在交互模式中，若没有指定`-DArchetypeArtifactId`的参数的前提下，`true`的情况下，会在提示你输入模版名称；`false`的情况下，默认会使用`maven-archetype-quickstart`作为默认的模板。
 - 插件
-  collapsed:: true
 	- maven内建的插件
 	  collapsed:: true
 		- [maven内建插件](https://maven.apache.org/plugins/index.html)
 	- spring-boot-maven-plugin
 	  collapsed:: true
 		- 作用
-		  collapsed:: true
 			- maven项目的pom.xml中，添加了*org.springframework.boot:spring-boot-maven-plugin*插件，当运行`mvn package`进行打包时，会打包成一个可以直接运行的 JAR 文件，使用“Java -jar”命令就可以直接运行。
 			- spring-boot-maven-plugin插件，在很大程度上简化了应用的部署，只需要安装了 JRE 就可以运行。
 		- 参考文章
-		  collapsed:: true
 			- [spring-boot-maven-plugin插件的作用](https://www.cnblogs.com/acm-bingzi/p/mavenspringbootplugin.html)
 	- maven-compiler-plugin
 	  collapsed:: true

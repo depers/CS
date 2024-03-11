@@ -1,5 +1,4 @@
 - 《Spring4.x企业级应用开发实战》
-  collapsed:: true
 	- 第一章 Spring概述
 	  collapsed:: true
 		- Spring的体系结构
@@ -132,10 +131,53 @@
 				- 在调用类的构造函数中将接口实现类的对象赋给接口实例，从而实现依赖注入
 				- 缺点
 					- 每次创建调用类对象时都要完成对实现类接口实例的注入，在某些场景下我们可能并不需要实现接口的类实例作为构造函数的参数注入进来，无参构造器就行。这样我们每次就多实例化了一个实例，存在资源浪费的情况
+				- 代码
+				  ```java
+				  public class MyClass {
+				      // 构造函数注入
+				      public MyClass(String dependency1, int dependency2) {
+				          this.dependency1 = dependency1;
+				          this.dependency2 = dependency2;
+				      }
+				  }
+				  ```
 			- 二属性注入
-				- 属性注入是可以有选择的通过Setter方法完成对调用类所需依赖的实现类实例的注入，更加灵活
+				- 属性注入是可以有选择的通过Setter方法完成对调用类所需依赖的实现类实例的注入，更加灵活。
+				- 代码
+				  ```java
+				  public class MyClass {
+				      // 属性注入
+				      @Autowired
+				      private String dependency1;
+				  
+				      @Resource(name = "dependency2")
+				      private int dependency2;
+				  }
+				  ```
 			- 三接口注入
 				- 将调用类所有依赖注入的逻辑抽取到一个接口中，调用类通过实现该接口提供相应的注入方法。这种方式与构造函数注入和属性注入区别不大，还新增了一个接口增加了类的数量，不推荐使用。
+				- 代码
+				  ```java
+				  public interface MyInterface {
+				      // 接口注入
+				      void setDependency1(String dependency1);
+				  
+				      int getDependency2();
+				  }
+				  
+				  public class MyClass implements MyInterface {
+				      // 实现接口的方法，并接受依赖的注入
+				      @Override
+				      public void setDependency1(String dependency1) {
+				          this.dependency1 = dependency1;
+				      }
+				  
+				      @Override
+				      public int getDependency2() {
+				          return dependency2;
+				      }
+				  }
+				  ```
 			- Spring支持**构造函数注入**和**属性注入**。
 		- 通过容器完成依赖关系的注入
 			- 从上一节Ioc的类型中我们看到，我们虽然实现了调用类和实现类的解耦，但是在调用类的代码中仍然存在实现类接口的代码，要想将实现类接口的代码也剔除的话，我们就需要一个三方的容器来去维护和管理两个类之间的依赖关系，Spring Ioc容器就是为此而生的。
@@ -187,7 +229,6 @@
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 		- BeanFactory、ApplicationContext和WebApplicationContext
 			- BeanFactory
-			  collapsed:: true
 				- 功能
 					- 一般称BeanFactory为Ioc容器
 					- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
@@ -265,8 +306,8 @@
 							- `postProcessPropertyValues()`：在为Bean设置属性值之前调用
 							- 注意：`InstantiationAwareBeanPostProcessor`其实是`BeanPostProcessor`的子接口，我们一般使用他的适配器类`InstantiationAwareBeanPostProcessorAdapter`进行扩展。
 						- `BeanPostProcessor`接口
-							- `postProcessBeforeInitialization()`：使用该方法对Bean进行特殊处理
-							- `postProcessAfterInitialization()`：使用该方法对Bean进行特殊处理
+							- `postProcessBeforeInitialization()`：该方法在 Bean 的初始化方法（如构造函数或init-method）被调用之前执行。可以在这个方法中对 Bean 对象进行修改或添加额外的逻辑。
+							- `postProcessAfterInitialization()`：该方法在 Bean 的初始化方法执行之后调用。可以在这个方法中对已经初始化的 Bean 对象进行修改。
 							- `BeanPostProcessor`接口十分重要，Spring容器提供的AOP和动态代理等功能都是通过它进行实施的。
 						- 值得注意的点
 							- `InitDestroyAnnotationBeanPostProcessor`类
@@ -747,7 +788,6 @@
 	- 第六章 Spring容器高级主题
 	  collapsed:: true
 		- 1.Spring容器技术内幕
-		  collapsed:: true
 			- Spring的内部工作机制
 			  collapsed:: true
 				- Spring中`AbstractApplicationContext`是`ApplicationContext`的抽象实现类，`AbstractApplication#refresh()`方法定义了Spring容器在加载配置文件之后各项处理过程。
@@ -953,33 +993,25 @@
 		- 6.容器事件
 		  collapsed:: true
 			- 背景：
-			  collapsed:: true
 				- Spring的ApplicationContext能够发布事件并允许注册相应的事件监听器，有一套完整的事件发布和监听机制。
 			- Java通过`java.util.EventObject`类描述事件，`java.util.EventListener`接口描述监听器。
 			- 重要概念
-			  collapsed:: true
 				- 事件源：事件的产生者，任何一个EventObject都有一个事件源。
 				- 事件监听注册表：用于保存事件监听器。
-				  collapsed:: true
 					- 将一个注册一个事件监听器，就是将监听器保存到事件监听注册表。
 					- 当事件源产生事件时，就会通知位于注册表中的事件监听器。
 				- 事件广播器：是事件和监听器沟通的桥梁，负责把事件通知给事件监听器。
 				- 一个图
 				  ![事件体系.png](../assets/事件体系_1686122116114_0.png)
 			- Spring事件类结构
-			  collapsed:: true
 				- 事件类
-				  collapsed:: true
 					- 事件类结构图
 					  ![事件类结构图.png](../assets/事件类结构图_1686201445018_0.png)
 					- ApplicationEvent的唯一构造函数式ApplicationEvent(Object source)，通过source参数指定事件源。
 					- ApplicationEvent有两个子类
-					  collapsed:: true
 						- ApplicationContextEvent
-						  collapsed:: true
 							- 这个类代表容器事件，它拥有4个子类，分别代表了容器启动、刷新、停止和关闭的事件。
 						- RequestHandledEvent
-						  collapsed:: true
 							- 这个类是和web应用相关的事件，当一个http请求本处理后，就会产生该事件。
 						- 也可以根据自己的需要扩展`ApplicationEvent`定义自己的事件，完成其他的特殊功能。
 				- 事件监听接口
@@ -2677,7 +2709,6 @@
 - Spring Test
   collapsed:: true
 	- 在单元测试中如果依赖Spring的RequestContext，怎么办
-	  collapsed:: true
 		- 先看代码：
 		  ```Java
 		  // Spring-test 有一个灵活的请求模拟，称为 MockHttpServletRequest。
@@ -2689,6 +2720,7 @@
 	- 整合Junit
 		- 参考文章
 			- [springBoot整合的Junit4单元测试](https://www.jianshu.com/p/921282034c5d)
+			- [Spring Boot 基于 JUnit 5 实现单元测试](https://www.jianshu.com/p/4648fd55830e)
 - Spring Cloud
   collapsed:: true
 	- [spring-cloud-release](https://github.com/spring-cloud/spring-cloud-release)
@@ -2821,3 +2853,7 @@
 		- 参考文章
 		  collapsed:: true
 			- [阿里限流神器Sentinel夺命连环 17 问？](https://www.cnblogs.com/cbvlog/p/15385100.html)
+	- consul
+		- 各个端口的作用
+			- 8500：提供获取服务列表、注册服务、注销服务等HTTP接口；提供UI服务
+			- 8600：采用DNS协议提供服务发现功能

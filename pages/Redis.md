@@ -1,13 +1,44 @@
 - Jedis
+  collapsed:: true
 	- 使用
-	  collapsed:: true
 		- 参考文章：
 			- [jedis的基本使用](https://blog.csdn.net/zhang_sheng_nian/article/details/127734172)
+			- [redis基于zset实现延迟队列](https://cloud.tencent.com/developer/article/2310463)
 	- Jedis连接池
-	  collapsed:: true
 		- 参考文章
-		  collapsed:: true
 			- [java客户端：Jedis和Jedis连接池的基本使用和配置](https://zhuanlan.zhihu.com/p/84481313)
 			- [GenericObjectPool源码分析](https://www.cnblogs.com/chenjian5/p/5149312.html)
 			- [为什么建议JedisPool的maxIdle与maxActive设置成一样的数值](https://www.jianshu.com/p/1f1568627f87)
-	-
+- 数据结构
+	- String
+		- 使用场景
+		  collapsed:: true
+			- 缓存对象
+			- 常规计数
+			- 分布式锁
+			- 共享session
+		- 存储的最大容量
+			- Redis 一个字符串类型的值最大可以存储512MB的数据。这是因为Redis使用了一个sds数据结构（simple dynamic string），这种数据结构在Redis中被广泛使用，可以实现高效的字符串操作，并且支持动态扩容。而sds的最大长度是2^32-1字节，也就是4GB，但在Redis中，字符串类型的值除了存储数据外，还需要存储一些元数据信息（例如长度等），所以实际上字符串类型的值能存储的最大容量是512MB。
+	- List
+	- Hash
+	- Set
+	- Zset
+- 持久化机制
+	- RDB
+		- Redis DataBase缩写快照
+		- 默认的持久化方式。
+		- 优点
+			- 只有一个文件，方便持久化。
+			- 容灾性好，一个文件可以保存到安全的磁盘。
+			- 性能最大化，fork 子进程来进行持久化写操作，让主进程继续处理命令，只存在毫秒级不响应请求。
+			- 相对于数据集大时，比 AOF 的启动效率更高。
+		- 缺点
+			- RDB 是间隔一段时间进行持久化，如果持久化之间 redis 发生故障，会发生数据丢失。
+	- AOF
+		- Append Only File持久化
+		- 优点
+			- 数据安全系数高，如果服务器发送宕机，数据丢失的少。
+		- 缺点
+			- AOF 文件比 RDB 文件大，且恢复速度慢。
+			- 数据集大的时候，比 rdb 启动效率低。
+		-

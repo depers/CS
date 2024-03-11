@@ -1,7 +1,7 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -139,6 +139,7 @@
 					- String Pool
 				- new String("abc")
 			- 运算
+			  collapsed:: true
 				- 参数传递
 				  collapsed:: true
 					- Java的参数传递是：值传递，
@@ -149,7 +150,6 @@
 					  collapsed:: true
 						- [这一次，彻底解决Java的值传递和引用传递](https://segmentfault.com/a/1190000016773324)
 				- 整数运算
-				  collapsed:: true
 					- 整数类型：byte, short, int, long
 					- 溢出：整数由于存在范围限制，如果计算结果超出了范围，就会产生溢出
 					- 加减乘除
@@ -175,7 +175,6 @@
 						- `>>`，右移相当于除2
 						- `>>>`，无符号右移，也相当于除2，与右移运算符不同的是
 					- 位运算
-					  collapsed:: true
 						- `&`，与预算
 						- `|`，或运算
 						- `~`，非运算
@@ -190,7 +189,6 @@
 						- 参与运算的两个数类型不一致，那么计算结果为较大类型的整型
 						- 大范围的整数转型为小范围的整数。强制转型使用(类型)。强转的结果可能是错的。
 				- 浮点数运算
-				  collapsed:: true
 					- float与double
 					  collapsed:: true
 						- // float f = 1.1; 是错的，Java 不能隐式执行向下转型，因为这会使得精度降低。
@@ -425,7 +423,6 @@
 						    collapsed:: true
 							- 如果它是一个非静态方法，JVM首先创建一个对象，然后调用`main()`方法，这将导致额外内存分配的问题。
 					- 静态代码块
-					    collapsed:: true
 						- 这里可以参考： ((650cd83c-47db-4160-a561-8e4f2952788f))
 					- 静态内部类
 					- 静态导包
@@ -912,15 +909,12 @@
 						- 实际意义：如果子类覆写了父类的方法，子类的引用在实际调用这个方法的时候，调用的是子类的方法。
 					- 代码块和加载顺序
 					  id:: 650cd83c-47db-4160-a561-8e4f2952788f
-					  collapsed:: true
 						- 代码块
 							- 局部代码块
-							    collapsed:: true
 								- 方法代码块，也就是具体方法的声明。
 								- 作用：限定变量的声明周期，尽早释放，节省内存。
 								- 调用：方法中的局部代码块一般进行一次性调用，调用完立刻释放内存空间，避免在接下来的调用过程中占用栈空间。栈空间内存有限，方法的调用会产生很多局部变量导致栈内存不足，使用局部代码块可以避免这个问题。
 							- 实例初始化代码块（普通代码块）
-							    collapsed:: true
 								- 没有关键字，一个花括号包裹的代码。
 								- 作用
 								    collapsed:: true
@@ -932,10 +926,8 @@
 									- 执行实例类的构造器中的代码
 								- 调用：每new一个对象，就会执行一次。
 							- 静态代码块
-							    collapsed:: true
 								- static修饰的代码块。
 								- 作用
-								    collapsed:: true
 									- 用于初始化静态数据成员。
 									- 它在类加载时在main方法之前执行。
 								- 调用：当new多个对象时，只有在第一次new对象的时候调用一次静态代码块，因为静态代码块和类变量一样，是属于类的，所有对象共享一份。
@@ -1151,7 +1143,6 @@
 		- 加解密与安全
 		  collapsed:: true
 			- 编码算法
-			  collapsed:: true
 				- ASCII码
 				  collapsed:: true
 					- 美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码
@@ -2019,7 +2010,6 @@
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 集合框架是在Java 1.2之后推出的，之前对Java对象进行集合操作的类是Array，Vectors或是HashTable，这些集合类都没有公共接口，尽管所有集合的主要目标是相同的，但所有这些集合的实现都是独立定义的，它们之间没有相关性。而且，用户很难记住每个集合类中出现的所有不同的方法、语法和构造函数。
@@ -2050,6 +2040,7 @@
 					- 17. stream()：用于返回以此集合为源的顺序流
 					- 18. toArray()：用于返回包含此集合中所有元素的数组
 				- 集合框架的接口
+				  collapsed:: true
 					- Iterable Interface
 					  collapsed:: true
 						- 集合框架的根接口
@@ -2108,9 +2099,7 @@
 							- HashMap
 							- TreeMap
 			- Collections
-			  collapsed:: true
 				- 基本操作
-				  collapsed:: true
 					- 获取list，map，set的不变实体
 					- addAll()：方法添加集合到另一个集合
 					- copy()：复制元素
@@ -2123,11 +2112,9 @@
 					- [Collections Class in Java](https://www.geeksforgeeks.org/collections-class-in-java/)
 					  id:: 63a8ef52-fbe6-4838-b3e2-620dbb283662
 			- Collection Interface
-			  collapsed:: true
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
-			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -2185,7 +2172,6 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
-				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- 使用双向链表来存储元素
@@ -2199,10 +2185,8 @@
 						- 它的Iterator和ListIterator迭代器是fail-fast
 						- 它可以用作list，stack，queue
 					- 使用
-					  collapsed:: true
 						- 创建：LinkedList<Integer> list = new LinkedList<>()
 						- 添加元素
-						  collapsed:: true
 							- add()
 							- addAll()
 							- addFirst()
@@ -2219,7 +2203,6 @@
 							- linkedList.pop()，检索第一个元素并从list删除该元素，若list为空，则抛出java.util.NoSuchElementException
 							- linkedList.push(1)，在list头部插入元素
 						- 总结
-						  collapsed:: true
 							- ArrayList 通常是默认的 List 实现，大家常常会使用这个实现
 							- 在恒定时间做插入、删除操作时，采用LinkedList往往是更好的选择。ArrayList更适合恒定的访问时间和有效的内存使用。
 					- 参考文章：
@@ -2227,9 +2210,7 @@
 						- javapoint：https://www.baeldung.com/java-linkedlist
 						- baeldung：https://www.javatpoint.com/java-linkedlist
 				- ArrayList
-				  collapsed:: true
 					- 介绍
-					  collapsed:: true
 						- ArrayList是构建在数组之上的List实现之一
 					- 特点
 						- 一个值可以重复出现多次
@@ -2237,6 +2218,7 @@
 						- 插入和删除的时间复杂度是O(n)
 						- 搜索未排序的list需要 O(n) 的时间，二分搜索排序的list需要 O(logn) 的时间
 						- List中元素的存取是有序的，该数组的输出顺序是跟你存入(add)的顺序是一致的
+						- 不是线程安全的
 					- 使用
 						- 创建一个ArrayList
 						  collapsed:: true
@@ -2267,7 +2249,6 @@
 							- 通过迭代器去移除元素
 							- 通过使用Java8 Stream API
 					- 参考文章：
-					  collapsed:: true
 						- Baeldung：Guide to the Java ArrayList
 						- javatpoint：Java ArrayList
 					- 代码实现：cn.bravedawn.collection.list.arraylist
@@ -2283,9 +2264,8 @@
 						- 参考文章：https://www.baeldung.com/java-immutable-list
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/arraylist/ImmutableArrayListExample.java
 				- CopyOnWriteArrayList
-				  collapsed:: true
 					- 特点
-					  collapsed:: true
+						- 是线程安全的。
 						- CopyOnWriteArrayList适合在迭代遍历场景较多，频繁修改场景较少的情况。读多写少。
 					- CopyOnWriteArrayList的迭代遍历
 					  collapsed:: true
@@ -2510,6 +2490,7 @@
 					- 查找两个列表的不同
 						- 具体实践：JavaTrain/src/main/java/cn/bravedawn/collection/list/judgelistequals
 				- 参考文章
+				  collapsed:: true
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
 			  collapsed:: true
@@ -2529,7 +2510,6 @@
 					- `TreeSet`是有序的，因为它实现了`SortedSet`接口。
 					- 使用`TreeSet`和使用`TreeMap`的要求一样，添加的元素必须正确实现`Comparable`接口，如果没有实现`Comparable`接口，那么创建`TreeSet`时必须传入一个`Comparator`对象。
 			- Map
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -2538,10 +2518,9 @@
 						- 使用map的话插入和检索一个元素，需要的时间复杂度是O(1)
 				- HashMap
 					- 特点
-					  collapsed:: true
 						- Map是一种key-value映射表的数据结构。
 						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉。
-						- Map中存储的映射关系是不保证顺序的。
+						- Map中存储的映射关系是**不保证顺序的**。
 						- **注意**：如果Map的元素是一个对象的话。我们在`put()`和`get()`一个元素的时候，会分别调用该元素的`hashcode()`和`equals()`方法。
 					- 基本操作
 					  collapsed:: true
@@ -2568,49 +2547,44 @@
 						- compute()
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/java8
 					- HashMap的内部实现
+					  collapsed:: true
+						- 关键变量
+							- capacity 即容量，默认16。
+							- loadFactor 加载因子，默认是0.75
+							- threshold 阈值。阈值=容量*加载因子。默认12。当元素数量超过阈值时便会触发扩容。
 						- 存储结构
-						  collapsed:: true
 							- 内部包含了一个 Entry 类型的数组 table。也就是我们说的桶数组。
 							- Entry 存储着键值对。它包含了四个字段，从 next 字段我们可以看出 Entry 是一个链表。
 							- 即数组中的每个位置被当成一个桶，一个桶存放一个链表。
 							- HashMap 使用拉链法来解决冲突，同一个链表中存放哈希值和散列桶取模运算结果相同的 Entry。
 						- HashMap中检索一个元素的方法
-						  collapsed:: true
 							- 方法一：遍历所有元素，找到和键匹配的元素返回。这种时间复杂度是O(n)
 							- 方法二：使用HashMap的put()和get()方法，实现平均时间复杂度O(1)和空间复杂度O(n)
 						- HashMap中put和get操作的实现
-						  collapsed:: true
 							- HashMap将元素存储在所谓的桶（bucket）中，桶的数量称为容量。
-							- bucket的数据结构可能是列表或是平衡树。
-							- 当我们向映射中添加一个元素时，将使用键的hashCode()方法来确定将存储该值的bucket。如果该桶已经包含一个值，会调用键对象的equals()方法判断桶内是否有相同键，若有则会覆盖原有的键所对应的value值；若没有则该值将被添加到属于该桶的列表(或树)中。如果负载因子大于映射的最大负载因子，则容量翻倍。
+							- bucket的内部结构的数据结构可能是链表或是平衡树。
+							- 当我们向映射中添加一个元素时，将使用键的hashCode()方法来确定将存储该值的bucket。如果该桶已经包含一个值，会调用键对象的equals()方法判断桶内是否有相同键，若有则会覆盖原有的键所对应的value值；若没有则该值将被添加到属于该桶的列表(或树)中。如果容量大于阈值，则容量翻倍。
 							- 当我们想从映射中获取一个值时，HashMap以相同的方式计算桶——使用hashCode()。然后遍历在该bucket中找到的对象，并使用键的equals()方法在链表上顺序查找，时间复杂度显然和链表的长度成正比。
 						- HashMap中键的不变性
-						  collapsed:: true
 							- 在大多数情况下，我们应该使用不可变键，即就是要保证key的散列值不变。
 							- 一旦键改变，我们就不再能够获得相应的值，而是返回null。这是因为HashMap用错误的hashcode找到错误的bucket，然后在错误的bucket中搜索。
 						- 哈希碰撞
-						  collapsed:: true
 							- 要使其正确工作，相等的键必须具有相同的散列，然而，不同的键可以具有相同的散列。如果两个不同的键具有相同的散列，则属于它们的两个值将存储在同一个bucket中。在桶内，值存储在一个列表中，并通过遍历所有元素来检索。它的代价是O(n) ，这里的n指的是桶里键值对的大小。
 							- 从Java 8(参见JEP 180)开始，如果一个桶包含8个或更多的值，则存储在一个桶内的值的数据结构将从链表更改为红黑树，这将使性能提高到O(log n)，这里的n指的是桶里键值对的大小。如果某个时刻桶中只剩下2到6个键值对时，则将回退回链表。
 						- 容量和负载因子
-						  collapsed:: true
 							- 为了避免多个桶具有多个值，如果75%(负载系数)的桶变为非空的，则容量将翻倍。
 							- 默认负载系数为75%，初始容量为16。两者都可以在构造函数中设置。
 						- 底层代码解析：Java HashMap的底层实现
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/internals
 				- LinkedHashMap
-				  collapsed:: true
 					- 特点（与HashMap的区别）
-					  collapsed:: true
 						- 也接受空键和空值。
 						- LinkedHashMap是通过哈希表和链表实现，增强了哈希映射的功能。
-						- 除了默认大小为 16 的底层数组外，它还维护一个贯穿其所有条目的双向链表，为LinkedHashMap.Entry有两个名为before，after的指针，分别指向上一个和下一个条目。从而保证了元素的顺序。
+						- 除了默认大小为 16 的底层数组外，它还维护一个贯穿其所有条目的双向链表，为LinkedHashMap.Entry有两个名为before，after的指针，分别指向上一个和下一个条目。从而保证了**元素的顺序**。
 						- 注意LinkedHashMap的这个链表定义了迭代的顺序，默认是元素的插入顺序（insertion-order）。
 					- Access-Order LinkedHashMap
-					  collapsed:: true
-						- 在LinkedHashMap的构造函数中有一个accessOrder的参数，若该参数为true，则就会设置迭代顺序为 LRU(Least Recently Used)，即最近最少使用。
+						- 在LinkedHashMap的构造函数中有一个**accessOrder的参数**，若该参数为true，则就会设置迭代顺序为 LRU(Least Recently Used)，即最久未使用。
 					- 性能
-					  collapsed:: true
 						- 基本操作：与HashMap相同，如果没有哈希冲突，map的基本操作（put、get、remove、containsKey）平均时间复杂度是O(1) 。但是由于维护双向链表的额外开销，LinkedHashMap的这种恒定时间性能可能会比 HashMap的恒定时间差一点。
 						- 迭代：LinkedHashMap 的集合视图的迭代也需要类似于 HashMap的线性时间 O(n) 。但是，LinkedHashMap 在迭代过程中的线性时间性能优于 HashMap的线性时间。这是因为，对于LinkedHashMap，O(n) 中的 n 只是映射中的条目数，而与容量无关。而对于 HashMap，n 是容量和大小的总和，O(size+capacity)。
 						- 负载因子和初始化容量：负载因子和初始容量的定义与 HashMap相同。但是请注意，对于 LinkedHashMap而言，为初始容量选择过高的值的成本没有 HashMap高，因为此类的迭代时间不受容量的影响。
@@ -2622,21 +2596,17 @@
 				- TreeMap
 				  collapsed:: true
 					- 特点
-					  collapsed:: true
 						- 不允许空键，但可能包含许多空值。空键是不允许的，因为compareTo()或compare()方法会抛出一个NullPointerException
 						- 因为TreeMap 树映射的属性，可以方便的获取 “最大的键”，“最小的键”，“大于或小于某个值的键”。
 						- 可以自定义TreeMap的排序规则。
 						- 不是线程安全的
 					- 默认排序
-					  collapsed:: true
 						- 当TreeMap的键为整数时，默认顺序是按照整数键的升序顺序进行排序的
 						- 当TreeMap的键为字符串时，默认顺序是按照字符串键的首字母的字母顺序进行排序的
 					- 与HashMap和LinkedHashMap的区别
-					  collapsed:: true
 						- 存储不同：与HashMap和LinkedHashMap不同，TreeMap在任何地方都不使用散列原则，因为它不使用数组来存储它的条目。
 						- 排序不同：HashMap映射不能保证存储的键的顺序，特别是不能保证这个顺序随着时间的推移保持不变，但是树映射可以保证键总是按照指定的顺序排序。
 					- TreeMap的内部实现
-					  collapsed:: true
 						- TreeMap继承了AbstractMap类。实现了NavigableMap接口，它的内部工作基于红黑树的原则。
 						- 红黑数是一个平衡二叉树，这个属性保证了像搜索、获取、放置和删除这样的基本操作需要的时间复杂度是O(log n)。
 						- 红黑数的排序规则是由元素的自然顺序或构造时定义的比较器决定的。
@@ -2665,6 +2635,7 @@
 						- 实验一：map中包含一个键值对，当把key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，清空map。
 						- 实验二：map中包含两个键值对，当把其中一个key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，map会移除该key对应的键值对。
 				- ConcurrentHashMap
+				  collapsed:: true
 					- 特点
 						- ConcurrentHashMap是线程安全的。
 						- ConcurrentHashMap中key和value是不允许存在null值的。
@@ -2673,6 +2644,7 @@
 						- size()和mappingCount()的底层逻辑相同，但是size返回int值，mappingCount返回long值。
 						- ConcurrentHashMap中的键没有排序。
 				- ConcurrentSkipListMap
+				  collapsed:: true
 					- 参考文章：Guide to the ConcurrentSkipListMap
 				- Hashtable
 				  collapsed:: true
@@ -2857,6 +2829,14 @@
 					- Object element()：它用于检索但不删除此队列的头部。
 					- Object peek()：它用于检索但不删除此队列的头部，或者如果此队列为空，则返回 null。
 					- int size()：返回队列的大小。
+			- 栈
+			  collapsed:: true
+				- 在 Java 中，`Stack`和`Deque`都可以作为栈来使用，但它们之间有一些区别：
+					- 1.**数据结构**：Stack是基于Vector实现的栈，而Deque是基于ArrayDeque实现的双端队列。双端队列可以在队列的两端进行插入和删除操作，而栈只能在顶部进行插入和删除操作。
+					- 2.	**方法**：Stack类提供了一些专门用于栈操作的方法，如push()、pop()、peek()等。而Deque类提供了更多的方法，包括在队列两端的插入和删除方法，如addFirst()、removeFirst()、peekFirst()、addLast()、removeLast()、peekLast()等。
+					- 3.**性能**：由于Stack是基于Vector实现的，所以在性能上可能会稍微差一些，特别是在处理大量数据时。而Deque是基于ArrayDeque实现的，它在性能上可能会更好一些。
+					- 4.**线程安全性**：Stack类不是线程安全的，而Deque类提供了线程安全的版本ConcurrentLinkedDeque。
+					- 综上所述，如果你只需要**栈的基本操作**，如插入、删除和获取栈顶元素，那么使用**Stack类**会更加方便。如果你需要**在队列的两端进行插入和删除**操作，或者需要**线程安全**的栈，那么使用**Deque类**会更加合适。
 			- Fail-fast and Fail-safe
 			  collapsed:: true
 				- Fail-fast
@@ -2886,12 +2866,9 @@
 						- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
 						- 具体实践：jvm-demo:cn.bravedawn.jvm.tool.ThreadGetAllStackTraces
 				- 线程切换
-				  collapsed:: true
 					- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 				- 线程的状态
-				  collapsed:: true
 					- 六种状态
-					  collapsed:: true
 						- New（初始状态）：新创建的线程，尚未执行；
 						- Runnable
 						    collapsed:: true
@@ -2919,7 +2896,6 @@
 						- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 						- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
 				- 线程的方法
-				    collapsed:: true
 					- `start()`：启动新线程，这里面会调用run()方法
 					- `run()`：补充该线程需要执行的内容
 					- `join()`
@@ -2969,6 +2945,7 @@
 		- IO
 		  collapsed:: true
 			- 五种IO模型
+			  collapsed:: true
 				- 同步阻塞-Blocking I/O
 					- 阻塞IO模型
 					  collapsed:: true
@@ -2986,17 +2963,15 @@
 						- 示例图
 						  ![非阻塞IO.png](../assets/非阻塞IO_1685864787196_0.png)
 					- 信号驱动的IO模型
-					  collapsed:: true
 						- 首先开启套接口信号驱动IO功能，并通过系统调用sigaction执行一个信号处理函数，此时请求即刻返回，当数据准备就绪时，就生成对应进程的SIGIO信号，通过信号回调通知应用线程调用recvfrom来读取数据。
 						- IO复用模型里面的select虽然可以监控多个fd了，但select其实现的本质上还是通过不断的轮询fd来监控数据状态， 因为大部分轮询请求其实都是无效的，所以信号驱动IO意在通过这种建立信号关联的方式，实现了发出请求后只需要等待数据就绪的通知即可，这样就可以避免大量无效的数据状态轮询操作。
 						- 示例图
 						  ![信号驱动的io模型.webp](../assets/信号驱动的io模型_1685865059269_0.webp)
 				- 异步非阻塞/异步IO-Async I/O
-				  collapsed:: true
 					- 通过观察我们发现，不管是IO复用还是信号驱动，我们要读取一个数据总是要发起两阶段的请求，第一次发送select请求，询问数据状态是否准备好，第二次发送recevform请求读取数据。
 					- 应用只需要向内核发送一个read 请求，告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
 					- 示例图
-					  ![异步IO.webp](../assets/异步IO_1685865454338_0.webp)
+					  ![异步IO.webp](../assets/异步IO_1685865454338_0.webp){:height 479, :width 840}
 				- 同步和异步的区别在于：是否需要应用进程再去调用recvfrom系统调用。
 				- 阻塞和非阻塞的区别在于：应用进程在询问内核数据准备情况时，是否需要等待。
 				- 用通俗的话来讲：IO操作就像我们吃饭，首先我们要看饭做好了没有，然后再去吃饭。
@@ -3114,7 +3089,6 @@
 			  collapsed:: true
 				- 推荐使用Java 7 nio Files.write 来创建和写入文件，因为它有更简洁的代码并自动关闭打开的资源。
 				- 实现
-				  collapsed:: true
 					- `Files.newBufferedWriter` (Java 8)
 					- `Files.write` (Java 7)
 					- `PrintWriter`
@@ -3122,7 +3096,6 @@
 					- `Files.writeString`（Java11）
 					- `FileOutputStream` 可以将原始字节写入文件，比如图片。
 			- 读取文件
-			  collapsed:: true
 				- 新的 Java 8 `Files.lines` 在读取小型或大型文本文件方面表现良好，返回一个 Stream（灵活类型并支持并行），自动关闭资源，并且有一行干净的代码。
 				- 实现
 				  collapsed:: true
@@ -3165,7 +3138,6 @@
 				- `FileUtils` – Apache Commons IO.
 			- 检查一个文件或目录是否存在
 			- Java读取文件到字符串
-			  collapsed:: true
 				- Java使用BufferedReader将文件读取为String
 				- 使用FileInputStream在Java中将文件读取为String
 				- Java使用Files类将文件读取为字符串
@@ -3212,6 +3184,7 @@
 					- 读取元数据
 				- 参考文章：[Java – Path vs File](https://www.baeldung.com/java-path-vs-file)
 			- NIO
+			  collapsed:: true
 				- Channel 通道
 				  collapsed:: true
 					- 功能：从缓冲器获取数据，或者向缓冲器发送数据。
@@ -3525,7 +3498,6 @@
 							- 方法区类静态属性引用的对象
 							- 本地方法栈中JNI（即一般说的Native方法）引用的对象
 					- 引用
-					  collapsed:: true
 						- Java对引用的狭义定义：如果 ((64043de7-b2f9-4db7-b4f3-574c88698635))的数据中存储的数值代表的是另外一块内存的起始地址，就称这块内存代表着一个引用。
 						- 引用的扩充，又分为
 							- 强引用-Strong Reference
