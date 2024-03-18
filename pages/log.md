@@ -59,6 +59,7 @@
 		- 如果给定的记录器没有分配级别，那么它将从最接近的祖先继承一个级别。这就是为什么开发人员总是将日志级别分配给配置文件中的根日志记录器，即log4j2.rootLogger=DEBUG。
 		- 参考文章： [Log4j 2 Best Practices Example](https://examples.javacodegeeks.com/java-development/enterprise-java/log4j/log4j-2-best-practices-example/)
 	- 简单自定义Log4j2的配置
+	  collapsed:: true
 		- 简单配置
 		  ```xml
 		  <?xml version="1.0" encoding="UTF-8"?>
@@ -86,13 +87,14 @@
 			- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 		- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 	- Log4j2 Appenders
-	  collapsed:: true
 		- ConsoleAppender
 		  collapsed:: true
 			- 功能：将日志输出到系统控制台。
 		- FileAppender
+		  collapsed:: true
 			- 功能：将日志写入文件。
 		- RollingFileAppender，滚动文件追加器
+		  collapsed:: true
 			- 功能：将日志写入滚动日志文件。
 			- 解决的问题：将所有内容都记录到一个文件中并不理想。定期滚动活动日志文件通常要好得多。也就是说他会在某个条件被触发的时候将现有的日志文件存档，新起一个文件进行日志记录。
 			- 参考配置
@@ -127,12 +129,15 @@
 			  </Configuration>
 			  ```
 			- 触发策略
+			  collapsed:: true
 				- 作用：触发策略确定是否应该执行翻转。
 				  collapsed:: true
 					-
 			- 滚动策略
+			  collapsed:: true
 				- 作用：滚动定义应该如何进行翻转，或者说是如何将现有的日志文件存档，创建一个新的文件。如果未配置 RolloverStrategy，RollingFileAppender 将使用 DefaultRolloverStrategy。
 			- 配置参数
+			  collapsed:: true
 				- append：如果为 true （默认值），则记录将附加到文件末尾。设置为 false 时，将在写入新记录之前清除该文件。
 				- bufferedIO：如果为 true （默认值），则记录将写入缓冲区，数据将在缓冲区已满时写入磁盘，或者，如果设置了 iminstantteFlush，则在写入记录时写入磁盘。文件锁定不能与缓冲 IO 一起使用。性能测试表明，即使启用了即时刷新，使用缓冲 I/O 也能显著提高性能。
 				- bufferSize：当 bufferedIO 为 true 时，这是缓冲区大小，默认值为 8192 字节。
@@ -143,6 +148,7 @@
 				- policy：用于确定是否应进行滚动更新的策略。
 				- strategy：用于确定存档文件的名称和位置的策略。
 			- 触发策略
+			  collapsed:: true
 				- 复合触发策略
 				    collapsed:: true
 					- 组合多个 `CompositeTriggeringPolicy` 触发策略，如果任何配置的策略返回 `true`，则返回 `true`。只需 `CompositeTriggeringPolicy` 将其他策略包装在 `Policies` 元素中即可进行配置。
@@ -150,11 +156,13 @@
 				    collapsed:: true
 					- 触发器基于 `CronTriggeringPolicy` cron 表达式的滚动更新。此策略由计时器控制，并且与处理日志事件是异步的，因此上一个或下一个时间段的日志事件可能会出现在日志文件的开头或结尾。追加器的 `filePattern` 属性应包含时间戳，否则目标文件将在每次翻转时被覆盖。
 				- 启动时触发策略
+				  collapsed:: true
 					- 如果日志文件早于当前 JVM 的启动时间，并且满足或超过最小文件大小，则该 `OnStartupTriggeringPolicy` 策略会导致滚动更新。
 				- 基于文件大小的触发策略
 				    collapsed:: true
 					- 一旦 `SizeBasedTriggeringPolicy` 文件达到指定大小，就会发生翻转。大小可以以字节为单位指定，后缀为 KB、MB、GB 或 TB，例如 20MB 。
 				- 基于时间的触发策略
+				  collapsed:: true
 					- TimeBasedTriggeringPolicy是基于`filePattern`中的`%d{yyyy-MM-dd-HH-mm-ss}`来决定到底采用哪种时间单位（天、小时、分钟、秒等）。
 					- 一旦 `TimeBasedTriggeringPolicy` 日期/时间模式不再适用于活动文件，就会出现翻转。此策略接受一个属性， interval 该属性指示根据时间模式和 modulate 布尔属性进行滚动更新的频率。
 					- 配置参数
@@ -192,6 +200,21 @@
 		- JDBCAppender
 		  collapsed:: true
 			- 功能：将日志记录到数据库
+			- 具体实践：将Log4j2中的日志输出到数据库中去
+			  collapsed:: true
+				- 步骤
+				  collapsed:: true
+					- 新建一张表结构
+					  ![库表.jpg](../assets/库表_1710771303693_0.jpg)
+					- 配置获取数据库连接的工厂类
+					  ![工厂类.jpg](../assets/工厂类_1710771487065_0.jpg)
+					- 在log4j2中配置JDBC和Async的Appender
+					  ![log4j2配置.jpg](../assets/log4j2配置_1710771403354_0.jpg)
+					- 配置日志输出的logger
+					  ![logger.jpg](../assets/logger_1710771545624_0.jpg)
+				- 注意
+					- 数据库表中throwable字段其实记录的是`e.printStack()`和`log.error("", e)`的错误日志。
+					- 因为上面采用的是异步的方式记录日志到数据库，所以代码执行的具体**行数**，无法在数据库中进行记录。
 		- FailoverAppender
 		  collapsed:: true
 			- 功能：配置一个故障转移策略Appender，在配置的主Appender失败时，就可以使用这个故障转移Appender做备份。
