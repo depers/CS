@@ -150,6 +150,7 @@
 					  collapsed:: true
 						- [这一次，彻底解决Java的值传递和引用传递](https://segmentfault.com/a/1190000016773324)
 				- 整数运算
+				  collapsed:: true
 					- 整数类型：byte, short, int, long
 					- 溢出：整数由于存在范围限制，如果计算结果超出了范围，就会产生溢出
 					- 加减乘除
@@ -175,6 +176,7 @@
 						- `>>`，右移相当于除2
 						- `>>>`，无符号右移，也相当于除2，与右移运算符不同的是
 					- 位运算
+					  collapsed:: true
 						- `&`，与预算
 						- `|`，或运算
 						- `~`，非运算
@@ -189,6 +191,7 @@
 						- 参与运算的两个数类型不一致，那么计算结果为较大类型的整型
 						- 大范围的整数转型为小范围的整数。强制转型使用(类型)。强转的结果可能是错的。
 				- 浮点数运算
+				  collapsed:: true
 					- float与double
 					  collapsed:: true
 						- // float f = 1.1; 是错的，Java 不能隐式执行向下转型，因为这会使得精度降低。
@@ -423,6 +426,7 @@
 						    collapsed:: true
 							- 如果它是一个非静态方法，JVM首先创建一个对象，然后调用`main()`方法，这将导致额外内存分配的问题。
 					- 静态代码块
+					  collapsed:: true
 						- 这里可以参考： ((650cd83c-47db-4160-a561-8e4f2952788f))
 					- 静态内部类
 					- 静态导包
@@ -909,12 +913,15 @@
 						- 实际意义：如果子类覆写了父类的方法，子类的引用在实际调用这个方法的时候，调用的是子类的方法。
 					- 代码块和加载顺序
 					  id:: 650cd83c-47db-4160-a561-8e4f2952788f
+					  collapsed:: true
 						- 代码块
 							- 局部代码块
+							  collapsed:: true
 								- 方法代码块，也就是具体方法的声明。
 								- 作用：限定变量的声明周期，尽早释放，节省内存。
 								- 调用：方法中的局部代码块一般进行一次性调用，调用完立刻释放内存空间，避免在接下来的调用过程中占用栈空间。栈空间内存有限，方法的调用会产生很多局部变量导致栈内存不足，使用局部代码块可以避免这个问题。
 							- 实例初始化代码块（普通代码块）
+							  collapsed:: true
 								- 没有关键字，一个花括号包裹的代码。
 								- 作用
 								    collapsed:: true
@@ -926,8 +933,10 @@
 									- 执行实例类的构造器中的代码
 								- 调用：每new一个对象，就会执行一次。
 							- 静态代码块
+							  collapsed:: true
 								- static修饰的代码块。
 								- 作用
+								  collapsed:: true
 									- 用于初始化静态数据成员。
 									- 它在类加载时在main方法之前执行。
 								- 调用：当new多个对象时，只有在第一次new对象的时候调用一次静态代码块，因为静态代码块和类变量一样，是属于类的，所有对象共享一份。
@@ -1143,6 +1152,7 @@
 		- 加解密与安全
 		  collapsed:: true
 			- 编码算法
+			  collapsed:: true
 				- ASCII码
 				  collapsed:: true
 					- 美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码
@@ -2010,6 +2020,7 @@
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 集合框架是在Java 1.2之后推出的，之前对Java对象进行集合操作的类是Array，Vectors或是HashTable，这些集合类都没有公共接口，尽管所有集合的主要目标是相同的，但所有这些集合的实现都是独立定义的，它们之间没有相关性。而且，用户很难记住每个集合类中出现的所有不同的方法、语法和构造函数。
@@ -2099,6 +2110,7 @@
 							- HashMap
 							- TreeMap
 			- Collections
+			  collapsed:: true
 				- 基本操作
 					- 获取list，map，set的不变实体
 					- addAll()：方法添加集合到另一个集合
@@ -2112,9 +2124,11 @@
 					- [Collections Class in Java](https://www.geeksforgeeks.org/collections-class-in-java/)
 					  id:: 63a8ef52-fbe6-4838-b3e2-620dbb283662
 			- Collection Interface
+			  collapsed:: true
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
+			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -2172,6 +2186,7 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
+				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- 使用双向链表来存储元素
@@ -2185,8 +2200,10 @@
 						- 它的Iterator和ListIterator迭代器是fail-fast
 						- 它可以用作list，stack，queue
 					- 使用
+					  collapsed:: true
 						- 创建：LinkedList<Integer> list = new LinkedList<>()
 						- 添加元素
+						  collapsed:: true
 							- add()
 							- addAll()
 							- addFirst()
@@ -2203,6 +2220,7 @@
 							- linkedList.pop()，检索第一个元素并从list删除该元素，若list为空，则抛出java.util.NoSuchElementException
 							- linkedList.push(1)，在list头部插入元素
 						- 总结
+						  collapsed:: true
 							- ArrayList 通常是默认的 List 实现，大家常常会使用这个实现
 							- 在恒定时间做插入、删除操作时，采用LinkedList往往是更好的选择。ArrayList更适合恒定的访问时间和有效的内存使用。
 					- 参考文章：
@@ -2210,6 +2228,7 @@
 						- javapoint：https://www.baeldung.com/java-linkedlist
 						- baeldung：https://www.javatpoint.com/java-linkedlist
 				- ArrayList
+				  collapsed:: true
 					- 介绍
 						- ArrayList是构建在数组之上的List实现之一
 					- 特点
@@ -2249,6 +2268,7 @@
 							- 通过迭代器去移除元素
 							- 通过使用Java8 Stream API
 					- 参考文章：
+					  collapsed:: true
 						- Baeldung：Guide to the Java ArrayList
 						- javatpoint：Java ArrayList
 					- 代码实现：cn.bravedawn.collection.list.arraylist
@@ -2264,6 +2284,7 @@
 						- 参考文章：https://www.baeldung.com/java-immutable-list
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/arraylist/ImmutableArrayListExample.java
 				- CopyOnWriteArrayList
+				  collapsed:: true
 					- 特点
 						- 是线程安全的。
 						- CopyOnWriteArrayList适合在迭代遍历场景较多，频繁修改场景较少的情况。读多写少。
@@ -2510,6 +2531,7 @@
 					- `TreeSet`是有序的，因为它实现了`SortedSet`接口。
 					- 使用`TreeSet`和使用`TreeMap`的要求一样，添加的元素必须正确实现`Comparable`接口，如果没有实现`Comparable`接口，那么创建`TreeSet`时必须传入一个`Comparator`对象。
 			- Map
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -2558,31 +2580,38 @@
 							- 即数组中的每个位置被当成一个桶，一个桶存放一个链表。
 							- HashMap 使用拉链法来解决冲突，同一个链表中存放哈希值和散列桶取模运算结果相同的 Entry。
 						- HashMap中检索一个元素的方法
+						  collapsed:: true
 							- 方法一：遍历所有元素，找到和键匹配的元素返回。这种时间复杂度是O(n)
 							- 方法二：使用HashMap的put()和get()方法，实现平均时间复杂度O(1)和空间复杂度O(n)
 						- HashMap中put和get操作的实现
+						  collapsed:: true
 							- HashMap将元素存储在所谓的桶（bucket）中，桶的数量称为容量。
 							- bucket的内部结构的数据结构可能是链表或是平衡树。
 							- 当我们向映射中添加一个元素时，将使用键的hashCode()方法来确定将存储该值的bucket。如果该桶已经包含一个值，会调用键对象的equals()方法判断桶内是否有相同键，若有则会覆盖原有的键所对应的value值；若没有则该值将被添加到属于该桶的列表(或树)中。如果容量大于阈值，则容量翻倍。
 							- 当我们想从映射中获取一个值时，HashMap以相同的方式计算桶——使用hashCode()。然后遍历在该bucket中找到的对象，并使用键的equals()方法在链表上顺序查找，时间复杂度显然和链表的长度成正比。
 						- HashMap中键的不变性
+						  collapsed:: true
 							- 在大多数情况下，我们应该使用不可变键，即就是要保证key的散列值不变。
 							- 一旦键改变，我们就不再能够获得相应的值，而是返回null。这是因为HashMap用错误的hashcode找到错误的bucket，然后在错误的bucket中搜索。
 						- 哈希碰撞
+						  collapsed:: true
 							- 要使其正确工作，相等的键必须具有相同的散列，然而，不同的键可以具有相同的散列。如果两个不同的键具有相同的散列，则属于它们的两个值将存储在同一个bucket中。在桶内，值存储在一个列表中，并通过遍历所有元素来检索。它的代价是O(n) ，这里的n指的是桶里键值对的大小。
 							- 从Java 8(参见JEP 180)开始，如果一个桶包含8个或更多的值，则存储在一个桶内的值的数据结构将从链表更改为红黑树，这将使性能提高到O(log n)，这里的n指的是桶里键值对的大小。如果某个时刻桶中只剩下2到6个键值对时，则将回退回链表。
 						- 容量和负载因子
+						  collapsed:: true
 							- 为了避免多个桶具有多个值，如果75%(负载系数)的桶变为非空的，则容量将翻倍。
 							- 默认负载系数为75%，初始容量为16。两者都可以在构造函数中设置。
 						- 底层代码解析：Java HashMap的底层实现
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/internals
 				- LinkedHashMap
+				  collapsed:: true
 					- 特点（与HashMap的区别）
 						- 也接受空键和空值。
 						- LinkedHashMap是通过哈希表和链表实现，增强了哈希映射的功能。
 						- 除了默认大小为 16 的底层数组外，它还维护一个贯穿其所有条目的双向链表，为LinkedHashMap.Entry有两个名为before，after的指针，分别指向上一个和下一个条目。从而保证了**元素的顺序**。
 						- 注意LinkedHashMap的这个链表定义了迭代的顺序，默认是元素的插入顺序（insertion-order）。
 					- Access-Order LinkedHashMap
+					  collapsed:: true
 						- 在LinkedHashMap的构造函数中有一个**accessOrder的参数**，若该参数为true，则就会设置迭代顺序为 LRU(Least Recently Used)，即最久未使用。
 					- 性能
 						- 基本操作：与HashMap相同，如果没有哈希冲突，map的基本操作（put、get、remove、containsKey）平均时间复杂度是O(1) 。但是由于维护双向链表的额外开销，LinkedHashMap的这种恒定时间性能可能会比 HashMap的恒定时间差一点。
@@ -2596,17 +2625,21 @@
 				- TreeMap
 				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- 不允许空键，但可能包含许多空值。空键是不允许的，因为compareTo()或compare()方法会抛出一个NullPointerException
 						- 因为TreeMap 树映射的属性，可以方便的获取 “最大的键”，“最小的键”，“大于或小于某个值的键”。
 						- 可以自定义TreeMap的排序规则。
 						- 不是线程安全的
 					- 默认排序
+					  collapsed:: true
 						- 当TreeMap的键为整数时，默认顺序是按照整数键的升序顺序进行排序的
 						- 当TreeMap的键为字符串时，默认顺序是按照字符串键的首字母的字母顺序进行排序的
 					- 与HashMap和LinkedHashMap的区别
+					  collapsed:: true
 						- 存储不同：与HashMap和LinkedHashMap不同，TreeMap在任何地方都不使用散列原则，因为它不使用数组来存储它的条目。
 						- 排序不同：HashMap映射不能保证存储的键的顺序，特别是不能保证这个顺序随着时间的推移保持不变，但是树映射可以保证键总是按照指定的顺序排序。
 					- TreeMap的内部实现
+					  collapsed:: true
 						- TreeMap继承了AbstractMap类。实现了NavigableMap接口，它的内部工作基于红黑树的原则。
 						- 红黑数是一个平衡二叉树，这个属性保证了像搜索、获取、放置和删除这样的基本操作需要的时间复杂度是O(log n)。
 						- 红黑数的排序规则是由元素的自然顺序或构造时定义的比较器决定的。
@@ -2866,8 +2899,10 @@
 						- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
 						- 具体实践：jvm-demo:cn.bravedawn.jvm.tool.ThreadGetAllStackTraces
 				- 线程切换
+				  collapsed:: true
 					- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 				- 线程的状态
+				  collapsed:: true
 					- 六种状态
 						- New（初始状态）：新创建的线程，尚未执行；
 						- Runnable
@@ -2887,6 +2922,7 @@
 						- Timed Waiting（超时等待）：运行中的线程，因为执行`sleep()`方法正在计时等待；
 						- Terminated（终止等待）：线程已终止，因为`run()`方法执行完毕；
 						- 参考文章
+						  collapsed:: true
 							- [Java线程的6种状态及切换(透彻讲解)](https://blog.csdn.net/pange1991/article/details/53860651)
 					- 状态转移图
 					- 线程终止的原因
@@ -2895,6 +2931,7 @@
 						- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 						- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
 				- 线程的方法
+				  collapsed:: true
 					- `start()`：启动新线程，这里面会调用run()方法
 					- `run()`：补充该线程需要执行的内容
 					- `join()`
@@ -2905,7 +2942,6 @@
 					- `isInterrupted()`：判断当前线程是否被中断。
 					- `sleep()`：一定是当前线程调用此方法，当前线程进入TIMED_WAITING状态，但不释放对象锁，millis后线程自动苏醒进入就绪状态。作用：给其它线程执行机会的最佳方式。
 					- `yield()`
-					    collapsed:: true
 						- 即 "谦让"，也是 Thread 类的方法。它让掉当前线程 CPU 的时间片，使正在运行中的线程重新变成就绪状态，并重新竞争 CPU 的调度权。它可能会获取到，也有可能被其他线程获取到。
 						- 一定是当前线程调用此方法，当前线程放弃获取的CPU时间片，但不释放锁资源，由运行状态变为就绪状态，让OS再次选择线程。作用：让相同优先级的线程轮流执行，但并不保证一定会轮流执行。实际中无法保证`yield()`达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。`Thread.yield()`不会导致阻塞。该方法与`sleep()`类似，只是不能由用户指定暂停多长时间。
 						- 参考文章
@@ -2938,6 +2974,7 @@
 						- `volatile`关键字解决的是可见性问题：当一个线程修改了某个共享变量的值，其他线程能够立刻看到修改后的值。
 				-
 			- 锁
+			  collapsed:: true
 				- 公平锁和非公平锁
 					- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 					- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
@@ -2962,11 +2999,13 @@
 						- 示例图
 						  ![非阻塞IO.png](../assets/非阻塞IO_1685864787196_0.png)
 					- 信号驱动的IO模型
+					  collapsed:: true
 						- 首先开启套接口信号驱动IO功能，并通过系统调用sigaction执行一个信号处理函数，此时请求即刻返回，当数据准备就绪时，就生成对应进程的SIGIO信号，通过信号回调通知应用线程调用recvfrom来读取数据。
 						- IO复用模型里面的select虽然可以监控多个fd了，但select其实现的本质上还是通过不断的轮询fd来监控数据状态， 因为大部分轮询请求其实都是无效的，所以信号驱动IO意在通过这种建立信号关联的方式，实现了发出请求后只需要等待数据就绪的通知即可，这样就可以避免大量无效的数据状态轮询操作。
 						- 示例图
 						  ![信号驱动的io模型.webp](../assets/信号驱动的io模型_1685865059269_0.webp)
 				- 异步非阻塞/异步IO-Async I/O
+				  collapsed:: true
 					- 通过观察我们发现，不管是IO复用还是信号驱动，我们要读取一个数据总是要发起两阶段的请求，第一次发送select请求，询问数据状态是否准备好，第二次发送recevform请求读取数据。
 					- 应用只需要向内核发送一个read 请求，告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
 					- 示例图
@@ -3088,6 +3127,7 @@
 			  collapsed:: true
 				- 推荐使用Java 7 nio Files.write 来创建和写入文件，因为它有更简洁的代码并自动关闭打开的资源。
 				- 实现
+				  collapsed:: true
 					- `Files.newBufferedWriter` (Java 8)
 					- `Files.write` (Java 7)
 					- `PrintWriter`
@@ -3095,6 +3135,7 @@
 					- `Files.writeString`（Java11）
 					- `FileOutputStream` 可以将原始字节写入文件，比如图片。
 			- 读取文件
+			  collapsed:: true
 				- 新的 Java 8 `Files.lines` 在读取小型或大型文本文件方面表现良好，返回一个 Stream（灵活类型并支持并行），自动关闭资源，并且有一行干净的代码。
 				- 实现
 				  collapsed:: true
@@ -3137,6 +3178,7 @@
 				- `FileUtils` – Apache Commons IO.
 			- 检查一个文件或目录是否存在
 			- Java读取文件到字符串
+			  collapsed:: true
 				- Java使用BufferedReader将文件读取为String
 				- 使用FileInputStream在Java中将文件读取为String
 				- Java使用Files类将文件读取为字符串
@@ -3397,6 +3439,7 @@
 								- 解决方法
 									- 方式一：虚拟机采用CAS配上重试机制保证内存分配操作的原子性
 									- 方式二：将内存分配的动作按照线程划分到不同的空间去进行，也就是说预先分配内存给线程，让线程自己在自己的内存空间上做分配，与其他线程互不影响。
+									  collapsed:: true
 										- 分配给线程的这块空间我们称之为：本地线程分配缓冲（Thread Local Allocation Buffer，简称TLAB）
 							- 对象的内存布局
 								- 对象头
@@ -3407,13 +3450,16 @@
 											- 锁状态标志
 											- 线程持有的锁
 									- 第二部分：类型指针，即对象指向它的类元数据的指针
+									  collapsed:: true
 										- 作用：通过这个指针来确定这个对象是那个类的实例
 									- 第三部分：记录数组长度的数据（还部分是**数组对象**特有的）
 								- 实例数据
 									- 作用：该部分存储的是程序代码中所定义的各种类型的字段内容，也就是这个对象的属性字段数据
 								- 对齐填充
+								  collapsed:: true
 									- 作用：因为JVM要求对象的起始地址必须是8字节的整数倍，也就是说对象的大小必须是8字节的整数倍，主要存储的是占位符，用来补全空间。
 							- 对象的访问定位
+							  collapsed:: true
 								- 访问和定位堆中对象具体位置的方法
 									- 使用句柄
 										- 使用句柄，Java堆中会划分出一块内存来作为句柄池，reference中存储句柄的地址，句柄中存储对象的实例数据和类型数据的具体地址信息
@@ -3515,6 +3561,7 @@
 					- 什么是垃圾回收：简单说就是内存中已经不在被使用到的内存空间就是垃圾。
 					- 判断对象可回收的方法
 					  id:: 640442e6-c01a-4193-a8c4-d43829e17969
+					  collapsed:: true
 						- 引用计数法
 							- 原理：给对象添加一个引用计数器，有访问就加1，引用失效就减1。
 							- 优点：实现简单、效率高
@@ -3523,6 +3570,7 @@
 						  id:: 64044e66-3742-4a9f-b08c-e25b45d4c214
 							- 从根（GC Roots）节点向下搜索对象节点，搜索走过的路径称为引用链（Reference Chain），当一个对象到根之间没有连通的话，则该对象不可用。
 							- Java语音中可作为GC Roots的对象包括：
+							  collapsed:: true
 								- 虚拟机栈（栈帧局部变量）中引用的对象
 								- 方法区类静态属性引用的对象
 								- 本地方法栈中JNI（即一般说的Native方法）引用的对象
@@ -3551,6 +3599,7 @@
 								- 在大量使用cglib、反射、动态代理等字节码框架
 								- 动态生成JSP以及OSGi等频繁自定义ClassLoader的场景
 					- 垃圾回收算法
+					  collapsed:: true
 						- 垃圾回收算法是内存回收的方法论
 						- 标记-清除算法
 						  id:: 640454c1-d575-4471-8253-b259cfdfd0d0
@@ -3586,6 +3635,7 @@
 								- 每次使用只使用Eden和一块Survivor空间
 								- 当回收时，将Eden区和刚才使用的Survivor区还存活的对象一次性复制到另一个Survivor空间上。若此时另一个Survivor空间内存不足时，将通过**分配担保机制**将这些存活的对象分配到 ((640457c7-910c-4bea-bb1d-de5d2dd61ae0)) 上（也就是说老年代在这里扮演了担保人的角色，当另一个Survivor空间内存不足时，可是使用老年代的内存）
 						- 标记-整理算法
+						  collapsed:: true
 							- 背景：复制算法在对象存活率较高时需要进行频繁的复制操作，效率较低。更为关键的是如果采用 ((64045bdf-5eee-44ca-bede-49e6e84d4ed3))这种方式需要额外的空间进行分配担保，以便于应对所有对象都100%存活的极端情况。
 							- 算法思想
 							  collapsed:: true
@@ -3593,11 +3643,13 @@
 								- 不直接对可回收对象进行清除，而是将所有存活的对象**移动并整理**到另一端内存
 								- 清除到原来那一端内存上的可回收对象
 						- 分代收集算法
+						  collapsed:: true
 							- 算法思想
 							  collapsed:: true
 								- 针对新生代采用复制算法
 								- 针对老年代采用标记-清除或是标记-整理算法
 					- HotSpot的算法实现
+					  collapsed:: true
 						- 枚举根节点
 						  collapsed:: true
 							- GC停顿（Stop the world）
@@ -3640,12 +3692,15 @@
 							- 目的：解决在程序执行时，线程因没有分配到CPU时间，从而无法响应JVM的中断请求，导致无法进行GC。
 							- 定义：安全区域是指在一段代码片段中，引用关系不会再发生改变，这个区域的任何位置开始GC都是安全的。
 					- 垃圾收集器
+					  collapsed:: true
 						- 垃圾收集器是内存回收的具体实现。
 						- 垃圾收集器按照收集内存区域的不同，分为老年代收集器和新生代收集器两种。两种不同的收集器可以组合使用
 						- 垃圾收集器的选择
+						  collapsed:: true
 							- 停顿时间短
 								- 这种收集器适合需要和用户交互的程序使用，良好的响应速度能提升用户的体验
 							- 吞吐量大
+							  collapsed:: true
 								- 这种收集器适合高效利用CPU时间，尽快完成运算任务的虚拟机，适合后台运算但不需要太多交互的任务
 						- 新生代收集器
 						  collapsed:: true
@@ -3733,6 +3788,7 @@
 									- **无法处理浮动垃圾**，在CMS并发清除阶段用户线程还在执行，会导致新的垃圾产生，这个些垃圾出现在标记过之后，CMS无法在当前收集中集中处理掉他们，只能放在下一次GC时再清理，这部分垃圾就称为浮动垃圾。
 									- **会产生大量空间碎片**，因为使用的是标记-清除算法。
 						- G1收集器
+						  collapsed:: true
 							- 特点
 								- 并行与并发，以获取最短回收停顿时间为目标的收集器
 								- 分代收集，分代收集的概念在G1收集器中仍然保留
@@ -3857,18 +3913,24 @@
 							  collapsed:: true
 								- [Java的jstat命令使用详解](https://cloud.tencent.com/developer/article/1985765)
 						- jinfo：Java配置信息工具
+						  collapsed:: true
 							- 功能：实时查看和调整虚拟机各项参数
 							- 命令格式：`jinfo [option] pid`
 							- 使用示例
+							  collapsed:: true
 								- 查看虚拟机未被显式指定的参数的系统默认值：`jinfo [pid]`
 							- 值得注意的
+							  collapsed:: true
 								- jinfo命令的部分功能在windows上是受限的
 						- jmap：Java内存映像工具
+						  collapsed:: true
 							- 功能：用于生成堆转储快照（一般称为heapdump或者dump文件）
 							- 相同功能的工具
+							  collapsed:: true
 								- 一是添加VM参数：`-XX:+HeapDumpOnOutOfMemoryError`参数，在发生OOM的时候会生成dump文件
 								- 二是添加VM参数：`-XX:+HeapDumpOnCtrlBreak参数`，可以使用[Ctrl]+[Break]键让虚拟机生成dump文件或者是在Linux系统中使用`kill -3`，发送进程退出信号让虚拟机生成dump文件
 							- 值得注意的
+							  collapsed:: true
 								- jinfo命令的部分功能在windows上是受限的
 						- jhat：虚拟机堆转储快照分析工具（JVM Heap Analysis Tool）
 							- 功能：与jmap搭配使用，来分析堆转储快照文件，也就是dump文件。jhat内置了一个微型的HTTP/Web的服务器，分析结果可以在浏览器中查看。

@@ -17,3 +17,6 @@
 	- 5.	领导者选举：Zookeeper 可以用于在分布式系统中选举领导者。各个节点可以在 Zookeeper 中创建一个临时节点，拥有该临时节点的节点即为领导者。
 	- 6.	分布式锁：Zookeeper 可以用于实现分布式锁。通过在 Zookeeper 中创建一个临时节点，当且仅当一个客户端持有该临时节点时，才能获取锁。
 	- 7.	队列管理：Zookeeper 可以用于实现简单的队列管理。客户端可以在 Zookeeper 中创建一个顺序节点，从而形成一个队列。
+- Zookeeper客户端curator的使用
+	- [Zookeeper客户端框架curator使用详解](https://juejin.cn/post/6984742386744164388?searchId=2024032015450699D3B90A54B0C6279D3A)
+	- [Apache Curator Framework教程（一）](https://zhuanlan.zhihu.com/p/603185454)
