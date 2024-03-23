@@ -1,4 +1,5 @@
 - 《Spring4.x企业级应用开发实战》
+  collapsed:: true
 	- 第一章 Spring概述
 	  collapsed:: true
 		- Spring的体系结构
@@ -229,6 +230,7 @@
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 		- BeanFactory、ApplicationContext和WebApplicationContext
 			- BeanFactory
+			  collapsed:: true
 				- 功能
 					- 一般称BeanFactory为Ioc容器
 					- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
@@ -788,6 +790,7 @@
 	- 第六章 Spring容器高级主题
 	  collapsed:: true
 		- 1.Spring容器技术内幕
+		  collapsed:: true
 			- Spring的内部工作机制
 			  collapsed:: true
 				- Spring中`AbstractApplicationContext`是`ApplicationContext`的抽象实现类，`AbstractApplication#refresh()`方法定义了Spring容器在加载配置文件之后各项处理过程。
@@ -996,22 +999,29 @@
 				- Spring的ApplicationContext能够发布事件并允许注册相应的事件监听器，有一套完整的事件发布和监听机制。
 			- Java通过`java.util.EventObject`类描述事件，`java.util.EventListener`接口描述监听器。
 			- 重要概念
+			  collapsed:: true
 				- 事件源：事件的产生者，任何一个EventObject都有一个事件源。
 				- 事件监听注册表：用于保存事件监听器。
+				  collapsed:: true
 					- 将一个注册一个事件监听器，就是将监听器保存到事件监听注册表。
 					- 当事件源产生事件时，就会通知位于注册表中的事件监听器。
 				- 事件广播器：是事件和监听器沟通的桥梁，负责把事件通知给事件监听器。
 				- 一个图
 				  ![事件体系.png](../assets/事件体系_1686122116114_0.png)
 			- Spring事件类结构
+			  collapsed:: true
 				- 事件类
+				  collapsed:: true
 					- 事件类结构图
 					  ![事件类结构图.png](../assets/事件类结构图_1686201445018_0.png)
 					- ApplicationEvent的唯一构造函数式ApplicationEvent(Object source)，通过source参数指定事件源。
 					- ApplicationEvent有两个子类
+					  collapsed:: true
 						- ApplicationContextEvent
+						  collapsed:: true
 							- 这个类代表容器事件，它拥有4个子类，分别代表了容器启动、刷新、停止和关闭的事件。
 						- RequestHandledEvent
+						  collapsed:: true
 							- 这个类是和web应用相关的事件，当一个http请求本处理后，就会产生该事件。
 						- 也可以根据自己的需要扩展`ApplicationEvent`定义自己的事件，完成其他的特殊功能。
 				- 事件监听接口
@@ -2362,20 +2372,20 @@
 		    collapsed:: true
 			- 建议使用Restemplate进行测试。
 - spring-core
-  collapsed:: true
 	- IOC
 	  collapsed:: true
 		- 对IOC的理解
-		  collapsed:: true
 			- 称为Inverse of Control，控制反转。也被叫做DI（Dependency Injection），依赖注入
-			- 让调用者类对某一个接口实现类的依赖关系由第三方（容器或者协作类）注入，从而移除调用者类对某一接口实现类的依赖。换一个通俗的说话，比如说调用者类A要使用接口B的实现类C，故类A和类C之前有着依赖关系，如果我们将依赖关系硬编码到类A的逻辑中，类A代码的耦合度就比较高了，这还只是类A与类C之间有依赖关系，要是类A依赖的类特别多，那该怎么办？类A就需要维护多个类的维护工作，代码耦合度很高。要是有第三方负责去管理这些被调用的类，调用类只负责使用不负责维护，我们开发代码的耦合度就会大大的降低。
+			- **依赖管理和低耦合**：让调用者类对某一个接口实现类的依赖关系由第三方（容器或者协作类）注入，从而移除调用者类对某一接口实现类的依赖。换一个通俗的说话，比如说调用者类A要使用接口B的实现类C，故类A和类C之前有着依赖关系，如果我们将依赖关系硬编码到类A的逻辑中，类A代码的耦合度就比较高了，这还只是类A与类C之间有依赖关系，要是类A依赖的类特别多，那该怎么办？类A就需要硬编码组织多个类的依赖关系，代码耦合度很高。要是有第三方负责去管理这些被调用的类，调用类只负责使用不负责维护，我们开发代码的耦合度就会大大的降低。
+			- **代码复用**：OC 促进了代码的重用，因为组件不再直接依赖于其他具体的实现，而是通过依赖注入的方式获取所需的依赖对象。这使得组件可以更容易地被复用在不同的上下文中。
+			- **可测试性**：由于依赖是通过外部注入的，所以在测试时可以更容易地模拟依赖对象，从而提高了测试的可重复性和效率。
+			- **松耦合**：IOC 使得组件之间的关系更加松耦合，减少了组件之间的直接依赖，提高了系统的灵活性和可扩展性。
+			- **配置灵活性**：使用 IOC 容器，你可以通过配置文件或注解来定义组件的依赖关系和配置，而无需在代码中进行硬编码。这提供了更大的配置灵活性和可维护性。
 		- IOC的类型
-		  collapsed:: true
 			- 构造函数注入
 			- 属性注入
 			- 接口注入
 		- 参考博客
-		  collapsed:: true
 			- [极简 Spring 框架 -- 浅析循环依赖](http://heeexy.com/2018/01/28/IoC/)
 			- [徒手撸框架--实现IoC](https://diaozxin007.github.io/2018/01/08/spring-ioc/)
 	- 在抽象类中使用@Autowired
@@ -2437,6 +2447,12 @@
 		- 参考文章
 			- [Guide To Running Logic on Startup in Spring](https://www.baeldung.com/running-setup-logic-on-startup-in-spring)
 			- [Spring PostConstruct and PreDestroy Annotations](https://www.baeldung.com/spring-postconstruct-predestroy)
+	- 在Spring中的Bean初始化之后，可以通过哪些方法实现启动时运行的逻辑（按照方法执行的顺序排列）
+	  collapsed:: true
+		- Bean的构造函数
+		- `@PostConstruct`注解方法
+		- `InitializingBean`的`afterPropertiesSet()`方法
+		- 在xml或是`@bean`中指定为`init-method` 的初始化方法
 - spring MVC
   collapsed:: true
 	- 过滤器
@@ -2709,6 +2725,7 @@
 - Spring Test
   collapsed:: true
 	- 在单元测试中如果依赖Spring的RequestContext，怎么办
+	  collapsed:: true
 		- 先看代码：
 		  ```Java
 		  // Spring-test 有一个灵活的请求模拟，称为 MockHttpServletRequest。

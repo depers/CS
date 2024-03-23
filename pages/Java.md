@@ -1840,16 +1840,13 @@
 		- SPI机制
 		  collapsed:: true
 			- 定义
-			  collapsed:: true
 				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。
 				- 核心思想是解耦。
 			- 实现
-			  collapsed:: true
 				- 定义一个接口。
 				- 为接口提供不同的实现。
 				- 在`resources`下新建`META-INF/services/`目录，以**接口名**新建一个文件，然后将**接口实现类的全限定名**写在该文件中。
 			- SPI机制的使用
-			  collapsed:: true
 				- JDBC DriverManager
 				  collapsed:: true
 					- 在Java17中可以参考`java.sql.DriverManager#ensureDriversInitialized`这个方法
@@ -1866,9 +1863,7 @@
 					- Spring在做自动装配的时候，会加载`META-INF/spring.factories`文件，而加载的过程是由`SpringFactoriesLoader`加载的。
 					- Spring中具体的代码在`org.springframework.core.io.support.SpringFactoriesLoader#loadFactoryNames`
 			- SPI深入原理
-			  collapsed:: true
 				- 使用流程
-				  collapsed:: true
 					- 定义标准，比如java.sql.Driver
 					- 具体厂商或是开发者实现
 					  collapsed:: true
@@ -1876,21 +1871,21 @@
 						- 编写接口实现
 					- 开发人员使用，这里可以参考JavaTrain项目的cn.bravedawn.spi.example.Test
 				- SPI和API之间的区别
-				  collapsed:: true
 					- API是我们直接调用一个方法，以达到某一个目标，代码逻辑组织在实现者的包中
 					- SPI是我们需要拓展和实现，以达到某一个目标，代码逻辑组织在调用者的包中
 				- SPI机制的实现原理
-				  collapsed:: true
 					- 源码类：java.util.ServiceLoader
 					- 具体阅读笔记参考：cn.bravedawn.spi.example.Test
 				- SPI的缺点
-				  collapsed:: true
 					- 不能按需加载，必须遍历所有实现并实例化，造成浪费
 					- 获取某个实现类的方式不够灵活，只能通过Iterator形式获取
 					- 多线程下使用ServiceLoader类的实例是不安全的
 				- 参考文章
-				  collapsed:: true
 					- [Java SPI机制：ServiceLoader实现原理及应用剖析](https://juejin.cn/post/6844903891746684941)
+		- JNDI机制
+		  collapsed:: true
+			- 定义：Java命名和目录接口（Java Naming and Directory Interface，缩写JNDI），是Java的一个目录服务应用程序接口（API），它提供一个目录系统，并将服务名称与对象关联起来，从而使得开发人员在开发过程中可以使用名称来访问对象。**说的直白一点JNDI类型于Windows的注册表，也就是说他记录者一个Map的结构，我们可以通过key获取到value。**
+			- 或者说它是一个资源管理器，其主要的目的还是在于程序的解耦。
 		- XML
 		  collapsed:: true
 			- XML文档的定义文件
@@ -2128,7 +2123,6 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
-			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -2514,7 +2508,6 @@
 				  collapsed:: true
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
-			  collapsed:: true
 				- `Set`用于存储不重复的元素集合。
 				- 关键方法
 				    collapsed:: true
@@ -2539,6 +2532,7 @@
 						- 因为性能，在一个未排序的list中查找一个特定值，需要的时间复杂度是O(n)；在一个已排序的list中查找的话需要的时间复杂度是O(logn)，例如使用二分搜索
 						- 使用map的话插入和检索一个元素，需要的时间复杂度是O(1)
 				- HashMap
+				  collapsed:: true
 					- 特点
 						- Map是一种key-value映射表的数据结构。
 						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉。
@@ -2614,7 +2608,7 @@
 					  collapsed:: true
 						- 在LinkedHashMap的构造函数中有一个**accessOrder的参数**，若该参数为true，则就会设置迭代顺序为 LRU(Least Recently Used)，即最久未使用。
 					- 性能
-						- 基本操作：与HashMap相同，如果没有哈希冲突，map的基本操作（put、get、remove、containsKey）平均时间复杂度是O(1) 。但是由于维护双向链表的额外开销，LinkedHashMap的这种恒定时间性能可能会比 HashMap的恒定时间差一点。
+						- 基本操作：与HashMap相同，**如果没有哈希冲突，map的基本操作（put、get、remove、containsKey）平均时间复杂度是O(1) 。**但是由于维护双向链表的额外开销，LinkedHashMap的这种恒定时间性能可能会比 HashMap的恒定时间差一点。
 						- 迭代：LinkedHashMap 的集合视图的迭代也需要类似于 HashMap的线性时间 O(n) 。但是，LinkedHashMap 在迭代过程中的线性时间性能优于 HashMap的线性时间。这是因为，对于LinkedHashMap，O(n) 中的 n 只是映射中的条目数，而与容量无关。而对于 HashMap，n 是容量和大小的总和，O(size+capacity)。
 						- 负载因子和初始化容量：负载因子和初始容量的定义与 HashMap相同。但是请注意，对于 LinkedHashMap而言，为初始容量选择过高的值的成本没有 HashMap高，因为此类的迭代时间不受容量的影响。
 						- 这里可以参考：底层代码解析：Java HashMap的底层实现
@@ -2623,9 +2617,7 @@
 						- 与HashMap相同，LinkedHashMap也是不同步的。最好在创建时就使用Collections.synchronizedMap()方法将其变成一个同步的map。
 					- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/linkedhashmap
 				- TreeMap
-				  collapsed:: true
 					- 特点
-					  collapsed:: true
 						- 不允许空键，但可能包含许多空值。空键是不允许的，因为compareTo()或compare()方法会抛出一个NullPointerException
 						- 因为TreeMap 树映射的属性，可以方便的获取 “最大的键”，“最小的键”，“大于或小于某个值的键”。
 						- 可以自定义TreeMap的排序规则。
@@ -2635,7 +2627,6 @@
 						- 当TreeMap的键为整数时，默认顺序是按照整数键的升序顺序进行排序的
 						- 当TreeMap的键为字符串时，默认顺序是按照字符串键的首字母的字母顺序进行排序的
 					- 与HashMap和LinkedHashMap的区别
-					  collapsed:: true
 						- 存储不同：与HashMap和LinkedHashMap不同，TreeMap在任何地方都不使用散列原则，因为它不使用数组来存储它的条目。
 						- 排序不同：HashMap映射不能保证存储的键的顺序，特别是不能保证这个顺序随着时间的推移保持不变，但是树映射可以保证键总是按照指定的顺序排序。
 					- TreeMap的内部实现
@@ -2790,6 +2781,7 @@
 						- HashMap可以使用initialCapacity和loadFactor进行调优，这对于TreeMap是不可能的。
 						- 我们可以使用LinkedHashMap，如果我们想保持插入顺序，同时受益于恒定的访问时间。
 				- 选择一个正确的Map
+				  collapsed:: true
 					- HashMap是一种提供快速存储和检索操作的通用映射实现。然而，由于条目的排列混乱、无序，它还不够完善。因为受容量（底层数据）和数据条目数量的影响，迭代场景下性能不佳。
 					- LinkedHashMap具有哈希映射的良好属性，并为条目增加了顺序。在有大量迭代的情况下，它的性能更好，因为只考虑条目的数量，而不考虑容量。
 					- TreeMap通过提供对键应该如何排序的完全控制，将排序提升到下一个层次。另一方面，它提供的总体性能比其他两个备选方案差。
@@ -4458,7 +4450,6 @@
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - Java EE
 	- Servlet
-	  collapsed:: true
 		- Java web application介绍
 		  collapsed:: true
 			- 静态和动态网站的区别
@@ -5376,7 +5367,7 @@
 				- https://tomcat.apache.org/tomcat-8.0-doc/config/context.html#Resource_Definitions
 				- https://blog.csdn.net/wn084/article/details/80736253
 			- 注意
-				- 关于</welcome-file>不能指定Servlet的解决办法：https://www.cnblogs.com/taoweiji/p/3248847.html，我这里采用的是<meta http-equiv="refresh" content="0;URL=/ServletJNDIByServer">
+				- 关于`</welcome-file>`不能指定Servlet的解决办法：https://www.cnblogs.com/taoweiji/p/3248847.html，我这里采用的是`<meta http-equiv="refresh" content="0;URL=/ServletJNDIByServer">`
 	- JDBC
 	  collapsed:: true
 		- JDBC核心API
