@@ -230,7 +230,6 @@
 						- 除：`/`/`/=`
 					- 移位运算符
 						- `<<`
-						  collapsed:: true
 							- 运算规则：**左移位会丢弃左边指定位数，右边补0**。
 							- 左移位操作，相当于乘2。
 							- int类型左移位数大于等于32位操作时，会先求余（%）后再进行左移操作。例如左移40位相当于左移8位（40%32=8）。
@@ -854,6 +853,7 @@
 						- Method Overloading in Java
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/overloading
 				- 继承
+				  collapsed:: true
 					- Java只允许一个class继承自一个类，因此，一个类有且仅有一个父类。只有Object特殊，它没有父类。
 					- 里氏替换原则
 					  collapsed:: true
@@ -2123,6 +2123,7 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
+			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -2508,6 +2509,7 @@
 				  collapsed:: true
 					- [Java Collections](https://www.baeldung.com/java-collections)
 			- Set
+			  collapsed:: true
 				- `Set`用于存储不重复的元素集合。
 				- 关键方法
 				    collapsed:: true
@@ -2524,7 +2526,6 @@
 					- `TreeSet`是有序的，因为它实现了`SortedSet`接口。
 					- 使用`TreeSet`和使用`TreeMap`的要求一样，添加的元素必须正确实现`Comparable`接口，如果没有实现`Comparable`接口，那么创建`TreeSet`时必须传入一个`Comparator`对象。
 			- Map
-			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -2617,6 +2618,7 @@
 						- 与HashMap相同，LinkedHashMap也是不同步的。最好在创建时就使用Collections.synchronizedMap()方法将其变成一个同步的map。
 					- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/linkedhashmap
 				- TreeMap
+				  collapsed:: true
 					- 特点
 						- 不允许空键，但可能包含许多空值。空键是不允许的，因为compareTo()或compare()方法会抛出一个NullPointerException
 						- 因为TreeMap 树映射的属性，可以方便的获取 “最大的键”，“最小的键”，“大于或小于某个值的键”。
@@ -2914,7 +2916,6 @@
 						- Timed Waiting（超时等待）：运行中的线程，因为执行`sleep()`方法正在计时等待；
 						- Terminated（终止等待）：线程已终止，因为`run()`方法执行完毕；
 						- 参考文章
-						  collapsed:: true
 							- [Java线程的6种状态及切换(透彻讲解)](https://blog.csdn.net/pange1991/article/details/53860651)
 					- 状态转移图
 					- 线程终止的原因
@@ -3325,12 +3326,10 @@
 		- JVM
 		  collapsed:: true
 			- GC日志的格式和配置方式
-			  collapsed:: true
 				- [求你了，GC 日志打印别再瞎配置了](https://segmentfault.com/a/1190000039806436)
 				- [Enable Logging with the JVM Unified Logging Framework](https://docs.oracle.com/en/java/javase/11/tools/java.html#GUID-BE93ABDC-999C-4CB5-A88B-1994AAAC74D5)
 				- [Java统一日志配置| java11 gc日志配置](https://zhuanlan.zhihu.com/p/350104527)
 			- 《深入理解Java虚拟机》
-			  collapsed:: true
 				- 第二章 Java的内存区域
 					- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 					  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
@@ -3352,15 +3351,12 @@
 						  collapsed:: true
 							- 作用：与Java虚拟机栈不同，本地方法栈描述的是native方法执行的内存模型。
 						- Java堆
-						  collapsed:: true
 							- 作用：用来存储应用系统创建的对象和数组。
 							- 区域划分
-							  collapsed:: true
 								- 区域图
 								  ![JVM堆的区域划分.webp](../assets/JVM堆的区域划分_1680093136228_0.webp)
 								- 元空间（Metadata Space，JDK1.8之前叫永久代）：像一些方法中的操作临时对象等，JDK1.8之前是占用JVM内存，JDK1.8之后直接使用物理内存
 								- 新生代（年轻代）：新对象和没达到一定年龄的对象都在年轻代
-								  collapsed:: true
 									- Eden Space：也叫伊甸区
 									- ((64375a7f-dd8b-41a8-939d-58a359b6fc4c)) ：两个存活区
 								- 老年代（Tenured Space）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大
@@ -3498,56 +3494,41 @@
 						  collapsed:: true
 							- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
 				- 第三章 垃圾回收器
-				  collapsed:: true
 					- 相关概念
-					  collapsed:: true
 						- 根据对象的存活周期不同将内存分为新生代、老年代
 						- 新生代
-						  collapsed:: true
 							- 定义：年轻代用来存放新近创建的对象堆内存空间。由Eden区和两个Survivor区组成。
 							- 特点
-							  collapsed:: true
 								- 每次垃圾回收都会有大量的对象死去，只有少量存活
 								- 有老年代为新生代进行内存分配担保
 						- 老年代
 						  id:: 640457c7-910c-4bea-bb1d-de5d2dd61ae0
-						  collapsed:: true
 							- 定义：老年代用来存放存活时间久的对象的堆内存空间。
 							- 特点
-							  collapsed:: true
 								- 对象存活率高
 								- 没有额外的内存为老年代进行内存分配担保
 						- 永久代
 						  id:: 64045857-a3d0-48e0-b083-94db4c2e7263
-						  collapsed:: true
 							- 定义：永久代不属于堆内存，是方法区的一种实现，用来存放加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据。
 						- 吞吐量（Throughput）
 						  id:: 6405ef3b-98b6-4356-bc2e-85a1a75e8dc0
-						  collapsed:: true
 							- 定义：CPU用于运行用户代码的时间与CPU总消耗时间的比值
 							- 公式：吞吐量 = 运行用户代码的时间 / (运行用户代码的时间 + 垃圾收集的时间)
 						- Ende区
-						  collapsed:: true
 							- **Eden Space**字面意思是伊甸园，对象被创建的时候首先放到这个区域，进行垃圾回收后，不能被回收的对象被放入到空的survivor区域。
 						- Survivor区
 						  id:: 64375a7f-dd8b-41a8-939d-58a359b6fc4c
-						  collapsed:: true
 							- **Survivor Space**幸存者区，用于保存在eden space内存区域中经过垃圾回收后没有被回收的对象。
 							- Survivor有两个，分别为To Survivor、 From Survivor，这个两个区域的空间大小是一样的。
 							- 为什么要设置两个Survivor区
-							  collapsed:: true
 								- 首先在解释这个问题之前，我们思考一下为什么需要Survivor区？
-								  collapsed:: true
 									- 假设堆结构只有新生代和老年代，发生新生代GC后直接将存活的对象移动到老年代，这样老年代很快就满了，老年代满了就要触发Full GC，Full GC速度是比较慢的，这样做还会导致频繁的进行Full GC，从而影响程序运行的效率和耗时。
-									- 所以我们得到的第一条结论就是：新生代GC之后存活的对象会先放到Survivor区，Survivor充当了新生代和老年代之间一个缓冲区，减少了被送到老年代的对象，进而减少Full GC的发生。只有当Survivor区的对象存活年龄达到阈值之后才会被移动到老年代。
+									- 所以我们得到的第一条结论就是：**新生代GC之后存活的对象会先放到Survivor区，Survivor充当了新生代和老年代之间一个缓冲区，减少了被送到老年代的对象，进而减少Full GC的发生。只有当Survivor区的对象存活年龄达到阈值之后才会被移动到老年代。**
 								- 设置两个Survivor区的目的在于解决了Survivor的空间碎片化问题
-								  collapsed:: true
 									- 参考文章： [为什么新生代内存需要有两个Survivor区](https://blog.csdn.net/antony9118/article/details/51425581)
 						- Full GC/Major GC
-						  collapsed:: true
 							- 是指发生在老年代的GC，出现了Major GC，经常伴随着一次Minor GC，回收速度比较慢。
 						- Minor GC
-						  collapsed:: true
 							- 也称为新生代GC，**新生代(新生代分为一个 Eden区和两个Survivor区)的垃圾收集叫做 Minor GC**。Minor GC非常频繁，一般回收速度也很快。
 							- 新生代的GC垃圾回收的对象是Eden区和一个Survivor区
 					- 什么是垃圾回收：简单说就是内存中已经不在被使用到的内存空间就是垃圾。
@@ -3684,20 +3665,16 @@
 							- 目的：解决在程序执行时，线程因没有分配到CPU时间，从而无法响应JVM的中断请求，导致无法进行GC。
 							- 定义：安全区域是指在一段代码片段中，引用关系不会再发生改变，这个区域的任何位置开始GC都是安全的。
 					- 垃圾收集器
-					  collapsed:: true
 						- 垃圾收集器是内存回收的具体实现。
 						- 垃圾收集器按照收集内存区域的不同，分为老年代收集器和新生代收集器两种。两种不同的收集器可以组合使用
 						- 垃圾收集器的选择
-						  collapsed:: true
 							- 停顿时间短
 								- 这种收集器适合需要和用户交互的程序使用，良好的响应速度能提升用户的体验
 							- 吞吐量大
 							  collapsed:: true
 								- 这种收集器适合高效利用CPU时间，尽快完成运算任务的虚拟机，适合后台运算但不需要太多交互的任务
 						- 新生代收集器
-						  collapsed:: true
 							- Serial收集器
-							  collapsed:: true
 								- 是一个单线程收集器
 								- 只会使用一个CPU或是一条收集线程去完成垃圾的回收工作
 								- 在垃圾回收时，必须暂停其他所有工作线程，直到他收集结束
@@ -3780,7 +3757,6 @@
 									- **无法处理浮动垃圾**，在CMS并发清除阶段用户线程还在执行，会导致新的垃圾产生，这个些垃圾出现在标记过之后，CMS无法在当前收集中集中处理掉他们，只能放在下一次GC时再清理，这部分垃圾就称为浮动垃圾。
 									- **会产生大量空间碎片**，因为使用的是标记-清除算法。
 						- G1收集器
-						  collapsed:: true
 							- 特点
 								- 并行与并发，以获取最短回收停顿时间为目标的收集器
 								- 分代收集，分代收集的概念在G1收集器中仍然保留
@@ -3824,28 +3800,24 @@
 						- 垃圾收集器的参数配置
 					- 内存分配与回收策略
 						- 内存分配的时机
+						  collapsed:: true
 							- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 						- 对象优先分配到Eden区
-						  collapsed:: true
 							- 大多数情况下，对象在新生代Eden区和中分配。当Eden区没有足够空间进行分配时，虚拟机将会发起一次Minor GC。（针对Serial+Serial Old收集器做的演示）
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.MinorGCDemo
 						- 大对象直接进入老年代
-						  collapsed:: true
 							- 大对象：就是需要大量连续内存空间的Java对象，典型的是长字符串和数组。
 							- 虚拟机提供了一个配置`-XX:PretenureSizeThreshold=3145728`，意思是说超过**3M**的对象会直接被分配到老年代
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.BigObjectGCDemo
 						- 长期存活的对象将进入老年代
-						  collapsed:: true
 							- 虚拟机采用了分代收集的思想来管理内存，对于经过多次垃圾回收还没有被回收的对象我们称为长期存活的对象
 							- 若对象在Eden区经过一次Minor GC就存活下来且能被Survivor的大小容纳，我们将其年龄定为1。此后该对象在Survivor区中每经过一次Minor GC且没有被回收，我们将其年龄加1
 							- 虚拟机提供了一个配置参数用来设置对象晋升到老年代的阈值。`-XX:MaxTenuringThreshold=15`，这个值默认是15，这个配置的意思就是说对象只有年龄经过15岁才能被移动到老年代
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.MaxTenuringGCDemo
 						- 动态对象年龄判定
-						  collapsed:: true
 							- 除了上面提到的“长期存活对象将进入老年代”这种算法外。如果在Survivor空间中相同年龄的所有对象的大小总和大于Survivor空间的一半，则年龄大于或等于这个年龄的对象就可以直接进入老年代，无需等到`MaxTenuringThreshold`设置的阈值。
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.DynamicAgeJudgeDemo
 						- 空间分配担保
-						  collapsed:: true
 							- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 							- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
 				- 第四章 虚拟机性能监控、故障处理工具

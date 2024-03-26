@@ -12,7 +12,6 @@
 - 数据结构
 	- String
 		- 使用场景
-		  collapsed:: true
 			- 缓存对象
 			- 常规计数
 			- 分布式锁

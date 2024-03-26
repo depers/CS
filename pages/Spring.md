@@ -2372,6 +2372,7 @@
 		    collapsed:: true
 			- 建议使用Restemplate进行测试。
 - spring-core
+  collapsed:: true
 	- IOC
 	  collapsed:: true
 		- 对IOC的理解

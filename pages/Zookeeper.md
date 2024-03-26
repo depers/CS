@@ -1,7 +1,6 @@
 - CAP理论
 - BASE理论
 - ZAB协议
-  collapsed:: true
 	- ZAB（ZooKeeper Atomic Broadcast）协议是 Zookeeper 用于保证数据一致性的一种分布式协议。它基于一种类似于两阶段提交（2PC）的算法，用于在分布式系统中实现原子广播。
 	- ZAB 协议的主要目标是确保所有节点对数据的变更达成一致，并保证数据的顺序性和一致性。协议分为三个阶段：
 	  	1.	领导者选举：在 ZooKeeper 集群中，通过选举产生一个领导者节点。只有领导者节点可以接受客户端的写请求。
@@ -20,3 +19,30 @@
 - Zookeeper客户端curator的使用
 	- [Zookeeper客户端框架curator使用详解](https://juejin.cn/post/6984742386744164388?searchId=2024032015450699D3B90A54B0C6279D3A)
 	- [Apache Curator Framework教程（一）](https://zhuanlan.zhihu.com/p/603185454)
+- Zookeeper常用命令
+	- `ls -s /path`和`stat /path`：都是用来查看节点状态的。
+		- 数据项说明：
+		    collapsed:: true
+			- `czxid` 创建该节点的事物ID
+			- `ctime` 创建该节点的时间
+			- `mZxid` 更新该节点的事物ID
+			- `mtime` 更新该节点的时间
+			- `pZxid` 操作当前节点的子节点列表的事物ID(这种操作包含增加子节点，删除子节点)
+			- `cversion` 当前节点的子节点版本号
+			- `dataVersion` 当前节点的数据版本号
+			- `aclVersion` 当前节点的acl权限版本号
+			- `ephemeralowner` 当前节点的如果是临时节点，该属性是临时节点的事物ID
+			- `dataLength` 节点存储的数据长度
+			- `numchildren` 当前节点的子节点个数
+	- `ls /path`：用于查看某个路径下目录列表。
+	- 具体的命令参考官方文档：https://zookeeper.apache.org/doc/r3.9.2/zookeeperCLI.html
+- 数据节点
+	- 节点的创建模式
+		- PERSISTENT：持久化节点
+		- PERSISTENT_SEQUENTIAL：持久化顺序节点
+		- EPHEMERAL：临时节点
+		- EPHEMERAL_SEQUENTIAL：临时顺序节点
+	- 顺序节点：创建顺序节点后，节点名称会拼接一个递增的十位序列号，比如我创建的路径是`/order`，得到的节点名称就是`order0000000001`。
+- Zookeeper官网：https://zookeeper.apache.org/
+- 教程
+	- [ZooKeeper 入门教程](https://luyuhuang.tech/2021/05/02/zookeeper.html#%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8)

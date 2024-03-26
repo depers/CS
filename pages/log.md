@@ -28,7 +28,36 @@
 	- 参考文章： [使用Commons Logging](https://www.liaoxuefeng.com/wiki/1252599548343744/1264738932870688)
 - Log4j2
   collapsed:: true
-	- Log4j是一个日志的具体实现。
+	- Log4j是一个日志的具体实现
+	- 在Spring中的使用
+	  collapsed:: true
+		- 引入依赖
+		  ```xml
+		  <dependencies>
+		   
+		    <dependency>
+		      <groupId>org.springframework.boot</groupId>
+		      <artifactId>spring-boot-starter</artifactId>
+		      <exclusions>
+		        <exclusion>
+		          <groupId>org.springframework.boot</groupId>
+		          <artifactId>spring-boot-starter-logging</artifactId>
+		        </exclusion>
+		      </exclusions>
+		    </dependency>
+		   
+		    <dependency>
+		      <groupId>org.springframework.boot</groupId>
+		      <artifactId>spring-boot-starter-log4j2</artifactId>
+		    </dependency>
+		   
+		    <dependency>
+		      <groupId>org.projectlombok</groupId>
+		      <artifactId>lombok</artifactId>
+		    </dependency>
+		   
+		  </dependencies>
+		  ```
 	- Log4j的架构
 	    collapsed:: true
 		- ![log4j2架构.png](../assets/log4j2架构_1695396536639_0.png)
@@ -87,6 +116,7 @@
 			- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 		- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 	- Log4j2 Appenders
+	  collapsed:: true
 		- ConsoleAppender
 		  collapsed:: true
 			- 功能：将日志输出到系统控制台。
@@ -249,8 +279,10 @@
 		- TRACE：跟踪等级的日志，指一些包含程序运行详细过程的信息。
 		- ALL 最低等级的，用于打开所有日志记录。
 	- 配置布局
+	  collapsed:: true
 		- 通过使用布局来定义日志消息的格式。
 		- Log4j2提供的常用布局：
+		  collapsed:: true
 			- *PatternLayout*：根据字符串规则配置消息格式
 			  collapsed:: true
 				- 该机制主要由包含转换说明符的转换模式驱动。每个说明符以% 符号开始，后面跟着控制消息的宽度和颜色等内容的修饰符，以及表示内容的转换字符，如日期或线程名称。
