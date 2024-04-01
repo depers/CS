@@ -2740,7 +2740,6 @@
 			- [springBoot整合的Junit4单元测试](https://www.jianshu.com/p/921282034c5d)
 			- [Spring Boot 基于 JUnit 5 实现单元测试](https://www.jianshu.com/p/4648fd55830e)
 - Spring Cloud
-  collapsed:: true
 	- [spring-cloud-release](https://github.com/spring-cloud/spring-cloud-release)
 	  collapsed:: true
 		- 该项目的作用就是管理SpringCloud版本的发布，主要做了二件事，一个是分布版本的规则，二是管理各个发布版本的子项目的版本的映射关系。
@@ -2817,25 +2816,33 @@
 			- [openFeign夺命连环9问，这谁受得了？](https://www.cnblogs.com/cbvlog/p/15322926.html)
 			- [Feign Client Exception Handling](https://www.baeldung.com/java-feign-client-exception-handling)
 	- Sentinel
-	  collapsed:: true
 		- 官网：[Sentinel](https://sentinelguard.io/zh-cn/index.html)
-		- 流量控制（flow controller）
+		- 常见的限流算法
 		  collapsed:: true
+			- 计数器算法
+				- 缺点：存在临界问题，无法应对突发流量。
+			- 滑动窗口算法（Sentinel）
+				- 可以解决临界问题，主要做法就是将时间段划分为较小的时间窗口，利用队列，先进先出。
+			- 令牌桶算法
+				- 令牌以固定的速率填充到桶中
+				- 请求过来之后先去获取令牌，如果获取不到则被限流
+			- 漏洞算法
+				- 请求就像水一样不断的被加入到这个漏洞中
+				- 如果漏斗中的水会按照一定的速率流出
+				- 如果请求过多，加入漏斗的水就会变多，从而使得请求被限流
+				- 缺点：无法解决突增的流量。
+		- 流量控制（flow controller）
 			- 定义：
-			  collapsed:: true
 				- 其原理是监控应用流量的 **QPS** 或**并发线程数**等指标，当达到指定的**阈值**时对流量进行控制，以避免被瞬时的流量高峰冲垮，从而保障应用的**高可用性**。
 				- 服务降级一般是指在服务器压力剧增的时候，根据实际业务使用情况以及流量，对一些服务和页面有策略的不处理或者用一种简单的方式进行处理，从而**释放服务器资源的资源以保证核心业务的正常高效运行。**
 			- 三种流控效果（controlBehavior）
 			  collapsed:: true
 				- 快速失败
-				  collapsed:: true
 					- 默认的流量控制方式，当QPS超过任意规则的阈值后，新的请求就会被立即拒绝，拒绝方式为抛出`FlowException`。
 				- warm up（热身）
-				  collapsed:: true
 					- 即**预热/冷启动**方式。当系统长期处于低水位的情况下，当流量突然增加时，直接把系统拉升到高水位可能瞬间把系统压垮。通过"冷启动"，让通过的流量**缓慢增加**，在**一定时间内**逐渐增加到**阈值上限**，给冷系统一个**预热**的时间，避免冷系统被压垮。
 					- 对应**令牌桶算法**
 				- 排队等待
-				  collapsed:: true
 					- 匀速排队方式会严格控制请求通过的间隔时间，也即是让请求以均匀的速度通过。
 					- 对应**漏桶算法**
 					- 适用场景：这种方式适合用于请求以突刺状来到，这个时候我们不希望一下子把所有的请求都通过，这样可能会把系统压垮；同时我们也期待系统以稳定的速度，逐步处理这些请求，以起到“**削峰填谷**”的效果，而不是拒绝所有请求。
@@ -2850,28 +2857,81 @@
 					- **典型的使用场景**：一个是**支付**接口，一个是**下单**接口，此时一旦**支付接口达到了阈值**，那么订单接口就应该被限流，不然这边还在下单，用户等待或者直接被拒绝支付将会极大的影响用户体验。**简而言之：A关联B，一旦B到达阈值，则A被限流**。
 				- 链路：只记录指定链路上的流量（指定资源从入口资源进来的流量，如果达到阈值，就可以限流）。
 			- 两种统计类型
-			  collapsed:: true
 				- QPS
-				  collapsed:: true
 					- 定义：每秒请求数，即在不断向服务器发送请求的情况下，服务器每秒能够处理的请求数量。
 					- 通俗理解：同时能接收的请求数量，也就是说同时能**接收**几个任务。
 				- 并发线程数
-				  collapsed:: true
 					- 定义：指的是施压机施加的同时请求的线程数量。
 					- 通俗理解：同时处理请求的线程数，也就是说同时有几个人能**干活**。
 		- 熔断降级
-		  collapsed:: true
 			- 服务雪崩的定义
-			  collapsed:: true
 				- 多个微服务之间调用的时候，假设微服务A调用微服务B和微服务C，微服务B和微服务C有调用其他的微服务，如果整个链路上某个微服务的调用响应式过长或者不可用，对微服务A的调用就会占用越来越多的系统资源，进而引起系统雪崩，所谓的”雪崩效应”。
 			- 定义
-			  collapsed:: true
 				- 应对微服务雪崩效应的一种链路保护机制，类似股市、保险丝
 				- 熔断机制是应对雪崩效应的一种微服务链路保护机制，当整个链路的某个微服务不可用或者响应时间太长时，会进行服务的降级，进而熔断该节点微服务的调用，快速返回”错误”的响应信息。
 		- 参考文章
-		  collapsed:: true
 			- [阿里限流神器Sentinel夺命连环 17 问？](https://www.cnblogs.com/cbvlog/p/15385100.html)
+		- 资源保护规则
+		  collapsed:: true
+			- 基于并发线程数和QPS的流量控制
+				- 并发线程数限流
+				    collapsed:: true
+					- 控制服务器的工作线程不会被耗尽。比如A服务调用B服务，如果B服务响应较慢，那么A服务的大量线程都会被占用，如果继续下去，A服务的线程资源就会被耗尽。
+					- 解决办法
+						- 不同的业务采用不同的线程池去执行，从而隔离单个业务自身的资源竞争问题，但是这样做依然会带来线程过多导致的上下文切换问题。
+						- Sentinel通过统计当前请求线程的上下文线程数量，如果超过阈值，则新的请求拒绝处理。
+				- QPS流量控制行为
+				    collapsed:: true
+					- 当QPS超过阈值之后，就会触发流量控制的行为，主要有以下四种：
+						- 直接拒绝
+						- 冷启动
+						- 匀速排队
+						- 冷启动+匀速排队
 	- consul
+	  collapsed:: true
 		- 各个端口的作用
 			- 8500：提供获取服务列表、注册服务、注销服务等HTTP接口；提供UI服务
 			- 8600：采用DNS协议提供服务发现功能
+	- Gateway
+	  collapsed:: true
+		- 技术选型
+		  collapsed:: true
+			- OpenResty
+			    collapsed:: true
+				- 本质上是将Lua嵌入到了Nginx中，每一个Nginx进程中都嵌入了一个LuaJIT的虚拟机来运行lua脚本。
+				- 可以在Nginx处理请求的不同阶段挂载Lua脚本实现不同阶段的自定义行为。
+			- Spring Cloud Zuul
+			    collapsed:: true
+				- 每个请求会分配一个线程来处理，直到请求完成才会释放线程资源，性能不好。
+			- Spring Cloud Gateway
+			    collapsed:: true
+				- Spring官方开发的API网关技术。
+				- Gateway与Zuul的优势在哪里？
+		- 主要功能
+		    collapsed:: true
+			- 认证鉴权
+			- 限流
+			- 灰度发布
+			- 日志
+			- 缓存
+		- 配置规则
+		    collapsed:: true
+			- id
+			    collapsed:: true
+				- 自定义路由ID
+			- Uri
+			    collapsed:: true
+				- 目标服务器地址
+				- 配置
+					- 支持普通URI
+					- `lb://应用注册服务名称`
+			- Predicate
+			    collapsed:: true
+				- 这个配置会返回一个布尔值，用于条件过滤和请求参数的校验。
+			- Filter
+			    collapsed:: true
+				- GatewayFilter
+					- 作用范围：单个路由或是一个分组上的路由。我的理解就是需要在filter之前配置一个Predicate的规则，他作用于满足这个规则的路由。
+				- GlobalFilter
+					- 作用范围：应用到所有的路由。
+		- 在该系统中主要做了流量分发，通过路由将请求发送到不同的微服务上。
