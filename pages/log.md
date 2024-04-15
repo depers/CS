@@ -309,9 +309,7 @@
 			- `DynamicThresholdFilter`：基于特定属性的过滤器日志行
 			- `RegexFilter`：根据消息是否与正则表达式匹配来筛选消息
 	- 配置Loggers
-	  collapsed:: true
 		- 属性
-		  collapsed:: true
 			- `name`：记录器名称
 			- `level`：记录器记录的日志级别，默认为ERROR
 			- `additivity`：是否支持与Root记录器叠加使用，默认为true
@@ -319,9 +317,8 @@
 			- `includeLocation`：关闭日志记录的行号信息，也就是说打印的日志不显示行号。这个配置比较消耗性能，如非必要不要设置该属性为true。
 		- 必须配置一个Root记录器
 		- Root记录器与其他记录器的区别
-		  collapsed:: true
 			- 根记录器没有名称属性。
-			- 根记录器不支持additivity属性，因为它没有父记录器。
+			- 根记录器不支持`additivity`属性，因为它没有父记录器。
 	- 使用MDC（Mapped Diagnostic Context）增强日志
 	  collapsed:: true
 		- 参考文章

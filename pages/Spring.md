@@ -1,5 +1,4 @@
 - 《Spring4.x企业级应用开发实战》
-  collapsed:: true
 	- 第一章 Spring概述
 	  collapsed:: true
 		- Spring的体系结构
@@ -123,7 +122,6 @@
 		- 运维支持
 			- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 	- 第四章 Ioc容器
-	  collapsed:: true
 		- Ioc概念的解释
 			- IOC，Inverse Control，控制反转。
 			- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -2677,8 +2675,13 @@
 - Spring Boot
   collapsed:: true
 	- SpringBoot注解
-		- @ConditionalOnProperty
-			- 使用这个注解我们可以判断Property的某些属性是不是需要的值，也就是说可以做属性值的判断。
+		- `@ConditionalOnProperty`
+			- 作用：我们需要根据配置属性是否存在、具体的值是什么，来**有条件地创建一些 bean**。
+			- 具体属性
+				- `prefix`：配置前缀
+				- `name`：具体的配置项名称
+				- `havingValue`：配置属性的具体的值，只有配置的值和该值是匹配的时候才执行创建bean的逻辑。
+				- `matchIfMissing`：如果配置文件中缺少该配置项，是否还继续执行创建bean的逻辑。如果设置为`true`的话，表明没有该配置项也会正常加载创建bean的逻辑，反之则不会生效
 		- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
 			- 这两个注解用于判断该程序是否web应用程序。
 	- 依赖管理
@@ -2740,6 +2743,7 @@
 			- [springBoot整合的Junit4单元测试](https://www.jianshu.com/p/921282034c5d)
 			- [Spring Boot 基于 JUnit 5 实现单元测试](https://www.jianshu.com/p/4648fd55830e)
 - Spring Cloud
+  collapsed:: true
 	- [spring-cloud-release](https://github.com/spring-cloud/spring-cloud-release)
 	  collapsed:: true
 		- 该项目的作用就是管理SpringCloud版本的发布，主要做了二件事，一个是分布版本的规则，二是管理各个发布版本的子项目的版本的映射关系。
@@ -2816,6 +2820,7 @@
 			- [openFeign夺命连环9问，这谁受得了？](https://www.cnblogs.com/cbvlog/p/15322926.html)
 			- [Feign Client Exception Handling](https://www.baeldung.com/java-feign-client-exception-handling)
 	- Sentinel
+	  collapsed:: true
 		- 官网：[Sentinel](https://sentinelguard.io/zh-cn/index.html)
 		- 常见的限流算法
 		  collapsed:: true
@@ -2832,6 +2837,7 @@
 				- 如果请求过多，加入漏斗的水就会变多，从而使得请求被限流
 				- 缺点：无法解决突增的流量。
 		- 流量控制（flow controller）
+		  collapsed:: true
 			- 定义：
 				- 其原理是监控应用流量的 **QPS** 或**并发线程数**等指标，当达到指定的**阈值**时对流量进行控制，以避免被瞬时的流量高峰冲垮，从而保障应用的**高可用性**。
 				- 服务降级一般是指在服务器压力剧增的时候，根据实际业务使用情况以及流量，对一些服务和页面有策略的不处理或者用一种简单的方式进行处理，从而**释放服务器资源的资源以保证核心业务的正常高效运行。**
@@ -2935,3 +2941,8 @@
 				- GlobalFilter
 					- 作用范围：应用到所有的路由。
 		- 在该系统中主要做了流量分发，通过路由将请求发送到不同的微服务上。
+- Spring Integration
+  collapsed:: true
+	- FTP
+		- [FTP/FTPS Adapters](https://docs.spring.io/spring-integration/reference/ftp.html)
+		- [Spring 技巧：远程文件系统集成 (FTP) 与 Spring 集成](https://spring.io/blog/2020/03/18/spring-tips-remote-file-system-integrations-ftp-with-spring-integration)

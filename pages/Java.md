@@ -1,5 +1,6 @@
 - Java语言
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -4420,6 +4421,7 @@
 			- `-source`：指定使用什么版本的JDK语法编译源代码
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - Java EE
+  collapsed:: true
 	- Servlet
 		- Java web application介绍
 		  collapsed:: true
