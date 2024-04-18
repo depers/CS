@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1546,7 +1545,6 @@
 				- 由工具处理.class文件使用的注解，比如有些工具会在加载class的时候，对class做动态修改，实现一些特殊的功能。这类注解会被编译进入.class文件，但加载结束后并不会存在于内存中。这类注解只被一些底层库使用，一般我们不必自己处理。
 				- 跟踪代码依赖性，实现替代配置文件功能。在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解。
 			- 元注解
-			  collapsed:: true
 				- `@Documented`：注解是否将包含在JavaDoc中
 				- `@Retention`： 什么时候使用该注解，定义注解的生命周期
 				  collapsed:: true
@@ -1554,7 +1552,6 @@
 					- `RetentionPolicy.CLASS`: 仅class文件。在类加载的时候丢弃。在字节码文件的处理中有用，它们不会被加载进JVM。注解默认使用这种方式
 					- `RetentionPolicy.RUNTIME` : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。该类型的注解会被加载进JVM，并且在运行期可以被程序读取
 				- `@Target`：注解用于什么地方，默认值为任何元素，表示该注解用于什么地方。可用的ElementType 参数包括：
-				  collapsed:: true
 					- `ElementType.CONSTRUCTOR`：用于描述构造器
 					- `ElementType.FIELD`: 成员变量、对象、属性（包括enum实例）
 					- `ElementType.LOCAL_VARIABLE`: 用于描述局部变量
@@ -1577,7 +1574,6 @@
 					- `@SuppressWarnings("serial")`：某类实现`Serializable`(序列化)， 但没有定义 serialVersionUID 时的警告
 					- `@SuppressWarnings("deprecation")`：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
 			- 定义一个注解
-			  collapsed:: true
 				- collapsed:: true
 				  1. 用`@interface`声明一个注解
 					- Annotation 型定义为@interface，所有的Annotation 会自动继承`java.lang.annotation.Annotation`这一接口，并且不能再去继承别的类或是接口
@@ -4375,7 +4371,6 @@
 				- java.util.function.BiConsumer
 				- 空笔记
 			- stream操作
-			  collapsed:: true
 				- Stream生命周期
 					- 流由三部分构成：数据源，一个或多个中间操作，一个或多个终止操作。
 					- **数据源**：为流提供数据。
@@ -4392,6 +4387,8 @@
 						- JavaTrain：cn/bravedawn/java8/stream/peek
 				- findAny
 				- findFirst
+				- map
+					- 这个函数就是一个类型转换的工作，比如我想从个人信息中获取他的年龄，比如我想讲字符串转换为整数，它会为集合中的每个元素执行该操作。
 			- Optional类
 			  collapsed:: true
 				- [Java 8 Optional 类](https://www.runoob.com/java/java8-optional-class.html)
@@ -4598,7 +4595,6 @@
 			  collapsed:: true
 				- web.xml文件是 web 应用程序的部署描述符，包含 servlet (3.0之前)、欢迎页面、安全配置、会话超时设置等的映射。
 		- Servlet简介
-		  collapsed:: true
 			- 开头
 			  collapsed:: true
 				- Servlet中的主要api是由javax.servlet-api提供的，主要的接口和类在javax.servlet和javax.servlet.http下面
@@ -4787,7 +4783,6 @@
 					- `include(ServletRequest request, ServletResponse response)`
 						- 在响应中包含资源(servlet、JSP页面、HTML文件)的内容
 			- HttpServletRequest interface
-			  collapsed:: true
 				- 关于httpServletRequest path API的讨论
 					- 附一张图
 					  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
@@ -5040,7 +5035,6 @@
 				  collapsed:: true
 					- 我们可以在ServletContentListener的初始化方法中，使用ServletContext.addServlet()方法去注册一个Servlet
 		- Servlet中Session的管理
-		  collapsed:: true
 			- 会话的定义
 			  collapsed:: true
 				- 背景
@@ -5141,12 +5135,10 @@
 					- cn.bravedawn.servlet.session.urlrewriting.LoginServlet
 					- cn.bravedawn.servlet.session.urlrewriting.LogoutServlet
 		- Servlet中的过滤器
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 在上一节中我们通过HttpSession实现会话管理时，我们通过判断session属性来判断用户是否登录（或者说会话是否有效），这个方式实现简单但是如果我们有大量的Servlet和jsp页面那该怎么办，如果在将来我们修改这个session属性，那我们的工作量就更大了。
 			- Servelt常见的使用场景
-			  collapsed:: true
 				- 将请求参数记录到日志文件
 				- 资源请求的认证和授权
 				- 在将请求正文（body）或报头（header）发送到servlet之前进行格式化

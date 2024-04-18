@@ -67,7 +67,6 @@
 		- 使用Log4j只需要把log4j2.xml和相关jar放入classpath，分别是log4j-api-2.x.jar、log4j-core-2.x.jar、log4j-jcl-2.x.jar。
 		- 只有扩展Log4j时，才需要引用Log4j的接口（例如，将日志加密写入数据库的功能，需要自己开发）。
 	- 主要的三个组件
-	  collapsed:: true
 		- Logger：用于记录消息。
 		- Appender：用于将日志信息发布到目标，如文件、数据库、控制台等。
 		- Layout：用于以不同的风格格式化日志信息。
@@ -312,13 +311,20 @@
 		- 属性
 			- `name`：记录器名称
 			- `level`：记录器记录的日志级别，默认为ERROR
-			- `additivity`：是否支持与Root记录器叠加使用，默认为true
+			- `additivity`：是否支持与Root记录器叠加使用，默认为true。如果设置为true，比如当前logger和Root都配置了输出到控制台的Appender，那么这个包下面的日志就会在控制台被输出两次。
 			- `AppenderRef`：一个记录器（Logger）可以配置多个追加器（Appender），如果配置了多个追加器，在处理日志记录事件的时候将分别调用每一个追加器。
 			- `includeLocation`：关闭日志记录的行号信息，也就是说打印的日志不显示行号。这个配置比较消耗性能，如非必要不要设置该属性为true。
 		- 必须配置一个Root记录器
 		- Root记录器与其他记录器的区别
+		  collapsed:: true
 			- 根记录器没有名称属性。
 			- 根记录器不支持`additivity`属性，因为它没有父记录器。
+		- 排除一些包的日志输出，该怎做
+		  collapsed:: true
+			- 比如我想要将http包下的日志排除或者说过滤，只需要配置一个logger就行，具体代码如下：
+			  ```xml
+			  <logger name="cn.bravedawn.http" level='debug'></logger>
+			  ```
 	- 使用MDC（Mapped Diagnostic Context）增强日志
 	  collapsed:: true
 		- 参考文章

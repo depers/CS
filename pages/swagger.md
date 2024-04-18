@@ -27,5 +27,6 @@
 	    ```java
 	    @ApiModelProperty(value = "用户名", name = "username", example = "imooc", required = true)
 	    ```
+- 汇总文章：[Java Swagger 常用注解说明](https://mazq.cn/java/2020/08/06/Swagger-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%E8%AF%B4%E6%98%8E/)
 - 替代品SpringDoc
 	- 参考文章：[秒懂SpringBoot之如何集成SpringDoc（全网目前最新最系统最全面的springdoc教程）](https://shusheng007.top/2023/06/21/springdoc/)

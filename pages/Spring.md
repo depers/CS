@@ -122,6 +122,7 @@
 		- 运维支持
 			- Spring提供了一个功能完备且可定制的启动器-Actuator，实现对应用本身、数据库等服务健康检查的检测功能。
 	- 第四章 Ioc容器
+	  collapsed:: true
 		- Ioc概念的解释
 			- IOC，Inverse Control，控制反转。
 			- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
@@ -645,6 +646,7 @@
 								- aspectj
 								- regex
 								- custom
+							- 参考文章：[Spring @ComponentScan – Filter Types](https://www.baeldung.com/spring-componentscan-filter-type)
 						- `use-default-filters`
 							- 默认值是`true`，表示默认会对`@Component`、`@Service`、`@Controller`和`@Resposity`的Bean进行扫描。
 							- 如果想只对`@Controller`标注的Bean进行扫描，必须将其值设置为`false`。
@@ -2453,7 +2455,6 @@
 		- `InitializingBean`的`afterPropertiesSet()`方法
 		- 在xml或是`@bean`中指定为`init-method` 的初始化方法
 - spring MVC
-  collapsed:: true
 	- 过滤器
 	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系

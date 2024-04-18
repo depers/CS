@@ -14,5 +14,6 @@
 		- 若数据库定义字段为`tinyint(2)`，映射之后的Java类型为`Byte`
 		- 若数据库定义字段为`tinyint(4)`，映射之后的Java类型也为`Byte`
 - sum()函数
-  collapsed:: true
 	- `sum()`函数可能会返回null值，故在MyBatis查询中应该设置resultType为integer类型，不能是int。查询完成之后，还需要判断该值是否为null，从而避免代码出现空指针。
+- 批量插入
+	- [MyBatis 批量插入数据的 3 种方法](https://juejin.cn/post/7016691244973686820)
