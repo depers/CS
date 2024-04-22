@@ -1,0 +1,23 @@
+- 语言基础
+	- 运行go语言文件：`go run <xxx.go>`
+	- 编译go语言文件为二进制文件，编译后的二进制文件可以直接执行：`go build <xxx.go>`
+	- 数据类型
+	  collapsed:: true
+		- 字符串
+		- 整数
+		- 浮点数
+		- 布尔值
+	- 变量声明
+	  collapsed:: true
+		- 字符串声明：`var a = "apple"`，或者`var s string = "apple"`，或者`a := "apple"`
+		- 整数声明：`var b int = 1`，或者`var b = 1`
+		- 布尔值声明：`var c = true`，或者`var c bool = true`
+		- 声明并初始化：`f := "apple"`，就等同于：`var f string = "apple"`
+		- 声明多个变量：`var a, b int = 1, 2`
+		- go可以默认自动推测数据类型。
+	- 声明常量
+	- For循环
+	- IF/Else语句
+	- Switch语句
+	- 数组
+	- 切片

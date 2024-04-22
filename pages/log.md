@@ -30,7 +30,6 @@
   collapsed:: true
 	- Log4j是一个日志的具体实现
 	- 在Spring中的使用
-	  collapsed:: true
 		- 引入依赖
 		  ```xml
 		  <dependencies>
@@ -71,7 +70,6 @@
 		- Appender：用于将日志信息发布到目标，如文件、数据库、控制台等。
 		- Layout：用于以不同的风格格式化日志信息。
 	- Log4j2的最佳实践
-	  collapsed:: true
 		- 为LogManager对象使用静态修饰符：当开发人员在代码中声明任何变量时，都会带来开销。开发人员可以通过如下所示声明静态Logger引用来克服这种开销。
 		  ```java
 		  private static final Logger log = Logger.getLogger(YourClassName.class);
@@ -87,7 +85,6 @@
 		- 如果给定的记录器没有分配级别，那么它将从最接近的祖先继承一个级别。这就是为什么开发人员总是将日志级别分配给配置文件中的根日志记录器，即log4j2.rootLogger=DEBUG。
 		- 参考文章： [Log4j 2 Best Practices Example](https://examples.javacodegeeks.com/java-development/enterprise-java/log4j/log4j-2-best-practices-example/)
 	- 简单自定义Log4j2的配置
-	  collapsed:: true
 		- 简单配置
 		  ```xml
 		  <?xml version="1.0" encoding="UTF-8"?>
@@ -115,12 +112,9 @@
 			- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 		- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 	- Log4j2 Appenders
-	  collapsed:: true
 		- ConsoleAppender
-		  collapsed:: true
 			- 功能：将日志输出到系统控制台。
 		- FileAppender
-		  collapsed:: true
 			- 功能：将日志写入文件。
 		- RollingFileAppender，滚动文件追加器
 		  collapsed:: true
@@ -398,7 +392,6 @@
 			- `%msg`：将消息写入日志。
 			- `%n`：换行，输出与平台相关的行分隔符字符。
 	- Policy触发策略
-	  collapsed:: true
 		- Policy是用来控制日志文件何时(When)进行滚动的。
 		- 如果配置的是RollingFile或RollingRandomAccessFile，则必须配置一个Policy。
 		- 触发策略
@@ -415,7 +408,6 @@
 					- **interval**：日记压缩的时间间隔，这个配置与filePattern属性的精确时间相关，上面配置的是`%d{yyyy-MM-dd}-%i.log.gz`，结尾时间是dd，也就是按照天作为时间间隔配置的单位
 					- **modulate**：是否对压缩时间进行调制。比如说我们配置interval="4"，filePattern配置的单位是小时，也就是每两个小时做一次压缩备份。 那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00， 之后的封存时间依次为08:00，12:00，16:00
 	- Strategy策略
-	  collapsed:: true
 		- Strategy是用来控制日志文件如何(How)进行滚动的。
 		- DefaultRolloverStrategy
 			- DefaultRolloverStrategy指定了当触发rollover时的默认策略。
@@ -437,6 +429,7 @@
 				- IfLastModified：匹配文件修改时间
 					- age：匹配超过180天的文件，单位D、H、M、S分别表示天、小时、分钟、秒
 	- 参考文章
+		- [Apache Log4j](https://logging.apache.org/log4j/2.x/)
 		- [Asynchronous Loggers for Low-Latency Logging](https://logging.apache.org/log4j/2.x/manual/async.html)
 		- [Java Logging Tutorials](https://www.javacodegeeks.com/java-logging-tutorials)
 		- [How Log4J2 Works: 10 Ways to Get the Most Out Of It](https://stackify.com/log4j2-java/)

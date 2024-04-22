@@ -1,5 +1,4 @@
 - 《Kubernetes实战》
-  collapsed:: true
 	- 第一章 Kubernetes介绍
 	  collapsed:: true
 		- 单体应用部署遇到的问题
@@ -107,6 +106,12 @@
 				- 创建命名空间的命令：
 					- 使用yaml：`kubectl create -f custom-namespace.yaml`
 					- 使用命令：`kubectl create namespace custom-namespace`
+	- 第六章 卷：将磁盘挂载到容器
+	  collapsed:: true
+		- 存储卷的作用
+			- 存储卷的原理是将外部存储设备（如云硬盘、NFS 等）或本地文件系统挂载到容器内部，使得容器可以像使用本地文件系统一样访问和修改存储卷中的数据。这样即使容器被重新调度或重新启动，存储卷中的数据仍然可以保持不变。
+		- 参考文章
+			- [K8S 进阶篇](https://www.liushuang6296.com/posts/8793c0e0/)
 	- 第七章 ConfigMap和Secret：配置应用程序
 	  collapsed:: true
 		- 参考文章
@@ -158,7 +163,6 @@
 		    collapsed:: true
 			- QoS（Quality of Service），大部分译为 “服务质量等级”，又译作 “服务质量保证”，是作用在 Pod 上的一个配置，当 Kubernetes 创建一个 Pod 时，它就会给这个 Pod 分配一个 QoS 等级。
 - 《Kubernetes修炼手册》
-  collapsed:: true
 	- 第二章 Kubernetes
 	  collapsed:: true
 		- *Kubernetes*
@@ -221,8 +225,10 @@
 				- *spec*
 					- 用于定义Pod所运行的容器。
 	- 第五章 Kubernetes Deployment
+	  collapsed:: true
 		- 部署*Deployment*对象
 	- 第六章 Kubernetes Service
+	  collapsed:: true
 		- 背景
 			- Pod的IP地址是不可靠的。在某个Pod失效之后，它会被一个拥有新的IP的Pod代替。Deployment扩容也会引入拥有新IP的Pod；而缩容则会删除Pod。这会导致大量的IP流失，因而Pod的IP地址是不可靠的。
 		- 关于Service
@@ -252,6 +258,7 @@
 			- 支持多种运维操作：红蓝发布、金丝雀发布等，简单而强大。
 		- Service推荐使用声明式的方式去使用，不推荐命令式。
 	- 第七章 Kubernetes的服务发现
+	  collapsed:: true
 		- Kubernetes *Service*服务注册的过程
 			- 注册过程中涉及到的组件有
 				- Kubernetes中内部的一个DNS服务作为注册中心。
@@ -340,5 +347,3 @@
 	- docker中的容器是镜像运行的实体，docker中的镜像和实体类似于Java中的类和对象的关系。
 	- k8s中的pod相当于一个逻辑主机，可以在这里运行一个或多个容器。
 	- [kubernetes——pod和docker容器的关系](https://juejin.cn/user/4353721777532574/posts)
-- 存储卷的作用
-	- 存储卷的原理是将外部存储设备（如云硬盘、NFS 等）或本地文件系统挂载到容器内部，使得容器可以像使用本地文件系统一样访问和修改存储卷中的数据。这样即使容器被重新调度或重新启动，存储卷中的数据仍然可以保持不变。

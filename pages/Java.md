@@ -692,40 +692,35 @@
 				  collapsed:: true
 					- 方法实现：实现Cloneable接口，重写clone方法（clone() 是 Object 的 protected 方法，它不是 public）
 					- 对象拷贝
-					  collapsed:: true
 						- 浅拷贝
-						  collapsed:: true
 							- 拷贝对象和原始对象的属性的引用类型引用的是同一个对象
 							- 特点
-							  collapsed:: true
 								- 主对象的内存地址不同，是不同对象。属性对象的内存地址相同，是同一对象。
 								- 浅拷贝只复制“主”对象，但不会复制“主”对象的里面的对象（属性），”里面的对象“会在原来的对象和它的副本之间共享。
+							- 常用API
+								- Spring中的`BeanUtils`是浅拷贝。
 						- 深拷贝
-						  collapsed:: true
 							- 拷贝对象和原始对象的属性的引用类型引用是不同对象
 							- 特点
 							  collapsed:: true
 								- 主对象的属性对象内存地址不同，都是不同对象。
 								- 深拷贝是一个整个独立的对象拷贝，深拷贝会拷贝所有的属性,并拷贝属性指向的动态分配的内存。当对象和它所引用的对象一起拷贝时即发生深拷贝。深拷贝相比于浅拷贝速度较慢并且花销较大。
 							- 方法
-							  collapsed:: true
 								- 1. 构造函数
 								  2. 覆写clone方法
 								  3. Serializable序列化
 								  4. Json序列化
 					- 引用拷贝
-					  collapsed:: true
 						- 创建一个指向对象的引用变量的拷贝。指两个不同的引用变量指向同一个对象实例，即他们指向的是同一个相同的引用地址，也就是同一个对象。
 						- 特点：
-						  collapsed:: true
 							- 对象的内存地址一样，同一个对象
 					- 最佳实践
-					  collapsed:: true
 						- 最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象
 						- 使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换
 					- 参考文章
-					  collapsed:: true
 						- [Java深入理解深拷贝和浅拷贝区别](https://blog.csdn.net/riemann_/article/details/87217229)
+						- [Java对象拷贝原理剖析及最佳实践](https://juejin.cn/post/7169424420191240228#heading-0)
+						- [BeanUtils 如何拷贝 List](https://juejin.cn/post/6844904046956904456)
 				- Object.equals()的逻辑
 				  collapsed:: true
 					- 先判断两个对象是否相等，若是返回true，否则false；若两个参数都为null也返回true；
@@ -1002,9 +997,7 @@
 					  collapsed:: true
 						- pacakge-info.java是一个Java文件，可以添加到任何的Java源码包中。pacakge-info.java的目标是提供一个包级的文档说明或者是包级的注释。
 				- 内部类
-				  collapsed:: true
 					- 内部类
-					  collapsed:: true
 						- 可以用Outer.this引用Outer实例
 						- 可以修改Outer Class的private字段
 						- 可以访问Outer Class的private字段和方法
@@ -1045,14 +1038,11 @@
 		- 异常处理
 		  collapsed:: true
 			- 异常体系
-			  collapsed:: true
 				- 分类
-				  collapsed:: true
 					- 检查性异常：需强制捕获
 					- 运行时异常：无需强制捕获
 					- 错误：无需捕获的严重错误
 				- 关键字
-				  collapsed:: true
 					- try： 用于监听
 					- catch： 用于捕获异常
 					- finally：finally语句块总是会被执行
@@ -1064,6 +1054,7 @@
 					- catch的顺序非常重要：子类必须写在前面
 					- 多个catch语句只有一个能被执行
 				- finally语句
+				  collapsed:: true
 					- finally语句不是必须的，可写可不写
 					- finally总是最后执行
 					- finally是用来保证一些代码必须执行的
@@ -1072,7 +1063,6 @@
 					- 一个catch语句也可以匹配多个非继承关系的异常
 					- 因为处理异常的逻辑想通过，可以用`|`合并到一起，像这样catch (IOException | NumberFormatException e)
 			- 抛出异常
-			  collapsed:: true
 				- 调用printStackTrace()可以打印异常的传播栈，对于调试非常有用
 				- 保存原始的Exception信息
 				  collapsed:: true
@@ -1086,11 +1076,14 @@
 						- 方法一：将catch中的异常使用一个变量进行保存，然后在finally的异常中，使用e.addSuppressed(origin)方法添加到屏蔽异常的数组中
 						- 方法二：try-with-resource代码块可以直接捕获屏蔽异常
 			- 自定义异常
-			  collapsed:: true
+				- `Throwable`的四个参数
+					- `message` – 错误信息
+					- `cause` – 错误原因，可以为null，标识不存在原因或是未知
+					- `enableSuppression` – 是否开启抑制异常
+					- `writableStackTrace` – 表示当前异常定义的位置是否会被写入异常堆栈
 				- Java标准库定义的常用异常
 				  collapsed:: true
 					- Exception
-					  collapsed:: true
 						- RuntimeException
 						  collapsed:: true
 							- NullPointerException
@@ -1124,7 +1117,6 @@
 				- 对特定的包启用断言：`-ea:com.itranswarp.sample...`，注意后面有三个.
 				- 对可恢复的错误不能使用断言，而应该抛出异常；
 			- 反射相关的异常
-			  collapsed:: true
 				- InvocationTargetException
 				  collapsed:: true
 					- 背景
@@ -1152,7 +1144,6 @@
 		- 加解密与安全
 		  collapsed:: true
 			- 编码算法
-			  collapsed:: true
 				- ASCII码
 				  collapsed:: true
 					- 美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码
@@ -1240,27 +1231,41 @@
 							- 当发生冲突时，使用第二个、第三个、哈希函数计算地址，直到无冲突时。缺点：计算时间增加。
 							    比如上面第一次按照姓首字母进行哈希，如果产生冲突可以按照姓字母首字母第二位进行哈希，再冲突，第三位，直到不冲突为止
 				- 常见的哈希算法
+				  collapsed:: true
 					- MD(Message Digest)：消息摘要算法
 					- SHA(Secure Hash Algorithm)：安全散列算法
 					- SM3：国密签名算法
 					- 相同点
-					  collapsed:: true
 						- 都是密码散列函数，加密不可逆。
 						- 都可以实现对任意长度对象加密，都不能防止碰撞。
 					- 不同点
-					  collapsed:: true
 						- SHA256（⼜称SHA2）的安全性最⾼，但是耗时要⽐MD5多很多。
 						- md5相对来说比较容易碰撞，安全性没这么高。
 					- 参考文章
-					  collapsed:: true
 						- [哈希算法的常见种类及特点有哪些？](https://juejin.cn/post/7089749167886565413)
 				- 用途
+				  collapsed:: true
 					- 验证软件安装文件是否被人篡改
 					- 数据库用户密码存储
 				- 加盐
+				  collapsed:: true
 					- 目的：使黑客的彩虹表失效，即使用户使用常用口令，也无法从MD5反推原始口令
 					- 彩虹表：提前计算好的密码和其哈希值对照表
 					- 定义：对密码额外添加随机数，这个方法称之为加盐（salt），其算法：digest = md5(salt+inputPassword)
+			- 非加密哈希算法
+				- 与加密哈希算法的区别
+					- 从安全性来讲，加密哈希算法的安全性更高。
+					- 从作用来讲，加密哈希算法是用来保证数据安全属性，很难发生碰撞或是找到哈希值的原文。而非加密哈希算法则更多是是为了进行散列，安全性和发生碰撞的问题远高于加密哈希算法。
+					- 从场景来看，加密哈希函数主要用于数字签名、消息认证码等需要保证数据可靠性和安全性的场景。非加密哈希函数则更多地被用于简单数据校验、散列函数、校验和计算等场景。
+				- 常见的非加密哈希算法
+					- MurMurHash
+						- Apache commons-codec对其有封装。
+					- CRC32
+						- Apache commons-codec对其有封装。
+						- Redis Cluster中slot的槽位计算用的就是该算法。
+				- 参考文章
+					- [漫谈非加密哈希算法](https://www.obooks.net/post-727.html)
+					- [加密哈希函数和非加密哈希函数的区别](https://worktile.com/kb/p/48530)
 			- BouncyCastle
 			  collapsed:: true
 				- BouncyCastle就是一个提供了很多哈希算法和加密算法的第三方库。它提供了Java标准库没有的一些算法，例如，RipeMD160哈希算法。
@@ -4361,7 +4366,6 @@
 		- Java8
 		  collapsed:: true
 			- 我不会的函数
-			  collapsed:: true
 				- java.util.Map#compute
 				- java.util.Map#merge
 				- java.util.function.BiFunction
@@ -4371,6 +4375,7 @@
 				- java.util.function.BiConsumer
 				- 空笔记
 			- stream操作
+			  collapsed:: true
 				- Stream生命周期
 					- 流由三部分构成：数据源，一个或多个中间操作，一个或多个终止操作。
 					- **数据源**：为流提供数据。
@@ -4392,6 +4397,13 @@
 			- Optional类
 			  collapsed:: true
 				- [Java 8 Optional 类](https://www.runoob.com/java/java8-optional-class.html)
+			- 函数接口
+				- `Supplier`接口
+					- 不接收任何参数，但会返回一个结果。
+					- `Supplier`比较常用的场景是提供一个返回结果。比如从HTTP请求中获取一个值，这个操作可以用`Supplier`包装起来。虽然`Supplier`可以返回静态的字符串或者其他对象，但实际开发中这样的业务逻辑不如直接写一个方法进行返回来的简单明了。`Supplier`真正的用武之地是对一个复杂操作返回结果进行包装。
+				- `Consumer`接口
+					- 接收一个参数，但不返回任何结果。
+					- `Consumer`的常用场景是对已有数据的处理，比如创建一个对象之后发送到kafka、redis、写入数据库等。
 			- Lambda表达式
 			  collapsed:: true
 				- Variable used in lambda expression should be final or effectively final
