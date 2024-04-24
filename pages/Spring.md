@@ -1,4 +1,5 @@
 - 《Spring4.x企业级应用开发实战》
+  collapsed:: true
 	- 第一章 Spring概述
 	  collapsed:: true
 		- Spring的体系结构
@@ -2454,7 +2455,15 @@
 		- `@PostConstruct`注解方法
 		- `InitializingBean`的`afterPropertiesSet()`方法
 		- 在xml或是`@bean`中指定为`init-method` 的初始化方法
+	- 根据配置文件批量创建Bean
+	  collapsed:: true
+		- 方法一：通过实现`ImportBeanDefinitionRegistrar`的`registerBeanDefinitions()`方法
+		- 方法二：通过实现`BeanDefinitionRegistryPostProcessor`的`postProcessBeanDefinitionRegistry()`方法
+		- 参考文章
+			- [SpringBoot根据配置文件动态创建Bean](https://juejin.cn/post/7223325947339931707#heading-2)
+			- [Spring系列之@import详解(bean批量注册)](https://juejin.cn/post/7092972221097836575#heading-44)
 - spring MVC
+  collapsed:: true
 	- 过滤器
 	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
@@ -2676,7 +2685,9 @@
 - Spring Boot
   collapsed:: true
 	- SpringBoot注解
+	  collapsed:: true
 		- `@ConditionalOnProperty`
+		  collapsed:: true
 			- 作用：我们需要根据配置属性是否存在、具体的值是什么，来**有条件地创建一些 bean**。
 			- 具体属性
 				- `prefix`：配置前缀
@@ -2684,7 +2695,10 @@
 				- `havingValue`：配置属性的具体的值，只有配置的值和该值是匹配的时候才执行创建bean的逻辑。
 				- `matchIfMissing`：如果配置文件中缺少该配置项，是否还继续执行创建bean的逻辑。如果设置为`true`的话，表明没有该配置项也会正常加载创建bean的逻辑，反之则不会生效
 		- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
+		  collapsed:: true
 			- 这两个注解用于判断该程序是否web应用程序。
+		- `@ConfigurationProperties`
+			- 参考文章：[Guide to @ConfigurationProperties in Spring Boot](https://www.baeldung.com/configuration-properties-in-spring-boot)
 	- 依赖管理
 	  collapsed:: true
 		- Spring Boot 的每个版本都提供了它支持的依赖项列表，因此，我们在引入其他的依赖时不需要在配置中指定依赖项的版本，Spring Boot会自行管理。具体可以参考文章：[springboot依赖的一些配置：spring-boot-dependencies、spring-boot-starter-parent、io.spring.platform](https://www.cnblogs.com/leeego-123/p/12665279.html)

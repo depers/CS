@@ -1,5 +1,4 @@
 - 一级缓存的问题
-  collapsed:: true
 	- 背景：今天我在写代码的时候发现，我在一个for循环里面重复执行一个sql，发现sql返回的实体对象还是之前的那个，多次循环查询都是一个对象，而且日志也没有打印sql，我怀疑Mybatis压根就没有执行这条sql。
 	- 原因
 		- mybatis会默认会开启一级缓存，一级缓存就是同一个`SqlSession`中，执行相同的sql语句，Mybatis会将第一次查询的数据写到缓存中（内存），第二次再次查询的时候就不会从数据库中查询，会直接范湖缓存中的结果。
@@ -8,7 +7,6 @@
 		- 我这边还做了一个实验，就是如果在一个`SqlSession`中对先查询了记录A，然后在后续的逻辑中修改了记录A，然后我第二次再次查询记录A的时候发现去数据库查了。也就是说，Mybatis中你对这条记录做了修改，他就会将上一次记录的一级缓存给删除了。
 	- 参考文章： [mybatis的缓存机制（一级缓存二级缓存和刷新缓存）和mybatis整合ehcache](https://blog.csdn.net/u012373815/article/details/47069223)
 - tinyint类型
-  collapsed:: true
 	- 在mybatis generator项目中，tinyint类型字段的实体映射逻辑：
 		- 若数据库定义字段为`tinyint(1)` ，映射之后的Java类型为`Boolean`
 		- 若数据库定义字段为`tinyint(2)`，映射之后的Java类型为`Byte`
