@@ -2685,9 +2685,7 @@
 - Spring Boot
   collapsed:: true
 	- SpringBoot注解
-	  collapsed:: true
 		- `@ConditionalOnProperty`
-		  collapsed:: true
 			- 作用：我们需要根据配置属性是否存在、具体的值是什么，来**有条件地创建一些 bean**。
 			- 具体属性
 				- `prefix`：配置前缀
@@ -2695,7 +2693,6 @@
 				- `havingValue`：配置属性的具体的值，只有配置的值和该值是匹配的时候才执行创建bean的逻辑。
 				- `matchIfMissing`：如果配置文件中缺少该配置项，是否还继续执行创建bean的逻辑。如果设置为`true`的话，表明没有该配置项也会正常加载创建bean的逻辑，反之则不会生效
 		- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
-		  collapsed:: true
 			- 这两个注解用于判断该程序是否web应用程序。
 		- `@ConfigurationProperties`
 			- 参考文章：[Guide to @ConfigurationProperties in Spring Boot](https://www.baeldung.com/configuration-properties-in-spring-boot)

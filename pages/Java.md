@@ -1,9 +1,11 @@
 - Java语言
 	- Java基础
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
+				  collapsed:: true
 					- 整型
 						- byte，1个字节
 						- short，2个字节
@@ -544,15 +546,22 @@
 						- 提取公共部分，括起子规则
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.BracketExample
 						- 分组匹配
+							- 使用`Matcher`时，必须首先调用`matches()`判断是否匹配成功，匹配成功后，才能调用`group()`提取子串。
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.GroupMatch
 				- 使用Pattern只做一次编译，不建议使用String.matches()
 				- 非贪婪匹配?
 				- 搜索和替换
-					- 分割字符串：String.split()
-					- 搜索字符串：Matcher.find()
-					- 替换字符串：String.replaceAll()
+					- 分割字符串：`String.split()`
+					- 搜索字符串：`Matcher.find()`
+					- 替换字符串：`String.replaceAll()`
 					- 反向引用
-					- Matcher.appendReplacement()
+					- `Matcher.appendReplacement()`
+				- 性能优化
+					- 推荐将Pattern 缓存下来，避免反复编译Pattern
+						- 代码
+						  ```java
+						  static final Pattern HEAVY_REGEX = Pattern.compile("(((X)*Y)*Z)*");
+						  ```
 				- 参考文章
 					- [正则表达式](https://www.liaoxuefeng.com/wiki/1252599548343744/1255945288020320)
 					- [表达式全集](https://tool.oschina.net/uploads/apidocs/jquery/regexp.html)
@@ -890,6 +899,7 @@
 					  collapsed:: true
 						- 继承是is关系，组合是has关系
 				- 多态
+				  collapsed:: true
 					- 多态
 					  collapsed:: true
 						- 多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法
@@ -989,6 +999,7 @@
 					  collapsed:: true
 						- pacakge-info.java是一个Java文件，可以添加到任何的Java源码包中。pacakge-info.java的目标是提供一个包级的文档说明或者是包级的注释。
 				- 内部类
+				  collapsed:: true
 					- 内部类
 						- 可以用Outer.this引用Outer实例
 						- 可以修改Outer Class的private字段
@@ -1917,13 +1928,11 @@
 					  collapsed:: true
 						- 若舍入位为非零，则对舍入部分的前一位数字加1；若舍入位为零，则直接舍弃。即为向外取整模式。
 					- `ROUND_DOWN`：向接近零的方向舍入
-					  collapsed:: true
 						- 不论舍入位是否为零，都直接舍弃。即为向内取整模式。
 					- `ROUND_CEILING`：向正无穷大的方向舍入
 					  collapsed:: true
 						- 若 BigDecimal 为正，则舍入行为与 ROUNDUP 相同；若为负，则舍入行为与 ROUNDDOWN 相同。即为向上取整模式。
 					- `ROUND_FLOOR`：向负无穷大的方向舍入
-					  collapsed:: true
 						- 若 BigDecimal 为正，则舍入行为与 ROUNDDOWN 相同；若为负，则舍入行为与 ROUNDUP 相同。即为向下取整模式。
 					- `ROUND_HAL_FUP`：向“最接近的”整数舍入
 					  collapsed:: true
@@ -1969,6 +1978,14 @@
 				  collapsed:: true
 					- 比较两个 `BigDecimal` 大小,请使用`java.math.BigDecimal.compareTo(BigDecimal)`  方法，而不要使用 `java.math.BigDecimal.equals(Object)`方法。
 					- 因为`equals()`方法认为，两个表示同一个数但换算值不同（例如， 100.00 和 100.000 ）的 `BigDecimal` 值是不相等的。 然而， `compareTo()` 方法会认为这两个数是相等的，所以在从数值上比较两个 `BigDecimal` 值时，应该使用 `compareTo()` 而不是 `equals()` 。
+				- 运算
+				  collapsed:: true
+					- 除法运算
+						- 报`java.lang.ArithmeticException: Non-terminating decimal expansion; no exact representable decimal result.`
+							- 在进行除法运算的时候，我们需要使用下面的方法来进行精度控制。
+							  ```java
+							  public BigDecimal divide(BigDecimal divisor, int scale, int roundingMode)
+							  ```
 			- Serializable interfaces
 			  collapsed:: true
 				- 参考 ((641475d2-462e-43b7-a273-77ab40289cde))
@@ -1998,6 +2015,17 @@
 			- AutoCloseable
 			- BeanInfo
 			- PropertyDescriptor
+			- `System`
+			  collapsed:: true
+				- `System.exit()`方法
+				  collapsed:: true
+					- 调用 `System.exit` 方法会终止当前运行的 JVM 并退出程序。
+					- 使用场景
+						- **适合脚本程序的异常退出**，可以用于脚本程序的退出。
+						- 不适合web服务器程序和常规的引用程序，这类程序最好使用异常处理或是简单的返回语句来退出程序。
+					- 参考文章
+						- [A Guide to System.exit()](https://www.baeldung.com/java-system-exit)
+			-
 		- http
 		  collapsed:: true
 			- 参考文章
@@ -3316,6 +3344,8 @@
 						- `SelectionKey.OP_WRITE`：表示通道准备好进行写入的事件，即可以写入数据。
 					- 关键方法
 						- `int select()`：监控所有注册的 Channel，当它们中间有需要处理的 IO 操作时，该方法返回，并将对应的 SelectionKey 加入被选择的 SelectionKey 集合中，该方法返回这些 Channel 的数量。
+			- yaml文件读取
+				- 参考文章：[How to Process YAML with Jackson](https://www.baeldung.com/jackson-yaml)
 		- JVM
 		  collapsed:: true
 			- GC日志的格式和配置方式
