@@ -139,6 +139,8 @@
 					- 可以保证相同内容的字符串变量引用同一的内存对象。
 					- String Pool
 				- new String("abc")
+				- join操作
+					- [java join字符串集合操作](https://blog.csdn.net/liuxiao723846/article/details/116211357)
 			- 运算
 			  collapsed:: true
 				- 参数传递
@@ -1720,10 +1722,11 @@
 				- 调用非public的`Constructor`时，必须首先通过setAccessible(true)设置允许访问，否则`setAccessible(true)`可能会失败。
 			- 获取继承关系
 			  collapsed:: true
-				- 获取父类类型：Class getSuperclass()
-				- 获取当前类实现的所有接口：Class[] getInterfaces()
-				- 通过Class对象的isAssignableFrom()方法可以判断一个向上转型是否可以实现
-				- *isAssignableFrom()**判断当前的**Class**对象所表示的类，是不是参数中传递的**Class**对象所表示的类的父类，超接口，或者是相同的类型。是则返回**true**，否则返回**false*
+				- 获取父类类型：`Class getSuperclass()`
+				- 获取当前类实现的所有接口：`Class[] getInterfaces()`
+				- 通过`Class`对象的`isAssignableFrom()`方法可以判断一个向上转型是否可以实现
+				- `isAssignableFrom()`判断当前的Class对象所表示的类，是不是参数中传递的`Class`对象所表示的类的父类，超接口，或者是相同的类型。是则返回`true`，否则返回`false`。
+				-
 			- 获取注解信息
 			  collapsed:: true
 				- Annotation[] getAnnotations() ：返回Method对象上的注解信息。
@@ -3354,6 +3357,7 @@
 				- [Java统一日志配置| java11 gc日志配置](https://zhuanlan.zhihu.com/p/350104527)
 			- 《深入理解Java虚拟机》
 				- 第二章 Java的内存区域
+				  collapsed:: true
 					- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 					  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 					- 运行时数据区域
@@ -3400,12 +3404,10 @@
 						- `-Xmn`：堆内新生代的大小。通过这个值也可以得到老生代的大小：-Xmx减去-Xmn。
 						- `-XX:SurvivorRatio`：Eden和Survivor区的空间比例
 						- `-XX:PermSize=10m`
-						  collapsed:: true
 							- 配置JVM初始分配的非堆内存，也就是方法区的内存大小
 							- 堆内存是开发人员用的，而非堆内存是虚拟机用的
 							- 在jdk8被废除
 						- `-XX:MaxPermSize=10m`
-						  collapsed:: true
 							- JVM最大允许分配的非堆内存，按需分配
 						- `-verbose:gc`：用于垃圾收集时的信息打印。
 						- `-XX:+PrintGCDetails`：打印垃圾回收详细日志。已废弃，建议使用`-Xlog:gc*`。
@@ -3413,13 +3415,10 @@
 						- `-XX:+UseSerialGC`：虚拟机运行在Clint模式下的默认值，打开此开关后，使用Serial + Serial Old的收集器组合进行内存回收。
 						- `XX:PretenureSizeThreshold=3145728`：意思是说超过**3M**的对象会直接被分配到老年代，这个参数没有单位，必须换算为字节为单位。这个参数只对Serial和ParNew收集器有用。
 					- JVM中如何设置Xmx和Xms的大小
-					  collapsed:: true
 						- 第一个问题：为什么要将Xms和Xmx设置为一样的值
-						  collapsed:: true
 							- JVM会在堆内存不足的时候进行扩容操作，在堆内存过大的时候缩小内存大小，这个过程中是需要开销的，也就是内存抖动。
 							- 具体细节可以参考文章：[jvm调优技巧 - 内存抖动 、Xms和Xmx参数为什么要设置相同的值](https://blog.csdn.net/qq_27184497/article/details/119052930)
 						- 第二个问题：这两个参数最大可以设置成多少
-						  collapsed:: true
 							- Xmx推荐设置为容器内存的50%，不能超过容器内存的80%。
 							- Xmx和Xms建议设置成一样的。
 					- JVM是Client模式还是Server模式，如何判断
@@ -4403,24 +4402,30 @@
 					- **数据源**：为流提供数据。
 					- **中间操作**：依次获取数据并处理数据。所有的中间操作都是“懒操作”，也就是说在流开始工作之前，中间操作对流中的数据没有任何影响。
 					- **终止操作**：流生命周期的结束，它可以触发流开始工作，中间操作也就会影响流中的数据。
-				- peek操作
+				- `peek()`
 				  collapsed:: true
 					- 使用场景
-						- **peek()**方法存在的主要目的是用调试，通过**peek()**方法可以看到流中的数据经过每个处理点时的状态。
-						- **peek()**在需要修改元素内部状态的场景也非常有用，比如我们想将所有**Person**的名字修改为大写，当然也可以使用**map()**和**flatMap**实现，但是相比来说**peek()**更加方便，因为我们并不想替代流中的数据，我们想保留原有的数据。
+						- `peek()`方法：存在的主要目的是用调试，通过**peek()**方法可以看到流中的数据经过每个处理点时的状态。
+						- `peek()` 方法：用于对流中的元素进行操作，但不会改变元素本身。它可以用于执行一些副作用操作，例如记录日志、进行监控等。
 					- 特点
-						- peek()是一个中间操作，不是终止操作。
+						- `peek()`是一个中间操作，不是终止操作。
 					- 具体实践
 						- JavaTrain：cn/bravedawn/java8/stream/peek
-				- findAny
-				- findFirst
-				- map
-					- 这个函数就是一个类型转换的工作，比如我想从个人信息中获取他的年龄，比如我想讲字符串转换为整数，它会为集合中的每个元素执行该操作。
+				- `findAny()`
+				- `findFirst()`
+				- `map()`
+				  collapsed:: true
+					- 使用场景
+						- `map()`方法：用于将流中的元素进行转换，生成一个新的流。
+						- 这个函数就是一个类型转换的工作，比如我想从个人信息中获取他的年龄，比如我想讲字符串转换为整数，它会为集合中的每个元素执行该操作。
+				- `allMatch()`
+					- 检查流中的所有元素是否都满足指定的条件。
 			- Optional类
 			  collapsed:: true
 				- [Java 8 Optional 类](https://www.runoob.com/java/java8-optional-class.html)
 			- 函数接口
 				- `Supplier`接口
+				  collapsed:: true
 					- 不接收任何参数，但会返回一个结果。
 					- `Supplier`比较常用的场景是提供一个返回结果。比如从HTTP请求中获取一个值，这个操作可以用`Supplier`包装起来。虽然`Supplier`可以返回静态的字符串或者其他对象，但实际开发中这样的业务逻辑不如直接写一个方法进行返回来的简单明了。`Supplier`真正的用武之地是对一个复杂操作返回结果进行包装。
 				- `Consumer`接口
@@ -4452,7 +4457,6 @@
 			- `-source`：指定使用什么版本的JDK语法编译源代码
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - Java EE
-  collapsed:: true
 	- Servlet
 		- Java web application介绍
 		  collapsed:: true
@@ -4629,6 +4633,7 @@
 			  collapsed:: true
 				- web.xml文件是 web 应用程序的部署描述符，包含 servlet (3.0之前)、欢迎页面、安全配置、会话超时设置等的映射。
 		- Servlet简介
+		  collapsed:: true
 			- 开头
 			  collapsed:: true
 				- Servlet中的主要api是由javax.servlet-api提供的，主要的接口和类在javax.servlet和javax.servlet.http下面
@@ -4816,12 +4821,24 @@
 						- 将请求从servlet转发到服务器上的另一个资源(servlet、JSP文件或HTML文件)
 					- `include(ServletRequest request, ServletResponse response)`
 						- 在响应中包含资源(servlet、JSP页面、HTML文件)的内容
-			- HttpServletRequest interface
-				- 关于httpServletRequest path API的讨论
+			- `HttpServletRequest` interface
+			  collapsed:: true
+				- 关于`httpServletRequest` path API的讨论
 					- 附一张图
 					  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
 					- 参考文章：[HttpServletRequest Path Decoding](https://agiletribe.purplehillsbooks.com/2016/02/23/httpservletrequest-path-decoding/)
-				- HttpServletRequest 是一个接口，它的`getInputStream()`方法来读取主体。默认情况下，来自这个 `InputStream` 的数据只能读取一次。
+				- `HttpServletRequest` 是一个接口，它的`getInputStream()`方法来读取主体。默认情况下，来自这个 `InputStream` 的数据只能读取一次。
+				- `isCommitted()`方法用于检查响应是否已提交。
+					- 当响应被提交后，一些操作可能不再允许，例如设置响应头或写入响应体。
+					- 通常，在以下情况下响应会被提交：
+						- 1.	调用了 `flushBuffer()` 方法。
+						- 2.	响应体已经被部分写入。
+					- 在处理 HTTP 响应时，可以使用 `isCommitted()` 方法来确定是否可以进行某些操作。示例代码如下：
+					  ```java
+					  if (!response.isCommitted()) {
+					      // 在响应提交之前可以执行的操作
+					  }
+					  ```
 			- sendRediret
 			  collapsed:: true
 				- 介绍
@@ -4857,7 +4874,6 @@
 					  collapsed:: true
 						- 将给定Throwable异常的解释性消息和堆栈跟踪写入servlet日志文件，前面加上servlet名称。
 			- HttpServlet class
-			  collapsed:: true
 				- 介绍
 				  collapsed:: true
 					- HTTPServlet是一个抽象类，它扩展了GenericServlet，并为创建基于HTTP的web应用程序提供了基础。
@@ -4881,9 +4897,7 @@
 					  collapsed:: true
 						- 返回自1970GMT 1月1日午夜以来最后一次修改 HttpServletRequest 的时间
 			- Servlet Attributes
-			  collapsed:: true
 				- 介绍
-				  collapsed:: true
 					- Servlet属性（Servlet Attributes）用于Servlet之间的通信，可以在web应用程序中设置、获取和删除属性。
 					- servlet属性有三种作用域：请求作用域（request scope）、会话作用域（session scope）和应用程序作用域（application scope）。
 					- ServletRequest，httpsession和ServletContext 接口提供分别从请求，会话和应用程序范围中获取/设置/删除属性的方法。
@@ -4916,6 +4930,7 @@
 						- 在给定的web应用程序上下文中，用于声明各种事件类型的监听器的注解
 				- 空笔记
 			- Servlet Life Cycle
+			  collapsed:: true
 				- web容器维护这Servlet实例的生命周期
 				  collapsed:: true
 					- 如下图所示，Servlet有三个状态：new，ready和end

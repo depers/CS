@@ -1369,20 +1369,25 @@
 	- 第八章 基于AspectJ和Schema的AOP
 	  collapsed:: true
 		- 1.Spring对AOP的支持
+		  collapsed:: true
 			- 新增了基于Schema的配置支持，为AOP提供了专门的aop命名空间。
 			- 新增了对AspectJ切点表达式语言的支持。
 			- 可以无缝集成AscpectJ。
 		- 2.Java注解的基础知识
 		- 3.着手使用`@AspectJ`
 			- 背景
+			  collapsed:: true
 				- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过`Advisor`整合切点和增强描述切面。
 				- @Aspect采用注解来描述切点和增强。
-			- 通过注解使用@AspectJ切面
+			- 通过注解使用`@AspectJ`切面
 				- 这里主要演示了使用`@AspectJ`和`@Before`注解来实现切面。通过`AspectJProxyFactory`生成其代理类。
-			- 通过配置使用@AspectJ切面
+			- 通过配置使用`@AspectJ`切面
 				- 通过 基于`Bean`中AspectJ注解标签的自动代理创建器：实现类为`AnnotationAwareAspectJProxyCreator` 将@AspectJ注解切面类自动注入目标类bean中
 				- 通过基于Schema的aop命名空间进行配置，在配置中添加`<aop:aspectj-autoproxy>`自动为Spring容器中匹配`@AspectJ`切面的Bean创建代理。
+			- 参考文章
+				- [【Spring AOP】@Aspect结合案例详解（一）: @Pointcut使用@annotation + 五种通知Advice注解](https://juejin.cn/post/7186473207132586044?searchId=20240429110927BE32A8C60B380980D3FD)
 		- 4.`@AspectJ`语法基础
+		  collapsed:: true
 			- 背景
 				- 由于Spring只支持方法的连接点，所以Spring仅支持部分AspectJ的切点语言。
 			- 切点表达式函数
@@ -1427,6 +1432,7 @@
 						- 后置增强，相当于AfterReturningAdvice。
 					- `@Around`
 						- 环绕增强，相当于MethodInterceptor。
+						- **只有环绕增强可以选择继续执行后续任务还是中止后续任务。**
 					- `@AfterThrowing`
 						- 只有抛出增强才会起作用，相当于ThrowAdvice。
 					- `@After`
@@ -1436,6 +1442,7 @@
 			- 引介增强用法
 		- 5.切点函数详解
 			- `@annotation()`
+			  collapsed:: true
 				- 表示了标注了某个注解的所有方法。
 				- 使用方法
 					- 1.定义一个可以作用在方法上注解。
@@ -1447,6 +1454,7 @@
 					  }
 					  ```
 			- `execution()`
+			  collapsed:: true
 				- execution()的语法
 				  ````
 				  execution(<修饰符模式(可选)> <返回类型模式> <方法名模式>(<参数模式>) <异常模式(可选)>)
@@ -1461,6 +1469,7 @@
 				- 4.通过方法的入参定义切点
 					- 通过方法入参的参数类型和数量来匹配和过滤相关的方法。
 			- `args()`和`@args()`
+			  collapsed:: true
 				- args()
 					- 该函数的入参是一个类名，表示**目标方法的入参**对象是指定类或是其子类时，匹配切点。
 					- 例如`args(com.abc.Car)`等价于`exection(* *(com.abc.Car+))`，等价于`args(com.abc.Car+)`。
@@ -1479,16 +1488,19 @@
 							- 若入参连接点在继承树中高于注解点，则注解点所在的类及其子孙类作为方法入参时，该该方法匹配切点（该方法就是入参类型点参数所在的方法）。
 							- 若入参连接点在继承树中低于注解点，则目标方法不能匹配切点`@args(M)`。
 			- `within()`
+			  collapsed:: true
 				- 通过类匹配模式串申明切点，within()函数定义的连接点是针对目标类而言的，能匹配的连接点最小范围只能是**类**。
 				- 语法
 				  ```java
 				  within(<类匹配模式>)
 				  ```
 			- `@within()`和`@target()`
+			  collapsed:: true
 				- 这两个函数都是标注注解的切点函数。
 				- @within(M)函数匹配标注了@M注解的类和子孙类。@M注解标注的如果是一个接口，则无效。
 				- @target(M)函数匹配标注了@M注解的目标类。@M注解标注的如果是一个接口，则无效。
 			- `target()`和`this()`
+			  collapsed:: true
 				- target(M)
 					- 如果目标类按类型匹配于M，则目标类的所有方法都匹配切点。
 				- this()
@@ -1517,7 +1529,6 @@
 					- ProceedingJoinPoint继承自JoinPoint接口，新增了两个用于执行连接点方法的方法
 						- `java.lang.Object proceed()`：通过反射执行目标对象连接点处的方法
 						- `java.lang Object proceed(java.lang.Object[] args)`：通过反射执行目标对象连接点处的方法，不过可以使用新的入参来代替原来的。
-				-
 			- 绑定连接点方法入参
 				- 除了`within()`和`execution()`不可以指定参数名外，其他七个切点参数即可以指定类名，还可以指定参数名，具体可以回顾 5.切点函数详解
 				- `args()`用于绑定连接点方法的入参，可以实现匹配切点（也就是说能够找到匹配切点的方法）和绑定参数的双重功能（可以将方法入参的实际参数绑定到`args()`所设置的参数上）。
@@ -2254,15 +2265,12 @@
 			- 使用`HttpMessageConverter<T>`接口
 			  collapsed:: true
 				- 功能
-				  collapsed:: true
 					- 将请求信息转换为一个对象，将一个对象输出为响应信息。
 					- 这个接口的实现是由处理器适配器`RequestMappingHandlerAdapter`使用的，通过这些实现类实现请求消息转换为对象，对象转换为响应信息的功能。
 				- 实现类
-				  collapsed:: true
 					- Spring为`HttpMessageConverter`接口提供了很多的默认的实现类，这些实现类定义了读取和响应数据的**类型**和**读写转换逻辑**。
 					- 具体的实现类包含了请求参数和响应参数的两种处理逻辑。
 				- 如何使用`HttpMessageConverter<T>`将请求消息转换并绑定到方法的入参，Spring MVC提供了两种方案，从而实现选择合适数据转换器的功能：
-				  collapsed:: true
 					- 第一种：使用`@RequestBody`（标记方法入参）和@`ResponseBody`（标记方法）对处理的方法进行标记。
 					- 第二种：使用`HttpEntity<T>`/`ResponseEntity<T>`作为方法的入参或返回值。
 					- 值得注意的是
@@ -2272,7 +2280,6 @@
 						- `@RequestBody`和`@ResponseBody`不需要承兑出现，也就是说，这两个使用一个就成，一般我们都用`@RequestBody`就行，因为通过请求参数的格式，我们就可以选择出处理请求和响应的合适的数据转换器来。
 						- 这两种方法的功能是相似的，不同的是第二种方法是可以获取到报文的头信息的。
 				- 在接收到Http请求时，Spring MVC是如何知道消息的格式的？
-				  collapsed:: true
 					- 请求数据格式：通过`Accept`
 					- 响应数据格式：通过`Content-Type`
 			- `@RestController`
@@ -2463,7 +2470,6 @@
 			- [SpringBoot根据配置文件动态创建Bean](https://juejin.cn/post/7223325947339931707#heading-2)
 			- [Spring系列之@import详解(bean批量注册)](https://juejin.cn/post/7092972221097836575#heading-44)
 - spring MVC
-  collapsed:: true
 	- 过滤器
 	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
@@ -2494,6 +2500,8 @@
 				- 通过preHandle方法的handle方法，我们可以**获取请求调用的Controller类和方法名**。但是并**不能获取请求的调用方法的具体参数**
 			- 使用场景
 				- 可以在日志中统计请求处理的耗时
+			- 参考文章
+				- [SpringBoot之HandlerInterceptor拦截器的使用](https://juejin.cn/post/6921145139968606215)
 		- Controller增强-`@ControllerAdvice`
 			- 使用场景
 				- 全局异常处理
@@ -2674,7 +2682,6 @@
 		  spring.resources.add-mappings=false
 		  ```
 		- 405当前方法不可用，可能的原因有请求参数没有传或是请求的http方法不支持
-	-
 - spring-tx
   collapsed:: true
 	- Spring对事务管理的支持
