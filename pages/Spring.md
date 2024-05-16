@@ -344,8 +344,11 @@
 	- 第五章 在Ioc容器中装配Bean
 	  collapsed:: true
 		- 1.Spring配置概述
+		  collapsed:: true
 			- Spring容器的高层视图
+			  collapsed:: true
 				- Bean的配置信息是Bean的元数据信息，由以下四部分组成
+				  collapsed:: true
 					- Bean的实现类。
 					- Bean的属性信息，如数据库连接数、用户名、密码等。
 					- Bean的依赖关系，Spring根据依赖关系配置Bean之间的装配。
@@ -353,24 +356,32 @@
 				- Spring容器、Bean配置信息、Bean实现类及应用程序四者之间的相互关系，如下图
 				  ![Spring内容协作图.png](../assets/Spring内容协作图_1684734065513_0.png){:height 364, :width 686}
 			- Spring Bean的配置方式
+			  collapsed:: true
 				- 基于XML的配置（Spring1.0）
+				  collapsed:: true
 					- XML DTD
 					- XML Schema（XSD，Spring2.0）
 				- 基于注解的配置（Spring2.0)
 				- 基于Java类的配置（Spring3.0)
 				- 基于Groovy动态语言配置（Spring4.0)
 				- 参考文章
+				  collapsed:: true
 					- [Spring中有几种配置方式(xml、注解＜jsr250＞、JavaConfig)](https://blog.csdn.net/m0_45406092/article/details/115203753)
 		- 2.Bean的基本配置
+		  collapsed:: true
 			- Bean的装配
+			  collapsed:: true
 				- xml中bean最基础的配置是`id`和`class`两个属性
 				  ```xml
 				  <bean id="car" class="cn.bravedawn.chapter4.applicationbeanfactorydemo.Car"/>
 				  ```
 			- Bean的命名
+			  collapsed:: true
 				- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
 		- 3.依赖注入
+		  collapsed:: true
 			- 属性注入
+			  collapsed:: true
 				- 定义：属性注入是指通过setXX()方法注入Bean的属性朱或依赖对象。
 				- 代码实例：
 				  ```xml
@@ -381,15 +392,19 @@
 				  </bean>
 				  ```
 				- 具体实现：
+				  collapsed:: true
 					- 属性注入要求Bean提供一个默认的构造函数，并为需要注入的属性提供对应的Setter方法。
 					- Spring会先调用bean的构造函数实例化一个bean对象，然后通过反射的方式调用Setter方法注入属性值。
 				- 值得注意：**Spring会检查bean的属性值在实现类中是否有对应的Setter方法，并不要求实现类必须有这个属性成员**
 				- JavaBean关于属性命名的特殊规范
+				  collapsed:: true
 					- 一般而言：属性名是小写为xxx，则对应的方法名为setXxx()
 					- 考虑到一些特定意义的缩写是大写字母开头的，JavaBean要求：**变量的前两个字母要么全部大写要么全部小写**，也就是说“brand，IDCode，IC”这样的属性名是合法的，但是“iD，iDCard”则是不合法的。
 			- 构造函数注入
+			  collapsed:: true
 				- 定义：构造函数注入是另一种比较常用的注入方式，它保证了一些必要的参数在Bean实例化时就能到的设置，确保Bean实例化后就可以使用。
 				- 代码实例
+				  collapsed:: true
 					- Java部分代码
 					  ```java
 					  public class Car {
@@ -415,32 +430,46 @@
 					  </bean>
 					  ```
 				- 相比于属性注入的优点
+				  collapsed:: true
 					- 属性注入并不保证实现类必须具有属性成员，而构造函数注入则可以在语法级上保证实例化的对象类必须有相应的属性成员。
 				- 构造函数注入的四种方式
+				  collapsed:: true
 					- 一按类型类型入参
+					  collapsed:: true
 						- 构造函数的每一个入参都是不同类型的，Spring可以通过**入参类型**将不同的属性在实例化时进行赋值。
 					- 二索引匹配入参
+					  collapsed:: true
 						- 如果两个入参的类型相同，通过入参类型Spring并不能准确的进行成员变量的赋值。所以通过为入参设置索引，从而使Spring能够准确的为相同类型的入参进行赋值。
 					- 三联合使用类型和索引匹配入参
+					  collapsed:: true
 						- 若存在两个构造函数，他们的入参数量相同，但是参入的类型却不同，此时Spring就需要结合入参类型和索引去匹配正确的构造函数。
 					- 四通过自身类型反射匹配入参
+					  collapsed:: true
 						- 若入参的类型不是基础数据类型且入参类型各异，Spring可以通过反射获得入参的数据类型，从而匹配正确的构造函数。
 				- 循环依赖问题
+				  collapsed:: true
 					- 问题阐述：Spring在实例化一个Bean的时候要求Bean构造函数入参引用的对象必须已经实例化完成。BeanA的构造函数中有入参BeanB的对象，BeanB的构造函数中有入参BeanA的对象，两个Bean都采用构造函数注入，就会发生类似于线程死锁的循环依赖问题。
 					- 解决办法：只需要修改其中一个Bean的注入方式为属性注入就可以解决
 			- 工厂方法注入
+			  collapsed:: true
 				- 定义：可以使用Spring工厂方法注入的方式，对Bean进行实例化。
 				- 工厂方法注入的方式
+				  collapsed:: true
 					- 一非静态工厂方法
+					  collapsed:: true
 						- 使用场景：若工厂方法是非静态的，必须先实例化工厂类之后才能调用工厂方法。落到具体的实现上面，首先要定义一个工厂类的Bean，然后再通过`factory-bean`和`factory-method`指定工厂实例和对应的工厂方法生成具体的Bean。
 					- 二静态工厂方法
+					  collapsed:: true
 						- 使用场景：若工厂方法是静态的，则无需实例化工厂类就可以调用工厂类方法。落到具体的实现上面，我们无需定义工厂类的Bean，直接在实例Bean上配置`factory-bean`和`factory-method`就行。
 		- 4.注入参数详解
+		  collapsed:: true
 			- 1.字面值
+			  collapsed:: true
 				- 字面值一般指的就是字符串
 				- 字面值可以通过**<value>**元素标签进行注入，在默认情况下，基本数据类型及其封装类、String等类型都可以采用字面值的方式进行注入。Spring内置了**编辑器**可以将字面值转换为相应类型的变量。
 				- XMl中有五种特殊字符，分别是`&`，`<`，`>`，`“`，`‘`。使用的时候可以用`<![CDATA[]]>`标签包裹，或者使用这五个字符的转义字符进行表示。
 			- 2.引用其他Bean
+			  collapsed:: true
 				- 在Bean定义时可以通过`<ref>`标签对其他Bean进行引用。
 				- 实例代码
 				  ```xml
@@ -453,42 +482,56 @@
 				  <bean>
 				  ```
 				- `<ref>`标签有三个属性
+				  collapsed:: true
 					- bean：可以引用同一容器或父容器的Bean
 					- local：只能引用同一配置文件中定义的Bean
 					- parent：引用父容器的Baen
 			- 3.内部Bean
+			  collapsed:: true
 				- 内部Bean和Java的匿名内部类很像，即没有名字，也不能被其他Bean引用，只能在声明处为外部的Bean提供实例注入。
 			- 4.null值
+			  collapsed:: true
 				- 使用专用的`<null/>`标签为属性设置一个`null`的属性值。
 				  ```java
 				  <property name="brand"><null/></property>
 				  ```
 			- 5.级联属性
+			  collapsed:: true
 				- 所谓级联就是，对象Boss有一个Car的实例属性，然后我们可以直接在Boss Bean的注入逻辑中为Car实例属性设置他的属性值。
 				  ```xml
 				  <property name="car.brand" value="奔驰"/>
 				  ```
 			- 6.集合类型属性
+			  collapsed:: true
 				- 集合类型也可以作为Bean的属性进行注入，常见的集合数据结构有List，Set，Map，Properties。Spring为集合类型提供了专属的配置标签。
 				- 集合配置的类型
+				  collapsed:: true
 					- List
 					- Set
 					- Map
+					  collapsed:: true
 						- Map元素的键和值可以是任何类型的对象。
 					- Properties
+					  collapsed:: true
 						- Properties的键和值只能是字符串。
 					- 强类型集合
+					  collapsed:: true
 						- 我们在声明Map的时候，可以对键和值的类型进行明确的声明。这样Spring容器在注入强类型集合时就会判断元素的类型，将其值转换为对应的数据类型。
 					- 集合合并
+					  collapsed:: true
 						- Spring支持集合合并的功能，允许子<bean>继承父<bean>的同名属性集合元素，并将子<bean>中配置的集合属性和父<bean>中配置的同名属性值合并起来作为**最终子Bean的属性值**。
 					- 通过util命名空间配置集合类型的Bean
+					  collapsed:: true
 						- 如果要配置一个集合类型的Bean，而非一个集合类型的属性，需要在Bean配置文件中引入`util`命名空间进行配置。
 			- 简化配置方式
+			  collapsed:: true
 				- 背景：上面介绍了完整配置格式的配置方式，比较繁琐，Spring提供了更简便的配置方法。
 				- 简化后的配置
+				  collapsed:: true
 					- 1.字面值属性
 					- 2.引用对象属性
 					- 3.使用p命名空间
+					  collapsed:: true
 						- 作用：简化Bean属性的xml配置方式。具体使用的话需要在bean的定义文件中声明p的命名空间。
 						- 示例
 						  ```xml
@@ -499,45 +542,61 @@
 						  p:<属性名>-ref="xxx"
 						  ```
 			- 自动装配
+			  collapsed:: true
 				- 背景
+				  collapsed:: true
 					- 在上面我们讲到了bean的属性输入的声明方式，但是如果Bean的属性是其他bean的话，声明起来还是挺麻烦的。因为Spring Ioc容器知道所有的Bean信息，这个功能其实Spring自己就可以帮我们做到，无需我们自己去声明`<ref>`标签。
 				- Spring提供了四种自动装配的类型
+				  collapsed:: true
 					- byName：根据属性名称自动装配
 					- byType：根据属性类型自动装配
 					- constructor：根据构造函数进行自动装配，与byType类似，如果构造函数中有一个参数包含某个Bean类型的参数，Spring会自动将容器中这个类型的Bean作为这个构造函数的入参。
 					- autodetect：根据Bean的自省机制决定采用byType还是constructor进行自动装配。
 				- 全局配置
+				  collapsed:: true
 					- <beans>标签的default-autowire属性可以配置全局自动装配策略
 					- default-autowire属性默认值为no，其他几个配置如 Spring提供了四种自动装配的类型
 					- 值得注意的是：<bean>中的自动装配策略可以覆盖全局的自动装配策略
 				- 实际开发
+				  collapsed:: true
 					- xml配置方式很少使用自动装配的配置。
 					- 基于注解的配置方式默认采用byType的自动装配策略。
 		- 5.方法注入
+		  collapsed:: true
 			- 背景：希望通过一个singleton Bean获取一个prototype Bean时使用。换句话说，我们想让singleton的Boss中注入prototype的Car，并且希望每次调用bossBean的getCar()方法的时候都能返回一个新的 car Bean。
 			- lookup方法注入
+			  collapsed:: true
 				- 实现背景：Spring通过使用CGLib类包，使得Spring Ioc容器拥有了复写Bean方法的能力，CGLib可以在运行期动态操作Class字节码，为Bean创建子类或实现类。
 				- 具体实践：在bean的声明文件中通过`lookup-method`标签来实现。
 				- 使用范围：希望通过一个singleton Bean获取一个prototype Bean时使用。
 			- 方法替换
+			  collapsed:: true
 				- 目的：使用某个Bean的方法去替换另一个Bean的方法。
 				- 具体实践
+				  collapsed:: true
 					- 替换Bean的类需要实现MethodReplacer接口，对reimplement方法进行实现。
 					- 在bean的声明文件中，对被替换类Bean的声明中，使用replaced-method标签使用替换Bean的方法对被替换类的方法进行替换。
 		- 6.<bean>之间的关系
+		  collapsed:: true
 			- 背景：之间我们在Bean的声明中使用<ref>引用另一个Bean，去建立Bean之间的依赖关系。这种关系其实是基于类和属性的关系去建立声明的。其实在bean文件的配置过程中，我们可以利用bean声明的一些配置来简化我们的bean配置。
 			- 继承
+			  collapsed:: true
 				- 背景：在面向对象编程的思想中，如果多个类具有相同的属性或是方法，此时我们就可以声明一个父类集中这些相同的内容，不同的内容通过他的子类去声明。在bean文件的配置过程中，我们也可以利用这样的思路，相同的配置放到一个bean的配置中，不同的使用子类配置去声明即可
 				- 具体实践
+				  collapsed:: true
 					- 在父bean的声明中对共性的方法和属性进行声明，并声明`abstract="true"`的属性，表明该bean声明不需要Spring Ioc容器无需对该bean配置进行实例化。
 					- 在子bean的声明中使用`parent="父bean的id"`，来将父bean的配置信息传递给子bean。
 			- 依赖
+			  collapsed:: true
 				- 背景：在我们声明bean的时候，我们发现Bean A依赖Bean B，而且Bean A希望在实例化自己之前，自己依赖的Bean B可以提前创建好。
 				- Spring允许用户通过`depends-on`属性显式指定Bean前置依赖的Bean，前置依赖的Bean会在本Bean实例化之前创建好。
 			- 引用
+			  collapsed:: true
 				- 背景：
+				  collapsed:: true
 					- 在bean的xml文件的声明中，假设Bean A有一个属性是Bean B。之前 2.引用其他Bean 我们是通过ref属性去引用的，Spring也不会检测当前容器中是否会有Bean B的实例，只有调用的时候才会发现。
 				- <idref>标签
+				  collapsed:: true
 					- 作用：在bean定义时，通过<idref>标签引用另一个beanB作为属性，在容器启动时，Spring会负责检查引用关系的正确性，确保当前容器中是有beanB的实例的。
 					- 具体代码
 					  ```xml
@@ -550,44 +609,59 @@
 					  <bean>
 					  ```
 		- 7.整合多个配置文件
+		  collapsed:: true
 			- 方法一：在启动Spring容器时，可以通过一个String数组指定这些配置文件。
 			- 方法二：Spring还允许通过<import>将多个配置文件引入到一个文件中，进行文件的集成，在配置的时候是需要配置一个集成的配置文件即可。
 		- 8.Bean作用域
+		  collapsed:: true
 			- Bean作用域的类型
+			  collapsed:: true
 				- 类型图
 				  ![bean的作用域类型.png](../assets/bean的作用域类型_1685432562981_0.png)
 				- 除了上面的作用域类型，Spring还允许用户自定义bean的作用域。
 			- singleton作用域
+			  collapsed:: true
 				- 初始化时机：默认情况下，在Spring的ApplicationContext容器在启动时，自动实例化所有的singleton的Bean并缓存于容器中。
 				- Spring中的Bean默认是singleton作用域。
 				- 使用场景：一般情况下，无状态或是状态不变的类适合使用单例模式。
 				- 优点
+				  collapsed:: true
 					- 在启动时实例化Bean的时候会及早发现潜在的配置问题。
 					- bean以缓存的方式保存，在运行期无需再实例化，提高了运行效率。
 				- 懒加载
+				  collapsed:: true
 					- 如果不希望在容器启动时实例化Bean，可以在Bean声明的时候设置属性`lazy-init="true"`。
 					- 按我们之前讲的Bean之间存在 依赖关系，如果该Bean被其他提前实例化的bean引用，那么Spring会忽略延迟实例化的设置。
 			- prototype作用域
+			  collapsed:: true
 				- 每次都会生成一个新的Bean实例。
 				- 默认情况下，Spring容器在启动时不会实例化prototype类型的Bean。
 				- Spring容器将prototype的bean交给调用者后，就不再管理它的生命周期。
 			- 与Web应用环境相关的bean作用域
+			  collapsed:: true
 				- 在Web容器中的额外配置
+				  collapsed:: true
 					- 使用另外3中web应相关的Bean作用域的额外配置：在web.xml中配置`RequestContextListener`请求监听器。
 					- 之前我们讲了 WebApplicationContext的初始化中提到了`ServletContextListener`，他与`RequestContextListener`的各有什么区别？
+					  collapsed:: true
 					  ![两个监听器的区别.png](../assets/两个监听器的区别_1685434891868_0.png)
 						- `ServletContextListener`
+						  collapsed:: true
 							- 负责监听web容器启动和关闭的事件.
 							- Spring在启动时会使用`ContextLoaderListener`监听器，它实现了`ServletContextListener`接口。
 							- 作用：初始化web容器，使得Spring能够对web容器进行Bean作用域的控制。
 						- `ReuqestContextListener`
+						  collapsed:: true
 							- 负责监听Http的请求事件，web服务器每接到一次请求就会通知该监听器。
 							- 作用：提供了`request`、`session`和`globalSession`类型的Bean作用域。
 				- Spring其实可以提供一个实现了ServletContextListener和ReuqestContextListener接口的监听器，为什么要提供两个实现类？
+				  collapsed:: true
 					- 一是为了兼容，因为web应用的Bean作用域是从Spring2.0开始提供的。
 					- 二是使用新的三种作用域的场景少。没必要让每个Bean都具有这三个作用域类型。
 				- web容器Bean的三种类型作用域
+				  collapsed:: true
 					- request作用域
+					  collapsed:: true
 						- request作用域的Bean对应一个Http请求和生命周期。
 						- 每次http请求调用时创建一个新的Bean，请求处理完成后就销毁这个Bean。
 						- 参考代码
@@ -595,11 +669,14 @@
 						  <bean id="car" class="cn.bravedawn.Car" scope="request"/>
 						  ```
 					- session作用域
+					  collapsed:: true
 						- Bean的作用域横跨整个Http Session，Session中所有的Http请求都共享**同一个Bean**，当Http Session结束后，实例才被销毁。
 					- globalSession作用域
+					  collapsed:: true
 						- 该作用域仅适用于Portlet的Web应用使用，Portlet规范定义了全局Session的概念。
 						- 不在Portlet的web应用环境下，global Session作用域等价于session作用域。
 			- 作用域依赖问题
+			  collapsed:: true
 				- 背景：某些场景下，需要将web相关的Bean注入singleton或prototype的Bean中，但是我们需要一些额外的配置。
 				- 实例代码
 				  ```xml
@@ -615,33 +692,45 @@
 			- 背景：使用xml文件描述Bean的信息过于复杂，采用编码的方式或许是更好的选择。Spring提供了一个工厂类接口`FactoryBean`，用户可以通过这个接口定制实例化Bean的逻辑。
 			- 这里具体的例子可以参考本书P154页的实现，这里不再赘述。
 		- 10.基于注解的配置
+		  collapsed:: true
 			- 使用注解定义Bean
+			  collapsed:: true
 				- Spring容器成功启动的三大要件
+				  collapsed:: true
 					- Bean定义信息，就是xml中bean的定义
 					- Bean实现类，就是java类中对bean进行定义的类
 					- Spring本身
 					- 基于xml的配置中，Bean的定义信息和Bean的实现类是分隔开来的；在基于注解的配置中，这两者都在Bean的实现类中得以体现。
 				- Spring提供的声明Bean的注解
+				  collapsed:: true
 					- `@Component`，下面的三个注解其实和`@Component`是等效的，只是为了标注类的用途更加清晰化，其实可以用`@Component`替换。
 					- `@Respository`
 					- `@Service`
 					- `@Contoller`
 			- 扫描注解定义的Bean
+			  collapsed:: true
 				- 背景：使用了上面的四个注解之后，我们需要在原来的Bean的描述文件中配置需要Spring扫描Bean的类包。
 				- xml中的`component-scan`配置
+				  collapsed:: true
 					- 作用：配置Spring需要扫描Bean定义信息的类包。
 					- 属性
+					  collapsed:: true
 						- `base-package`
+						  collapsed:: true
 							- 配置需要扫描的类包。
 						- `resource-pattern`
+						  collapsed:: true
 							- 基于base-package的配置，过滤出特定的类，Spring会对这些特定的类进行扫描。
 						- `include-filter`
+						  collapsed:: true
 							- 表示要包含的目标类。
 							- 支持过滤表达式。
 						- `exclude-filter`
+						  collapsed:: true
 							- 表示要排除的目标类。
 							- 支持过滤表达式，其中`aspectj`的过滤表达能力是最强的。
 							- 过滤表达式的类别
+							  collapsed:: true
 								- annotation
 								- assignable
 								- aspectj
@@ -649,21 +738,29 @@
 								- custom
 							- 参考文章：[Spring @ComponentScan – Filter Types](https://www.baeldung.com/spring-componentscan-filter-type)
 						- `use-default-filters`
+						  collapsed:: true
 							- 默认值是`true`，表示默认会对`@Component`、`@Service`、`@Controller`和`@Resposity`的Bean进行扫描。
 							- 如果想只对`@Controller`标注的Bean进行扫描，必须将其值设置为`false`。
 						- 关于`include-filter`、`exclude-filter`和`use-default-filters`三者的作用顺序：
+						  collapsed:: true
 							- Spring首先会根据exclude-filter的配置列出需要排除的黑名单，然后根据include-filter的配置列出白名单，再根据use-default-filters的配置觉得需要扫描的注解配置。
 						-
 			- 自动装配Bean
+			  collapsed:: true
 				- 使用`@Autowired`进行自动注入
+				  collapsed:: true
 					- `@Autowired`注解默认按类型（byType）匹配的方式在容器中查找匹配的Bean，当有且仅有一个匹配的Bean时，Spring将其注入`@Autowired`标注的变量中。
 				- 使用`@Autowired`的requested属性
+				  collapsed:: true
 					- 若容器中没有一个和标注变量类型匹配的Bean，那么Spring在启动的时候会报`NoSuchDefinitionException`异常。若希望Spring在匹配不到的时候不要抛异常，则可以使用`@Autowired(required=false)`进行标注。
 				- 使用`@Qualifier`指定注入Bean的名称
+				  collapsed:: true
 					- 如果容器中存在相同类型的Bean的数量超过1个以上，则可以通过`@Qualifier`注解限定Bean的名称。
 				- 对类的方法进行标注
+				  collapsed:: true
 					- @Autowired注解除了可以对类的**属性成员变量**进行注入，还可以对**方法的入参**进行注入。
 					- 若方法只有一个入参
+					  collapsed:: true
 						- 示例代码
 						  ```java
 						  @Autowired
@@ -679,6 +776,7 @@
 						  }
 						  ```
 					- 若方法存在多个入参
+					  collapsed:: true
 						- 示例代理
 						  ```java
 						  // 下面的方法会将名称为userdao的Bean注入给参数userDao，会将类型为LogDao的Bean注入给logDao
@@ -689,7 +787,9 @@
 						  }
 						  ```
 				- 对集合类进行注入
+				  collapsed:: true
 					- 对于List集合
+					  collapsed:: true
 						- 下面代码中会将所有Plugin类型（包含继承和实现了Plugin类的Bean）的Bean注入到这个list变量中。
 						- 示例代码
 						  ```java
@@ -697,6 +797,7 @@
 						  private List<Plugin> plugins;
 						  ```
 					- 对于Map集合
+					  collapsed:: true
 						- 下面的代码中会将Plugin类型的Bean放入这个Map中，其中key是Bean的名称，value是Bean本身。
 						- 示例代码
 						  ```java
@@ -705,70 +806,100 @@
 						  ```
 					- 值得注意的是：Bean的加载顺序可以使用@Order注解进行声明，其中值越小，越优先被加载。
 				- 对延迟依赖注入的支持
+				  collapsed:: true
 					- Spring容器在启动的时候，对于同时标注了`@Lazy`和`@Autowired`注解的属性不会立刻注入属性值，而是延迟到调用此属性的时候才会注入属性值。
 					- `@Lazy`必须同时标注在目标Bean Java类的声明上和注入属性这两个地方才会生效。
 				- 对标准注解的支持
+				  collapsed:: true
 					- JSR-250定义的`@Resource`注解
+					  collapsed:: true
 						- 作用：对类成员变量和方法入参提供自动注入的功能。
 						- 与@Autowired的区别
+						  collapsed:: true
 							- @Resource是按名称匹配进行Bean的注入的。@Autowired是按类型。
 							- @Resource要求提供一个Bean的名称属性方便其进行查找，如果属性为空，则按照标注处的变量名称或方法名作为Bean的名称去做查找。
 					- JSR-330定义的`@Inject`注解
+					  collapsed:: true
 						- 作用：对类成员变量和方法入参提供自动注入的功能。
 						- 与`@Autowired`的区别
+						  collapsed:: true
 							- `@Inject`注解与`@Autowired`注解一样都是按类型进行注入的，但是`@Inject`没有`required`属性。
 			- Bean的作用范围及生命过程方法
+			  collapsed:: true
 				- 作用范围
+				  collapsed:: true
 					- 我们在通过注解配置一个Bean的时候，除了使用@Component注解外，还可以使用@Scope注解来显示的指定Bean的作用范围或者说是作用域。具体可以参考 8.Bean作用域。
 				- 生命过程方法
+				  collapsed:: true
 					- 除了之前在 Bean自身的方法提到过的`init-method`和`destory-method`方法外，Spring支持了JSR-250定义的`@PostContruct`和`@PreDestory`注解。
 					- `@PostContruct`和`@PreDestory`注解的作用时机
+					  collapsed:: true
 						- Bean的构造方法
 						- 调用Setter方法设置Bean的属性
 						- 调用`@PostContruct`标注的方法
 						- Bean销毁时调用`@PreDestory`注解
 		- 11.基于Java类的配置
+		  collapsed:: true
 			- 使用Java类提供Bean的定义信息
+			  collapsed:: true
 				- 实现步骤
+				  collapsed:: true
 					- 一使用`@Configuration`注解声明一个配置类
 					- 二在配置中声明定义类的方法，并使用@Bean注解去标注，默认Bean是以方法名作为Bean的名称。
 				- 注意
+				  collapsed:: true
 					- `@Configuration`注解类本身已经标注了`@Component`注解，所以配置类本身就是一个Bean。
 					- 在方法上标注`@Bean`注解的地方，我们还可以使用`@Scope`注解来控制Bean的作用范围。
 					- 因为采用Java类的配置去声明Bean的方式，在进行Bean的创建时会将Bean的生命周期管理的逻辑植入进来。这里就要用到AOP增强，所以使用基于Java类的配置方式必须保证要将Spirng aop和CGLib的包加载到类路径下。
 			- 使用基于Java类的配置信息启动Spring容器
+			  collapsed:: true
 				- 直接通过`@Configuration`类启动Spring容器
+				  collapsed:: true
 					- 方法一：加载一个`@Configuration`配置类
+					  collapsed:: true
 						- Spring提供了`AnnotationConfigApplicationContext`类，直接通过标注`@Configuration`的Java类启动Spring容器。
 					- 方法二：加载多个`@Configuration`配置类
+					  collapsed:: true
 						- 通过`AnnotationConfigApplicationContext`类的`register()`（注册配置类）和`refresh()`（刷新容器以应用这些注册的配置类）方法去加载多个配置类。
 					- 方法三：通过`@Import`注解将多个配置类组装到一个配置类中
+					  collapsed:: true
 						- 将多个配置类组合到一个配置类中，使用方法一加载配置类。
 				- 通过XML配置文件引用@Configuration的配置
+				  collapsed:: true
 					- 在xml文件中配置Java Bean的配置类，让Spring容器去扫描到相应的配置类。
 				- 通过@Configuration配置类引用XML配置信息
+				  collapsed:: true
 					- 在标注有@Configuration注解的配置类中，引入声明有Bean定义的xml文件，在Java的配置文件中我们可以直接使用xml中配置的Bean。最后使用@Configuration类启动Spring容器即可。
 		- 12.基于Groovy DSL的配置
+		  collapsed:: true
 			- 使用Groovy DSL提供Bean的定义信息
+			  collapsed:: true
 				- Bean的配置信息使用Groovy脚本进行声明，Bean定义可以实现的功能有：
+				  collapsed:: true
 					- 可以与基于注解的配置混用
 					- 配置无参的构造函数Bean
 					- 配置有参的构造函数Bean
 					- 可以根据条件对Bean进行注入
 			- 使用GenericGroovyApplicationContext启动
+			  collapsed:: true
 				- Spring提供了`GenericGroovyApplicationContext`类，通过Groovy DSL去启动Spring容器。
 		- 13.通过编码方式动态添加Bean
+		  id:: 4a4a373a-d98b-4c8e-aa0a-c8aa5700b02f
+		  collapsed:: true
 			- 为什么要动态的添加Bean，直接声明（或者说是定义）Bean不就行了吗？
+			  collapsed:: true
 				- 在向Spring容器添加Bean的时候，我们可能需要根据配置做相关逻辑的判断，按照上面xml、注解、Java类的方式等不足以满足我们的需求，因为他们都是静态添加，尽管Groovy DSL可以通过条件判断进行注入的逻辑，但是无法满足将bean的添加到Spring的逻辑。所以我们需要在Spring启动的时候动态的添加Bean实例到Spring容器中。
 			- 方法一：通过`DefaultListaleBeanFactory`
-				- `BeanFactoryPostProcessor`接口
+				- 第一步实现`BeanFactoryPostProcessor`接口
 					- 作用：为了实现在Spring启动阶段能够动态注入自定义Bean，保证动态注入的Bean能够被AOP所增强，需要实现Bean工厂后置处理器接口`BeanFactoryPostProcessor`。
-				- `DefaultListableBeanFactory`类
+				- 第二步利用`DefaultListableBeanFactory`类
 					- 实现了`ConfigurableListableBeanFactory`接口
 					- 提供了扩展配置、循环枚举的功能
 					- 通过此类可以实现Bean的动态注入
 			- 方法二：扩展自定义标签
+			  collapsed:: true
 				- 实现步骤
+				  collapsed:: true
 					- 1.创建一个需要扩展的组件，也就是编写bean的Java类定义
 					- 2.采用XSD描述自定义标签的元素属性
 					- 3.编写Bean定义的解析器，创建一个实现 AbstractSingleBeanDefinitionParser 接口的类，又或者创建一个实现 BeanDefinitionParser 接口的类，用来解析 XSD 文件中的定义和组件定义。这两种实现方式对应不同的 XSD 文件配置方式。
@@ -776,16 +907,21 @@
 					- 5.绑定命名空间解析器编写 Spring.handlers 和 Spring.schemas 文件
 				- 除了自定义标签之外，我们还可以自定义属性和子标签。
 				- 参考文章
+				  collapsed:: true
 					- [Spring自定义标签的实现](https://zhuanlan.zhihu.com/p/107837020)
 			- 这里有一些参考文章
+			  collapsed:: true
 				- [SpringBoot动态注入Bean](https://www.jianshu.com/p/faa6ac6f2ce2)
 				- [spring动态创建bean:动态创建方式的时机影响（一）](https://blog.csdn.net/qq_37207266/article/details/120389752)
 		- 14.不同配置方式的比较
+		  collapsed:: true
 			- Bean不同配置方式的比较
+			  collapsed:: true
 				- 书中总结图片
 				  ![Bean不同配置方式的比较.png](../assets/Bean不同配置方式的比较_1685860855635_0.png)
 				  ![Bean不同配置方式的比较2.png](../assets/Bean不同配置方式的比较2_1685860862388_0.png)
 			- Bean不同配置方式的使用场景
+			  collapsed:: true
 				- 书中总结的图片
 				  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 	- 第六章 Spring容器高级主题
@@ -847,6 +983,7 @@
 				  collapsed:: true
 					- Spring容器从BeanfDefinition中获取Bean属性的配置信息PropertyValue，并使用属性编辑器对PropertryValue进行转换以得到Bean的属性值。对Bean的其他属性重复这个过程就可以完成属性填充工作。
 		- 2.属性编辑器
+		  collapsed:: true
 			- 作用
 			  collapsed:: true
 				- Spring配置文件中Bean的属性一般是通过字面值为其设置属性值，但是Bean的类型却有很多种。属性编辑器负责完成配置文件字面值到JVM内部类型的类型转换工作。说白了就是一个类型转换器。
@@ -1000,7 +1137,6 @@
 				- Spring的ApplicationContext能够发布事件并允许注册相应的事件监听器，有一套完整的事件发布和监听机制。
 			- Java通过`java.util.EventObject`类描述事件，`java.util.EventListener`接口描述监听器。
 			- 重要概念
-			  collapsed:: true
 				- 事件源：事件的产生者，任何一个EventObject都有一个事件源。
 				- 事件监听注册表：用于保存事件监听器。
 				  collapsed:: true
@@ -1010,54 +1146,41 @@
 				- 一个图
 				  ![事件体系.png](../assets/事件体系_1686122116114_0.png)
 			- Spring事件类结构
-			  collapsed:: true
 				- 事件类
-				  collapsed:: true
 					- 事件类结构图
 					  ![事件类结构图.png](../assets/事件类结构图_1686201445018_0.png)
 					- ApplicationEvent的唯一构造函数式ApplicationEvent(Object source)，通过source参数指定事件源。
 					- ApplicationEvent有两个子类
-					  collapsed:: true
 						- ApplicationContextEvent
-						  collapsed:: true
 							- 这个类代表容器事件，它拥有4个子类，分别代表了容器启动、刷新、停止和关闭的事件。
 						- RequestHandledEvent
-						  collapsed:: true
 							- 这个类是和web应用相关的事件，当一个http请求本处理后，就会产生该事件。
 						- 也可以根据自己的需要扩展`ApplicationEvent`定义自己的事件，完成其他的特殊功能。
 				- 事件监听接口
-				  collapsed:: true
 					- 事件监听接口结构图
 					  ![事件监听接口结构图.png](../assets/事件监听接口结构图_1686202194823_0.png)
 					- `ApplicationListener`
-					  collapsed:: true
 						- Spring的事件监听器都继承自`ApplicationListener`接口
 						- `ApplicationListener`接口定义了一个`onApplicationEvent(E event)`方法，该方法接收`ApplicationEvent`事件对象，在该方法中编写事件处理的逻辑。
 					- `SmartApplicationListener`
-					  collapsed:: true
 						- `boolean supportsEventType(Class<? extends ApplicationEvent> eventType)`：指定监听器对支持哪种类型的容器事件。
 						- `boolean supportsSourceType(Class<?> sourceType)`：指定监听器对何种数据源对象做出响应。
 					- `GenericApplicationListener`
-					  collapsed:: true
 						- 与`SmartApplicationListener`不同的是，它增强了对泛型事件类型的支持。`suppertsEventTyoe()`方法的入参是`ResolvableType`，他可以获取泛型的实际类型信息。
 						- `boolean supportsEventType(ResolvableType eventType)`：指定监听器对支持哪种类型的容器事件。
 						- `boolean supportsSourceType(Class<?> sourceType)`：指定监听器对何种数据源对象做出响应。
 				- 事件广播器
-				  collapsed:: true
 					- 类结构图
 					  ![类结构图.png](../assets/类结构图_1686211575227_0.png)
 					- Spring为事件广播器定义了接口和实现类。
 					- 自定义事件广播器只要实现`AbstractApplicationEventMulticaster`接口即可。
 					- 如果没有自定义的事件广播器，则默认使用`SimpleApplicationEventMulticaster`。
 				- Spring事件体系的具体实现
-				  collapsed:: true
 					- `org.springframework.context.support.AbstractApplicationContext#refresh`，从容器启动的方法中通过这三个方法搭建事件的基础设施
-					  collapsed:: true
 						- `this.initApplicationEventMulticaster()`：初始化应用上下文事件广播器。
 						- `this.registerListeners()`：注册事件监听器。
 						- `this.finishRefresh()`：完成刷新并发布容器刷新事件。
 				- Spring事件实例的编写
-				  collapsed:: true
 					- 1.继承`ApplicationEvent`，实现定义一个事件。
 					- 2.实现`ApplicationListener`接口，定义一个监听器。
 					- 3.实现`ApplicationContextAware`接口的`setApplicationContext()`方法，在Spring容器启动时注入容器实例。
@@ -1159,28 +1282,20 @@
 					- 手动编写代理实例的创建过程。在为不同的类创建代理时，需要分别编写，无法通用。
 				- CGLib创建代理对象所花费的时间比JDK要长，但是创建动态代理对象的性能比JDK要好。
 		- 3.创建增强类（基于`ProxyFactory`进行实现）
-		  collapsed:: true
 			- 增强类型
-			  collapsed:: true
 				- AOP联盟定义了`org.application.aop.Advice`接口。
 				- Spring提供了五种类型的增强，这些增强都是通过`ProxyFactory`实现的，它通过代理技术实现目标类的代理类，从而对原有类的方法进行增强。
-				  collapsed:: true
 					- 前置增强
-					  collapsed:: true
 						- 在目标方法前执行。
 						- BeforeAdvice代表前置增强，是为了为了版本扩展定义的。
 						- 因为Spring只支持方法级的增强，所以MethodBeforeAdvice是目前可用的强置增强。
 					- 后置增强
-					  collapsed:: true
 						- AfterReturningAdvice，在目标方法后执行。
 					- 环绕增强
-					  collapsed:: true
 						- MethodInterceptor，在目标方法执行前后执行。
 					- 异常抛出增强
-					  collapsed:: true
 						- ThrowsAdvice，在目标方法抛出异常后执行。
 					- 引介增强
-					  collapsed:: true
 						- IntroductionInterceptor，在目标类的代理类中通过实现接口的方式，为目标类添加一些新的方法和属性。
 			- 前置增强
 			  collapsed:: true
@@ -1229,9 +1344,7 @@
 			  collapsed:: true
 				- Spring为引介增强定义了`IntroductionInterceptor`接口，该接口没有定义任何方法。接着Spring又提供了他的实现类`DelegatingIntroductionInterceptor`，一般情况下拓展该类实现自己的引介增强类。
 		- 4.创建切面
-		  collapsed:: true
 			- 切面概述
-			  collapsed:: true
 				- Spring通过`Pointcut`接口描述切点。
 				- `Pointcut`由`ClassFilter`和`MethodMather`构成。
 				- `ClassFilter`负责定位到特定的类，`MethodMather`负责定位到特定的方法。
@@ -1247,7 +1360,6 @@
 						- 动态匹配每次调用方法的时候都会进行判别。
 						- 对性能的影响很大，一般不用。
 			- 切点类型
-			  collapsed:: true
 				- 静态方法切点：`StaticMethodMatcherPointcut`
 				- 动态方法切点：`DynamicMethodMatcherPointcut`
 				- 注解切点：`AnnotationMatchingPointcut`
@@ -1259,26 +1371,21 @@
 				  collapsed:: true
 					- 可以将多个切点以并集或交集的方式组合起来，提供了切点之间复合运算的功能。
 			- 切面类型
-			  collapsed:: true
 				- 一般切面
 				  collapsed:: true
 					- `Advisor`代表一般切面。仅包含Advice，也就是增强。
 					- 一般切面代表连接点是所有目标类的所有方法，因为范围太宽泛，所以一般不使用。
 				- 切点切面
-				  collapsed:: true
 					- `PointcutAdvisor`代表具有切点的切面。
 					- 包含Advice和Pointcut两个类，这样就可以通过类、方法名和方法方位等信息灵活的定义切面的连接点。
 					- PointcutAdvisor的具体实现类
-					  collapsed:: true
 						- PointcutAdvisor实现体系
 						  ![PointcutAdvisor实现体系.png](../assets/PointcutAdvisor实现体系_1686577035330_0.png)
 						- `DefaultPointcutAdvisor`
 						- `NameMatchMethodPointcutAdvisor`
 						- `RegexpMethodPointcutAdvisor`
-						  collapsed:: true
 							- 使用正则表达式匹配方法名进行切点定义的切面。
 						- `StaticMethodMatcherPointcutAdvisor`
-						  collapsed:: true
 							- 静态方法匹配器切点定义的切面，默认情况下匹配所有的目标类。这个类的作用就是定义切点。
 							- 仅能通过方法名定义切点。
 						- `AspectJExpressionPointcutAdvisor`
@@ -1296,9 +1403,7 @@
 			  collapsed:: true
 				- 是指必须在运行期根据方法入参的值来判断增强是否需要织入到目标类的连接点上。
 			- 切面的实现
-			  collapsed:: true
 				- 普通方法匹配的静态切面的实现
-				  collapsed:: true
 					- 通过`StaticMethodMatcherPointcutAdvisor`进行实现，除了切点定义外，还需要定义一个增强才行。
 					- 需要实现`StaticMethodMatcherPointcutAdvisor`的`matches()`方法定义切点方法的匹配规则，覆盖`getClassFilter()`方法来定义切点类的匹配规则。通过这两步就可以完成对切点的定义。
 				- 正则表达式方法匹配的静态切面的实现
@@ -1375,6 +1480,7 @@
 			- 可以无缝集成AscpectJ。
 		- 2.Java注解的基础知识
 		- 3.着手使用`@AspectJ`
+		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过`Advisor`整合切点和增强描述切面。
@@ -1441,6 +1547,7 @@
 						- 引介增强，相当于IntroductionInterceptor。
 			- 引介增强用法
 		- 5.切点函数详解
+		  collapsed:: true
 			- `@annotation()`
 			  collapsed:: true
 				- 表示了标注了某个注解的所有方法。
@@ -1506,6 +1613,7 @@
 				- this()
 					- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 		- 6.AspectJ进阶
+		  collapsed:: true
 			- 切点的复合运算
 				- 通过使用切点的 逻辑运算符 ，来实现具有复合切点的切面。
 			- 切点的命名
@@ -1545,6 +1653,7 @@
 			- 绑定抛出的异常
 				- 连接点抛出的异常必须使用 `@AfterThrowing`注解的`throwing`成员进行绑定。
 		- 7.基于Schema配置切面
+		  collapsed:: true
 			- 背景：前6节中，我们讨论的基于@Aspect注解的切面，但是在Java5.0之前，也就是没有注解之前，我们可以使用Spring提供的基于Schema配置的方式去声明切面。
 			- 说白了基于Schema配置切面就是在xml中进行相关配置。
 			- 基于Schema配置的切面也可以通过配置命名切点，实现切点的复用。这里和 切点的命名是一样的。
@@ -1559,6 +1668,7 @@
 				- 我们之前在 切面类型中提到了Spring的`Advisor`接口，它是Spring中切面概念的对应物，它包含一个切点和增强，是切点和增强的复合体。但是在AspectJ中却没有等价物。
 				- 在基于Schema的配置中，我们可以配置一个Advisor的切面。
 		- 8.混合切面类型
+		  collapsed:: true
 			- 四种定义切面的方式
 				- 基于`@AspectJ`注解的方式
 					- **适用场景**：如果JDK是高于等于JDK5的话，推荐使用这种方式。
@@ -2462,23 +2572,37 @@
 		- `@PostConstruct`注解方法
 		- `InitializingBean`的`afterPropertiesSet()`方法
 		- 在xml或是`@bean`中指定为`init-method` 的初始化方法
-	- 根据配置文件批量创建Bean
+	- 动态的创建Bean
 	  collapsed:: true
 		- 方法一：通过实现`ImportBeanDefinitionRegistrar`的`registerBeanDefinitions()`方法
 		- 方法二：通过实现`BeanDefinitionRegistryPostProcessor`的`postProcessBeanDefinitionRegistry()`方法
+		- 方法三： ((4a4a373a-d98b-4c8e-aa0a-c8aa5700b02f))
 		- 参考文章
 			- [SpringBoot根据配置文件动态创建Bean](https://juejin.cn/post/7223325947339931707#heading-2)
 			- [Spring系列之@import详解(bean批量注册)](https://juejin.cn/post/7092972221097836575#heading-44)
+	- 工具类
+		- `ReflectionUtils`
+		  collapsed:: true
+			- 反射工具类
 - spring MVC
-	- 过滤器
+  collapsed:: true
+	- 注解
 	  collapsed:: true
+		- `@RequestBody`
+		  collapsed:: true
+			- 作用：用来接收前端传递给后端的`json`字符串中的数据的(请求体中的数据的)，所以只能发送POST请求。
+			- `@RequestBody`中的`required`默认是`true`，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将`required`设置为`false`。
+	- 过滤器
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
+		  collapsed:: true
 			- 如下图
 			  ![10.png](../assets/10_1680702279599_0.png)
 		- 过滤器-Filter
+		  collapsed:: true
 			- Filter是Servlet提供的过滤器，与Spring无关
 			- 是所有过滤组件中最外层的，从粒度来说是最大的
 			- 使用场景
+			  collapsed:: true
 				- 可以获取到Http的请求和响应信息
 				- 将请求参数记录到日志文件
 				- 资源请求的认证和授权
@@ -2488,22 +2612,31 @@
 				- 设置请求或响应的报文编码
 				- 可以在日志中统计请求处理的耗时
 			- 不足
+			  collapsed:: true
 				- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
 		- Spring的OncePreRequestFilter
+		  collapsed:: true
 			- 与Servlet Filter的区别
 			- 参考文章
+			  collapsed:: true
 				- [What is OncePerRequestFilter](https://www.baeldung.com/spring-onceperrequestfilter)
 		- 拦截器-Intercepter
+		  collapsed:: true
 			- Interceptor是Spring提供的过滤器
 			- 在自定义Interceptor的时候需要实现`org.springframework.web.servlet.HandlerInterceptor`接口
 			- 不足
+			  collapsed:: true
 				- 通过preHandle方法的handle方法，我们可以**获取请求调用的Controller类和方法名**。但是并**不能获取请求的调用方法的具体参数**
 			- 使用场景
+			  collapsed:: true
 				- 可以在日志中统计请求处理的耗时
 			- 参考文章
+			  collapsed:: true
 				- [SpringBoot之HandlerInterceptor拦截器的使用](https://juejin.cn/post/6921145139968606215)
 		- Controller增强-`@ControllerAdvice`
+		  collapsed:: true
 			- 使用场景
+			  collapsed:: true
 				- 全局异常处理
 				- 全局数据绑定
 				- 全局数据预处理
@@ -2511,8 +2644,10 @@
 	- 如何多次读取HttpServletRequest
 	  collapsed:: true
 		- 具体实现
+		  collapsed:: true
 			- jasper:cn/bravedawn/web/config/cachedrequest
 		- 参考文章
+		  collapsed:: true
 			- [Reading HttpServletRequest Multiple Times in Spring](https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times)
 	- 异常处理
 	  collapsed:: true
@@ -2530,20 +2665,27 @@
 			  }
 			  ```
 			- 缺点
+			  collapsed:: true
 				- 带注释的@ExceptionHandler方法只对特定的Controller有效，对整个应用程序不是全局的。当然，为每一个控制器添加一个@ExceptionHandler方法不太适合通用异常处理机制。
 		- 方法二：定义一个HandlerExceptionResolver，为Rest API实现统一的异常处理机制
 		  collapsed:: true
 			- 现有的实现
+			  collapsed:: true
 				- `SimpleMappingExceptionResolver`
+				  collapsed:: true
 					- SimpleMappingExceptionResolver可以根据需要轻松地将任何异常映射到默认的错误视图。
 				- `DefaultHandlerExceptionResolver`
+				  collapsed:: true
 					- 这个解析器是Spring3.0中引入的，在DispatcherServlet中默认启用。
 					- 它用于将标准Spring异常解析为相应的HTTP状态码，即客户端错误4xx和服务器错误5xx状态码。下面是他处理的[Spring异常的完整列表](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/mvc.html#mvc-ann-rest-spring-mvc-exceptions)，以及它们如何映射到状态代码。
 					- 缺点
+					  collapsed:: true
 						- 虽然它正确的设置了响应的状态码，但有一个限制是它没有为响应体设置任何内容。对于REST API来说——状态码并不能提供给客户端足够的信息，响应也必须有一个主体，以允许应用程序提供关于故障的附加信息。
 				- `ExceptionHandlerExceptionResolver`
+				  collapsed:: true
 					- 这个解析器是Spring3.1中引入的，在DispatcherServlet中默认启用。这个处理器是@ExceptionHandler机制如何工作的核心组件。
 				- `ResponseStatusExceptionResolver`
+				  collapsed:: true
 					- 这个解析器是Spring3.0中引入的，在DispatcherServlet中默认启用。
 					- 它的主要职责是能在自定义异常上使用@ResponseStatus注解，并将这些异常映射到HTTP状态码上。
 					- 代码
@@ -2565,8 +2707,10 @@
 					  }
 					  ```
 					- 缺点
+					  collapsed:: true
 						- 与DefaultHandlerExceptionResolver一样，该解析器在处理响应体的方式上受到限制——可以映射状态码到响应上，但响应体仍然为空。
 			- 自定义HandlerExceptionResolver
+			  collapsed:: true
 				- 要实现的功能：希望能够输出JSON或XML到响应体中，这取决于客户端要求的格式（通过Accept报头）
 				- 代码
 				  ```java
@@ -2624,26 +2768,31 @@
 			  }
 			  ```
 			- 优点
+			  collapsed:: true
 				- 能够自定义响应body体和状态代码
 				- 提供了多个异常映射到同一个方法，以便一起处理
 				- 可以很好的新的RESTful ResponseEntity响应
 			- 缺点
+			  collapsed:: true
 				- 用@ExceptionHandler处理的异常应与其方法参数的异常声明相匹配。如果他们不匹配，编译器不会报错，Spring也不会报错。但是，异常会在运行时实际抛出来时，异常解析机制将失败。
 				  ```
 				  java.lang.IllegalStateException: No suitable resolver for argument [0] [type=...]
 				  HandlerMethod details: ...
 				  ```
 		- 方法四：ResponseStatusException (Spring 5 and Above)
+		  collapsed:: true
 			- Spring5引入了ResponseStatusException类
 			- 我们可以创建它的一个实例，提供一个HttpStatus，并可选的提供一个reason和cause
 			- 参考文章
+			  collapsed:: true
 				- [Spring ResponseStatusException](https://www.baeldung.com/spring-response-status-exception)
 		- 参考文章
+		  collapsed:: true
 			- [Error Handling for REST with Spring](https://www.baeldung.com/exception-handling-for-rest-with-spring)
 	- 开发过程中的错误记录
 	  collapsed:: true
-		- @RequestBody中的required默认是true，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将required设置为false。
 		- Spring Boot请求(状态码是406)Could not find acceptable representation原因
+		  collapsed:: true
 			- 有可能是你的响应对象的属性没有写get/set方法导致的
 	- 全局异常处理器针对404、405的处理
 	  collapsed:: true
@@ -2682,6 +2831,41 @@
 		  spring.resources.add-mappings=false
 		  ```
 		- 405当前方法不可用，可能的原因有请求参数没有传或是请求的http方法不支持
+	- 参数校验
+	  collapsed:: true
+		- `@Valid`和`@Validated`
+		  collapsed:: true
+			- 相同点
+				- `@Valid`与`@Validated`都是做数据校验的，只不过注解位置与用法有点不同。
+			- 不同点：
+				- `@Valid`是使用Hibernate validation的时候使用。@Validated是只用Spring Validator校验机制使用。
+				- `@Valid` 可以嵌套验证，@Validation 不能进行嵌套验证
+				- `@Valid`：可以用在方法、构造函数、方法参数和成员属性（field）上。
+				- `@Validated`：用在类、方法和方法参数上。但不能用于成员属性（field）。（如果@Validated注解在成员属性上，则会报不适用于field的错误。）
+				- `@Valid`：没有分组功能。@Validated：提供分组功能，可以在参数验证时，根据不同的分组采用不同的验证机制。
+		- 参考文章
+			- [Spring中的@Valid 和 @Validated注解你用对了吗](https://www.cnblogs.com/xiaoqi/p/spring-valid.html)
+			- [@Valid与@Validated的区别](https://juejin.cn/post/7152324367857713159)
+	- 获取`HttpServletRequest`的三种方式
+		- 一通过`Controller`中增加`request`参数
+		  collapsed:: true
+			- 代码
+			  ```java
+			  @RestController
+			  public class DemoController { 
+			   
+			      @RequestMapping("/demo")
+			      public void demo(HttpServletRequest request) {        
+			          System.out.println(request.getParameter("hello"));
+			      }
+			  }
+			  ```
+		- 二通过`RequestContextHolder.currentRequestAttributes()`手动获取
+		  collapsed:: true
+			- 代码
+			  ```java
+			  HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+			  ```
 - spring-tx
   collapsed:: true
 	- Spring对事务管理的支持
@@ -2758,6 +2942,7 @@
 		- 参考文章
 			- [How to Mock HttpServletRequest](https://www.baeldung.com/java-httpservletrequest-mock)
 	- 整合Junit
+	  collapsed:: true
 		- 参考文章
 			- [springBoot整合的Junit4单元测试](https://www.jianshu.com/p/921282034c5d)
 			- [Spring Boot 基于 JUnit 5 实现单元测试](https://www.jianshu.com/p/4648fd55830e)
@@ -2965,3 +3150,21 @@
 	- FTP
 		- [FTP/FTPS Adapters](https://docs.spring.io/spring-integration/reference/ftp.html)
 		- [Spring 技巧：远程文件系统集成 (FTP) 与 Spring 集成](https://spring.io/blog/2020/03/18/spring-tips-remote-file-system-integrations-ftp-with-spring-integration)
+- Spring Security
+  collapsed:: true
+	- 核心类
+		- `HttpSecurity`
+			- `addFilterAfter(A, B)`
+				- 在B Filter的后面添加A Filter。
+			- `addFilterBefore(A, B)`
+				- 在B Filter的前面添加A Filter。
+			- `addFilterAt(A, B)`
+				- 给A Filter和B Filter一样的`Order`，但是执行的时候会先执行A Filter。
+		- `AccessDecisionVoters`
+			- 作用：定制用户接口访问权限校验逻辑。
+			- 参考文章：[Custom AccessDecisionVoters in Spring Security](https://www.baeldung.com/spring-security-custom-voter)
+		- `FilterInvocationSecurityMetadataSource`
+		  collapsed:: true
+			- 参考文章
+				- [FilterInvocationSecurityMetadataSource 接口](https://blog.csdn.net/qq_60458298/article/details/129771731)
+	-

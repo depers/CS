@@ -1,3 +1,45 @@
+- 核心类
+	- 三大核心类
+	  collapsed:: true
+		- `JobDetail`（任务）
+		  collapsed:: true
+			- 作用：具体要执行的业务逻辑。
+		- `Trigger`（触发器）
+		  collapsed:: true
+			- 作用：用来定义Job（任务）触发条件、触发时间，触发间隔，终止时间等。
+			- SimpleTrigger
+				- 作用：在具体的时间点执行一次，或者在具体的时间点执行，并且以指定的间隔重复执行若干次。
+			- CronTrigger
+				- 作用：可以定义Cron表达式来定义任务执行的规则。
+		- `Scheduler`（调度器）
+		  collapsed:: true
+			- 作用：Scheduler启动Trigger去执行Job。
+	- 其他类
+	  collapsed:: true
+		- `JobDataMap`
+			- 在`JobDataMap`里面如果存储对象，这个对象一定要实现`Serializable`，否则会报错`JobPersistenceException`。
+	- 关键配置
+		- `org.quatz.jobStore.misfireThreshold`：设置一个批量错过触发时间的最大阈值，如果超过这个时间才认定这个批量错过执行了。接着会根据错过执行的策略判断是否继续执行该批量。
+		- 错过触发的策略
+			- `CornTrigger`使用的策略
+				- `MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY = -1;`：对于错过的批次任务，恢复后所有错过的批次都会执行。
+				- `MISFIRE_INSTRUCTION_SMART_POLICY = 0;`：该策略在`CronTrigger`中为`MISFIRE_INSTRUCTION_FIRE_ONCE_NOW`。
+				- `MISFIRE_INSTRUCTION_FIRE_ONCE_NOW = 1;`：对于错过的批次不理睬，恢复后会立即执行一次，接着执行下一个批次的任务。
+				- `MISFIRE_INSTRUCTION_DO_NOTHING = 2;`：对于错过的批次不理睬，直接执行下一个批次的任务。
+			- `SimpleTrigger`使用的策略
+				- `MISFIRE_INSTRUCTION_SMART_POLICY`
+					- 若Repeat Count=0：会选择`MISFIRE_INSTRUCTION_FIRE_NOW`，立刻执行。对于不会重复执行的任务，这是默认的处理策略。
+					- 若Repeat Count>0：会选择`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，立刻执行并执行指定的次数。
+					- 若Repeat Count=REPEAT_INDEFINITELY;【无限重复】：`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，在下一个激活点执行，且超时期内错过的执行机会作废。
+				- `MISFIRE_INSTRUCTION_FIRE_NOW`：立刻执行。对于不会重复执行的任务，这是默认的处理策略。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`：在下一个激活点执行，且超时期内错过的执行机会作废。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_COUNT`：立即执行，且超时期内错过的执行机会作废。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT`：在下一个激活点执行，并重复到指定的次数。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_COUNT`：立即执行，并重复到指定的次数。
+				- `MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY`：忽略所有的超时状态，按照触发器的策略执行。
+			- 参考文章
+				- [Quartz的misfire处理机制分析](https://www.cnblogs.com/pzy4447/p/5201674.html)
+				- [Quartz框架（四）—misfire处理机制](https://www.jianshu.com/p/572322b36383)
 - 参考文章
 	- [美团 - Quartz应用与集群原理分析](https://tech.meituan.com/2014/08/31/mt-crm-quartz.html)
 	- [Quartz框架系列文章](https://www.jianshu.com/p/2a5d3b6336ba)
@@ -5,3 +47,8 @@
 	- [Introduction to Quartz](https://www.baeldung.com/quartz)
 	- [Quartz定时任务2.3版本数据库表字段说明](https://juejin.cn/post/7012961939319947300)
 	- [定时任务quartz-动态管理任务&实现思路](https://java.isture.com/arch/manage-system/manage-system-job.html)
+	- [Quartz 分布式定时任务动态添加&删除定时任务](https://blog.csdn.net/K_Men/article/details/122488852)
+	- [Quartz框架（九）— 动态操作Quartz定时任务](https://www.jianshu.com/p/c16a526b7aa6)
+	- [Quartz系列五：SimpleTrigger](https://nkcoder.github.io/posts/quartz/quartz-tutorial-5-simple-trigger/)
+	- [Category: Quartz](https://nkcoder.github.io/categories/quartz/)
+	- [作业调度系统—Quarzt](https://xuzongbao.gitbooks.io/quartz/content/)

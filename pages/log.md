@@ -66,10 +66,12 @@
 		- 使用Log4j只需要把log4j2.xml和相关jar放入classpath，分别是log4j-api-2.x.jar、log4j-core-2.x.jar、log4j-jcl-2.x.jar。
 		- 只有扩展Log4j时，才需要引用Log4j的接口（例如，将日志加密写入数据库的功能，需要自己开发）。
 	- 主要的三个组件
+	  collapsed:: true
 		- Logger：用于记录消息。
 		- Appender：用于将日志信息发布到目标，如文件、数据库、控制台等。
 		- Layout：用于以不同的风格格式化日志信息。
 	- Log4j2的最佳实践
+	  collapsed:: true
 		- 为LogManager对象使用静态修饰符：当开发人员在代码中声明任何变量时，都会带来开销。开发人员可以通过如下所示声明静态Logger引用来克服这种开销。
 		  ```java
 		  private static final Logger log = Logger.getLogger(YourClassName.class);
@@ -85,6 +87,7 @@
 		- 如果给定的记录器没有分配级别，那么它将从最接近的祖先继承一个级别。这就是为什么开发人员总是将日志级别分配给配置文件中的根日志记录器，即log4j2.rootLogger=DEBUG。
 		- 参考文章： [Log4j 2 Best Practices Example](https://examples.javacodegeeks.com/java-development/enterprise-java/log4j/log4j-2-best-practices-example/)
 	- 简单自定义Log4j2的配置
+	  collapsed:: true
 		- 简单配置
 		  ```xml
 		  <?xml version="1.0" encoding="UTF-8"?>
@@ -117,7 +120,6 @@
 		- FileAppender
 			- 功能：将日志写入文件。
 		- RollingFileAppender，滚动文件追加器
-		  collapsed:: true
 			- 功能：将日志写入滚动日志文件。
 			- 解决的问题：将所有内容都记录到一个文件中并不理想。定期滚动活动日志文件通常要好得多。也就是说他会在某个条件被触发的时候将现有的日志文件存档，新起一个文件进行日志记录。
 			- 参考配置
@@ -151,16 +153,7 @@
 			      </Loggers>
 			  </Configuration>
 			  ```
-			- 触发策略
-			  collapsed:: true
-				- 作用：触发策略确定是否应该执行翻转。
-				  collapsed:: true
-					-
-			- 滚动策略
-			  collapsed:: true
-				- 作用：滚动定义应该如何进行翻转，或者说是如何将现有的日志文件存档，创建一个新的文件。如果未配置 RolloverStrategy，RollingFileAppender 将使用 DefaultRolloverStrategy。
 			- 配置参数
-			  collapsed:: true
 				- append：如果为 true （默认值），则记录将附加到文件末尾。设置为 false 时，将在写入新记录之前清除该文件。
 				- bufferedIO：如果为 true （默认值），则记录将写入缓冲区，数据将在缓冲区已满时写入磁盘，或者，如果设置了 iminstantteFlush，则在写入记录时写入磁盘。文件锁定不能与缓冲 IO 一起使用。性能测试表明，即使启用了即时刷新，使用缓冲 I/O 也能显著提高性能。
 				- bufferSize：当 bufferedIO 为 true 时，这是缓冲区大小，默认值为 8192 字节。
@@ -171,7 +164,7 @@
 				- policy：用于确定是否应进行滚动更新的策略。
 				- strategy：用于确定存档文件的名称和位置的策略。
 			- 触发策略
-			  collapsed:: true
+				- 作用：触发策略确定是否应该执行翻转。
 				- 复合触发策略
 				    collapsed:: true
 					- 组合多个 `CompositeTriggeringPolicy` 触发策略，如果任何配置的策略返回 `true`，则返回 `true`。只需 `CompositeTriggeringPolicy` 将其他策略包装在 `Policies` 元素中即可进行配置。
@@ -196,9 +189,8 @@
 					  collapsed:: true
 						-
 			- 滚动策略
-			  collapsed:: true
+				- 作用：滚动定义应该如何进行翻转，或者说是如何将现有的日志文件存档，创建一个新的文件。如果未配置 RolloverStrategy，RollingFileAppender 将使用 DefaultRolloverStrategy。
 				- 默认滚动更新策略
-				  collapsed:: true
 					- 更新策略
 					    collapsed:: true
 						- 默认翻转策略接受在滚动文件追加程序本身上指定的 filePattern 属性中的**日期/时间模式**和**整数**。
@@ -302,6 +294,7 @@
 			- `DynamicThresholdFilter`：基于特定属性的过滤器日志行
 			- `RegexFilter`：根据消息是否与正则表达式匹配来筛选消息
 	- 配置Loggers
+	  collapsed:: true
 		- 属性
 			- `name`：记录器名称
 			- `level`：记录器记录的日志级别，默认为ERROR
@@ -392,6 +385,7 @@
 			- `%msg`：将消息写入日志。
 			- `%n`：换行，输出与平台相关的行分隔符字符。
 	- Policy触发策略
+	  collapsed:: true
 		- Policy是用来控制日志文件何时(When)进行滚动的。
 		- 如果配置的是RollingFile或RollingRandomAccessFile，则必须配置一个Policy。
 		- 触发策略

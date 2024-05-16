@@ -3,7 +3,6 @@
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
-			  collapsed:: true
 				- 基本类型
 				  collapsed:: true
 					- 整型
@@ -29,7 +28,6 @@
 						- 包装类型提供了大量实用方法；
 						- 所有的包装类型都是不变类；
 					- 基本数据类型和其包装类的对应关系
-					  collapsed:: true
 						- byte-Byte
 						- short-Short
 						- int-Integer
@@ -40,13 +38,11 @@
 						- char-Character
 					- 自动装箱与拆箱
 					- 进制转换
-					  collapsed:: true
 						- 十进制：Integer.toString
 						- 十六进制：Integer.toHexString
 						- 八进制：Integer.toOctalString
 						- 二进制：Integer.toBinaryString
 					- 处理无符号整型
-					  collapsed:: true
 						- Java并没有无符号整型（Unsigned）的基本数据类型
 						- byte、short、int和long都是带符号整型，最高位是符号位
 						- Byte.toUnsignedInt
@@ -144,13 +140,11 @@
 			- 运算
 			  collapsed:: true
 				- 参数传递
-				  collapsed:: true
 					- Java的参数传递是：值传递，
-					- 对于基本类型（原始类型），在参数传递中是值传递
+					- 对于基本类型（原始类型和其包装类型），在参数传递中是值传递
 					- 对于引用类型，本质上是将对象的地址以值的方式传递到形参中，修改信息的是同一个对象。
 					- 如果在方法中重置了对象的引用，则修改信息的是不同的对象。
 					- 参考文章
-					  collapsed:: true
 						- [这一次，彻底解决Java的值传递和引用传递](https://segmentfault.com/a/1190000016773324)
 				- 整数运算
 				  collapsed:: true
@@ -1033,9 +1027,7 @@
 						- 使用命令：java -cp E:\code\mall\JavaTrain\target\javatrain.jar cn.bravedawn.obj.inherit.innerclass.anonymousclass.Test
 				- 序列化
 				  id:: 641475d2-462e-43b7-a273-77ab40289cde
-				  collapsed:: true
 					- serialVersionUID
-					  collapsed:: true
 						- 定义为代表类定义的版本，在反序列化时，jvm会将字节流状态的类中的serialVersionUID与本地类中的serialVersionUID进行比较，如果相同，则进行序列化，不相同就抛InvalidClassException异常。
 						- 在实现序列化接口的时候，我们一般显式的给serialVersionUID设置一个固定值。这样无论类后期增加成员变量还是删除成员变量，都不会发生错误。
 						- 如果在实现Serializable接口的时候，没有显式指定一个固定值，java序列化机制是会自动生成一个serialVersionUID，这个自动值会受类名称、它所实现的接口、以及所有的共有的私有的和受保护的成员变量的影响。如果这些值改变，那么这个自动值也会改变。在反序列化时，便会出错。
@@ -1043,31 +1035,32 @@
 		- 异常处理
 		  collapsed:: true
 			- 异常体系
+			  collapsed:: true
 				- 分类
 					- 检查性异常：需强制捕获
 					- 运行时异常：无需强制捕获
 					- 错误：无需捕获的严重错误
 				- 关键字
+				  collapsed:: true
 					- try： 用于监听
 					- catch： 用于捕获异常
 					- finally：finally语句块总是会被执行
 					- throw：用于抛出异常
 					- throws：用在方法签名中，用于声明该方法可能抛出的异常
 			- 捕获异常
+			  collapsed:: true
 				- 多catch语句
-				  collapsed:: true
 					- catch的顺序非常重要：子类必须写在前面
 					- 多个catch语句只有一个能被执行
 				- finally语句
-				  collapsed:: true
 					- finally语句不是必须的，可写可不写
 					- finally总是最后执行
 					- finally是用来保证一些代码必须执行的
 				- 捕获多种异常
-				  collapsed:: true
 					- 一个catch语句也可以匹配多个非继承关系的异常
 					- 因为处理异常的逻辑想通过，可以用`|`合并到一起，像这样catch (IOException | NumberFormatException e)
 			- 抛出异常
+			  collapsed:: true
 				- 调用printStackTrace()可以打印异常的传播栈，对于调试非常有用
 				- 保存原始的Exception信息
 				  collapsed:: true
@@ -1078,9 +1071,10 @@
 					- 定义：若在catch和finally中都抛出异常，原来在catch中的异常就会消失，因为只能抛出一个异常。没有被抛出的异常（catch中的异常），称为“被屏蔽”的异常（Suppressed Exception）
 					- 保存输出屏蔽异常的方法
 					  collapsed:: true
-						- 方法一：将catch中的异常使用一个变量进行保存，然后在finally的异常中，使用e.addSuppressed(origin)方法添加到屏蔽异常的数组中
-						- 方法二：try-with-resource代码块可以直接捕获屏蔽异常
+						- 方法一：将catch中的异常使用一个变量进行保存，然后在finally的异常中，使用e.addSuppressed(origin)方法添加到屏蔽异常的数组中。
+						- 方法二：try-with-resource代码块可以直接捕获屏蔽异常。因为在字节码编译的时候会新增将抑制异常添加到屏蔽异常数组的代码。
 			- 自定义异常
+			  collapsed:: true
 				- `Throwable`的四个参数
 					- `message` – 错误信息
 					- `cause` – 错误原因，可以为null，标识不存在原因或是未知
@@ -1122,6 +1116,7 @@
 				- 对特定的包启用断言：`-ea:com.itranswarp.sample...`，注意后面有三个.
 				- 对可恢复的错误不能使用断言，而应该抛出异常；
 			- 反射相关的异常
+			  collapsed:: true
 				- InvocationTargetException
 				  collapsed:: true
 					- 背景
@@ -1748,6 +1743,8 @@
 			- Type类型
 			  collapsed:: true
 				-
+			- 获取方法参数
+				- `Parameter`
 		- 模块（Java Platform Module System，JPMS）
 		  collapsed:: true
 			- 背景
@@ -2551,6 +2548,7 @@
 					- `TreeSet`是有序的，因为它实现了`SortedSet`接口。
 					- 使用`TreeSet`和使用`TreeMap`的要求一样，添加的元素必须正确实现`Comparable`接口，如果没有实现`Comparable`接口，那么创建`TreeSet`时必须传入一个`Comparator`对象。
 			- Map
+			  collapsed:: true
 				- 背景
 				  collapsed:: true
 					- 为什么不用list而要用map呢
@@ -2911,6 +2909,7 @@
 		- 并发
 		  collapsed:: true
 			- Thread
+			  collapsed:: true
 				- 线程的创建
 				- 核心方法
 				  collapsed:: true
@@ -2995,6 +2994,9 @@
 				- 公平锁和非公平锁
 					- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 					- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
+			- 线程池
+			  collapsed:: true
+				- 在一个应用中时可以创建多个线程池的。
 		- IO
 		  collapsed:: true
 			- 五种IO模型
@@ -3348,7 +3350,10 @@
 					- 关键方法
 						- `int select()`：监控所有注册的 Channel，当它们中间有需要处理的 IO 操作时，该方法返回，并将对应的 SelectionKey 加入被选择的 SelectionKey 集合中，该方法返回这些 Channel 的数量。
 			- yaml文件读取
+			  collapsed:: true
 				- 参考文章：[How to Process YAML with Jackson](https://www.baeldung.com/jackson-yaml)
+			- try-with-resources语法糖
+				-
 		- JVM
 		  collapsed:: true
 			- GC日志的格式和配置方式
@@ -4396,14 +4401,12 @@
 				- java.util.function.BiConsumer
 				- 空笔记
 			- stream操作
-			  collapsed:: true
 				- Stream生命周期
 					- 流由三部分构成：数据源，一个或多个中间操作，一个或多个终止操作。
 					- **数据源**：为流提供数据。
 					- **中间操作**：依次获取数据并处理数据。所有的中间操作都是“懒操作”，也就是说在流开始工作之前，中间操作对流中的数据没有任何影响。
 					- **终止操作**：流生命周期的结束，它可以触发流开始工作，中间操作也就会影响流中的数据。
 				- `peek()`
-				  collapsed:: true
 					- 使用场景
 						- `peek()`方法：存在的主要目的是用调试，通过**peek()**方法可以看到流中的数据经过每个处理点时的状态。
 						- `peek()` 方法：用于对流中的元素进行操作，但不会改变元素本身。它可以用于执行一些副作用操作，例如记录日志、进行监控等。
@@ -4419,6 +4422,7 @@
 						- `map()`方法：用于将流中的元素进行转换，生成一个新的流。
 						- 这个函数就是一个类型转换的工作，比如我想从个人信息中获取他的年龄，比如我想讲字符串转换为整数，它会为集合中的每个元素执行该操作。
 				- `allMatch()`
+				  collapsed:: true
 					- 检查流中的所有元素是否都满足指定的条件。
 			- Optional类
 			  collapsed:: true
@@ -4429,6 +4433,7 @@
 					- 不接收任何参数，但会返回一个结果。
 					- `Supplier`比较常用的场景是提供一个返回结果。比如从HTTP请求中获取一个值，这个操作可以用`Supplier`包装起来。虽然`Supplier`可以返回静态的字符串或者其他对象，但实际开发中这样的业务逻辑不如直接写一个方法进行返回来的简单明了。`Supplier`真正的用武之地是对一个复杂操作返回结果进行包装。
 				- `Consumer`接口
+				  collapsed:: true
 					- 接收一个参数，但不返回任何结果。
 					- `Consumer`的常用场景是对已有数据的处理，比如创建一个对象之后发送到kafka、redis、写入数据库等。
 			- Lambda表达式
@@ -4717,7 +4722,6 @@
 					- 可以通过ServletConfig的getServletContext()方法获取ServletContext对象
 					- Servlet引擎还可以提供上下文对象，这些对象对于一组Servlet是唯一的，并且与主机的URL路径名称空间的特定部分绑定在一起。
 				- 方法
-				  collapsed:: true
 					- getContext(String uripath)
 					  collapsed:: true
 						- 该方法返回特定uri路径的ServletContext对象，如果对servlet不可用或不可见，则返回null。
@@ -4734,10 +4738,8 @@
 					  collapsed:: true
 						- 此方法用于将给定的消息字符串写入Servlet日志文件。
 					- getAttribute(String name)
-					  collapsed:: true
 						- 返回给定名称的对象属性。我们可以使用公共抽象enumeration <String> getAttributeNames()方法获取所有属性的枚举。
 					- setAttribute(String paramString, Object paramObject)
-					  collapsed:: true
 						- 此方法用于设置具有应用程序范围的属性。所有其他访问这个ServletContext的servlet都可以访问这个属性。我们可以使用公共抽象方法void removeAttribute(String paramString)删除属性
 					- getInitParameter(String name)
 					  collapsed:: true
@@ -4746,7 +4748,6 @@
 					  collapsed:: true
 						- 可以使用这个方法来设置应用程序的初始化参数。
 				- 注意
-				  collapsed:: true
 					- 理想情况下，这个接口的名称应该是ApplicationContext，因为它用于应用程序，而不是特定于任何servlet。另外，不要将它与URL中传递的访问web应用程序的servlet上下文混淆。
 			- ServletRequest interface
 			  collapsed:: true
@@ -4756,9 +4757,7 @@
 					- Servlet容器根据客户端请求创建ServletRequest对象，并将其传递给Servlet service()方法进行处理。
 					- ServletRequest的子接口是HttpServletRequest，它包含一些用于会话管理、cookie和请求授权的其他方法。
 				- 方法
-				  collapsed:: true
 					- Object getAttribute(String name)
-					  collapsed:: true
 						- 此方法将指定属性的值返回为Object，如果不存在则返回null。
 						- 我们可以使用getAttributeNames()方法来获取请求属性名称的枚举。此接口还提供设置和删除属性的方法
 					- getServerName()
@@ -4874,6 +4873,7 @@
 					  collapsed:: true
 						- 将给定Throwable异常的解释性消息和堆栈跟踪写入servlet日志文件，前面加上servlet名称。
 			- HttpServlet class
+			  collapsed:: true
 				- 介绍
 				  collapsed:: true
 					- HTTPServlet是一个抽象类，它扩展了GenericServlet，并为创建基于HTTP的web应用程序提供了基础。
@@ -4897,6 +4897,7 @@
 					  collapsed:: true
 						- 返回自1970GMT 1月1日午夜以来最后一次修改 HttpServletRequest 的时间
 			- Servlet Attributes
+			  collapsed:: true
 				- 介绍
 					- Servlet属性（Servlet Attributes）用于Servlet之间的通信，可以在web应用程序中设置、获取和删除属性。
 					- servlet属性有三种作用域：请求作用域（request scope）、会话作用域（session scope）和应用程序作用域（application scope）。
@@ -5084,6 +5085,7 @@
 				  collapsed:: true
 					- 我们可以在ServletContentListener的初始化方法中，使用ServletContext.addServlet()方法去注册一个Servlet
 		- Servlet中Session的管理
+		  collapsed:: true
 			- 会话的定义
 			  collapsed:: true
 				- 背景
@@ -5184,6 +5186,7 @@
 					- cn.bravedawn.servlet.session.urlrewriting.LoginServlet
 					- cn.bravedawn.servlet.session.urlrewriting.LogoutServlet
 		- Servlet中的过滤器
+		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 在上一节中我们通过HttpSession实现会话管理时，我们通过判断session属性来判断用户是否登录（或者说会话是否有效），这个方式实现简单但是如果我们有大量的Servlet和jsp页面那该怎么办，如果在将来我们修改这个session属性，那我们的工作量就更大了。
