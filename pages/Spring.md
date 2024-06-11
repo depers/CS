@@ -125,12 +125,16 @@
 	- 第四章 Ioc容器
 	  collapsed:: true
 		- Ioc概念的解释
+		  collapsed:: true
 			- IOC，Inverse Control，控制反转。
 			- 这里我来说下我的理解，在代码开发的时候，原本程序中调用类与实现类的交互调用，使得程序越来越复杂，我们为了实现程序的解耦，原本调用类中对实现类的调用，变成了对其接口的调用，引入了一个中间人的角色，由中间人去维护调用类和实现类的关系，决定具体使用哪个实现类去完成调用逻辑。这个逻辑我们称为依赖注入，另一种对该功能的解释是控制反转。
 		- Ioc的类型
+		  collapsed:: true
 			- 一构造函数注入
+			  collapsed:: true
 				- 在调用类的构造函数中将接口实现类的对象赋给接口实例，从而实现依赖注入
 				- 缺点
+				  collapsed:: true
 					- 每次创建调用类对象时都要完成对实现类接口实例的注入，在某些场景下我们可能并不需要实现接口的类实例作为构造函数的参数注入进来，无参构造器就行。这样我们每次就多实例化了一个实例，存在资源浪费的情况
 				- 代码
 				  ```java
@@ -143,6 +147,7 @@
 				  }
 				  ```
 			- 二属性注入
+			  collapsed:: true
 				- 属性注入是可以有选择的通过Setter方法完成对调用类所需依赖的实现类实例的注入，更加灵活。
 				- 代码
 				  ```java
@@ -156,6 +161,7 @@
 				  }
 				  ```
 			- 三接口注入
+			  collapsed:: true
 				- 将调用类所有依赖注入的逻辑抽取到一个接口中，调用类通过实现该接口提供相应的注入方法。这种方式与构造函数注入和属性注入区别不大，还新增了一个接口增加了类的数量，不推荐使用。
 				- 代码
 				  ```java
@@ -181,20 +187,27 @@
 				  ```
 			- Spring支持**构造函数注入**和**属性注入**。
 		- 通过容器完成依赖关系的注入
+		  collapsed:: true
 			- 从上一节Ioc的类型中我们看到，我们虽然实现了调用类和实现类的解耦，但是在调用类的代码中仍然存在实现类接口的代码，要想将实现类接口的代码也剔除的话，我们就需要一个三方的容器来去维护和管理两个类之间的依赖关系，Spring Ioc容器就是为此而生的。
 			- Spring Ioc容器的实现依赖于Java反射。
 		- Java相关的知识点
+		  collapsed:: true
 			- 类加载器ClassLoader
 			- Java反射相关知识
 		- 资源访问
+		  collapsed:: true
 			- Spring提供的Resource接口，提供了更强大的底层资源访问的能力
+			  collapsed:: true
 				- [使用Resource](https://www.liaoxuefeng.com/wiki/1252599548343744/1282383017934882)
 				- [Access a File from the Classpath in a Spring Application](https://www.baeldung.com/spring-classpath-file-access)
 			- 资源加载
+			  collapsed:: true
 				- Resource接口
+				  collapsed:: true
 					- 继承图
 					  ![Resource及其实现类的关系.png](../assets/Resource及其实现类的关系_1694094307591_0.png)
 					- 整理一下上面的几个接口
+					  collapsed:: true
 						- `WritableResource`：可写资源接口。
 						- `ByteArrayResource`：二进制数组表示的资源。
 						- `ClassPathResource`：类路径下的资源，资源以相对于类路径的方式表示。
@@ -203,25 +216,31 @@
 						- `ServletContextResource`：可以访问以相对于Web应用根目录的路径加载资源。
 						- `UrlResource`：可以访问通过URL表示的资源（Web服务器和FTP服务器）。
 						- `PathResource`
+						  collapsed:: true
 							- Spring4.x提供的读取文件的新类。
 							- Path封装了`java.net.URL`，`java.nio.file.Path`、文件系统提供的资源。
 							- 可以访问通过URL、Path和文件路径表示的资源。
 						- `EncodedResource`：如果资源文件使用了特殊的编码格式，可以通过这个类对资源进行编码处理，保证资源内容操作的正确性。
 				- 资源地址表达式
+				  collapsed:: true
 					- `classpath:`和`classpath*:`的区别
+					  collapsed:: true
 						- `classpath:com/smart/module*.xml`只会加载**一个**模块的配置文件。
 						- `classpath*:com/smart/module*.xml`会加载com/smart目录下**所有的**以mudule开头的xml文件。
 					- 支持的地址前缀
+					  collapsed:: true
 						- `classpath:`：从类路径中加载，后面跟类的绝对地址。
 						- `file:`：使用`UrlResource`从文件系统中加载资源，可以是绝对地址或相对地址。
 						- `http://`：使用`UrlResource`从文件系统中加载资源。
 						- `ftp://`：使用`UrlResource`从FTP服务器加载资源。
 						- `没有前缀`：根据`ApplicationContext`的具体实现类采用对应类型的`Resource`。
 					- 支持Ant风格带通配符的资源地址，支持以下三种通配符
+					  collapsed:: true
 						- `?`：匹配文件名中的一个字符
 						- `*`：匹配文件名中的任意字符
 						- `**`：匹配多层路径
 				- 资源加载器
+				  collapsed:: true
 					- 资源加载器类的接口和实现类
 					  ![资源加载器的接口和实现类.png](../assets/资源加载器的接口和实现类_1694435608388_0.png)
 					- `ResourceLoader`接口，仅支持带资源类型前缀的表达式，不支持Ant风格的资源路径表达式。
@@ -229,14 +248,16 @@
 					- `PathMatchingResourcePatternResolver`，是Spring提供的标准实现类。
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 		- BeanFactory、ApplicationContext和WebApplicationContext
+		  collapsed:: true
 			- BeanFactory
-			  collapsed:: true
 				- 功能
+				  collapsed:: true
 					- 一般称BeanFactory为Ioc容器
 					- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
 					- BeanFactory是Spring最核心的接口，他提供了高级的Ioc配置机制。
 					- BeanFactory是Spring框架的基础设施，面向Spring本身。
 				- BeanFactory的类体系结构
+				  collapsed:: true
 					- Spring为BeanFactory提供了多种实现，建议使用XmlBeanDefinitionReader、DefaultListableBeanFactory进行Spring Ioc容器的启动。
 					- BeanFactory的重要方法是getBean(String beanName)，该方法用于从容器中返回特定名称的Bean。
 					- `ListableBeanFactory`：该接口定义了访问容器中Bean基本信息的若干方法。
@@ -246,41 +267,54 @@
 					- `singletonBeanRegistry`：定义了在运行期向容器注册单实例Bean的方法。
 					- `BeanDefinitionRegistry`：提供了向容器手工注册BeanDefinition对象的方法。
 			- ApplicationContext
+			  collapsed:: true
 				- 功能
+				  collapsed:: true
 					- 一般称Application为**Spring容器**
 					- `ApplicationContext`是面向使用Spring的开发者，几乎所有的场合可以直接使用`ApplicationContext`而不是`BeanFactory`。
 					- `ApplictionContext`是建立在`BeanFactory`之上的，提供了更多面向应用的功能。
 				- 与`BeanFactory`的重大区别
+				  collapsed:: true
 					- `BeanFacotry`在初始化容器的时候，并未实例化Bean，直到第一次访问某个Bean时才实例化目标Bean。因此第一次访问这个Bean时会消耗过多的时间。
 					- Application在初始化应用上下文时就实例化所有的单实例的bean，`ApplicationContext`的初始化时间比`BeanFactory`的时间会长一点，但是第一次访问Bean就会很快。
 				- ApplicationContext的初始化
+				  collapsed:: true
 					- `ClassPathXmlApplicationContext`，若配置文件在类路径下，使用这个类初始化ApplicationContext。
 					- `FileSystemXmlApplicationContext`，若配置文件在文件系统的路径下，使用这个类初始化ApplicationContext。
 					- `ClassPathXmlApplicationContext`与`FileSystemXmlApplicationContext`的区别在于在不显示声明资源类型前缀的情况下，他两分别会将路径解析为类路径和文件系统路径。
 				- Spring支持基于注解的配置方式
+				  collapsed:: true
 					- 这部分功能主要由JavaConfig这个项目来负责实现。
 					- Spring为注解类的配置提供了`ApplicationContext`的实现类：`AnnotationConfigApplicationContext`。
 				- Spring4.0支持使用Groovy DSL来进行Bean定义的配置
+				  collapsed:: true
 					- 因为Groovy可以提供更复杂的Bean逻辑配置。
 					- Spring专门为此提供了`ApplicationContext`的实现类：`GenericGroovyApplicationContext`。
 				- ApplicationContext的类体系结构
+				  collapsed:: true
 					- `ApplicationEventPublisher`：让容器具有发布应用上下文事件的功能。
 					- `MessageSource`：为程序提供i18n国际化消息访问的功能。
 					- `ResourcePatternResolver`：可以通过带前缀的Ant风格的资源文件路径装载Spring的配置文件。
 					- `LifeCycle`：主要用于控制异步处理过程。
 				- 参考文章
+				  collapsed:: true
 					- [The Spring ApplicationContext](https://www.baeldung.com/spring-application-context)
 			- WebApplicationContext
+			  collapsed:: true
 				- 功能
+				  collapsed:: true
 					- WebApplicationContext是专门为web程序服务的，他允许相对于Web根目录的路径中装载文件完成初始化工作。
 				- WebApplicationContext的类体系结构
+				  collapsed:: true
 					- WebApplicationContext作为属性放置在ServletContext中，Spring提供了`WebApplicationContextUtils`工具类，可以通过该类的`getWebApplicationContext(ServletContext sc)`方法，从`ServletContext`中获取`WebApplicationContext`实例。
 					- 在非web应用的环境下，Bean只有`singleton`和`prototype`两种作用域，WebApplicationContext提供了三个新的作用域：`request`、`session`、`global session`。
 					- `ConfigurableWebApplicationContext`扩展了`WebApplicationContext`，允许我们通过配置化的方式实例化`WebApplicationContext`。
 				- WebApplicationContext的初始化
+				  collapsed:: true
 					- 与`BeanFactory`、`ApplicationContext`不同的是：`WebApplicationContext`的初始化需要**`ServletContext`实例**，也就是说他必须在拥有**Web容器**的前提下才能完成启动工作。
 					- 可以在web.xml配置**自启动的Servlet（已废除）**或**定义Web容器监听器**（`ServletContextListener`），来完成`WebApplicationContext`的初始化，启动Web容器并自动装配ApplicationContext的配置信息。
 					- 书上讲了好几个版本的配置，
+					  collapsed:: true
 						- 1.配置Spring容器的配置文件位置，通过ContextLoaderListener来启动web容器，加载bean资源。
 						- 2.通过Web容器监听器启动Web容器，配置Spring `@Configuration`的注解方式配置bean资源，加载bean资源。
 						- 3.通过Web容器监听器启动Web容器，配置Spring Groovy DSL配置的bean资源，加载bean资源。
@@ -288,38 +322,50 @@
 				- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
 				- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
 		- Bean的生命周期
+		  collapsed:: true
 			- `BeanFactory`中Bean的生命周期
+			  collapsed:: true
 				- 生命周期图
 				  ![BeanFactory的生命周期.png](../assets/BeanFactory的生命周期_1684648090473_0.png)
 				- 生命周期分类分析，划分为4类
+				  collapsed:: true
 					- Bean自身的方法
+					  collapsed:: true
 						- 调用Bean构造函数，实例化Bean
 						- 调用Setter方法设置Bean的属性
 						- 通过`<bean>`的`init-method`和`destory-method`所指定的方法
 					- Bean生命周期接口方法，下面的这些接口由Bean类自己直接实现
+					  collapsed:: true
 						- `BeanNameAware.setBeanName()`：将配置文件中该Bean的名称设置到Bean中。
 						- `BeanFactoryAware.setBeanFactory()`：将BeanFactory容器实例设置到Bean中。
 						- `InitializingBean.afterPropertiesSet()`：这个方法在设置了所有Bean属性后才执行初始化逻辑。
 						- `DisposableBeandestroy()`：当容器关闭时，将调用该方法，可以在这里编写释放资源、记录日志等操作。
 					- 容器级生命周期接口方法，由如下两个接口实现，他们的实现类被称为"**后置处理器**"
+					  collapsed:: true
 						- `InstantiationAwareBeanPostProcessor`接口
+						  collapsed:: true
 							- `postProcessBeforeInstantiation()`：在实例化之前调用
 							- `postProcessAfterInstantiation()`：在实例化之后调用
 							- `postProcessPropertyValues()`：在为Bean设置属性值之前调用
 							- 注意：`InstantiationAwareBeanPostProcessor`其实是`BeanPostProcessor`的子接口，我们一般使用他的适配器类`InstantiationAwareBeanPostProcessorAdapter`进行扩展。
 						- `BeanPostProcessor`接口
+						  collapsed:: true
 							- `postProcessBeforeInitialization()`：该方法在 Bean 的初始化方法（如构造函数或init-method）被调用之前执行。可以在这个方法中对 Bean 对象进行修改或添加额外的逻辑。
 							- `postProcessAfterInitialization()`：该方法在 Bean 的初始化方法执行之后调用。可以在这个方法中对已经初始化的 Bean 对象进行修改。
 							- `BeanPostProcessor`接口十分重要，Spring容器提供的AOP和动态代理等功能都是通过它进行实施的。
 						- 值得注意的点
+						  collapsed:: true
 							- `InitDestroyAnnotationBeanPostProcessor`类
+							  collapsed:: true
 								- 用于对加了`@PostConstruct`、`@PreDestory`注解的Bean进行处理
 						- 后处理器的特点
+						  collapsed:: true
 							- 他们独立于Bean，他们的实现类以容器附加的形式注册到Spring容器中，并通过反射被Spring容器扫描识别。
 							- 后处理器是作用范围是**全局性的（容器级的）**
 							- 用户可以通过编写后处理器对特定的Bean进行加工处理
 							- 可以定义多个后处理器，只需要同时实现`org.springframework.core.Ordered`接口指定其加载顺序即可。
 					- 工厂后置处理器接口方法
+					  collapsed:: true
 						- 工厂后处理器也是容器级的，在应用上下文装配配置文件之后立即调用。
 				- 具体实践：spring-demo/cn/bravedawn/chapter4/beanfactorydemo
 			- `ApplicationContext`中Bean的生命周期
@@ -327,6 +373,7 @@
 				  ![ApplicationContext上bean的生命周期.png](../assets/ApplicationContext上bean的生命周期_1684722873669_0.png)
 				- 相比于BeanFactory中Bean的生命周期的分类，有两处新增的逻辑
 					- Bean生命周期接口方法
+					  collapsed:: true
 						- 新增了调用`ApplicationContextAware.setApplicationContext()`方法
 					- 工厂后置处理器接口方法
 						- 新增了调用`BeanFactoryPostProcessor.postProcessBeanFactory()`方法
@@ -689,6 +736,7 @@
 				  ```
 				- 场景描述：当Boss Bean在Web环境中调用car Bean的时候，Spring AOP会启用动态代理智能的判断Boss Bean位于那个http请求线程中，病虫对应的http请求线程中获取对应的car Bean。其中注入Boss Bean的car Bean并不是原来的car Bean，这个car Bean是Spring动态代理生成的代理对象。
 		- 9.`FactoryBean`接口
+		  collapsed:: true
 			- 背景：使用xml文件描述Bean的信息过于复杂，采用编码的方式或许是更好的选择。Spring提供了一个工厂类接口`FactoryBean`，用户可以通过这个接口定制实例化Bean的逻辑。
 			- 这里具体的例子可以参考本书P154页的实现，这里不再赘述。
 		- 10.基于注解的配置
@@ -1257,7 +1305,6 @@
 					- 采用纯Java实现，在运行期通过代理方式向目标类织入增强代码。
 					- 不提供完整的AOP实现，侧重提供一种与Spring IOC整合的AOP实现。
 		- 2.基础知识
-		  collapsed:: true
 			- 静态代理
 			  collapsed:: true
 				- 就是在代码中显示指定的代理。
@@ -1266,11 +1313,9 @@
 			  collapsed:: true
 				- 允许开发人员在代理运行期创建接口或者类的代理实例。
 			- JDK动态代理
-			  collapsed:: true
 				- JDK只能为接口创建代理实例，这个也是他的一个限制。
 				- JDK的动态代理主要涉及`Proxy`类和`InvocationHandler`这两个接口。
 			- CGLib动态代理
-			  collapsed:: true
 				- CGLib采用底层的字节码技术，可以为一个类创建子类，在子类中采用方法拦截的技术拦截所有父类方法的调用，并在父类方法上加入横切逻辑。
 				- CGLib采用动态创建子类的方式生成代理对象，所以不能对目标类中`final`和`private`的方法进行代理。
 			- 代理知识总结
@@ -1282,6 +1327,7 @@
 					- 手动编写代理实例的创建过程。在为不同的类创建代理时，需要分别编写，无法通用。
 				- CGLib创建代理对象所花费的时间比JDK要长，但是创建动态代理对象的性能比JDK要好。
 		- 3.创建增强类（基于`ProxyFactory`进行实现）
+		  collapsed:: true
 			- 增强类型
 				- AOP联盟定义了`org.application.aop.Advice`接口。
 				- Spring提供了五种类型的增强，这些增强都是通过`ProxyFactory`实现的，它通过代理技术实现目标类的代理类，从而对原有类的方法进行增强。
@@ -1344,6 +1390,7 @@
 			  collapsed:: true
 				- Spring为引介增强定义了`IntroductionInterceptor`接口，该接口没有定义任何方法。接着Spring又提供了他的实现类`DelegatingIntroductionInterceptor`，一般情况下拓展该类实现自己的引介增强类。
 		- 4.创建切面
+		  collapsed:: true
 			- 切面概述
 				- Spring通过`Pointcut`接口描述切点。
 				- `Pointcut`由`ClassFilter`和`MethodMather`构成。
@@ -2279,6 +2326,7 @@
 	- 第十七章 Spring MVC
 	  collapsed:: true
 		- 1.Spring MVC体系概述
+		  collapsed:: true
 			- 体系结构
 				- DispatcherServlet的作用
 					- 负责协调和组织不同组件以完成请求处理并返回响应的工作。
@@ -2566,8 +2614,14 @@
 		- 参考文章
 			- [Guide To Running Logic on Startup in Spring](https://www.baeldung.com/running-setup-logic-on-startup-in-spring)
 			- [Spring PostConstruct and PreDestroy Annotations](https://www.baeldung.com/spring-postconstruct-predestroy)
-	- 在Spring中的Bean初始化之后，可以通过哪些方法实现启动时运行的逻辑（按照方法执行的顺序排列）
+	- 注解@Primary
 	  collapsed:: true
+		- 如果同时存在多个类型的Bean，使用此注解来表明优先注入该注解。
+		- @Primary注解可以用于在多个实现类中指定默认的实现类。当存在多个实现类时，Spring框架将默认选择带有@Primary注解的实现类进行自动装配。
+	- 注解@Qualifier
+	  collapsed:: true
+		- 如果存在多个相同类型的实现类但bean名称不同的情况，可以通过该注解选择特定bean名称的bean。
+	- 在Spring中的Bean初始化之后，可以通过哪些方法实现启动时运行的逻辑（按照方法执行的顺序排列）
 		- Bean的构造函数
 		- `@PostConstruct`注解方法
 		- `InitializingBean`的`afterPropertiesSet()`方法
@@ -2581,6 +2635,7 @@
 			- [SpringBoot根据配置文件动态创建Bean](https://juejin.cn/post/7223325947339931707#heading-2)
 			- [Spring系列之@import详解(bean批量注册)](https://juejin.cn/post/7092972221097836575#heading-44)
 	- 工具类
+	  collapsed:: true
 		- `ReflectionUtils`
 		  collapsed:: true
 			- 反射工具类
@@ -2593,24 +2648,21 @@
 			- 作用：用来接收前端传递给后端的`json`字符串中的数据的(请求体中的数据的)，所以只能发送POST请求。
 			- `@RequestBody`中的`required`默认是`true`，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将`required`设置为`false`。
 	- 过滤器
+	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
-		  collapsed:: true
 			- 如下图
 			  ![10.png](../assets/10_1680702279599_0.png)
 		- 过滤器-Filter
-		  collapsed:: true
-			- Filter是Servlet提供的过滤器，与Spring无关
-			- 是所有过滤组件中最外层的，从粒度来说是最大的
+			- Filter是Servlet提供的过滤器，与Spring无关。
+			- 是所有过滤组件中最外层的，从粒度来说是最大的。
+			- 顺序控制：通过`@Order`注解制定，越小越先被执行。
 			- 使用场景
-			  collapsed:: true
-				- 可以获取到Http的请求和响应信息
-				- 将请求参数记录到日志文件
-				- 资源请求的认证和授权
-				- 在将请求正文（body）或报头（header）发送到servlet之前进行格式化
-				- 压缩发送给客户端的响应数据
-				- 通过添加一些cookie，标题信息等来更改响应
-				- 设置请求或响应的报文编码
-				- 可以在日志中统计请求处理的耗时
+				- 在将请求正文（body）或报头（header）发送到servlet之前进行格式化。
+				- 通过添加一些cookie，标题信息等来更改响应。
+				- 编码转换：将请求中的特定编码转换为服务器支持的编码。
+				- 字符集设置：设置响应的字符集，确保客户端能正确解析响应内容。
+				- 跨域请求处理：在过滤器中设置响应头，允许跨域请求。
+				- 数据压缩：压缩发送给客户端的响应数据
 			- 不足
 			  collapsed:: true
 				- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
@@ -2618,21 +2670,22 @@
 		  collapsed:: true
 			- 与Servlet Filter的区别
 			- 参考文章
-			  collapsed:: true
 				- [What is OncePerRequestFilter](https://www.baeldung.com/spring-onceperrequestfilter)
 		- 拦截器-Intercepter
-		  collapsed:: true
-			- Interceptor是Spring提供的过滤器
+			- Interceptor是Spring提供的过滤器，由Spring容器进行管理。
 			- 在自定义Interceptor的时候需要实现`org.springframework.web.servlet.HandlerInterceptor`接口
+			- 多个Intercepeter，按照注册的顺序执行。
 			- 不足
-			  collapsed:: true
 				- 通过preHandle方法的handle方法，我们可以**获取请求调用的Controller类和方法名**。但是并**不能获取请求的调用方法的具体参数**
 			- 使用场景
-			  collapsed:: true
-				- 可以在日志中统计请求处理的耗时
+				- 权限检查：在`preHandle`方法中检查用户权限，决定是否允许访问。
+				- 日志记录：在`postHandle`或`afterCompletion`方法中记录请求处理的相关信息。
+				- `preHandle`：在业务处理器处理请求之前被调用。预处理，可以进行编码、安全控制、权限校验等处理；
+				- `postHandle`：在业务处理器处理请求执行完成后，生成视图之前执行。后处理（调用了Service并返回ModelAndView，但未进行页面渲染），有机会修改ModelAndView （这个基本不怎么用了）；
+				- `afterCompletion`：在DispatcherServlet完全处理完请求后被调用，可用于清理资源等。返回处理（已经渲染了页面）；
 			- 参考文章
-			  collapsed:: true
 				- [SpringBoot之HandlerInterceptor拦截器的使用](https://juejin.cn/post/6921145139968606215)
+				- [SpringMVC中的过滤器和拦截器](https://juejin.cn/post/7065111385247580196)
 		- Controller增强-`@ControllerAdvice`
 		  collapsed:: true
 			- 使用场景
@@ -2644,10 +2697,8 @@
 	- 如何多次读取HttpServletRequest
 	  collapsed:: true
 		- 具体实现
-		  collapsed:: true
 			- jasper:cn/bravedawn/web/config/cachedrequest
 		- 参考文章
-		  collapsed:: true
 			- [Reading HttpServletRequest Multiple Times in Spring](https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times)
 	- 异常处理
 	  collapsed:: true
@@ -2833,20 +2884,25 @@
 		- 405当前方法不可用，可能的原因有请求参数没有传或是请求的http方法不支持
 	- 参数校验
 	  collapsed:: true
+		- FailFast配置
+			- 如果遇到一个参数匹配错误就结束校验。
 		- `@Valid`和`@Validated`
-		  collapsed:: true
 			- 相同点
 				- `@Valid`与`@Validated`都是做数据校验的，只不过注解位置与用法有点不同。
 			- 不同点：
+			  collapsed:: true
 				- `@Valid`是使用Hibernate validation的时候使用。@Validated是只用Spring Validator校验机制使用。
 				- `@Valid` 可以嵌套验证，@Validation 不能进行嵌套验证
 				- `@Valid`：可以用在方法、构造函数、方法参数和成员属性（field）上。
 				- `@Validated`：用在类、方法和方法参数上。但不能用于成员属性（field）。（如果@Validated注解在成员属性上，则会报不适用于field的错误。）
 				- `@Valid`：没有分组功能。@Validated：提供分组功能，可以在参数验证时，根据不同的分组采用不同的验证机制。
+			- 注意的点
+				- 在使用`@Valid`校验Controller的请求参数的时候，如果参数时嵌套的，一定要在嵌套参数属性上面也要添加`@Valid`注解，否则`@Valid`不生效。
 		- 参考文章
 			- [Spring中的@Valid 和 @Validated注解你用对了吗](https://www.cnblogs.com/xiaoqi/p/spring-valid.html)
 			- [@Valid与@Validated的区别](https://juejin.cn/post/7152324367857713159)
 	- 获取`HttpServletRequest`的三种方式
+	  collapsed:: true
 		- 一通过`Controller`中增加`request`参数
 		  collapsed:: true
 			- 代码
@@ -2866,6 +2922,15 @@
 			  ```java
 			  HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
 			  ```
+	- 在处理日志记录的时候，如何缓存请求和响应
+	  collapsed:: true
+		- 在开发web应用的时候，我们经常需要写一个interceptor去记录请求的日志，但是Servlet的`HttpServletRequest`和`HttpServletResponse`的body信息只能被读取一次，所以这里我们需要缓存一次请求和响应的body，使用缓存的request和response去做日志信息的记录。
+		- Spring提供了两个类用于这里这块工作，分别是`ContentCachingRequestWrapper`和`ContentCachingResponseWrapper`。
+	- `OncePerRequestFilter`与`Filter`的区别
+	  collapsed:: true
+		- 建议在Spring环境下使用`OncePerRequestFilter`，因为在Servlet2.3和2.4版本中，Filter的逻辑存在差异。
+		- 在servlet2.3中，Filter会经过一切请求，包括服务器内部使用的`forward`转发请求和<%@ include file=”/login.jsp”%>的情况。
+		- 在servlet2.4中，Filter默认情况下只过滤外部提交的请求，`forward`和`include`这些内部转发都不会被过滤。
 - spring-tx
   collapsed:: true
 	- Spring对事务管理的支持
@@ -2873,10 +2938,14 @@
 		- 事务管理的关键抽象
 		  collapsed:: true
 			-
+	- Spring对异常的整合
+	  collapsed:: true
+		- 针对于唯一键重复的异常：`DuplicateKeyException`
 - Spring Boot
   collapsed:: true
 	- SpringBoot注解
 		- `@ConditionalOnProperty`
+		  collapsed:: true
 			- 作用：我们需要根据配置属性是否存在、具体的值是什么，来**有条件地创建一些 bean**。
 			- 具体属性
 				- `prefix`：配置前缀
@@ -2886,6 +2955,10 @@
 		- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
 			- 这两个注解用于判断该程序是否web应用程序。
 		- `@ConfigurationProperties`
+			- 该注解用来读取自定义的特定配置信息，配合`@Component注解`使用。
+			- 配置文件中的命名建议都使用`-`来连接，不建议使用驼峰。
+			- 注意的点
+				- `prefix`属性应该是以`-`作为分隔符进行区分的，不能是驼峰命名。具体的文章参考：[Spring Boot Properties Prefix Must Be in Canonical Form](https://www.baeldung.com/spring-boot-properties-canonical-form)
 			- 参考文章：[Guide to @ConfigurationProperties in Spring Boot](https://www.baeldung.com/configuration-properties-in-spring-boot)
 	- 依赖管理
 	  collapsed:: true
@@ -2932,7 +3005,6 @@
 - Spring Test
   collapsed:: true
 	- 在单元测试中如果依赖Spring的RequestContext，怎么办
-	  collapsed:: true
 		- 先看代码：
 		  ```Java
 		  // Spring-test 有一个灵活的请求模拟，称为 MockHttpServletRequest。
@@ -3154,6 +3226,7 @@
   collapsed:: true
 	- 核心类
 		- `HttpSecurity`
+		  collapsed:: true
 			- `addFilterAfter(A, B)`
 				- 在B Filter的后面添加A Filter。
 			- `addFilterBefore(A, B)`
@@ -3167,4 +3240,6 @@
 		  collapsed:: true
 			- 参考文章
 				- [FilterInvocationSecurityMetadataSource 接口](https://blog.csdn.net/qq_60458298/article/details/129771731)
+		- `AntPathRequestMatcher`
+			- 对请求的url和method进行Ant风格的校验。
 	-

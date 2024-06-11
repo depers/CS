@@ -8,6 +8,7 @@
 		- 我这边还做了一个实验，就是如果在一个`SqlSession`中对先查询了记录A，然后在后续的逻辑中修改了记录A，然后我第二次再次查询记录A的时候发现去数据库查了。也就是说，Mybatis中你对这条记录做了修改，他就会将上一次记录的一级缓存给删除了。
 	- 参考文章： [mybatis的缓存机制（一级缓存二级缓存和刷新缓存）和mybatis整合ehcache](https://blog.csdn.net/u012373815/article/details/47069223)
 - 二级缓存
+  collapsed:: true
 	- 二级缓存是针对Application级别的。
 - tinyint类型
   collapsed:: true
@@ -23,5 +24,25 @@
   collapsed:: true
 	- [MyBatis 批量插入数据的 3 种方法](https://juejin.cn/post/7016691244973686820)
 - 拦截器的编写
+  collapsed:: true
 	- 参考文章
 		- [MyBatis 拦截器使用方法总结](https://blog.csdn.net/wb1046329430/article/details/111501755)
+- 动态sql
+  collapsed:: true
+	- `where`
+		- *where* 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，*where* 元素也会将它们去除。
+	- `foreach`
+		- 遍历元素。
+	- `if`
+		- 判断是否为空或者是null，多个条件中间用`and`
+	- `trim`
+	-
+- typehandler
+  collapsed:: true
+	- 一般我们在项目中，直接继承`BaseTypeHandler`进行实现，这个接口一共有四个方法：
+		- `void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType)`：在Mybatis设置参数时该如何把Java类型的参数转换为对应的数据库类型
+		- `T getResult(ResultSet rs, String columnName)`：在Mybatis获取数据结果集时如何把数据库类型转换为对应的Java类型
+		- `T getResult(ResultSet rs, int columnIndex)`：在Mybatis通过字段位置获取字段数据时把数据库类型转换为对应的Java类型
+		- `T getResult(CallableStatement cs, int columnIndex)`：Mybatis在调用存储过程后把数据库类型的数据转换为对应的Java类型
+	- 参考文章
+		- [Mybatis TypeHandler 介绍及使用](https://blog.csdn.net/Crystalqy/article/details/133923124)

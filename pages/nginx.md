@@ -4,6 +4,7 @@
 		- [nginx配置静态资源访问](https://www.cnblogs.com/qingshan-tang/p/12763522.html)
 - 反向代理（负载均衡）
 - Nginx高性能的原因
+  collapsed:: true
 	- 得益于epoll多路复用的性能优势
 	- master worker的进程模型
 		- 一个master父进程，多个worker子进程，每个子进程只有一个线程。
@@ -13,3 +14,10 @@
 		- 依附于线程的内存模型，切换开销小。协程只有内存的切换开销，没有CPU的切换开销。
 		- 在协程执行过程中如果遇到阻塞，线程会剥夺阻塞协程的执行权限，拉取一个不阻塞的协程任务继续执行，等阻塞的协程任务执行完之后，依靠多路复用的模型，阻塞任务执行完之后会自动执行回调函数，这个回调函数对于代码编写是同步的，是一个方法的return，代码的模型的是同步编写的。
 		- 不需要加锁，是串行执行的过程。
+- Nginx的常见配置
+	- `proxy_set_header Host $http_post;`
+	- `proxy_set_header X-Real-IP $remote_addr;`
+	- `proxy_set_header X-Forwarded_For $proxy_add_x_forwarded_for;`
+- Nginx查看安装的模块
+	- 命令：`nginx -V`
+-

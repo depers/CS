@@ -1,15 +1,17 @@
 - 核心类
 	- 三大核心类
-	  collapsed:: true
 		- `JobDetail`（任务）
-		  collapsed:: true
 			- 作用：具体要执行的业务逻辑。
 		- `Trigger`（触发器）
-		  collapsed:: true
 			- 作用：用来定义Job（任务）触发条件、触发时间，触发间隔，终止时间等。
-			- SimpleTrigger
+			- `SimpleTrigger`
+			  collapsed:: true
 				- 作用：在具体的时间点执行一次，或者在具体的时间点执行，并且以指定的间隔重复执行若干次。
-			- CronTrigger
+				- 关键配置
+					- `requestRecovery`
+						- 作用：当任务在执行过程中出现意外，比如服务器down了，那么在重启时候是否恢复任务。
+						- 如果要借助 ((664568cc-130a-4e1c-8246-462679bf3711))对错过的批量进行重跑，需要将该配置设置为`true`。
+			- `CronTrigger`
 				- 作用：可以定义Cron表达式来定义任务执行的规则。
 		- `Scheduler`（调度器）
 		  collapsed:: true
@@ -21,6 +23,8 @@
 	- 关键配置
 		- `org.quatz.jobStore.misfireThreshold`：设置一个批量错过触发时间的最大阈值，如果超过这个时间才认定这个批量错过执行了。接着会根据错过执行的策略判断是否继续执行该批量。
 		- 错过触发的策略
+		  id:: 664568cc-130a-4e1c-8246-462679bf3711
+		  collapsed:: true
 			- `CornTrigger`使用的策略
 				- `MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY = -1;`：对于错过的批次任务，恢复后所有错过的批次都会执行。
 				- `MISFIRE_INSTRUCTION_SMART_POLICY = 0;`：该策略在`CronTrigger`中为`MISFIRE_INSTRUCTION_FIRE_ONCE_NOW`。
@@ -40,6 +44,8 @@
 			- 参考文章
 				- [Quartz的misfire处理机制分析](https://www.cnblogs.com/pzy4447/p/5201674.html)
 				- [Quartz框架（四）—misfire处理机制](https://www.jianshu.com/p/572322b36383)
+	- 表结构
+		- [Quartz中表及其表字段的意义](https://www.cnblogs.com/zyulike/p/13671130.html)
 - 参考文章
 	- [美团 - Quartz应用与集群原理分析](https://tech.meituan.com/2014/08/31/mt-crm-quartz.html)
 	- [Quartz框架系列文章](https://www.jianshu.com/p/2a5d3b6336ba)

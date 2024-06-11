@@ -3,6 +3,7 @@
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
+			  collapsed:: true
 				- 基本类型
 				  collapsed:: true
 					- 整型
@@ -140,14 +141,13 @@
 			- 运算
 			  collapsed:: true
 				- 参数传递
-					- Java的参数传递是：值传递，
+					- Java的参数传递是：值传递
 					- 对于基本类型（原始类型和其包装类型），在参数传递中是值传递
 					- 对于引用类型，本质上是将对象的地址以值的方式传递到形参中，修改信息的是同一个对象。
 					- 如果在方法中重置了对象的引用，则修改信息的是不同的对象。
 					- 参考文章
 						- [这一次，彻底解决Java的值传递和引用传递](https://segmentfault.com/a/1190000016773324)
 				- 整数运算
-				  collapsed:: true
 					- 整数类型：byte, short, int, long
 					- 溢出：整数由于存在范围限制，如果计算结果超出了范围，就会产生溢出
 					- 加减乘除
@@ -163,8 +163,9 @@
 							- a--也是先用当前值，后减1
 							- --a是先减1，用减1之后的值
 					- 自增/自减
-					  collapsed:: true
 						- `++`
+							- `i++`：先用后加
+							- `++i`：先加后用
 						- `--`
 						- 不建议把上面的运算符写到变量前面
 					- 移位运算
@@ -214,6 +215,7 @@
 					- 短路运算：如果一个布尔运算的表达式能提前确定结果，则后续的计算不再执行，直接返回结果
 					- 三元运算符：b ? x : y
 				- 运算符
+				  collapsed:: true
 					- 逻辑运算符
 					  collapsed:: true
 						- 与：`&&`
@@ -352,7 +354,7 @@
 						- 子类是无法重写基类的private的方法的，private隐式的被指定为final。
 						- 被final修饰的方法，是无法被子类覆盖的。
 						- 如果我们类的某些方法被其他方法调用，我们应该考虑将被调用的方法设为final。否则，覆盖它们会影响调用者的工作并导致令人惊讶的结果。
-						- 将类的所有方法设为最终方法与将类本身标记为最终方法有什么区别？
+						- 将类的所有方法设为`final`方法与将类本身标记为`final`有什么区别？
 						  collapsed:: true
 							- 在第一种情况下，我们可以扩展类并向其添加新方法。
 							- 在第二种情况下，我们不能扩展。
@@ -383,8 +385,8 @@
 										- 在构造函数中初始化该字段
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/basic/keyword/final_
 				- static
+				  collapsed:: true
 					- 静态变量
-					    collapsed:: true
 						- 背景
 						    collapsed:: true
 							- 代码：
@@ -464,7 +466,6 @@
 							- 多了做简单的日期和时间运算的功能
 							- 提供了时区转换的功能
 				- Java8新的时间API体系
-				  collapsed:: true
 					- 本地日期和时间
 					  collapsed:: true
 						- LocalDateTime
@@ -504,9 +505,7 @@
 						- Duration：表示两个时刻之间的时间间隔
 						- Period：表示两个日期之间的天数
 					- 时间格式类
-					  collapsed:: true
 						- DateTimeFormatter
-						  collapsed:: true
 							- 线程安全
 							- 创建
 							- 格式化输出
@@ -516,11 +515,15 @@
 						- ZonedDateTime可以转为LocalDateTime，丢失时区信息
 						- ZonedDateTime可以转化为Instant和long
 						- Instant和long也可以转换为ZonedDateTime
+					- 事件间隔的计算
+					  collapsed:: true
+						- `CheonoUnit`方法
+							- 参考文章：[ChronoUnit用法](https://blog.csdn.net/cfqp123456/article/details/123866478)
 				- 最佳实践
-				  collapsed:: true
 					- 旧API转新API
 					- 新API转旧API
 					- 数据库中采用长整型存储时间
+					-
 			- 正则表达式
 			  collapsed:: true
 				- 功能：正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。Java标准库java.util.regex内建了正则表达式引擎。
@@ -622,6 +625,16 @@
 						- 参考文章
 						  collapsed:: true
 							- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
+			- Java doc
+			  collapsed:: true
+				- `@author`：作者
+				- `@since`：指明最早出现在哪个版本，可填版本号或日期，有时也可表明可运行的JDK版本。
+				- `@see`：后面可以跟代码的引用表明这个方法被废弃，新的方法是那个
+				- `@see <a href=""></a>`：指向该方法所在的网址
+				- `@date : Created in 2024/3/28 20:06 `：代码创建时间
+				- `@param`：对方法参数进行标注
+				- `@return`：对返回参数进行说明
+				- 参考文章：[Java DOC教程](https://www.cnblogs.com/linj7/p/14339381.html)
 		- 面向对象
 		  collapsed:: true
 			- Object通用方法
@@ -651,7 +664,6 @@
 						- 实现：子类继承父类，翻写子类的equals()方法，具体可以参考：cn.bravedawn.obj.object.equalsandhashcode.equals.WrongVoucher
 						- 使用组合修复equals()的对称性：其实是治标不治本，具体实现可参考：cn.bravedawn.obj.object.equalsandhashcode.equals.Voucher
 					- 使用场景
-					  collapsed:: true
 						- 如果不调用List的contains()、indexOf()这些方法，那么放入的元素就不需要实现equals()方法
 						- 对于实体类，像基本类型的包装类型或是String类，通常使用默认的equals()实现就可以。但是对于有自身属性的值对象，我们就需要手动实现equals()方法
 					- 辅助工具
@@ -661,7 +673,6 @@
 						- Google Guava
 						- Project Lombok
 					- 总结
-					  collapsed:: true
 						- 对于基本数据类型的包装类型，值的比较建议使用equals，不要使用==
 						- 对于基本类型，== 判断两个值是否相等，基本类型没有equals()方法
 						- 对于引用类型，== 判断两个变量是否引用同一个对象（对象引用的地址），而 equals()判断引用的对象是否等价
@@ -1144,6 +1155,7 @@
 		- 加解密与安全
 		  collapsed:: true
 			- 编码算法
+			  collapsed:: true
 				- ASCII码
 				  collapsed:: true
 					- 美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码
@@ -1221,27 +1233,32 @@
 							- 开放地址法有个非常关键的特征，就是所有输入的元素全部存放在哈希表里，也就是说，位桶的实现是不需要任何的链表来实现的，换句话说，也就是这个哈希表的装载因子不会超过1。它的实现是在插入一个元素的时候，先通过哈希函数进行判断，若是发生哈希冲突，就以当前地址为基准，根据再寻址的方法（探查序列），去寻找下一个地址，若发生冲突再去寻找，直至找到一个为空的地址为止。所以这种方法又称为再散列法。
 							- 开放地址法的公式：`Hi=(H(key)+di) MOD m`，`i=1,2,…,k(k<=m-1)`。其中`m`是哈希表的长度，`di` 是产生冲突的时候的增量序列。
 							- 线性探测再散列
+							  collapsed:: true
 								- di=1，2，3，…，m-1；这种方法的特点是：冲突发生时，顺序查看表中下一单元，直到找出一个空单元或查遍全表。
 							- 二次探测再散列
+							  collapsed:: true
 								- 如果`di`取1，则每次冲突之后，向后移动1个位置.如果di取值可能为`1,-1,2,-2,4,-4,9,-9,16,-16,…k*k,-k*k(k<=m/2)`
 							- 随机探测再散列
+							  collapsed:: true
 								- 如果`di`取值可能为伪随机数列。
 						- 再哈希法
 						    collapsed:: true
 							- 当发生冲突时，使用第二个、第三个、哈希函数计算地址，直到无冲突时。缺点：计算时间增加。
 							    比如上面第一次按照姓首字母进行哈希，如果产生冲突可以按照姓字母首字母第二位进行哈希，再冲突，第三位，直到不冲突为止
-				- 常见的哈希算法
-				  collapsed:: true
+				- 常见的加密哈希算法
 					- MD(Message Digest)：消息摘要算法
 					- SHA(Secure Hash Algorithm)：安全散列算法
 					- SM3：国密签名算法
 					- 相同点
+					  collapsed:: true
 						- 都是密码散列函数，加密不可逆。
 						- 都可以实现对任意长度对象加密，都不能防止碰撞。
 					- 不同点
+					  collapsed:: true
 						- SHA256（⼜称SHA2）的安全性最⾼，但是耗时要⽐MD5多很多。
 						- md5相对来说比较容易碰撞，安全性没这么高。
 					- 参考文章
+					  collapsed:: true
 						- [哈希算法的常见种类及特点有哪些？](https://juejin.cn/post/7089749167886565413)
 				- 用途
 				  collapsed:: true
@@ -2203,22 +2220,20 @@
 					- 注意
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
-				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- 使用双向链表来存储元素
-						- 实现了List和Deque接口，实现了所有的List可选的列表操作，继承了AbstractSequentialList类
+						- 实现了`List`和`Deque`接口，实现了所有的List可选的列表操作，继承了`AbstractSequentialList`类
 						- 实现了所有可选的列表操作并允许所有元素（包括null）
 					- 特点
 						- 可以包含重复的元素
 						- 维护插入的顺序
-						- 非同步的，可以通过调用 Collections.synchronizedList 方法来检索它的同步版本
+						- 非同步的，可以通过调用`Collections.synchronizedList`方法来检索它的同步版本
 						  id:: 63a8ef52-c395-4958-9d97-65e6d05e4e55
 						- 它的Iterator和ListIterator迭代器是fail-fast
 						- 它可以用作list，stack，queue
 					- 使用
-					  collapsed:: true
-						- 创建：LinkedList<Integer> list = new LinkedList<>()
+						- 创建：`LinkedList<Integer> list = new LinkedList<>()`
 						- 添加元素
 						  collapsed:: true
 							- add()
@@ -2237,7 +2252,6 @@
 							- linkedList.pop()，检索第一个元素并从list删除该元素，若list为空，则抛出java.util.NoSuchElementException
 							- linkedList.push(1)，在list头部插入元素
 						- 总结
-						  collapsed:: true
 							- ArrayList 通常是默认的 List 实现，大家常常会使用这个实现
 							- 在恒定时间做插入、删除操作时，采用LinkedList往往是更好的选择。ArrayList更适合恒定的访问时间和有效的内存使用。
 					- 参考文章：
@@ -2257,7 +2271,6 @@
 						- 不是线程安全的
 					- 使用
 						- 创建一个ArrayList
-						  collapsed:: true
 							- 默认无参构造函数
 							- 构造函数接受初始容量
 							- 构造函数接受 Collection
@@ -2556,14 +2569,12 @@
 						- 因为性能，在一个未排序的list中查找一个特定值，需要的时间复杂度是O(n)；在一个已排序的list中查找的话需要的时间复杂度是O(logn)，例如使用二分搜索
 						- 使用map的话插入和检索一个元素，需要的时间复杂度是O(1)
 				- HashMap
-				  collapsed:: true
 					- 特点
 						- Map是一种key-value映射表的数据结构。
 						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉。
 						- Map中存储的映射关系是**不保证顺序的**。
 						- **注意**：如果Map的元素是一个对象的话。我们在`put()`和`get()`一个元素的时候，会分别调用该元素的`hashcode()`和`equals()`方法。
 					- 基本操作
-					  collapsed:: true
 						- `put()`：添加键值。null可以作为键，null映射键值将会被放到下标为0的存储桶中。
 						- `get(key)`：根据键获取值，如果有值的话返回，没值的话返回null。
 						- `remove(key)`：移除一个元素。
@@ -2575,7 +2586,6 @@
 							- 方法三：通过循环遍历Map实例的values()方法，直接遍历值。
 						- 具体实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/HashMapExample.java
 					- 关于key需要注意
-					  collapsed:: true
 						- 可以在HashMap中使用任何类作为键。为了使映射正常工作，我们需要为equals()和hashCode()提供一个实现
 						- hashCode()和equals()只需要在我们希望用作映射键的类中重写
 					- Java8新增的方法
@@ -2587,7 +2597,6 @@
 						- compute()
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/java8
 					- HashMap的内部实现
-					  collapsed:: true
 						- 关键变量
 							- capacity 即容量，默认16。
 							- loadFactor 加载因子，默认是0.75
@@ -2629,8 +2638,7 @@
 						- 除了默认大小为 16 的底层数组外，它还维护一个贯穿其所有条目的双向链表，为LinkedHashMap.Entry有两个名为before，after的指针，分别指向上一个和下一个条目。从而保证了**元素的顺序**。
 						- 注意LinkedHashMap的这个链表定义了迭代的顺序，默认是元素的插入顺序（insertion-order）。
 					- Access-Order LinkedHashMap
-					  collapsed:: true
-						- 在LinkedHashMap的构造函数中有一个**accessOrder的参数**，若该参数为true，则就会设置迭代顺序为 LRU(Least Recently Used)，即最久未使用。
+						- 在LinkedHashMap的构造函数中有一个**accessOrder的参数**，若该参数为true，则就会设置迭代顺序为 LRU(Least Recently Used)，即最近最少使用。
 					- 性能
 						- 基本操作：与HashMap相同，**如果没有哈希冲突，map的基本操作（put、get、remove、containsKey）平均时间复杂度是O(1) 。**但是由于维护双向链表的额外开销，LinkedHashMap的这种恒定时间性能可能会比 HashMap的恒定时间差一点。
 						- 迭代：LinkedHashMap 的集合视图的迭代也需要类似于 HashMap的线性时间 O(n) 。但是，LinkedHashMap 在迭代过程中的线性时间性能优于 HashMap的线性时间。这是因为，对于LinkedHashMap，O(n) 中的 n 只是映射中的条目数，而与容量无关。而对于 HashMap，n 是容量和大小的总和，O(size+capacity)。
@@ -2655,7 +2663,6 @@
 						- 存储不同：与HashMap和LinkedHashMap不同，TreeMap在任何地方都不使用散列原则，因为它不使用数组来存储它的条目。
 						- 排序不同：HashMap映射不能保证存储的键的顺序，特别是不能保证这个顺序随着时间的推移保持不变，但是树映射可以保证键总是按照指定的顺序排序。
 					- TreeMap的内部实现
-					  collapsed:: true
 						- TreeMap继承了AbstractMap类。实现了NavigableMap接口，它的内部工作基于红黑树的原则。
 						- 红黑数是一个平衡二叉树，这个属性保证了像搜索、获取、放置和删除这样的基本操作需要的时间复杂度是O(log n)。
 						- 红黑数的排序规则是由元素的自然顺序或构造时定义的比较器决定的。
@@ -2684,7 +2691,6 @@
 						- 实验一：map中包含一个键值对，当把key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，清空map。
 						- 实验二：map中包含两个键值对，当把其中一个key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，map会移除该key对应的键值对。
 				- ConcurrentHashMap
-				  collapsed:: true
 					- 特点
 						- ConcurrentHashMap是线程安全的。
 						- ConcurrentHashMap中key和value是不允许存在null值的。
@@ -2879,7 +2885,18 @@
 					- Object element()：它用于检索但不删除此队列的头部。
 					- Object peek()：它用于检索但不删除此队列的头部，或者如果此队列为空，则返回 null。
 					- int size()：返回队列的大小。
-			- 栈
+			- Deque
+			  collapsed:: true
+				- 允许两头都进，两头都出，这种队列叫双端队列（Double Ended Queue），学名`Deque`。
+				- 实现
+					- LinkedList
+					- ArrayDeque
+					- 参考文章
+						- [ArrayDeque 与 LinkedList 的区别](https://cloud.tencent.com/developer/article/2348751)
+				- 参考文章
+					- [使用Deque](https://www.liaoxuefeng.com/wiki/1252599548343744/1265122668445536)
+					- [Java 高级教程系列 - Deque 接口及其实现](https://zihengcat.github.io/2019/05/06/java-tutorial-for-language-adavanced-deque-interface-and-implementations/)
+			- Stack
 			  collapsed:: true
 				- 在 Java 中，`Stack`和`Deque`都可以作为栈来使用，但它们之间有一些区别：
 					- 1.**数据结构**：Stack是基于Vector实现的栈，而Deque是基于ArrayDeque实现的双端队列。双端队列可以在队列的两端进行插入和删除操作，而栈只能在顶部进行插入和删除操作。
@@ -2890,12 +2907,12 @@
 			- Fail-fast and Fail-safe
 			  collapsed:: true
 				- Fail-fast
-					- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 ConcurrentModificationException。
+					- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 `ConcurrentModificationException`。
 					- 案例
 						- HashMap 中的迭代器
 						- ArrayList 中的迭代器
 				- Fail-safe（Non-Fail-fast）
-					- 如果线程在迭代集合时从集合中不抛出添加或删除元素，ConcurrentModificationException异常，我们称为Non-Fail-fast或者是Fail-safe。
+					- 如果线程在迭代集合时从集合中添加或删除元素，不抛出`ConcurrentModificationException`异常，我们称为Non-Fail-fast或者是Fail-safe。
 					- Fail-safe迭代器会创建原始集合或对象数组的副本，并迭代该复制的集合。 在迭代器中所做的任何结构修改都会影响复制的集合，而不是原始集合。 因此，原始集合在结构上保持不变。
 					- 案例
 						- ConcurrentHashMap 上的迭代器
@@ -2920,8 +2937,8 @@
 				  collapsed:: true
 					- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 				- 线程的状态
-				  collapsed:: true
 					- 六种状态
+					  collapsed:: true
 						- New（初始状态）：新创建的线程，尚未执行；
 						- Runnable
 						    collapsed:: true
@@ -2942,12 +2959,13 @@
 						- 参考文章
 							- [Java线程的6种状态及切换(透彻讲解)](https://blog.csdn.net/pange1991/article/details/53860651)
 					- 状态转移图
+					  collapsed:: true
+						- ![线程切换.jpeg](../assets/线程切换_1716441975617_0.jpeg)
 					- 线程终止的原因
 						- 线程正常终止：run()方法执行到return语句返回；
 						- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 						- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
 				- 线程的方法
-				  collapsed:: true
 					- `start()`：启动新线程，这里面会调用run()方法
 					- `run()`：补充该线程需要执行的内容
 					- `join()`
@@ -2995,22 +3013,24 @@
 					- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 					- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
 			- 线程池
-			  collapsed:: true
 				- 在一个应用中时可以创建多个线程池的。
+				- 参考文章：
+					- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
 		- IO
 		  collapsed:: true
 			- 五种IO模型
-			  collapsed:: true
 				- 同步阻塞-Blocking I/O
 					- 阻塞IO模型
+					  collapsed:: true
 						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
 						- 示例图
 						  ![阻塞IO.webp](../assets/阻塞IO_1685864250927_0.webp)
 					- IO复用模型（New IO，也就是Java中说的NIO）
 						- 直白定义：为了避免来一个请求就新建一个线程，为了减少线程的数量。可以由一个线程监控多个网络请求（**我们后面将称为fd文件描述符，linux系统把所有网络请求以一个fd来标识**），这样就可以只需要一个或几个线程就可以完成数据状态询问的操作，当有数据准备就绪之后再分配对应的线程去读取数据，这么做就可以节省出大量的线程资源出来，这个就是IO复用模型的思路。
 						- 术语定义：进程通过将一个或多个fd传递给select，阻塞在select操作上，select帮我们侦测多个fd是否准备就绪，当有fd准备就绪时，select返回数据可读状态，应用程序再调用recvfrom读取数据。
+						- 多路复用的主要思想：通过一个线程或进程来管理多个网络连接，而不是为每个连接创建一个单独的线程或进程。
 						- 在Linux有三种实现模式
-							- `select`：select线程会**轮训遍历**自己监听的网络请求，如果有一个网络请求的状态发生了变化，就会通知相应的线程过来处理。能够监听的网络请求最多是1024个。
+							- `select`：select线程会**轮训遍历**自己监听的网络请求，如果有一个网络请求的状态发生了变化，就会通知相应的线程过来处理。**能够监听的网络请求最多是1024个**。
 							- `poll`
 							- `epoll`：监听网络连接，为每个连接请求**设置回调函数**。如果有一个发生变化，就会**直接通知对应的线程执行回调函数**，能够监听的网络请求是没有上限的。
 						- 示例图
@@ -3021,11 +3041,12 @@
 						- 示例图
 						  ![非阻塞IO.png](../assets/非阻塞IO_1685864787196_0.png)
 					- 信号驱动的IO模型
+					  collapsed:: true
 						- 首先开启套接口信号驱动IO功能，并通过系统调用sigaction执行一个信号处理函数，此时请求即刻返回，当数据准备就绪时，就生成对应进程的SIGIO信号，通过信号回调通知应用线程调用recvfrom来读取数据。
 						- IO复用模型里面的select虽然可以监控多个fd了，但select其实现的本质上还是通过不断的轮询fd来监控数据状态， 因为大部分轮询请求其实都是无效的，所以信号驱动IO意在通过这种建立信号关联的方式，实现了发出请求后只需要等待数据就绪的通知即可，这样就可以避免大量无效的数据状态轮询操作。
 						- 示例图
 						  ![信号驱动的io模型.webp](../assets/信号驱动的io模型_1685865059269_0.webp)
-				- 异步非阻塞/异步IO-Async I/O
+				- 异步非阻塞：异步IO-Async I/O
 					- 通过观察我们发现，不管是IO复用还是信号驱动，我们要读取一个数据总是要发起两阶段的请求，第一次发送select请求，询问数据状态是否准备好，第二次发送recevform请求读取数据。
 					- 应用只需要向内核发送一个read 请求，告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
 					- 示例图
@@ -3383,6 +3404,7 @@
 						  collapsed:: true
 							- 作用：与Java虚拟机栈不同，本地方法栈描述的是native方法执行的内存模型。
 						- Java堆
+						  collapsed:: true
 							- 作用：用来存储应用系统创建的对象和数组。
 							- 区域划分
 								- 区域图
@@ -3521,6 +3543,7 @@
 						  collapsed:: true
 							- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
 				- 第三章 垃圾回收器
+				  collapsed:: true
 					- 相关概念
 						- 根据对象的存活周期不同将内存分为新生代、老年代
 						- 新生代
@@ -3545,6 +3568,7 @@
 							- **Eden Space**字面意思是伊甸园，对象被创建的时候首先放到这个区域，进行垃圾回收后，不能被回收的对象被放入到空的survivor区域。
 						- Survivor区
 						  id:: 64375a7f-dd8b-41a8-939d-58a359b6fc4c
+						  collapsed:: true
 							- **Survivor Space**幸存者区，用于保存在eden space内存区域中经过垃圾回收后没有被回收的对象。
 							- Survivor有两个，分别为To Survivor、 From Survivor，这个两个区域的空间大小是一样的。
 							- 为什么要设置两个Survivor区
@@ -3569,11 +3593,12 @@
 						- 可达性分析算法（根搜索算法/GC Root Tracing）
 						  id:: 64044e66-3742-4a9f-b08c-e25b45d4c214
 							- 从根（GC Roots）节点向下搜索对象节点，搜索走过的路径称为引用链（Reference Chain），当一个对象到根之间没有连通的话，则该对象不可用。
-							- Java语音中可作为GC Roots的对象包括：
-							  collapsed:: true
-								- 虚拟机栈（栈帧局部变量）中引用的对象
-								- 方法区类静态属性引用的对象
-								- 本地方法栈中JNI（即一般说的Native方法）引用的对象
+							- Java语言中可作为GC Roots的对象包括：
+								- 虚拟机栈（栈帧局部变量）中引用的对象；
+								- 方法区类静态属性引用的对象；
+								- 方法区中常量引用的对象；
+								- 本地方法栈中JNI（即一般说的Native方法）引用的对象；
+								- 正在运行的线程；
 						- 引用
 							- Java对引用的狭义定义：如果 ((64043de7-b2f9-4db7-b4f3-574c88698635))的数据中存储的数值代表的是另外一块内存的起始地址，就称这块内存代表着一个引用。
 							- 引用的扩充，又分为
@@ -3692,6 +3717,7 @@
 							- 目的：解决在程序执行时，线程因没有分配到CPU时间，从而无法响应JVM的中断请求，导致无法进行GC。
 							- 定义：安全区域是指在一段代码片段中，引用关系不会再发生改变，这个区域的任何位置开始GC都是安全的。
 					- 垃圾收集器
+					  collapsed:: true
 						- 垃圾收集器是内存回收的具体实现。
 						- 垃圾收集器按照收集内存区域的不同，分为老年代收集器和新生代收集器两种。两种不同的收集器可以组合使用
 						- 垃圾收集器的选择
@@ -3826,6 +3852,7 @@
 								- [深入理解G1的GC日志](https://juejin.cn/post/6844903893906751501)
 						- 垃圾收集器的参数配置
 					- 内存分配与回收策略
+					  collapsed:: true
 						- 内存分配的时机
 						  collapsed:: true
 							- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
@@ -4388,10 +4415,19 @@
 			- Jackson JSON
 			- reflectasm
 				- 空笔记
+		- 网络
+		  collapsed:: true
+			- UDP
+				- 在Java中，客户端和服务端通过`DatagramSocket`类实现UDP协议的通信。
+			- TCP
+				- 在Java中，客户端使用`Socket`，服务端使用`ServerSocket`和`Socket`类实现TCP协议的通信。
+			- IPV4/IPV6
+				- 通过 `InetAddress` 类来指定使用 IPv4 或 IPv6 进行 socket 编程。
 	- 新特性
 		- Java8
 		  collapsed:: true
 			- 我不会的函数
+			  collapsed:: true
 				- java.util.Map#compute
 				- java.util.Map#merge
 				- java.util.function.BiFunction
@@ -4402,23 +4438,29 @@
 				- 空笔记
 			- stream操作
 				- Stream生命周期
+				  collapsed:: true
 					- 流由三部分构成：数据源，一个或多个中间操作，一个或多个终止操作。
 					- **数据源**：为流提供数据。
 					- **中间操作**：依次获取数据并处理数据。所有的中间操作都是“懒操作”，也就是说在流开始工作之前，中间操作对流中的数据没有任何影响。
 					- **终止操作**：流生命周期的结束，它可以触发流开始工作，中间操作也就会影响流中的数据。
 				- `peek()`
+				  collapsed:: true
 					- 使用场景
+					  collapsed:: true
 						- `peek()`方法：存在的主要目的是用调试，通过**peek()**方法可以看到流中的数据经过每个处理点时的状态。
 						- `peek()` 方法：用于对流中的元素进行操作，但不会改变元素本身。它可以用于执行一些副作用操作，例如记录日志、进行监控等。
 					- 特点
+					  collapsed:: true
 						- `peek()`是一个中间操作，不是终止操作。
 					- 具体实践
+					  collapsed:: true
 						- JavaTrain：cn/bravedawn/java8/stream/peek
 				- `findAny()`
 				- `findFirst()`
 				- `map()`
 				  collapsed:: true
 					- 使用场景
+					  collapsed:: true
 						- `map()`方法：用于将流中的元素进行转换，生成一个新的流。
 						- 这个函数就是一个类型转换的工作，比如我想从个人信息中获取他的年龄，比如我想讲字符串转换为整数，它会为集合中的每个元素执行该操作。
 				- `allMatch()`
@@ -4447,6 +4489,9 @@
 					- [Final vs Effectively Final in Java](https://www.baeldung.com/java-effectively-final)
 					- [Why Do Local Variables Used in Lambdas Have to Be Final or Effectively Final?](https://www.baeldung.com/java-lambda-effectively-final-local-variables)
 					-
+			- Lambda异常处理
+				- 参考文章
+					- [Exceptions in Java 8 Lambda Expressions](https://www.baeldung.com/java-lambda-exceptions)
 	- 命令行工具
 		- java
 		  collapsed:: true
@@ -4463,8 +4508,8 @@
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - Java EE
 	- Servlet
+	  collapsed:: true
 		- Java web application介绍
-		  collapsed:: true
 			- 静态和动态网站的区别
 			  collapsed:: true
 				- 图片
@@ -4638,7 +4683,6 @@
 			  collapsed:: true
 				- web.xml文件是 web 应用程序的部署描述符，包含 servlet (3.0之前)、欢迎页面、安全配置、会话超时设置等的映射。
 		- Servlet简介
-		  collapsed:: true
 			- 开头
 			  collapsed:: true
 				- Servlet中的主要api是由javax.servlet-api提供的，主要的接口和类在javax.servlet和javax.servlet.http下面
@@ -4757,7 +4801,9 @@
 					- Servlet容器根据客户端请求创建ServletRequest对象，并将其传递给Servlet service()方法进行处理。
 					- ServletRequest的子接口是HttpServletRequest，它包含一些用于会话管理、cookie和请求授权的其他方法。
 				- 方法
+				  collapsed:: true
 					- Object getAttribute(String name)
+					  collapsed:: true
 						- 此方法将指定属性的值返回为Object，如果不存在则返回null。
 						- 我们可以使用getAttributeNames()方法来获取请求属性名称的枚举。此接口还提供设置和删除属性的方法
 					- getServerName()
@@ -4821,7 +4867,6 @@
 					- `include(ServletRequest request, ServletResponse response)`
 						- 在响应中包含资源(servlet、JSP页面、HTML文件)的内容
 			- `HttpServletRequest` interface
-			  collapsed:: true
 				- 关于`httpServletRequest` path API的讨论
 					- 附一张图
 					  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
@@ -5021,6 +5066,7 @@
 						- 运行bin目录下的startup.bat
 					- 6.访问Servlet
 			- Servlet是如何工作的
+			  collapsed:: true
 				- Servlet是如何工作的，详情参见下图：
 				  :LOGBOOK:
 				  CLOCK: [2023-08-21 Mon 21:25:39]--[2023-08-21 Mon 21:25:40] =>  00:00:01

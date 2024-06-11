@@ -17,16 +17,48 @@
 		- 基于`SimpleChannelInboundHandler`，可以实现每一种指令的处理，不再需要强转，不再有冗长乏味的`if else`逻辑，不再需要手动传递对象。
 		- 基于`MessageToByteEncoder`，可以实现自定义编码，不用关心`ByteBuf`的创建，不用每次向对端写Java对象都进行一次编码。
 	- 第十四章 ChannelHandler的生命周期
+	  collapsed:: true
 		- 这一章主要讲了ChannelHandler的生命周期方法
 			- handlerAdded()：当检测到新连接之后。
 			- channelRegistered()：当前channel的处理逻辑已和NIO线程建立了绑定关系。
-			- channelActive()：channel被激活。
+			- `channelActive()`：channel被激活。
 			- channelRead()：客户端向服务端发送数据，服务端每次都会回调此方法，表示有数据可读。
 			- channelReadComplete()：服务端每读完一次完整的数据，都回调该方法，表示数据读取完毕。
 			- channelInactive()：连接已经被关闭了，这个连接在TCP层面已经不再是ESTABLISH状态。
 			- channelUnregistered()：连接对应的NIO线程移除了对这个连接的处理。
 			- handlerRemoved()：连接添加的所有业务逻辑处理器都被移除。
 		-
+	- 第十五章 使用ChannelHandler的热插拔实现客户端身份校验
+	  collapsed:: true
+		- 如果有多个业务逻辑的handler要进行相同的操作，我们可以将这部分逻辑单独抽到一个逻辑中进行实现。例如在server端的校验用户是否登录。
+		- 如果某一个独立的逻辑在执行几次之后（这里是一次）不需要再执行，则可以通过`ChannelHandler`的热插拔机制来实现动态删除逻辑，使应用程序的性能处理更为高效。
+	- 第十六章 客户端互聊的原理与实现
+	  collapsed:: true
+		- 使用`SessionUtil`来管理用户`Session`和`Channel`之间的映射关系。
+		- 在服务端处理消息的时候，通过用户id获取到用户的`Channel`，从而实现两个客户端信息的交互。
+	- 第十七章 群聊的发起和通知
+	  collapsed:: true
+		- 重新整合了登录，一对一，群聊，登出控制台操作的逻辑。
+		- 通过`ChannelGroup`，可以很方便地对一组`Channel`进行批量操作。
+	- 第十八章 群聊的成员管理
+	  collapsed:: true
+		- 这里实现了建群，进群，查看群成员，退群的操作。
+	- 第十九章 群聊消息的收发及Netty的性能优化
+	  collapsed:: true
+		- 群聊消息的收发。
+		- 共享Handler
+		- 压缩Handler-合并编解码器
+		- 压缩Handler-合并平行Handler
+		- 更改事假传播源
+		  collapsed:: true
+			- `ctx.channel().writeAndFlush();`：对象会从最后一个Outbound类型的Handler开始，逐个往前传播，路径要比ctx.writeAndFlush()方法长。
+			- `ctx.writeAndFlush()`：可以直接一口气把对象送到codec中编码，然后写出去。
+		- 减少主线程的阻塞
+		  collapsed:: true
+			- 在服务器端的`channelRead0()`方法中如果涉及耗时操作，应放到线程池中进行处理。
+		- 如何准确的统计时长
+		  collapsed:: true
+			- `writeAndFlush()`方法会返回一个`ChannelFuture`对象，我们给这个对象添加一个监听器，然后在回调方法里，可以监听这个方法执行的结果，进而执行其他逻辑，最后统计耗时，这样统计出来的耗时才是最准确的。
 - RPC（ Remote Procedure Call ）框架和 HTTP 服务的区别
 	- 1.	通信协议：RPC 框架通常使用自定义的协议来进行远程调用，而 HTTP 服务使用的是 HTTP 协议。RPC 框架可以更高效地进行远程方法调用，因为它可以直接传递方法参数和返回值，而不需要进行协议解析和序列化。
 	  	2.	数据格式：RPC 框架通常使用自定义的数据格式来序列化和反序列化参数和返回值，而 HTTP 服务通常使用 JSON 、XML 或其他通用的数据格式。RPC 框架的数据格式可以更高效地进行传输，因为它可以针对特定的编程语言和数据类型进行优化。
