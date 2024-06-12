@@ -1,5 +1,7 @@
 - Java语言
+  collapsed:: true
 	- Java基础
+	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -1569,7 +1571,6 @@
 			- 元注解
 				- `@Documented`：注解是否将包含在JavaDoc中
 				- `@Retention`： 什么时候使用该注解，定义注解的生命周期
-				  collapsed:: true
 					- `RetentionPolicy.SOURCE`: 在编译阶段丢弃。这些注解在编译结束之后就不再有任何意义，所以它们不会写入字节码。@Override, @SuppressWarnings都属于这类注解。
 					- `RetentionPolicy.CLASS`: 仅class文件。在类加载的时候丢弃。在字节码文件的处理中有用，它们不会被加载进JVM。注解默认使用这种方式
 					- `RetentionPolicy.RUNTIME` : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。该类型的注解会被加载进JVM，并且在运行期可以被程序读取
@@ -1587,7 +1588,6 @@
 				  collapsed:: true
 					- 参考：JavaTrain/src/main/java/cn/bravedawn/annotation/repeatable
 			- 常见标准的Annotation
-			  collapsed:: true
 				- `@Override`，标记类型注解，用作标注方法。它说明了被标注的方法重写了父类的方法，起到了断言的作用。如果我们使用了这种注解在一个没有覆盖父类方法的方法时，java 编译器将以一个编译错误来警示。
 				- `@Deprecated`，标记类型注解，用于废弃代码。
 				- `@SuppressWarnings`，非标记类型注解，它的作用是告诉编译器对被注解的作用域内部警告保持静默。
@@ -1596,18 +1596,15 @@
 					- `@SuppressWarnings("serial")`：某类实现`Serializable`(序列化)， 但没有定义 serialVersionUID 时的警告
 					- `@SuppressWarnings("deprecation")`：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
 			- 定义一个注解
-				- collapsed:: true
-				  1. 用`@interface`声明一个注解
+				- 1. 用`@interface`声明一个注解
 					- Annotation 型定义为@interface，所有的Annotation 会自动继承`java.lang.annotation.Annotation`这一接口，并且不能再去继承别的类或是接口
-				- collapsed:: true
-				  2. 定义参数成员和默认值
+				- 2. 定义参数成员和默认值
 					- 参数成员只能用`public` 或默认(`default`) 这两个访问权修饰
 					- 参数成员只能用基本类型`byte`、`short`、`char`、`int`、`long`、`float`、`double`、`boolean`八种基本数据类型和其包装类。
 					- `String`、`enums`、`Class`等数据类型
 					- 以及以上类型的数组
 				- 3. 用元注解配置注解
 			- 处理注解
-			  collapsed:: true
 				- 使用反射API判断是否有Annotation修饰
 				  collapsed:: true
 					- Class.isAnnotationPresent(AnnotationClass)
@@ -2051,6 +2048,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
+	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -4424,6 +4422,7 @@
 			- IPV4/IPV6
 				- 通过 `InetAddress` 类来指定使用 IPv4 或 IPv6 进行 socket 编程。
 	- 新特性
+	  collapsed:: true
 		- Java8
 		  collapsed:: true
 			- 我不会的函数
@@ -4493,6 +4492,7 @@
 				- 参考文章
 					- [Exceptions in Java 8 Lambda Expressions](https://www.baeldung.com/java-lambda-exceptions)
 	- 命令行工具
+	  collapsed:: true
 		- java
 		  collapsed:: true
 			- `-cp`：`java -cp`和`-classpath`一样，是指定类运行所依赖其他类的路径，通常是类库，jar包之类。用于启动JVM时设置`classpath`。
@@ -4507,6 +4507,7 @@
 			- `-source`：指定使用什么版本的JDK语法编译源代码
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - Java EE
+  collapsed:: true
 	- Servlet
 	  collapsed:: true
 		- Java web application介绍
@@ -5544,3 +5545,7 @@
 	  collapsed:: true
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
+- Commons-pool2
+	- 参考文章
+		- [apache-common-pool2对象池的使用](https://blog.csdn.net/u013332124/article/details/81042375)
+		- [commons-pool2的简单使用](https://qiubyte.github.io/2019/10/31/2019/20191031-commons-pool2%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html)
