@@ -332,7 +332,6 @@
 				- System.arraycopy()
 				  collapsed:: true
 					- 功能
-					  collapsed:: true
 						- `java.lang.System.arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length)`方法将源数组从特定起始位置复制到目标数组中提到的位置。 要复制的参数数量由参数决定。 将 source_Position 到 source_Position + length – 1 处的组件从 destination_Position 到 destination_Position + length – 1 复制到目标数组。
 					- 特点
 					  collapsed:: true
@@ -905,7 +904,6 @@
 						- Java 14 带来了新版的 instanceof操作，将参数类型检查和绑局部变量类型合并到了一起：`obj instanceof String str`
 						- 参考文章：https://www.baeldung.com/java-instanceof
 					- 区分继承和组合
-					  collapsed:: true
 						- 继承是is关系，组合是has关系
 				- 多态
 				  collapsed:: true
@@ -1040,6 +1038,7 @@
 						- 使用命令：java -cp E:\code\mall\JavaTrain\target\javatrain.jar cn.bravedawn.obj.inherit.innerclass.anonymousclass.Test
 				- 序列化
 				  id:: 641475d2-462e-43b7-a273-77ab40289cde
+				  collapsed:: true
 					- serialVersionUID
 						- 定义为代表类定义的版本，在反序列化时，jvm会将字节流状态的类中的serialVersionUID与本地类中的serialVersionUID进行比较，如果相同，则进行序列化，不相同就抛InvalidClassException异常。
 						- 在实现序列化接口的时候，我们一般显式的给serialVersionUID设置一个固定值。这样无论类后期增加成员变量还是删除成员变量，都不会发生错误。
@@ -1159,9 +1158,13 @@
 			- 编码算法
 			  collapsed:: true
 				- ASCII码
-				  collapsed:: true
+					- [ASCII对照表](https://tool.oschina.net/commons?type=4)
 					- 美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码
 					- ASCII 码一共规定了128个字符的编码
+					- Java中ASCII码与字符的互转
+					  collapsed:: true
+						- 参考文章
+							- [java 字符与ASCII码互转](https://www.cnblogs.com/ooo0/p/8465237.html)
 				- Unicode码
 				  collapsed:: true
 					- 背景：世界上存在多种编码方式，同一个二进制数字可以被解释成不同的符号，很容易出现乱码
@@ -1205,6 +1208,7 @@
 					  collapsed:: true
 						- 传输效率会降低，因为它把原始数据的长度增加了1/3
 			- 哈希算法
+			  collapsed:: true
 				- 定义：哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。
 				- 特点
 				  collapsed:: true
@@ -1569,6 +1573,7 @@
 				- 由工具处理.class文件使用的注解，比如有些工具会在加载class的时候，对class做动态修改，实现一些特殊的功能。这类注解会被编译进入.class文件，但加载结束后并不会存在于内存中。这类注解只被一些底层库使用，一般我们不必自己处理。
 				- 跟踪代码依赖性，实现替代配置文件功能。在程序运行期能够读取的注解，它们在加载后一直存在于JVM中，这也是最常用的注解。
 			- 元注解
+			  collapsed:: true
 				- `@Documented`：注解是否将包含在JavaDoc中
 				- `@Retention`： 什么时候使用该注解，定义注解的生命周期
 					- `RetentionPolicy.SOURCE`: 在编译阶段丢弃。这些注解在编译结束之后就不再有任何意义，所以它们不会写入字节码。@Override, @SuppressWarnings都属于这类注解。
@@ -1596,6 +1601,7 @@
 					- `@SuppressWarnings("serial")`：某类实现`Serializable`(序列化)， 但没有定义 serialVersionUID 时的警告
 					- `@SuppressWarnings("deprecation")`：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
 			- 定义一个注解
+			  collapsed:: true
 				- 1. 用`@interface`声明一个注解
 					- Annotation 型定义为@interface，所有的Annotation 会自动继承`java.lang.annotation.Annotation`这一接口，并且不能再去继承别的类或是接口
 				- 2. 定义参数成员和默认值
@@ -1606,23 +1612,19 @@
 				- 3. 用元注解配置注解
 			- 处理注解
 				- 使用反射API判断是否有Annotation修饰
-				  collapsed:: true
 					- Class.isAnnotationPresent(AnnotationClass)
 					- Field.isAnnotationPresent(AnnotationClass)
 					- Method.isAnnotationPresent(AnnotationClass)
 					- Constructor.isAnnotationPresent(AnnotationClass)
 				- 使用反射API读取Annotation
-				  collapsed:: true
 					- Class.getAnnotation(AnnotationClass)
 					- Field.getAnnotation(AnnotationClass)
 					- Method.getAnnotation(AnnotationClass)
 					- Constructor.getAnnotation(AnnotationClass)
 				- 使用反射API读取Annotation有两种方法（读取Class上面修饰的注解）
-				  collapsed:: true
 					- 方法一是先判断Annotation是否存在，如果存在，就直接读取
 					- 方法二是直接读取Annotation，如果Annotation不存在，将返回null
 				- 读取方法、字段和构造方法的Annotation和Class类似
-				  collapsed:: true
 					- 获取到Annotation之后，将注解进行强转，就可以获取注解的属性了
 					- 参考实现：cn.bravedawn.annotation.fruitexample.FruitInfoUtil
 				- 读取方法参数使用getParameterAnnotations()
@@ -1658,11 +1660,9 @@
 					- 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取
 					- 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取
 				- Class实例比较和instanceof的差别
-				  collapsed:: true
 					- 用instanceof不但匹配指定类型，还匹配指定类型的子类。
 					- 用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
 				- 通过反射生产对象的方式
-				  collapsed:: true
 					- 方法一：调用Class提供的`newInstance()`方法，创建无参构造函数的实例
 					- 方法二：先通过Class对象获取指定的`Constructor`对象，再调用Constructor对象的newInstance()方法来创建实例。这种方法可以用指定的构造器构造类的实例
 				- 动态加载
@@ -1670,7 +1670,6 @@
 					- JVM在执行Java程序的时候，并不是一次性把所有用到的类全部加载到内存，而是第一次需要用到类时才加载。
 					- 利用JVM动态加载类的特性，我们才能在运行期根据条件加载不同的实现类。
 				- 重要方法
-				  collapsed:: true
 					- `isInterface()`：该对象是否是一个接口
 					- `isAnonymous()`：是否是匿名类
 					- `class.newInstance()`： 会直接调用该类的无参构造函数进行实例化
@@ -1684,14 +1683,12 @@
 			- 访问字段
 			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
-				  collapsed:: true
 					- `Field getField(name)`：根据字段名获取某个public的field（包括父类）
 					- `Field getDeclaredField(name)`：根据字段名获取当前类的某个field（不包括父类）
 					- `Field[] getFields()`：获取所有public的field（包括父类）
 					- `Field[] getDeclaredFields()`：获取当前类的所有field（不包括父类）
 				- 允许访问非public字段：`setAccessible(true)`
 				- 获取字段的信息
-				  collapsed:: true
 					- getName()：返回字段名称，例如，"name"；
 					- getType()：返回字段类型，也是一个Class实例，例如，String.class；
 					- getModifiers()：返回字段的修饰符，它是一个int，不同的bit表示不同的含义
@@ -1758,7 +1755,12 @@
 			  collapsed:: true
 				-
 			- 获取方法参数
+			  collapsed:: true
 				- `Parameter`
+			- 性能优化
+			  collapsed:: true
+				- 参考文章
+					- [Java反射性能分析及优化](https://www.bilibili.com/read/cv13256282/)
 		- 模块（Java Platform Module System，JPMS）
 		  collapsed:: true
 			- 背景
@@ -3014,6 +3016,7 @@
 				- 在一个应用中时可以创建多个线程池的。
 				- 参考文章：
 					- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
+					- [别再纠结线程池大小/线程数量了，没有固定公式的](https://juejin.cn/post/6948034657321484318)
 		- IO
 		  collapsed:: true
 			- 五种IO模型
@@ -5546,6 +5549,7 @@
 		- JAX-RS(Java API for RESTful Web Services)
 			- JAX-RS提供了一些注解将一个资源类，一个POJO Java类，封装为Web资源。
 - Commons-pool2
+  collapsed:: true
 	- 参考文章
 		- [apache-common-pool2对象池的使用](https://blog.csdn.net/u013332124/article/details/81042375)
 		- [commons-pool2的简单使用](https://qiubyte.github.io/2019/10/31/2019/20191031-commons-pool2%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html)
