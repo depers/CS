@@ -3,7 +3,6 @@
 	- Java基础
 	  collapsed:: true
 		- 语言基础
-		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -67,6 +66,7 @@
 					- 方式二：如果不是用双引号声明的`String`对象，可以使用`String`提供的`intern`方法。intern 方法会从字符串常量池中查询当前字符串是否存在，若不存在就会将当前字符串放入常量池中。
 					- 方式三：`String s = new String("abc")`创建了2个对象，第一个对象是”abc”字符串存储在常量池中，第二个对象在JAVA Heap中的 String 对象。s指向的是Java堆上的对象。
 				- 基本操作
+				  collapsed:: true
 					- 比较：必须使用equals()
 					- 是否包含：contains()
 					- 去除首尾空格
@@ -120,7 +120,7 @@
 						- String Pool的需要
 						- 安全性
 						- 线程安全
-				- Sting-StringBuffer-StringBuilder的比较
+				- `Sting`-`StringBuffer`-`StringBuilder`的比较
 					- 可变性
 						- String不可变
 						- StringBuffer和StringBuilder可变
@@ -128,8 +128,9 @@
 						- String不可变，是线程安全的
 						- StringBuilder 不是线程安全的
 						- StringBuffer 是线程安全的，内部使用 synchronized 进行同步
-				- String.intern()
+				- `String.intern()`
 				  id:: 64043de8-605f-43aa-a7b0-a711a39e4d4a
+				  collapsed:: true
 					- 作用：如果字符串常量池中已经包含一个等于此String对象的字符串，则返回池中这个字符串的**String对象**；否则，将此String对象包含的字符串添加到常量池中，并且返回此**String对象**。
 					- JDK6中，常量池和堆是不同的内存区域，所以使用`new String("a")`是分别创建了两个不同的对象。
 					- JDK7新的变化
@@ -137,9 +138,17 @@
 						- 涉及到从常量池获取对象的时候，若这个对象在堆上已经存在，则不再常量池创建新的对象，而是返回堆上已经存在对象的引用地址。
 					- 可以保证相同内容的字符串变量引用同一的内存对象。
 					- String Pool
-				- new String("abc")
+				- `new String("abc")`
 				- join操作
+				  collapsed:: true
 					- [java join字符串集合操作](https://blog.csdn.net/liuxiao723846/article/details/116211357)
+				- 模板引擎的实现方法
+					- `String.format()`
+					- `MessageFormat`
+					- 使用自定义封装
+					- 使用模板引擎freemarker
+					- 参考文章
+						- [java 替换字符串模板(模板渲染)](https://www.cnblogs.com/softidea/p/9140204.html)
 			- 运算
 			  collapsed:: true
 				- 参数传递
@@ -639,7 +648,6 @@
 		- 面向对象
 		  collapsed:: true
 			- Object通用方法
-			  collapsed:: true
 				- equals
 				  collapsed:: true
 					- Java SE中针对equals()的原则
@@ -857,7 +865,6 @@
 						- Method Overloading in Java
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/overloading
 				- 继承
-				  collapsed:: true
 					- Java只允许一个class继承自一个类，因此，一个类有且仅有一个父类。只有Object特殊，它没有父类。
 					- 里氏替换原则
 					  collapsed:: true
@@ -879,10 +886,8 @@
 						- permits
 						- non-sealed
 					- 向上转型
-					  collapsed:: true
 						- 把一个子类类型安全地变为父类类型的赋值，被称为向上转型（upcasting）
 					- 向下转型
-					  collapsed:: true
 						- 把一个父类类型强制转型为子类类型，就是向下转型（downcasting）
 						- 可以强制向下转型，最好借助instanceof判断
 						- 这种是可以的：Person p1 = new Student;Student s1 = (Student) p1; // downcasting ok
@@ -1208,10 +1213,8 @@
 					  collapsed:: true
 						- 传输效率会降低，因为它把原始数据的长度增加了1/3
 			- 哈希算法
-			  collapsed:: true
 				- 定义：哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。
 				- 特点
-				  collapsed:: true
 					- 无论输入的消息有多长，计算出来的消息摘要的长度总是固定的
 					- 消息摘要是 **伪随机的**
 					- 通常情况下，不同的输入必会产生不同的输出，相同的输入必会产生相同的输出
@@ -1267,7 +1270,6 @@
 					  collapsed:: true
 						- [哈希算法的常见种类及特点有哪些？](https://juejin.cn/post/7089749167886565413)
 				- 用途
-				  collapsed:: true
 					- 验证软件安装文件是否被人篡改
 					- 数据库用户密码存储
 				- 加盐
@@ -1676,10 +1678,13 @@
 					- `class.getDeclaredConstructor(Class<?>... parameterTypes).newInstance()`：`getDeclaredConstructor()`方法会根据他的参数对该类的构造函数进行搜索并返回对应的构造函数，没有参数就返回该类的无参构造函数，然后再通过newInstance进行实例化。
 					- `classA.isAssignableFrom(classB)`：判断a是否是b的父类。这里classA和classB都是Class对象
 					- `classA.isInstance(objectB)`
+					  collapsed:: true
 						- 表示objectB是否能强转为classA类型
 						- 与 ((644252a4-2aa6-4b41-ad86-f99f7cb65ac8))的区别
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
+					- `getType`：获取类型
+					-
 			- 访问字段
 			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
@@ -2926,7 +2931,6 @@
 		- 并发
 		  collapsed:: true
 			- Thread
-			  collapsed:: true
 				- 线程的创建
 				- 核心方法
 				  collapsed:: true
@@ -2983,6 +2987,11 @@
 						    collapsed:: true
 							- [多线程 Thread.yield 方法到底有什么用](https://zhuanlan.zhihu.com/p/50374332)
 					- `obj.wait()`，当前线程调用对象的wait()方法，当前线程释放对象锁，进入等待队列。依靠notify()/notifyAll()唤醒或者wait(long timeout) timeout时间到自动唤醒。
+						- **wait/notify方法的调用必须处在该对象的锁（Monitor）中，也即，在调用这些方法时首先需要获得该对象的锁。**否则会抛出IllegalMonitorStateException异常。
+						- 在执行`wait`操作时，因考虑是否因该将其包裹在`while`循环体中。
+						- 参考文章
+							- [Wait/Notify通知机制解析](https://juejin.cn/post/6844903520437551111)
+							-
 					- `obj.notify()`唤醒在此对象监视器上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象监视器上等待的所有线程。
 					- `LockSupport.park()/LockSupport.parkNanos(long nanos)`：LockSupport.parkUntil(long deadlines), 当前线程进入WAITING/TIMED_WAITING状态。对比wait方法,不需要获得锁就可以让线程进入WAITING/TIMED_WAITING状态，需要通过LockSupport.unpark(Thread thread)唤醒。
 				- 中断线程
@@ -3013,6 +3022,7 @@
 					- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 					- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
 			- 线程池
+			  collapsed:: true
 				- 在一个应用中时可以创建多个线程池的。
 				- 参考文章：
 					- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
@@ -5553,3 +5563,4 @@
 	- 参考文章
 		- [apache-common-pool2对象池的使用](https://blog.csdn.net/u013332124/article/details/81042375)
 		- [commons-pool2的简单使用](https://qiubyte.github.io/2019/10/31/2019/20191031-commons-pool2%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html)
+		- [通用对象池化框架Apache Commons Pool 2简析](https://blog.csdn.net/nazeniwaresakini/article/details/108379725)

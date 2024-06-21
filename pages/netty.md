@@ -11,6 +11,7 @@
 		- 设置重连次数
 		- 其他参数配置
 	- 第八章 客户端和服务端通讯协议编解码
+	  collapsed:: true
 		- 通信协议的设计
 			- 示例图
 			  ![通信协议的设置.png](../assets/通信协议的设置_1718182845050_0.png)
@@ -18,12 +19,19 @@
 				- 作用
 					- 服务器端接收到报文之后，根据魔数字段确定是否是符合规范的报文。
 					- 出于安全考虑，如果魔数校验不通过，就是无效数据包，可以关闭连接。
+	- 第十一章 Pipeline和ChannelHandler
+	  collapsed:: true
+		- ChannelHandler的分类
+			- 接口分类图
+			  ![ChannelHandler的分类.png](../assets/ChannelHandler的分类_1718345430493_0.png)
+			-
 	- 第十二章 构建客户端与服务端的Pipeline
 	  collapsed:: true
 		- 基于`ByteToMessageDecoder`，可以实现自定义解码，而不用关心`ByteBuf`的强转和解码结果的传递。
 		- 基于`SimpleChannelInboundHandler`，可以实现每一种指令的处理，不再需要强转，不再有冗长乏味的`if else`逻辑，不再需要手动传递对象。
 		- 基于`MessageToByteEncoder`，可以实现自定义编码，不用关心`ByteBuf`的创建，不用每次向对端写Java对象都进行一次编码。
 	- 第十三章 拆包/粘包理论与解决方案
+	  collapsed:: true
 		-
 	- 第十四章 ChannelHandler的生命周期
 	  collapsed:: true
@@ -77,13 +85,11 @@
 	  collapsed:: true
 		- 创建一个NioServerSocketChannel对象的过程分析
 		- 代码分析的入口
-		  collapsed:: true
 			- 创建Channel
-			  collapsed:: true
 				- 第一步：`ServerBootstrap.bind()`方法中
 				- 第二步：`io.netty.bootstrap.AbstractBootstrap#doBind()`方法
 				- 第三步：`io.netty.bootstrap.AbstractBootstrap#initAndRegister()`方法
-				- 第四步：通过`io.netty.channel.ReflectiveChannelFactory#newChannel`创建了Java底层的`Channel`对象，创建的这个`Channel`其实是```
+				- 第四步：通过`io.netty.channel.ReflectiveChannelFactory#newChannel`创建了Java底层的`Channel`对象，创建的这个`Channel`其实是
 				  `NioServerSocketChannel`，这个channel里面包含了Java底层的`Channel`。
 			- 将Channel注册到Java底层的Selector
 				- 第一步：`io.netty.bootstrap.AbstractBootstrap#initAndRegister`在完成创建和初始化channel的操作之后开始注册工作。
@@ -94,7 +100,20 @@
 				- 第二步：`io.netty.bootstrap.AbstractBootstrap#doBind0`开始绑定
 				- 第三步：`io.netty.channel.socket.nio.NioServerSocketChannel#doBind`调用底层api进行绑定
 				- 第四步：`io.netty.channel.DefaultChannelPipeline#fireChannelActive`触发active方法
-				-
+	- 第二十二章 Reactor线程模型
+	  collapsed:: true
+		- bossGroup对应的就是监听端口的线程池，在绑定一个端口的情况下，这个线程池里只有一个线程；
+		- workerGroup对应的是连接的数据读写的线程。
+		-
+		- 创建`ThreadPerTaskExecutor`
+			- `ThreadPerTaskExecutor`是负责创建线程和执行任务的。
+			- `NioEventLoop`线程的命名规则是nioEventLoopGroup-xx-yy，xx表示全局第xx个`NioEventLoopGroup`，yy表示这个`NioEventLoop`在`NioEventLoopGroup`中是第yy个。
+		- `NioEventLoop`的创建
+			- `NioEventLoop`对应一个线程，也就是`FastThreadLocalThread`。
+			- 最关键的其实就是两部分：创建一个`Selector`和创建一个MPSC队列（高性能无锁队列），这三者均为一对一关系。
+			- 在默认情况下，`NioEventLoopGroup`会创建两倍CPU核数个`NioEventLoop`，一个`NioEventLoop`和一个`Selector`及一个MPSC任务队列一一对应。
+		- 创建线程选择器
+			- Netty中一个Selector对应一个NioEventLoop，线程选择器的作用是为一个连接在一个EventLoopGroup中选择一个NioEventLoop，从而将这个连接绑定到某个Selector上。
 - 《Netty实战》阅读笔记
   collapsed:: true
 	- 第一章 Netty-异步和事件驱动
