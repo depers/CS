@@ -1,5 +1,4 @@
 - Java语言
-  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -504,12 +503,10 @@
 							- 时区转换
 							- 转换为LocalDateTime
 					- 时刻
-					  collapsed:: true
 						- Instant
 					- 时区
-					  collapsed:: true
-						- ZoneId
-						- ZoneOffset
+						- ZoneId，地区
+						- ZoneOffset，时区偏移量
 					- 时间间隔
 					  collapsed:: true
 						- Duration：表示两个时刻之间的时间间隔
@@ -2055,7 +2052,6 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2846,7 +2842,7 @@
 							- merge
 						- Map接口没有默认实现的方法也被覆盖，以支持原子性：
 						  collapsed:: true
-							- putIfAbsent
+							- putIfAbsent：如果当前key对应的value为null，就设置该value，否则不能设置该value。并返回之前的value值。
 							- remove
 							- replace(key, oldValue, newValue)
 							- replace(key, value)
@@ -2942,10 +2938,8 @@
 					- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 				- 线程的状态
 					- 六种状态
-					  collapsed:: true
 						- New（初始状态）：新创建的线程，尚未执行；
 						- Runnable
-						    collapsed:: true
 							- READY（就绪状态)
 							    collapsed:: true
 								- 就绪状态只是说你资格运行，调度程序没有挑选到你，你就永远是就绪状态。
@@ -2963,7 +2957,6 @@
 						- 参考文章
 							- [Java线程的6种状态及切换(透彻讲解)](https://blog.csdn.net/pange1991/article/details/53860651)
 					- 状态转移图
-					  collapsed:: true
 						- ![线程切换.jpeg](../assets/线程切换_1716441975617_0.jpeg)
 					- 线程终止的原因
 						- 线程正常终止：run()方法执行到return语句返回；
@@ -3388,11 +3381,15 @@
 				-
 		- JVM
 		  collapsed:: true
+			- Java的命令行参数
+				- `java -XX:+PrintCommandLineFlags -version`：打印默认的JVM参数，包括GC算法和堆空间大小。
 			- GC日志的格式和配置方式
+			  collapsed:: true
 				- [求你了，GC 日志打印别再瞎配置了](https://segmentfault.com/a/1190000039806436)
 				- [Enable Logging with the JVM Unified Logging Framework](https://docs.oracle.com/en/java/javase/11/tools/java.html#GUID-BE93ABDC-999C-4CB5-A88B-1994AAAC74D5)
 				- [Java统一日志配置| java11 gc日志配置](https://zhuanlan.zhihu.com/p/350104527)
 			- 《深入理解Java虚拟机》
+			  collapsed:: true
 				- 第二章 Java的内存区域
 				  collapsed:: true
 					- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
@@ -3526,7 +3523,6 @@
 							- 具体的代码演示：jvm-demo/src/main/java/cn/bravedawn/jvm/memory/HeapOutOfMemoryError.java
 							- 将Xms和Xmx设置的值相同是为了避免堆自动扩展。
 							- 堆内存溢出问题的排查方法
-							  collapsed:: true
 								- 通过MAT工具查看堆转储快照，分析泄露对象到GC Roots的引用链，定位泄露代码的位置。
 								- 检查虚拟机堆参数（-Xmx和-Xms），与机器物理内存比较，看是否能够调大。
 								- 从代码上检查是否存在某些对象生命周期较长，持有状态时间过长的情况。
@@ -3558,21 +3554,25 @@
 					- 相关概念
 						- 根据对象的存活周期不同将内存分为新生代、老年代
 						- 新生代
+						  collapsed:: true
 							- 定义：年轻代用来存放新近创建的对象堆内存空间。由Eden区和两个Survivor区组成。
 							- 特点
 								- 每次垃圾回收都会有大量的对象死去，只有少量存活
 								- 有老年代为新生代进行内存分配担保
 						- 老年代
 						  id:: 640457c7-910c-4bea-bb1d-de5d2dd61ae0
+						  collapsed:: true
 							- 定义：老年代用来存放存活时间久的对象的堆内存空间。
 							- 特点
 								- 对象存活率高
 								- 没有额外的内存为老年代进行内存分配担保
 						- 永久代
 						  id:: 64045857-a3d0-48e0-b083-94db4c2e7263
+						  collapsed:: true
 							- 定义：永久代不属于堆内存，是方法区的一种实现，用来存放加载的类的结构信息，包括类信息、常量、静态变量、及时编译期编译后的代码等数据。
 						- 吞吐量（Throughput）
 						  id:: 6405ef3b-98b6-4356-bc2e-85a1a75e8dc0
+						  collapsed:: true
 							- 定义：CPU用于运行用户代码的时间与CPU总消耗时间的比值
 							- 公式：吞吐量 = 运行用户代码的时间 / (运行用户代码的时间 + 垃圾收集的时间)
 						- Ende区
@@ -3728,7 +3728,6 @@
 							- 目的：解决在程序执行时，线程因没有分配到CPU时间，从而无法响应JVM的中断请求，导致无法进行GC。
 							- 定义：安全区域是指在一段代码片段中，引用关系不会再发生改变，这个区域的任何位置开始GC都是安全的。
 					- 垃圾收集器
-					  collapsed:: true
 						- 垃圾收集器是内存回收的具体实现。
 						- 垃圾收集器按照收集内存区域的不同，分为老年代收集器和新生代收集器两种。两种不同的收集器可以组合使用
 						- 垃圾收集器的选择
@@ -3739,6 +3738,7 @@
 								- 这种收集器适合高效利用CPU时间，尽快完成运算任务的虚拟机，适合后台运算但不需要太多交互的任务
 						- 新生代收集器
 							- Serial收集器
+							  collapsed:: true
 								- 是一个单线程收集器
 								- 只会使用一个CPU或是一条收集线程去完成垃圾的回收工作
 								- 在垃圾回收时，必须暂停其他所有工作线程，直到他收集结束
@@ -3746,14 +3746,12 @@
 								- 使用场景：虚拟机运行在Client模式
 								- 优点：简单高效
 							- ParNew收集器
-							  collapsed:: true
 								- Serial收集器的多线程版本
 								- 是一个并发收集器
 								- 采用**复制算法**
 								- 除Serial收集器外，只有他能与CMS收集器配合使用
 								- 使用场景：虚拟机运行在Server模式
 							- Parallel Scavenge 收集器
-							  collapsed:: true
 								- 该收集器的目标是达到一个可控制的 ((6405ef3b-98b6-4356-bc2e-85a1a75e8dc0))
 								- 使用场景：适合后台运算而不需要太多交互的任务
 								- 采用**复制算法**
@@ -3775,7 +3773,6 @@
 										- 该参数打开之后，就不需要设置新生代大小（-Xmn）、Eden和Survivor区的比例（-XX:SurvivorRatio）、晋升老年代对象大小（-XX:PertenureSizeThreshold）等细节参数
 										- 这个参数用于 GC自适应的调节策略
 						- 老年代收集器
-						  collapsed:: true
 							- Serial Old收集器
 							  collapsed:: true
 								- Serial收集器的老年代版本
@@ -3821,6 +3818,7 @@
 									- **无法处理浮动垃圾**，在CMS并发清除阶段用户线程还在执行，会导致新的垃圾产生，这个些垃圾出现在标记过之后，CMS无法在当前收集中集中处理掉他们，只能放在下一次GC时再清理，这部分垃圾就称为浮动垃圾。
 									- **会产生大量空间碎片**，因为使用的是标记-清除算法。
 						- G1收集器
+						  collapsed:: true
 							- 特点
 								- 并行与并发，以获取最短回收停顿时间为目标的收集器
 								- 分代收集，分代收集的概念在G1收集器中仍然保留
@@ -5348,16 +5346,13 @@
 		- Servlet上传和下载文件（通过使用commons-fileupload实现）
 		  collapsed:: true
 			- 实现步骤
-			  collapsed:: true
 				- 引入依赖：commons-fileupload和commons-io
 				- 1.编写上传文件的html
 				- 2.在web.xml中上下文参数中配置上传文件的路径
 				- 3.在上下文监听器中获取上下文参数，创建上传文件路径
 				- 4.编写上传文件和下载文件的Servlet
 			- 注意点
-			  collapsed:: true
 				- 上传文件
-				  collapsed:: true
 					- request.setCharacterEncoding("utf-8");
 					  collapsed:: true
 						- 设置客户端请求进行重新编码的编码
@@ -5374,7 +5369,6 @@
 					- request.setCharacterEncoding("utf-8");
 					- response.setCharacterEncoding("utf-8");
 			- 具体实现参考mall项目下的子项目Servlet/servlet-demo
-			  collapsed:: true
 				- cn.bravedawn.servlet.uploadfile.UploadDownloadFileServlet
 		- Servlet异常处理
 		  collapsed:: true
@@ -5403,14 +5397,12 @@
 		- Servlet3 文件上传
 		  collapsed:: true
 			- 注解@MultipartConfig，有三个参数
-			  collapsed:: true
 				- fileSizeThreshold：这是临时保存上传文件时的大小阈值。如果上传的文件大小超过该阈值，将被保存到磁盘上。否则，文件存储在内存中(大小以字节为单位)
 				- maxFileSize：这是上传文件的最大大小(大小以字节为单位)
 				- maxRequestSize：这是请求的最大大小，包括上传的文件和其他表单数据(大小以字节为单位)
 				- location：上传文件的存储目录
-			- 参考实现：mall\Servlet\servlet-demo项目的cn.bravedawn.servlet.uploadfile.FileUploadServlet
+			- 参考实现：`mall\Servlet\servlet-demo`项目的cn.bravedawn.servlet.uploadfile.FileUploadServlet
 			- 参考文章：
-			  collapsed:: true
 				- A Guide to Java EE Web-Related Annotations
 				- Uploading Files with Servlets and JSP
 				- Servlet 3 File Upload – @MultipartConfig, Part
@@ -5564,3 +5556,5 @@
 		- [apache-common-pool2对象池的使用](https://blog.csdn.net/u013332124/article/details/81042375)
 		- [commons-pool2的简单使用](https://qiubyte.github.io/2019/10/31/2019/20191031-commons-pool2%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html)
 		- [通用对象池化框架Apache Commons Pool 2简析](https://blog.csdn.net/nazeniwaresakini/article/details/108379725)
+- easyExcel
+	- [SpringBoot+easyExcel 按照模板导出（动态合并单元格）](https://juejin.cn/post/7101590832339238943)

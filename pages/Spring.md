@@ -248,10 +248,9 @@
 					- `PathMatchingResourcePatternResolver`，是Spring提供的标准实现类。
 					- 注意点：在项目中使用`Resource`接口的`getFile()`获取工程内的文件，且该项目会被打成jar包，会报`FileNotFoundException`，应该使用`Resource#getInputStream()`方法去做。
 		- BeanFactory、ApplicationContext和WebApplicationContext
-		  collapsed:: true
 			- BeanFactory
+			  collapsed:: true
 				- 功能
-				  collapsed:: true
 					- 一般称BeanFactory为Ioc容器
 					- BeanFactory是类的通用工厂，可以创建并管理各种类对象，Spring称这些被创建和管理的Java对象为Bean。
 					- BeanFactory是Spring最核心的接口，他提供了高级的Ioc配置机制。
@@ -267,18 +266,15 @@
 					- `singletonBeanRegistry`：定义了在运行期向容器注册单实例Bean的方法。
 					- `BeanDefinitionRegistry`：提供了向容器手工注册BeanDefinition对象的方法。
 			- ApplicationContext
-			  collapsed:: true
 				- 功能
 				  collapsed:: true
 					- 一般称Application为**Spring容器**
 					- `ApplicationContext`是面向使用Spring的开发者，几乎所有的场合可以直接使用`ApplicationContext`而不是`BeanFactory`。
 					- `ApplictionContext`是建立在`BeanFactory`之上的，提供了更多面向应用的功能。
 				- 与`BeanFactory`的重大区别
-				  collapsed:: true
 					- `BeanFacotry`在初始化容器的时候，并未实例化Bean，直到第一次访问某个Bean时才实例化目标Bean。因此第一次访问这个Bean时会消耗过多的时间。
 					- Application在初始化应用上下文时就实例化所有的单实例的bean，`ApplicationContext`的初始化时间比`BeanFactory`的时间会长一点，但是第一次访问Bean就会很快。
 				- ApplicationContext的初始化
-				  collapsed:: true
 					- `ClassPathXmlApplicationContext`，若配置文件在类路径下，使用这个类初始化ApplicationContext。
 					- `FileSystemXmlApplicationContext`，若配置文件在文件系统的路径下，使用这个类初始化ApplicationContext。
 					- `ClassPathXmlApplicationContext`与`FileSystemXmlApplicationContext`的区别在于在不显示声明资源类型前缀的情况下，他两分别会将路径解析为类路径和文件系统路径。
@@ -319,12 +315,11 @@
 						- 2.通过Web容器监听器启动Web容器，配置Spring `@Configuration`的注解方式配置bean资源，加载bean资源。
 						- 3.通过Web容器监听器启动Web容器，配置Spring Groovy DSL配置的bean资源，加载bean资源。
 			- 父子容器
+			  collapsed:: true
 				- 通过之前在介绍`BeanFactory`的时候我们讲到了`HierarchicalBeanFactory`接口，Spring的Ioc容器可以建立父子层级关系的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器中的Bean。
 				- 在Spring中父子容器实现了很多功能，在Spring MVC中，展示层的Bean位于一个子容器中，而业务层和持久层位于父容器中，这样展示层可以引用业务层和持久层的Bean，而业务层和持久层的Bean则看不到展示层的Bean。
 		- Bean的生命周期
-		  collapsed:: true
 			- `BeanFactory`中Bean的生命周期
-			  collapsed:: true
 				- 生命周期图
 				  ![BeanFactory的生命周期.png](../assets/BeanFactory的生命周期_1684648090473_0.png)
 				- 生命周期分类分析，划分为4类
@@ -372,10 +367,12 @@
 				- 生命周期图
 				  ![ApplicationContext上bean的生命周期.png](../assets/ApplicationContext上bean的生命周期_1684722873669_0.png)
 				- 相比于BeanFactory中Bean的生命周期的分类，有两处新增的逻辑
+				  collapsed:: true
 					- Bean生命周期接口方法
 					  collapsed:: true
 						- 新增了调用`ApplicationContextAware.setApplicationContext()`方法
 					- 工厂后置处理器接口方法
+					  collapsed:: true
 						- 新增了调用`BeanFactoryPostProcessor.postProcessBeanFactory()`方法
 							- 发生在应用上下文在装载配置文件之后，在Bean实例化之前调用，用于对配置文件中Bean的信息进行加工处理.
 							- 所有的bean定义都已加载，但还没有实例化任何bean。可以**对bean属性进行覆盖或添加操作**。
@@ -383,11 +380,19 @@
 							- `BeanDefinitionRegistryPostProcessor`接口
 								- 该接口继承自`BeanFactoryPostProcessor`接口，`BeanDefinitionRegistryPostProcessor.postProcessBeanDefinitionRegistry()`此时我们已经可以访问到所有常规bean定义，但还没有实例化任何bean。可以**在下一个后处理阶段开始之前添加新的bean定义**。
 								- 具体实践
+								  collapsed:: true
 									- 这里讨论了Bean替换的实现，具体参考：spring/spring4.x/chapter4/src/main/java/cn/bravedawn/beanreplace
 				- 具体实践：spring-demo/cn/bravedawn/chapter4/applicationbeanfactorydemo
 			- `ApplicationContext`与`BeanFactory`的不同之处
 				- `ApplicationContext`在Bean生命周期中新增了两处新的调用逻辑
 				- `ApplicationContext`可以利用Java反射机制自动识别处配置文件中的`BeanProcessor`、`InstantiationAwareBeanPostProcessor`和`BeanFactoryPostProcesser`，并自动将他们注册到应用上下文中；而后者需要手动调用`addBeanPostPorcessor()`方法进行注册。所以开发中大家普遍使用的是`ApplicationContext`。
+			- 参考文章
+			  collapsed:: true
+				- [Spring - Bean的实例化流程及生命周期](https://blog.csdn.net/weixin_51351637/article/details/131087131)
+		- Spring的后置处理器
+			- 分类
+				- bean工厂后置处理器
+				- bean后置处理器
 	- 第五章 在Ioc容器中装配Bean
 	  collapsed:: true
 		- 1.Spring配置概述
@@ -662,7 +667,6 @@
 		- 8.Bean作用域
 		  collapsed:: true
 			- Bean作用域的类型
-			  collapsed:: true
 				- 类型图
 				  ![bean的作用域类型.png](../assets/bean的作用域类型_1685432562981_0.png)
 				- 除了上面的作用域类型，Spring还允许用户自定义bean的作用域。
@@ -736,7 +740,6 @@
 				  ```
 				- 场景描述：当Boss Bean在Web环境中调用car Bean的时候，Spring AOP会启用动态代理智能的判断Boss Bean位于那个http请求线程中，病虫对应的http请求线程中获取对应的car Bean。其中注入Boss Bean的car Bean并不是原来的car Bean，这个car Bean是Spring动态代理生成的代理对象。
 		- 9.`FactoryBean`接口
-		  collapsed:: true
 			- 背景：使用xml文件描述Bean的信息过于复杂，采用编码的方式或许是更好的选择。Spring提供了一个工厂类接口`FactoryBean`，用户可以通过这个接口定制实例化Bean的逻辑。
 			- 这里具体的例子可以参考本书P154页的实现，这里不再赘述。
 		- 10.基于注解的配置
@@ -762,7 +765,6 @@
 				  collapsed:: true
 					- 作用：配置Spring需要扫描Bean定义信息的类包。
 					- 属性
-					  collapsed:: true
 						- `base-package`
 						  collapsed:: true
 							- 配置需要扫描的类包。
@@ -774,11 +776,9 @@
 							- 表示要包含的目标类。
 							- 支持过滤表达式。
 						- `exclude-filter`
-						  collapsed:: true
 							- 表示要排除的目标类。
 							- 支持过滤表达式，其中`aspectj`的过滤表达能力是最强的。
 							- 过滤表达式的类别
-							  collapsed:: true
 								- annotation
 								- assignable
 								- aspectj
@@ -935,7 +935,6 @@
 		  id:: 4a4a373a-d98b-4c8e-aa0a-c8aa5700b02f
 		  collapsed:: true
 			- 为什么要动态的添加Bean，直接声明（或者说是定义）Bean不就行了吗？
-			  collapsed:: true
 				- 在向Spring容器添加Bean的时候，我们可能需要根据配置做相关逻辑的判断，按照上面xml、注解、Java类的方式等不足以满足我们的需求，因为他们都是静态添加，尽管Groovy DSL可以通过条件判断进行注入的逻辑，但是无法满足将bean的添加到Spring的逻辑。所以我们需要在Spring启动的时候动态的添加Bean实例到Spring容器中。
 			- 方法一：通过`DefaultListaleBeanFactory`
 				- 第一步实现`BeanFactoryPostProcessor`接口
@@ -958,18 +957,14 @@
 				  collapsed:: true
 					- [Spring自定义标签的实现](https://zhuanlan.zhihu.com/p/107837020)
 			- 这里有一些参考文章
-			  collapsed:: true
 				- [SpringBoot动态注入Bean](https://www.jianshu.com/p/faa6ac6f2ce2)
 				- [spring动态创建bean:动态创建方式的时机影响（一）](https://blog.csdn.net/qq_37207266/article/details/120389752)
 		- 14.不同配置方式的比较
-		  collapsed:: true
 			- Bean不同配置方式的比较
-			  collapsed:: true
 				- 书中总结图片
 				  ![Bean不同配置方式的比较.png](../assets/Bean不同配置方式的比较_1685860855635_0.png)
 				  ![Bean不同配置方式的比较2.png](../assets/Bean不同配置方式的比较2_1685860862388_0.png)
 			- Bean不同配置方式的使用场景
-			  collapsed:: true
 				- 书中总结的图片
 				  ![Bean不同配置方式的适用场景.png](../assets/Bean不同配置方式的适用场景_1685860904470_0.png)
 	- 第六章 Spring容器高级主题
@@ -2538,7 +2533,6 @@
 		    collapsed:: true
 			- 建议使用Restemplate进行测试。
 - spring-core
-  collapsed:: true
 	- IOC
 	  collapsed:: true
 		- 对IOC的理解
@@ -2622,6 +2616,7 @@
 	  collapsed:: true
 		- 如果存在多个相同类型的实现类但bean名称不同的情况，可以通过该注解选择特定bean名称的bean。
 	- 在Spring中的Bean初始化之后，可以通过哪些方法实现启动时运行的逻辑（按照方法执行的顺序排列）
+	  collapsed:: true
 		- Bean的构造函数
 		- `@PostConstruct`注解方法
 		- `InitializingBean`的`afterPropertiesSet()`方法
@@ -2890,7 +2885,6 @@
 			- 相同点
 				- `@Valid`与`@Validated`都是做数据校验的，只不过注解位置与用法有点不同。
 			- 不同点：
-			  collapsed:: true
 				- `@Valid`是使用Hibernate validation的时候使用。@Validated是只用Spring Validator校验机制使用。
 				- `@Valid` 可以嵌套验证，@Validation 不能进行嵌套验证
 				- `@Valid`：可以用在方法、构造函数、方法参数和成员属性（field）上。
@@ -2901,6 +2895,7 @@
 		- 参考文章
 			- [Spring中的@Valid 和 @Validated注解你用对了吗](https://www.cnblogs.com/xiaoqi/p/spring-valid.html)
 			- [@Valid与@Validated的区别](https://juejin.cn/post/7152324367857713159)
+			- 自定义校验工具类：[Spring Boot 参数校验、校验工具类](https://blog.csdn.net/WEDUEST/article/details/121594610)
 	- 获取`HttpServletRequest`的三种方式
 	  collapsed:: true
 		- 一通过`Controller`中增加`request`参数
@@ -2931,6 +2926,10 @@
 		- 建议在Spring环境下使用`OncePerRequestFilter`，因为在Servlet2.3和2.4版本中，Filter的逻辑存在差异。
 		- 在servlet2.3中，Filter会经过一切请求，包括服务器内部使用的`forward`转发请求和<%@ include file=”/login.jsp”%>的情况。
 		- 在servlet2.4中，Filter默认情况下只过滤外部提交的请求，`forward`和`include`这些内部转发都不会被过滤。
+	- 文件上传
+	  collapsed:: true
+		- 参考文章
+			- [Spring Boot实现文件上传](https://juejin.cn/post/6989115926503227399)
 - spring-tx
   collapsed:: true
 	- Spring对事务管理的支持

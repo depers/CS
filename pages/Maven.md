@@ -1006,6 +1006,7 @@
 	  collapsed:: true
 		- [maven内建插件](https://maven.apache.org/plugins/index.html)
 	- spring-boot-maven-plugin
+	  collapsed:: true
 		- 作用
 			- maven项目的pom.xml中，添加了*org.springframework.boot:spring-boot-maven-plugin*插件，当运行`mvn package`进行打包时，会打包成一个可以直接运行的 JAR 文件，使用“Java -jar”命令就可以直接运行。
 			- spring-boot-maven-plugin插件，在很大程度上简化了应用的部署，只需要安装了 JRE 就可以运行。

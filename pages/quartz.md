@@ -24,7 +24,6 @@
 		- `org.quatz.jobStore.misfireThreshold`：设置一个批量错过触发时间的最大阈值，如果超过这个时间才认定这个批量错过执行了。接着会根据错过执行的策略判断是否继续执行该批量。
 		- 错过触发的策略
 		  id:: 664568cc-130a-4e1c-8246-462679bf3711
-		  collapsed:: true
 			- `CornTrigger`使用的策略
 				- `MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY = -1;`：对于错过的批次任务，恢复后所有错过的批次都会执行。
 				- `MISFIRE_INSTRUCTION_SMART_POLICY = 0;`：该策略在`CronTrigger`中为`MISFIRE_INSTRUCTION_FIRE_ONCE_NOW`。

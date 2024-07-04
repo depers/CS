@@ -22,9 +22,22 @@
 	- 第十一章 Pipeline和ChannelHandler
 	  collapsed:: true
 		- ChannelHandler的分类
+		  collapsed:: true
 			- 接口分类图
 			  ![ChannelHandler的分类.png](../assets/ChannelHandler的分类_1718345430493_0.png)
-			-
+		- ChannelInboundHandler
+		  collapsed:: true
+			- **处理读数据的逻辑**。比如在一端读到一段数据，首先要解析这段数据，然后对这段数据做一系列逻辑处理，最终把响应写到对端。在组装响应之前的所有处理逻辑，都可以放置在一系列`ChannelInboundHandler`里处理，它的一个最重要的方法就是`channelRead()`。
+			- **从低到高**，可以将`ChannelInboundHandler`的逻辑处理过程与TCP的七层协议解析过程联系起来，把收到的数据一层层地从物理层上升到应用层。
+			- 默认实现
+				- ChannelInboundHandlerAdapter
+				- SimpleChannelInboundHandler
+		- ChannelOutboundHandler
+		  collapsed:: true
+			- **处理写数据的逻辑**，它是定义一端在组装完响应之后把数据写到对端的逻辑。比如，我们封装好一个response对象后，有可能对这个response做一些其他特殊逻辑处理，然后编码成ByteBuf，最终写到对端。它最核心的方法就是`write()`。
+			- **从高到低**，可以将ChannelOutboundHandler的逻辑处理过程与TCP的七层协议封装过程联系起来。我们在应用层组装响应之后，通过层层协议的封装，直到底层的物理层。
+			- 默认实现
+				- ChannelOutboundHandlerAdapter
 	- 第十二章 构建客户端与服务端的Pipeline
 	  collapsed:: true
 		- 基于`ByteToMessageDecoder`，可以实现自定义解码，而不用关心`ByteBuf`的强转和解码结果的传递。
@@ -32,7 +45,8 @@
 		- 基于`MessageToByteEncoder`，可以实现自定义编码，不用关心`ByteBuf`的创建，不用每次向对端写Java对象都进行一次编码。
 	- 第十三章 拆包/粘包理论与解决方案
 	  collapsed:: true
-		-
+		- `FixedLengthFrameDecoder`：定长消息拆包和粘包的处理类。
+			- 关于`lengthAdjustment`字段的使用，参考文章：[【Netty】「优化进阶」（二）浅谈 LengthFieldBasedFrameDecoder：如何实现可靠的消息分割？](https://xie.infoq.cn/article/05b7f6179fa3167d0803080c9)
 	- 第十四章 ChannelHandler的生命周期
 	  collapsed:: true
 		- 这一章主要讲了ChannelHandler的生命周期方法
@@ -104,16 +118,19 @@
 	  collapsed:: true
 		- bossGroup对应的就是监听端口的线程池，在绑定一个端口的情况下，这个线程池里只有一个线程；
 		- workerGroup对应的是连接的数据读写的线程。
-		-
-		- 创建`ThreadPerTaskExecutor`
-			- `ThreadPerTaskExecutor`是负责创建线程和执行任务的。
-			- `NioEventLoop`线程的命名规则是nioEventLoopGroup-xx-yy，xx表示全局第xx个`NioEventLoopGroup`，yy表示这个`NioEventLoop`在`NioEventLoopGroup`中是第yy个。
-		- `NioEventLoop`的创建
-			- `NioEventLoop`对应一个线程，也就是`FastThreadLocalThread`。
-			- 最关键的其实就是两部分：创建一个`Selector`和创建一个MPSC队列（高性能无锁队列），这三者均为一对一关系。
-			- 在默认情况下，`NioEventLoopGroup`会创建两倍CPU核数个`NioEventLoop`，一个`NioEventLoop`和一个`Selector`及一个MPSC任务队列一一对应。
-		- 创建线程选择器
-			- Netty中一个Selector对应一个NioEventLoop，线程选择器的作用是为一个连接在一个EventLoopGroup中选择一个NioEventLoop，从而将这个连接绑定到某个Selector上。
+		- 源码分析：`EventLoopGroup workerGroup = new NioEventLoopGroup();`中的`io.netty.util.concurrent.MultithreadEventExecutorGroup#MultithreadEventExecutorGroup(int, java.util.concurrent.Executor, io.netty.util.concurrent.EventExecutorChooserFactory, java.lang.Object...)`
+			- 创建`ThreadPerTaskExecutor`
+				- `ThreadPerTaskExecutor`是负责创建线程和执行任务的。
+				- `NioEventLoop`线程的命名规则是nioEventLoopGroup-xx-yy，xx表示全局第xx个`NioEventLoopGroup`，yy表示这个`NioEventLoop`在`NioEventLoopGroup`中是第yy个。
+			- `NioEventLoop`的创建
+				- `NioEventLoop`对应一个线程，也就是`FastThreadLocalThread`。
+				- 最关键的其实就是两部分：创建一个`Selector`和创建一个MPSC队列（高性能无锁队列），这三者均为一对一关系。
+				- 在默认情况下，`NioEventLoopGroup`会创建两倍CPU核数个`NioEventLoop`，一个`NioEventLoop`和一个`Selector`及一个MPSC任务队列一一对应。
+			- 创建线程选择器
+				- 在传统的NIO编程中，一个新连接被创建后，通常需要给这个连接绑定一个`Selector`，之后这个连接的整个生命周期都由这个`Selector`管理。
+				- Netty中一个`Selector`对应一个`NioEventLoop`，线程选择器的作用是为一个连接在一个`EventLoopGroup`中选择一个`NioEventLoop`，从而将这个连接绑定到某个`Selector`上。
+				- `NioEventLoop`对应Netty的一个Reactor线程。
+				-
 - 《Netty实战》阅读笔记
   collapsed:: true
 	- 第一章 Netty-异步和事件驱动
@@ -171,17 +188,13 @@
 						- 一将连接请求的端口绑定到服务器上，让服务器对其进行监听。
 						- 二配置`Channel`，通过Channel将入站的消息通知给`ChannelHandler`。
 		- 客户端
-		  collapsed:: true
 			- 具体实现
-			  collapsed:: true
 				- 通过ChannelHandler实现客户端逻辑
-				  collapsed:: true
 					- 扩展`SimpleChannelInboundHandler`类进行消息的处理。这里没有像服务端一样使用ChannelInBoundHandler，主要是因为客户端和服务器端消息处理的方式和资源管理方式不同。
 				- 引导客户端
 				  collapsed:: true
 					- 不同于服务端只需要监听端口，客户端使用主机和端口来连接远程地址。
 	- 第三章 Netty的组件和设计
-	  collapsed:: true
 		- 1.Channel、EventLoop和ChannelFuture
 			- 概述
 				- Channel可以类比Socket。
@@ -214,7 +227,6 @@
 				- 当`Channel`创建时，他会被自动分配到专属的`ChannelPipeline`上。
 				- `ChannelPipeline`就像一个管道，我们可以将`ChannelHandler`添加到这个管道中，当事件到达后，会逐个在管道的`ChannelHandler`链上进行传递。
 				- 入站和出站
-				  collapsed:: true
 					- 入站操作主要是指**读取数据**的操作；而出站操作主要是指**写入数据**的操作。
 					- 入站会从先读取，再执行入站的Handler；出站会先执行出站的Handler，再写入。
 					- 入站和出站`ChannelHandler`可以安装到同一个`ChannelPipeline`中。
@@ -231,7 +243,7 @@
 				- 编码器
 					- 出站消息会被编码，会从一种格式转化为字节。并将编码后的数据传递给`ChannelPipeline`中的下一个`ChannelOutBoundHandler`。
 					- Netty提供的编码器实现了`ChannelOutBoundHandler`接口。
-				- 抽象类SimpleChannelInboundHandler
+				- 抽象类`SimpleChannelInboundHandler`
 					- 最常见的情况，你的程序只需要一个ChannelHandler来接收解码消息，我们只需要实现SimpleChannelInboundHandler<T>接口就行，其中T是你要处理消息的Java类型。
 		- 3.引导
 			- 两种类型的引导
@@ -263,6 +275,7 @@
 	  	4.	性能：RPC 框架通常设计为在局域网或高速网络环境下进行高效的远程调用，因此在性能上可能比 HTTP 服务更优。RPC 框架可以通过减少网络开销和数据传输量来提高性能。
 	- 对于调用的客户端来说，使用 RPC 框架和 HTTP 服务的主要区别在于调用方式和数据格式。如果你需要高效地进行远程方法调用，并且客户端和服务器使用相同的编程语言和数据类型，那么使用 RPC 框架可能更适合。如果你需要支持多种编程语言和数据格式，或者需要通过 HTTP 协议进行通信，那么使用 HTTP 服务可能更合适。
 - ByteBuf
+  collapsed:: true
 	- 大小端
 		- 对于16进制的数来说，比如十进制的10，十六进制是0x0a，占一个字节，二级制表示为`00001010`，是从左到右是高位字节到低位字节。
 		- 对于字节数组来说，一个4个字节长度的数组，从低地址到高地址，数组下标是从0到3。

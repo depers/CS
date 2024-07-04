@@ -30,6 +30,7 @@
   collapsed:: true
 	- Log4j是一个日志的具体实现
 	- 在Spring中的使用
+	  collapsed:: true
 		- 引入依赖
 		  ```xml
 		  <dependencies>
@@ -115,6 +116,7 @@
 			- 这个元素包含一个 Logger 实例列表。 **Root** 元素是一个输出所有消息的标准日志记录器。
 		- **注意**：如果您没有提供一个，那么默认情况下将自动配置一个 Console appender 和 ERROR 日志级别。
 	- Log4j2 Appenders
+	  collapsed:: true
 		- ConsoleAppender
 			- 功能：将日志输出到系统控制台。
 		- FileAppender
@@ -294,7 +296,6 @@
 			- `DynamicThresholdFilter`：基于特定属性的过滤器日志行
 			- `RegexFilter`：根据消息是否与正则表达式匹配来筛选消息
 	- 配置Loggers
-	  collapsed:: true
 		- 属性
 			- `name`：记录器名称
 			- `level`：记录器记录的日志级别，默认为ERROR
@@ -306,8 +307,7 @@
 		  collapsed:: true
 			- 根记录器没有名称属性。
 			- 根记录器不支持`additivity`属性，因为它没有父记录器。
-		- 排除一些包的日志输出，该怎做
-		  collapsed:: true
+		- 排除一些包的日志输出，该怎么做
 			- 比如我想要将http包下的日志排除或者说过滤，只需要配置一个logger就行，具体代码如下：
 			  ```xml
 			  <logger name="cn.bravedawn.http" level='debug'></logger>
@@ -402,6 +402,7 @@
 					- **interval**：日记压缩的时间间隔，这个配置与filePattern属性的精确时间相关，上面配置的是`%d{yyyy-MM-dd}-%i.log.gz`，结尾时间是dd，也就是按照天作为时间间隔配置的单位
 					- **modulate**：是否对压缩时间进行调制。比如说我们配置interval="4"，filePattern配置的单位是小时，也就是每两个小时做一次压缩备份。 那么假设上次封存日志的时间为03:00，则下次封存日志的时间为04:00， 之后的封存时间依次为08:00，12:00，16:00
 	- Strategy策略
+	  collapsed:: true
 		- Strategy是用来控制日志文件如何(How)进行滚动的。
 		- DefaultRolloverStrategy
 			- DefaultRolloverStrategy指定了当触发rollover时的默认策略。
