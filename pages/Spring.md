@@ -2533,6 +2533,7 @@
 		    collapsed:: true
 			- 建议使用Restemplate进行测试。
 - spring-core
+  collapsed:: true
 	- IOC
 	  collapsed:: true
 		- 对IOC的理解
@@ -2951,7 +2952,11 @@
 				- `name`：具体的配置项名称
 				- `havingValue`：配置属性的具体的值，只有配置的值和该值是匹配的时候才执行创建bean的逻辑。
 				- `matchIfMissing`：如果配置文件中缺少该配置项，是否还继续执行创建bean的逻辑。如果设置为`true`的话，表明没有该配置项也会正常加载创建bean的逻辑，反之则不会生效
+		- `@ConditionalOnSingleCandidate`
+		  collapsed:: true
+			- `@ConditionalOnSingleCandidate` 注解的作用是确保在上下文中**只有一个**特定的 bean 实例存在，标注的方法代码才会生效。
 		- `@ConditionalOnWebApplication` 和 `@ConditionalOnNotWebApplication`
+		  collapsed:: true
 			- 这两个注解用于判断该程序是否web应用程序。
 		- `@ConfigurationProperties`
 			- 该注解用来读取自定义的特定配置信息，配合`@Component注解`使用。

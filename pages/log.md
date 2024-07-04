@@ -296,6 +296,7 @@
 			- `DynamicThresholdFilter`：基于特定属性的过滤器日志行
 			- `RegexFilter`：根据消息是否与正则表达式匹配来筛选消息
 	- 配置Loggers
+	  collapsed:: true
 		- 属性
 			- `name`：记录器名称
 			- `level`：记录器记录的日志级别，默认为ERROR
@@ -370,14 +371,12 @@
 				- **极少数情况下，包含可变对象的日志记录可能不是准确的**，你可能在日志输出中看到对象修改前或是修改后的可变对象数据。所以针对这种情况，一不要在异步日志打印后再去修改可变对象，二**自定义 Message 实现**在设计时应考虑到异步使用，并在构造时对其参数进行快照，或记录其线程安全特性。
 				- **若应用程序运行在CPU稀缺的环境中**，例如一台机器只有一个CPU的单核机器，这种情况不建议使用异步日志。
 	- Pattern Layouts format配置
-	  collapsed:: true
 		- 以下面这段配置为例，更多具体的配置参考： [Pattern Layout](https://logging.apache.org/log4j/2.x/manual/layouts.html#PatternLayout) 
-		  collapsed:: true
 		  ```
 		  %date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%level{length=5}] %logger{36}.%M(%line) - %msg %n
 		  ```
 			- `%date{yyyy-MM-dd HH:mm:ss.SSS}`：它以给定的日期-时间格式写入日期。
-			- `%thread`：它在日志中写入线程名称。
+			- `%thread`：它在日志中写入线程名称，值得注意的是线程名的最大长度是15，这个无法修改，超出的部分会从头截取掉。
 			- `%level{length=5}`：它在日志中写入级别。`length=5`中的5将字段的宽度设置为5个字符。
 			- `%logger{36}`：它在日志中写入日志记录器的名称(例如com.jcg.log4j2.demo)，36是指记录日记记录器的精度，先固定写成36。
 			- `%M`：记录日志输出所在的方法。

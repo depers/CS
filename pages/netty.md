@@ -20,7 +20,6 @@
 					- 服务器端接收到报文之后，根据魔数字段确定是否是符合规范的报文。
 					- 出于安全考虑，如果魔数校验不通过，就是无效数据包，可以关闭连接。
 	- 第十一章 Pipeline和ChannelHandler
-	  collapsed:: true
 		- ChannelHandler的分类
 		  collapsed:: true
 			- 接口分类图
@@ -39,12 +38,10 @@
 			- 默认实现
 				- ChannelOutboundHandlerAdapter
 	- 第十二章 构建客户端与服务端的Pipeline
-	  collapsed:: true
 		- 基于`ByteToMessageDecoder`，可以实现自定义解码，而不用关心`ByteBuf`的强转和解码结果的传递。
 		- 基于`SimpleChannelInboundHandler`，可以实现每一种指令的处理，不再需要强转，不再有冗长乏味的`if else`逻辑，不再需要手动传递对象。
 		- 基于`MessageToByteEncoder`，可以实现自定义编码，不用关心`ByteBuf`的创建，不用每次向对端写Java对象都进行一次编码。
 	- 第十三章 拆包/粘包理论与解决方案
-	  collapsed:: true
 		- `FixedLengthFrameDecoder`：定长消息拆包和粘包的处理类。
 			- 关于`lengthAdjustment`字段的使用，参考文章：[【Netty】「优化进阶」（二）浅谈 LengthFieldBasedFrameDecoder：如何实现可靠的消息分割？](https://xie.infoq.cn/article/05b7f6179fa3167d0803080c9)
 	- 第十四章 ChannelHandler的生命周期
@@ -132,7 +129,6 @@
 				- `NioEventLoop`对应Netty的一个Reactor线程。
 				-
 - 《Netty实战》阅读笔记
-  collapsed:: true
 	- 第一章 Netty-异步和事件驱动
 	  collapsed:: true
 		- Netty的核心组件

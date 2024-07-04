@@ -31,9 +31,9 @@
 				- `MISFIRE_INSTRUCTION_DO_NOTHING = 2;`：对于错过的批次不理睬，直接执行下一个批次的任务。
 			- `SimpleTrigger`使用的策略
 				- `MISFIRE_INSTRUCTION_SMART_POLICY`
-					- 若Repeat Count=0：会选择`MISFIRE_INSTRUCTION_FIRE_NOW`，立刻执行。对于不会重复执行的任务，这是默认的处理策略。
-					- 若Repeat Count>0：会选择`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，立刻执行并执行指定的次数。
-					- 若Repeat Count=REPEAT_INDEFINITELY;【无限重复】：`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，在下一个激活点执行，且超时期内错过的执行机会作废。
+					- 若Repeat Count=0：会选择`MISFIRE_INSTRUCTION_FIRE_NOW`，系统恢复后立刻执行。对于不会重复执行的任务，这是默认的处理策略。
+					- 若Repeat Count>0：会选择`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，系统恢复后立刻执行并执行指定的次数。
+					- 若Repeat Count=REPEAT_INDEFINITELY;【无限重复】：`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，系统恢复后在下一个激活点执行，且超时期内错过的执行机会作废。
 				- `MISFIRE_INSTRUCTION_FIRE_NOW`：立刻执行。对于不会重复执行的任务，这是默认的处理策略。
 				- `MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`：在下一个激活点执行，且超时期内错过的执行机会作废。
 				- `MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_COUNT`：立即执行，且超时期内错过的执行机会作废。
