@@ -2,6 +2,7 @@
 	- Java基础
 	  collapsed:: true
 		- 语言基础
+		  collapsed:: true
 			- 数据类型
 			  collapsed:: true
 				- 基本类型
@@ -475,6 +476,7 @@
 							- 多了做简单的日期和时间运算的功能
 							- 提供了时区转换的功能
 				- Java8新的时间API体系
+				  collapsed:: true
 					- 本地日期和时间
 					  collapsed:: true
 						- LocalDateTime
@@ -530,7 +532,8 @@
 					- 旧API转新API
 					- 新API转旧API
 					- 数据库中采用长整型存储时间
-					-
+					- Java中的日期格式
+						- 参考文章：[java 日期格式化-- SimpleDateFormat 的使用。字符串转日期，日期转字符串](https://blog.csdn.net/qq_27093465/article/details/53034427)
 			- 正则表达式
 			  collapsed:: true
 				- 功能：正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。Java标准库java.util.regex内建了正则表达式引擎。
@@ -862,6 +865,7 @@
 						- Method Overloading in Java
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/overloading
 				- 继承
+				  collapsed:: true
 					- Java只允许一个class继承自一个类，因此，一个类有且仅有一个父类。只有Object特殊，它没有父类。
 					- 里氏替换原则
 					  collapsed:: true
@@ -908,7 +912,6 @@
 					- 区分继承和组合
 						- 继承是is关系，组合是has关系
 				- 多态
-				  collapsed:: true
 					- 多态
 					  collapsed:: true
 						- 多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法
@@ -919,15 +922,12 @@
 						- 实际意义：如果子类覆写了父类的方法，子类的引用在实际调用这个方法的时候，调用的是子类的方法。
 					- 代码块和加载顺序
 					  id:: 650cd83c-47db-4160-a561-8e4f2952788f
-					  collapsed:: true
 						- 代码块
 							- 局部代码块
-							  collapsed:: true
 								- 方法代码块，也就是具体方法的声明。
 								- 作用：限定变量的声明周期，尽早释放，节省内存。
 								- 调用：方法中的局部代码块一般进行一次性调用，调用完立刻释放内存空间，避免在接下来的调用过程中占用栈空间。栈空间内存有限，方法的调用会产生很多局部变量导致栈内存不足，使用局部代码块可以避免这个问题。
 							- 实例初始化代码块（普通代码块）
-							  collapsed:: true
 								- 没有关键字，一个花括号包裹的代码。
 								- 作用
 								    collapsed:: true
@@ -939,7 +939,6 @@
 									- 执行实例类的构造器中的代码
 								- 调用：每new一个对象，就会执行一次。
 							- 静态代码块
-							  collapsed:: true
 								- static修饰的代码块。
 								- 作用
 								  collapsed:: true
@@ -949,6 +948,7 @@
 						- 加载顺序
 							- **无继承关系的调用顺序**：静态代码块 -> 实例初始化代码块 -> 构造函数代码块
 							- **有继承关系的调用顺序**：父类静态静态代码块（静态成员变量） -> 子类静态静态代码块（静态成员变量） -> 父类普通代码块（普通成员变量） -> 子类普通代码块（普通成员变量） -> 父类构造函数代码块 -> 子类构造函数代码块
+							- **值得注意的是**：在调用一个类的【静态方法】的时候只会调用其【静态代码块】有且只有一次，然后是【静态方法】，不会调用【实例初始化代码块】
 						- 参考文章
 							- [Instance initializer block](https://www.javatpoint.com/instance-initializer-block)
 						- 实践：javaTrain:src/main/java/cn/bravedawn/obj/inherit/polymorphic/codeblock
@@ -1223,7 +1223,6 @@
 					- 两个相同的字符串永远会计算出相同的hashCode
 					- 在覆盖 equals() 方法时应当总是覆盖 hashCode()方法，保证等价的两个对象哈希值也相等。否则基于hashCode定位的HashMap就无法正常工作
 				- 哈希碰撞
-				  collapsed:: true
 					- 定义：两个不同的输入得到了相同的输出。哈希算法的输出长度越长，就越难产生碰撞，也就越安全
 					- 安全的哈希算法满足的条件
 					  collapsed:: true
@@ -1253,27 +1252,38 @@
 							    比如上面第一次按照姓首字母进行哈希，如果产生冲突可以按照姓字母首字母第二位进行哈希，再冲突，第三位，直到不冲突为止
 				- 常见的加密哈希算法
 					- MD(Message Digest)：消息摘要算法
+					  collapsed:: true
+						- MD5
 					- SHA(Secure Hash Algorithm)：安全散列算法
+					  collapsed:: true
+						- SHA家族的五个算法，分别是 **SHA-1**、**SHA-224**、**SHA-256**、**SHA-384**、**SHA-512**，后面四个有时统称为 **SHA-2**
 					- SM3：国密签名算法
 					- 相同点
-					  collapsed:: true
 						- 都是密码散列函数，加密不可逆。
 						- 都可以实现对任意长度对象加密，都不能防止碰撞。
+						- 无论输入的消息有多长，计算出来的消息摘要的长度总是固定的
 					- 不同点
-					  collapsed:: true
 						- SHA256（⼜称SHA2）的安全性最⾼，但是耗时要⽐MD5多很多。
 						- md5相对来说比较容易碰撞，安全性没这么高。
-					- 参考文章
-					  collapsed:: true
-						- [哈希算法的常见种类及特点有哪些？](https://juejin.cn/post/7089749167886565413)
+				- Bcrypt算法
+					- 特点
+						- 内部自己实现了随机加盐处理，可以抵御彩虹表攻击
+						- 每次加密后的密文是不一样的
+						- 无论物理机的性能如何，可以保证加密的速度在一个特定的范围内
+					- 现有的实现
+						- Spring Security的BCryptPasswordEncoder
+						- [jBCrypt](https://www.mindrot.org/projects/jBCrypt/)
 				- 用途
 					- 验证软件安装文件是否被人篡改
 					- 数据库用户密码存储
 				- 加盐
-				  collapsed:: true
 					- 目的：使黑客的彩虹表失效，即使用户使用常用口令，也无法从MD5反推原始口令
 					- 彩虹表：提前计算好的密码和其哈希值对照表
 					- 定义：对密码额外添加随机数，这个方法称之为加盐（salt），其算法：digest = md5(salt+inputPassword)
+				- 参考文章
+					- [哈希算法的常见种类及特点有哪些？](https://juejin.cn/post/7089749167886565413)
+					- [一文让你轻松了解JAVA开发中的四种加密方法](https://juejin.cn/post/6844903894464593934#heading-6)
+					- [安全的加密算法 Bcrypt，再也不用担心数据泄密了](https://www.51cto.com/article/718648.html)
 			- 非加密哈希算法
 				- 与加密哈希算法的区别
 					- 从安全性来讲，加密哈希算法的安全性更高。
@@ -1760,7 +1770,6 @@
 			  collapsed:: true
 				- `Parameter`
 			- 性能优化
-			  collapsed:: true
 				- 参考文章
 					- [Java反射性能分析及优化](https://www.bilibili.com/read/cv13256282/)
 		- 模块（Java Platform Module System，JPMS）
@@ -2938,6 +2947,7 @@
 				  collapsed:: true
 					- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 				- 线程的状态
+				  collapsed:: true
 					- 六种状态
 						- New（初始状态）：新创建的线程，尚未执行；
 						- Runnable
@@ -2964,6 +2974,7 @@
 						- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 						- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
 				- 线程的方法
+				  collapsed:: true
 					- `start()`：启动新线程，这里面会调用run()方法
 					- `run()`：补充该线程需要执行的内容
 					- `join()`
@@ -2981,11 +2992,26 @@
 						    collapsed:: true
 							- [多线程 Thread.yield 方法到底有什么用](https://zhuanlan.zhihu.com/p/50374332)
 					- `obj.wait()`，当前线程调用对象的wait()方法，当前线程释放对象锁，进入等待队列。依靠notify()/notifyAll()唤醒或者wait(long timeout) timeout时间到自动唤醒。
-						- **wait/notify方法的调用必须处在该对象的锁（Monitor）中，也即，在调用这些方法时首先需要获得该对象的锁。**否则会抛出IllegalMonitorStateException异常。
+						- **wait/notify方法的调用必须处在该对象的锁（Monitor）中，也即，在调用这些方法时首先需要获得该对象的锁。**否则会抛出`IllegalMonitorStateException`异常。
 						- 在执行`wait`操作时，因考虑是否因该将其包裹在`while`循环体中。
+						- 为什么我没有加`synchronized`关键字去包裹`wait()`方法，怎么没报`IllegalMonitorStateException`异常
+							- 这里因为`wait()`方法压根没有得到执行，大家来看这段代码，这里我是没有加`synchronized`关键字的，但是在外面调用`getResult()`方法却没有报`IllegalMonitorStateException`异常，原因就是while这里的判断就没有进到代码块的执行里，所以没有报这个异常。综上所述，在使用wait()方法时，外面还是要添加`sycnhronized`关键字
+							  ```java
+							  @Override
+							  public String getResult() {
+							    while (!isReady) {
+							      try {
+							        wait();
+							      } catch (Throwable e) {
+							        e.printStackTrace();
+							      }
+							    }
+							    return realData.getResult();
+							  }
+							  ```
 						- 参考文章
 							- [Wait/Notify通知机制解析](https://juejin.cn/post/6844903520437551111)
-							-
+							- [使用wait和notify](https://www.liaoxuefeng.com/wiki/1252599548343744/1306580911915042)
 					- `obj.notify()`唤醒在此对象监视器上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象监视器上等待的所有线程。
 					- `LockSupport.park()/LockSupport.parkNanos(long nanos)`：LockSupport.parkUntil(long deadlines), 当前线程进入WAITING/TIMED_WAITING状态。对比wait方法,不需要获得锁就可以让线程进入WAITING/TIMED_WAITING状态，需要通过LockSupport.unpark(Thread thread)唤醒。
 				- 中断线程
@@ -3021,6 +3047,41 @@
 				- 参考文章：
 					- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
 					- [别再纠结线程池大小/线程数量了，没有固定公式的](https://juejin.cn/post/6948034657321484318)
+			- Callable
+				- 可以携带返回值
+				- 可以将异常抛出给上一级调用函数去捕获
+				- 配合线程池的`submit()`方法和`Future`接口使用
+			- Runnable
+				- 没有返回值
+				- 异常只能在Runnable内部的逻辑中捕获，不能抛出
+				- 配合线程池的`execute()`方法或是`new Thread()`去使用
+			- Future
+				- 功能：这是一个借口，表示异步执行的结果。
+				- Future模式
+					- 目的
+						- 1.	异步执行任务：可以在后台异步地执行任务。
+						- 2.	获取任务结果：在后续可以获取任务的执行结果。
+					- Future模式的简单实现
+						- 异步任务通过新建一个异步线程去执行
+						- 任务的结果获取主要是依赖`wait()`和`notifyAll()`方法去做的。
+				- 继承关系图
+					- ![future继承关系.png](../assets/future继承关系_1720663819341_0.png)
+				- 子类
+					- `FutureTask`
+						- **推荐使用**
+						- 结合Callable来使用。
+						- FutureTask实现了Runnable和Future的接口，它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值。
+					- `CompletableFuture`
+						- 通过使用`get()`进行阻塞，使用`complete()`方法来通知阻塞线程继续执行，从而实现某项任务完成后通知另一个任务继续执行的效果。
+						- `supplyAsync()`方法会新启一个线程去执行任务，这个返回用来执行有返回值的任务，他还有第二个参数可以配置执行任务的线程池。
+						- `runAsync()`方法会新启一个线程去执行任务，这个返回用来执行有返回值的任务，他还有第二个参数可以配置执行任务的线程池。
+						- 通过`thenApply()`、`thenAccept()`方法可以实现流式调用。
+						- 通过`exceptionally()`方法去做异常捕获。
+						- 连续执行多个任务，通过`thenCompose`将上一步的执行结果进一步进行处理。
+						- 连续执行多个任务，通过方法 `thenCombine()`，首先完成当前任务和other任务的执行 。接着将这两者的执行结果传递给 BiFunction （该接口接收两 参数，并有一个返回值），并返回BiFunction实例的 CompletableFutur 对象。
+						- 通过`handle()`方法可以对任务执行的结果进行处理，包括执行结果和异常。
+						- 参谋文章：
+							- [CompletableFuture 使用详解](https://www.jianshu.com/p/6bac52527ca4)
 		- IO
 		  collapsed:: true
 			- 五种IO模型

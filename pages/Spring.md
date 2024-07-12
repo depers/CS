@@ -2931,6 +2931,12 @@
 	  collapsed:: true
 		- 参考文章
 			- [Spring Boot实现文件上传](https://juejin.cn/post/6989115926503227399)
+	- 对URL进行匹配
+	  collapsed:: true
+		- 第一个工具是Spring-core提供的`AntPathMatcher`
+		- 第二个工具是Spring-Security提供的`AntPathRequestMatcher`
+		- 参考文章
+			- [AntPathMatcher路径匹配器，Ant风格的URL](https://cloud.tencent.com/developer/article/1840091)
 - spring-tx
   collapsed:: true
 	- Spring对事务管理的支持
@@ -3122,7 +3128,6 @@
 				- 其原理是监控应用流量的 **QPS** 或**并发线程数**等指标，当达到指定的**阈值**时对流量进行控制，以避免被瞬时的流量高峰冲垮，从而保障应用的**高可用性**。
 				- 服务降级一般是指在服务器压力剧增的时候，根据实际业务使用情况以及流量，对一些服务和页面有策略的不处理或者用一种简单的方式进行处理，从而**释放服务器资源的资源以保证核心业务的正常高效运行。**
 			- 三种流控效果（controlBehavior）
-			  collapsed:: true
 				- 快速失败
 					- 默认的流量控制方式，当QPS超过任意规则的阈值后，新的请求就会被立即拒绝，拒绝方式为抛出`FlowException`。
 				- warm up（热身）
@@ -3133,7 +3138,6 @@
 					- 对应**漏桶算法**
 					- 适用场景：这种方式适合用于请求以突刺状来到，这个时候我们不希望一下子把所有的请求都通过，这样可能会把系统压垮；同时我们也期待系统以稳定的速度，逐步处理这些请求，以起到“**削峰填谷**”的效果，而不是拒绝所有请求。
 			- 三种流控模式（strategy）
-			  collapsed:: true
 				- 直接拒绝：接口达到限流条件时，直接限流。
 				  collapsed:: true
 					- 默认的流量控制方式。
