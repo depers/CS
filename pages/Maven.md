@@ -79,6 +79,7 @@
 		  </build>
 		  ```
 	- 打包Spring Boot项目
+	  collapsed:: true
 		- 在maven添加spring-boot-maven-plugin依赖
 		- 使用`mvn -Dmaven.test.skip=true clean package spring-boot:repackage`进行打包
 	- maven中snapshot快照库和release发布库的区别和作用
@@ -1010,8 +1011,9 @@
 		- 作用
 			- maven项目的pom.xml中，添加了*org.springframework.boot:spring-boot-maven-plugin*插件，当运行`mvn package`进行打包时，会打包成一个可以直接运行的 JAR 文件，使用“Java -jar”命令就可以直接运行。
 			- spring-boot-maven-plugin插件，在很大程度上简化了应用的部署，只需要安装了 JRE 就可以运行。
+		- 配置项目运行的主类
+			- `<mainClass>${start-class}</mainClass>`
 		- 参考文章
-		  collapsed:: true
 			- [spring-boot-maven-plugin插件的作用](https://www.cnblogs.com/acm-bingzi/p/mavenspringbootplugin.html)
 	- maven-compiler-plugin
 	  collapsed:: true

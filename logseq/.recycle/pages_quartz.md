@@ -1,11 +1,11 @@
 - 核心类
+  collapsed:: true
 	- 三大核心类
 		- `JobDetail`（任务）
 			- 作用：具体要执行的业务逻辑。
 		- `Trigger`（触发器）
 			- 作用：用来定义Job（任务）触发条件、触发时间，触发间隔，终止时间等。
 			- `SimpleTrigger`
-			  collapsed:: true
 				- 作用：在具体的时间点执行一次，或者在具体的时间点执行，并且以指定的间隔重复执行若干次。
 				- 关键配置
 					- `requestRecovery`
@@ -20,6 +20,7 @@
 		- `JobDataMap`
 			- 在`JobDataMap`里面如果存储对象，这个对象一定要实现`Serializable`，否则会报错`JobPersistenceException`。
 - 关键配置
+  collapsed:: true
 	- `org.quatz.jobStore.misfireThreshold`：设置一个批量错过触发时间的最大阈值，如果超过这个时间才认定这个批量错过执行了。接着会根据错过执行的策略判断是否继续执行该批量。
 	- 错过触发的策略
 	  id:: 664568cc-130a-4e1c-8246-462679bf3711
@@ -33,7 +34,7 @@
 				- 若Repeat Count=0：会选择`MISFIRE_INSTRUCTION_FIRE_NOW`，系统恢复后立刻执行。对于不会重复执行的任务，这是默认的处理策略。
 				- 若Repeat Count>0：会选择`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，系统恢复后立刻执行并执行指定的次数。
 				- 若Repeat Count=REPEAT_INDEFINITELY;【无限重复】：`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，系统恢复后在下一个激活点执行，且超时期内错过的执行机会作废。
-			- `MISFIRE_INSTRUCTION_FIRE_NOW`：立刻执行。对于不会重复执行的任务，这是默认的处理策略。
+			- `MISFIRE_INSTRUCTION_FIRE_NOW`：无论任务是否misFire，项目重启后都会立刻执行。对于不会重复执行的任务，这是默认的处理策略。
 			- `MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`：在下一个激活点执行，且超时期内错过的执行机会作废。
 			- `MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_COUNT`：立即执行，且超时期内错过的执行机会作废。
 			- `MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT`：在下一个激活点执行，并重复到指定的次数。
@@ -42,12 +43,27 @@
 		- 参考文章
 			- [Quartz的misfire处理机制分析](https://www.cnblogs.com/pzy4447/p/5201674.html)
 			- [Quartz框架（四）—misfire处理机制](https://www.jianshu.com/p/572322b36383)
+			- [定时任务调度框架Quartz--Misfire处理规则](https://blog.csdn.net/yanluandai1985/article/details/107234115)
+			- [Quartz Scheduler misfireThreshold属性的意义与触发器超时后的处理策略](https://www.cnblogs.com/daxin/p/3919927.html)
+	- 调度器的存储配置
+		- 使用内存作业存储（RAMJobStore）
+			- 默认情况下，Quartz的`org.quartz.jobStore.class`可能配置为`org.quartz.simpl.RAMJobStore`，这种配置将调度信息保存在内存中，轻量级且速度快。但是，当应用重启时，所有信息都会丢失
+		- 使用数据库作业存储（JDBCJobStore）
+			- `JobStoreTX`
+				- 使用`org.quartz.impl.jdbcjobstore.JobStoreTX`作为`org.quartz.jobStore.class`的值。这种配置将Quartz的调度信息保存在数据库中，提供了数据的持久化。它适用于需要数据持久化和集群支持的场景
+				- 它用于管理自己的事务。这意味着调度命令（例如添加和删除触发器）不会与其他事务绑定在一起。
+			- `JobStoreCMT`：适合需要与应用服务器的事务管理集成的场景。
+		- 参考文章
+			- [JobStores](https://xuzongbao.gitbooks.io/quartz/content/JobStores.html)
 - 表结构
+  collapsed:: true
 	- [Quartz中表及其表字段的意义](https://www.cnblogs.com/zyulike/p/13671130.html)
 	-
 - 问题
+  collapsed:: true
 	- [【问题解决】This scheduler instance is still active but was recovered by another instance in the cluster.](https://blog.csdn.net/yjn1995/article/details/102560048)
 - 参考文章
+  collapsed:: true
 	- [美团 - Quartz应用与集群原理分析](https://tech.meituan.com/2014/08/31/mt-crm-quartz.html)
 	- [Quartz框架系列文章](https://www.jianshu.com/p/2a5d3b6336ba)
 	- [Quartz Tutorials](https://www.javacodegeeks.com/quartz-tutorials)

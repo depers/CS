@@ -28,6 +28,7 @@
 	- 参考文章
 		- [MyBatis 拦截器使用方法总结](https://blog.csdn.net/wb1046329430/article/details/111501755)
 - 动态sql
+  collapsed:: true
 	- `where`
 		- *where* 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，*where* 元素也会将它们去除。
 	- `foreach`

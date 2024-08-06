@@ -1,4 +1,5 @@
 - Java语言
+  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -8,11 +9,13 @@
 				- 基本类型
 				  collapsed:: true
 					- 整型
+					  collapsed:: true
 						- byte，1个字节
 						- short，2个字节
 						- int，4个字节
 						- long，8个字节
 					- 浮点型
+					  collapsed:: true
 						- float，4个字节
 						- double，8个字节
 					- 布尔类型：boolean，这种数据类型表示一位信息，但它的“大小”并没有得到精确的定义。
@@ -30,6 +33,7 @@
 						- 包装类型提供了大量实用方法；
 						- 所有的包装类型都是不变类；
 					- 基本数据类型和其包装类的对应关系
+					  collapsed:: true
 						- byte-Byte
 						- short-Short
 						- int-Integer
@@ -40,11 +44,13 @@
 						- char-Character
 					- 自动装箱与拆箱
 					- 进制转换
+					  collapsed:: true
 						- 十进制：Integer.toString
 						- 十六进制：Integer.toHexString
 						- 八进制：Integer.toOctalString
 						- 二进制：Integer.toBinaryString
 					- 处理无符号整型
+					  collapsed:: true
 						- Java并没有无符号整型（Unsigned）的基本数据类型
 						- byte、short、int和long都是带符号整型，最高位是符号位
 						- Byte.toUnsignedInt
@@ -103,7 +109,6 @@
 							- 如果修改了char[]，并不会影响s
 					- 返回字符串索引下表字母的ascII十进制码值：codePointAt()
 				- 编码
-				  collapsed:: true
 					- 字符编码笔记：ASCII，Unicode 和 UTF-8
 					- 将字符串转为字节数组：byte[] b2 = "Hello".getBytes("UTF-8"); // 按UTF-8编码转换
 					- 将已知编码的字节数组转为字符串：String s2 = new String(b, StandardCharsets.UTF_8); // 按UTF-8转换
@@ -121,10 +126,13 @@
 						- 安全性
 						- 线程安全
 				- `Sting`-`StringBuffer`-`StringBuilder`的比较
+				  collapsed:: true
 					- 可变性
+					  collapsed:: true
 						- String不可变
 						- StringBuffer和StringBuilder可变
 					- 线程安全
+					  collapsed:: true
 						- String不可变，是线程安全的
 						- StringBuilder 不是线程安全的
 						- StringBuffer 是线程安全的，内部使用 synchronized 进行同步
@@ -134,6 +142,7 @@
 					- 作用：如果字符串常量池中已经包含一个等于此String对象的字符串，则返回池中这个字符串的**String对象**；否则，将此String对象包含的字符串添加到常量池中，并且返回此**String对象**。
 					- JDK6中，常量池和堆是不同的内存区域，所以使用`new String("a")`是分别创建了两个不同的对象。
 					- JDK7新的变化
+					  collapsed:: true
 						- 将String常量池 从 Perm 区移动到了 Java Heap区
 						- 涉及到从常量池获取对象的时候，若这个对象在堆上已经存在，则不再常量池创建新的对象，而是返回堆上已经存在对象的引用地址。
 					- 可以保证相同内容的字符串变量引用同一的内存对象。
@@ -143,22 +152,27 @@
 				  collapsed:: true
 					- [java join字符串集合操作](https://blog.csdn.net/liuxiao723846/article/details/116211357)
 				- 模板引擎的实现方法
+				  collapsed:: true
 					- `String.format()`
 					- `MessageFormat`
 					- 使用自定义封装
 					- 使用模板引擎freemarker
 					- 参考文章
+					  collapsed:: true
 						- [java 替换字符串模板(模板渲染)](https://www.cnblogs.com/softidea/p/9140204.html)
 			- 运算
 			  collapsed:: true
 				- 参数传递
+				  collapsed:: true
 					- Java的参数传递是：值传递
 					- 对于基本类型（原始类型和其包装类型），在参数传递中是值传递
 					- 对于引用类型，本质上是将对象的地址以值的方式传递到形参中，修改信息的是同一个对象。
 					- 如果在方法中重置了对象的引用，则修改信息的是不同的对象。
 					- 参考文章
+					  collapsed:: true
 						- [这一次，彻底解决Java的值传递和引用传递](https://segmentfault.com/a/1190000016773324)
 				- 整数运算
+				  collapsed:: true
 					- 整数类型：byte, short, int, long
 					- 溢出：整数由于存在范围限制，如果计算结果超出了范围，就会产生溢出
 					- 加减乘除
@@ -174,7 +188,9 @@
 							- a--也是先用当前值，后减1
 							- --a是先减1，用减1之后的值
 					- 自增/自减
+					  collapsed:: true
 						- `++`
+						  collapsed:: true
 							- `i++`：先用后加
 							- `++i`：先加后用
 						- `--`
@@ -239,7 +255,9 @@
 						- 乘：`*`/`*=`
 						- 除：`/`/`/=`
 					- 移位运算符
+					  collapsed:: true
 						- `<<`
+						  collapsed:: true
 							- 运算规则：**左移位会丢弃左边指定位数，右边补0**。
 							- 左移位操作，相当于乘2。
 							- int类型左移位数大于等于32位操作时，会先求余（%）后再进行左移操作。例如左移40位相当于左移8位（40%32=8）。
@@ -247,10 +265,12 @@
 							- double，float在二进制中的表现比较特殊，因此不能进行位移操作。
 							- 整型byte，short移位前会先转换为int类型（32位）再进行移位。
 						- `>>`
+						  collapsed:: true
 							- 运算规则：**丢弃右边指定位数，左边补上符号位**。符号位0代表的是正数，1代表的是负数。正数右移左侧补0，负数右移左侧补1。
 							- 右移位操作，相当于除2。
 							- 和左移一样，int类型移位大于等于32位时，long类型大于等于64位时，会先做求余处理再位移处理，byte，short移位前会先转换为int类型（32位）再进行移位。
 						- `>>>`
+						  collapsed:: true
 							- 运算规则：**丢弃右边指定位数，左边补上0**。
 							- 对于正数移位来说等同于：`>>`，负数通过此移位运算符能移位成正数。
 						- 参考文章
@@ -341,6 +361,7 @@
 				- System.arraycopy()
 				  collapsed:: true
 					- 功能
+					  collapsed:: true
 						- `java.lang.System.arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length)`方法将源数组从特定起始位置复制到目标数组中提到的位置。 要复制的参数数量由参数决定。 将 source_Position 到 source_Position + length – 1 处的组件从 destination_Position 到 destination_Position + length – 1 复制到目标数组。
 					- 特点
 					  collapsed:: true
@@ -397,6 +418,7 @@
 				- static
 				  collapsed:: true
 					- 静态变量
+					    collapsed:: true
 						- 背景
 						    collapsed:: true
 							- 代码：
@@ -422,10 +444,12 @@
 					    collapsed:: true
 						- 定义：使用static修饰方法，称为静态方法，也称类方法。
 						- 特点
+						  collapsed:: true
 							- 静态方法属于类，而不是类的对象。
 							- 可以调用静态方法，而无需创建类的实例。
 							- 静态方法可以访问静态数据成员，并可以更改其值。
 						- 限制
+						  collapsed:: true
 							- 只能访问所属类的静态字段和静态方法，不能使用非静态数据成员或直接调用非静态方法。
 							- 方法中不能有 this 和 super 关键字，因为这两个关键字与具体对象关联。
 							- 子类无法复写父类中**static**修饰的方法。
@@ -505,8 +529,10 @@
 							- 时区转换
 							- 转换为LocalDateTime
 					- 时刻
+					  collapsed:: true
 						- Instant
 					- 时区
+					  collapsed:: true
 						- ZoneId，地区
 						- ZoneOffset，时区偏移量
 					- 时间间隔
@@ -514,7 +540,9 @@
 						- Duration：表示两个时刻之间的时间间隔
 						- Period：表示两个日期之间的天数
 					- 时间格式类
+					  collapsed:: true
 						- DateTimeFormatter
+						  collapsed:: true
 							- 线程安全
 							- 创建
 							- 格式化输出
@@ -527,46 +555,58 @@
 					- 事件间隔的计算
 					  collapsed:: true
 						- `CheonoUnit`方法
+						  collapsed:: true
 							- 参考文章：[ChronoUnit用法](https://blog.csdn.net/cfqp123456/article/details/123866478)
 				- 最佳实践
+				  collapsed:: true
 					- 旧API转新API
 					- 新API转旧API
 					- 数据库中采用长整型存储时间
 					- Java中的日期格式
+					  collapsed:: true
 						- 参考文章：[java 日期格式化-- SimpleDateFormat 的使用。字符串转日期，日期转字符串](https://blog.csdn.net/qq_27093465/article/details/53034427)
 			- 正则表达式
 			  collapsed:: true
 				- 功能：正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。Java标准库java.util.regex内建了正则表达式引擎。
 				- 匹配规则
+				  collapsed:: true
 					- 匹配任意字符：`.`匹配一个字符且仅限一个任意字符
 					- 匹配数字：`\d`仅限单个数字字符
 					- 匹配常用字符：`\w`可以匹配一个字母、数字或下划线
 					- 匹配空格字符：`\s`可以匹配一个空格字符，注意空格字符不但包括空格，还包括tab字符（在Java中用`\t`表示）
 					- 匹配非数字：`\D`则匹配一个非数字
 					- 重复匹配
+					  collapsed:: true
 						- 修饰符`*`可以匹配任意个字符，包括0个字符
 						- 修饰符`+`可以匹配至少一个字符
 						- 修饰符`?`可以匹配0个或一个字符
 				- 匹配复杂规则
+				  collapsed:: true
 					- 匹配开头和结尾
 					- 匹配指定范围
 					- 或规则匹配
 					- 使用括号
+					  collapsed:: true
 						- 提取公共部分，括起子规则
+						  collapsed:: true
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.BracketExample
 						- 分组匹配
+						  collapsed:: true
 							- 使用`Matcher`时，必须首先调用`matches()`判断是否匹配成功，匹配成功后，才能调用`group()`提取子串。
 							- 具体实践：JavaTrain:cn.bravedawn.basic.regex.GroupMatch
 				- 使用Pattern只做一次编译，不建议使用String.matches()
 				- 非贪婪匹配?
 				- 搜索和替换
+				  collapsed:: true
 					- 分割字符串：`String.split()`
 					- 搜索字符串：`Matcher.find()`
 					- 替换字符串：`String.replaceAll()`
 					- 反向引用
 					- `Matcher.appendReplacement()`
 				- 性能优化
+				  collapsed:: true
 					- 推荐将Pattern 缓存下来，避免反复编译Pattern
+					  collapsed:: true
 						- 代码
 						  ```java
 						  static final Pattern HEAVY_REGEX = Pattern.compile("(((X)*Y)*Z)*");
@@ -648,6 +688,7 @@
 		- 面向对象
 		  collapsed:: true
 			- Object通用方法
+			  collapsed:: true
 				- equals
 				  collapsed:: true
 					- Java SE中针对equals()的原则
@@ -673,6 +714,7 @@
 						- 实现：子类继承父类，翻写子类的equals()方法，具体可以参考：cn.bravedawn.obj.object.equalsandhashcode.equals.WrongVoucher
 						- 使用组合修复equals()的对称性：其实是治标不治本，具体实现可参考：cn.bravedawn.obj.object.equalsandhashcode.equals.Voucher
 					- 使用场景
+					  collapsed:: true
 						- 如果不调用List的contains()、indexOf()这些方法，那么放入的元素就不需要实现equals()方法
 						- 对于实体类，像基本类型的包装类型或是String类，通常使用默认的equals()实现就可以。但是对于有自身属性的值对象，我们就需要手动实现equals()方法
 					- 辅助工具
@@ -682,6 +724,7 @@
 						- Google Guava
 						- Project Lombok
 					- 总结
+					  collapsed:: true
 						- 对于基本数据类型的包装类型，值的比较建议使用equals，不要使用==
 						- 对于基本类型，== 判断两个值是否相等，基本类型没有equals()方法
 						- 对于引用类型，== 判断两个变量是否引用同一个对象（对象引用的地址），而 equals()判断引用的对象是否等价
@@ -709,14 +752,19 @@
 				  collapsed:: true
 					- 方法实现：实现Cloneable接口，重写clone方法（clone() 是 Object 的 protected 方法，它不是 public）
 					- 对象拷贝
+					  collapsed:: true
 						- 浅拷贝
+						  collapsed:: true
 							- 拷贝对象和原始对象的属性的引用类型引用的是同一个对象
 							- 特点
+							  collapsed:: true
 								- 主对象的内存地址不同，是不同对象。属性对象的内存地址相同，是同一对象。
 								- 浅拷贝只复制“主”对象，但不会复制“主”对象的里面的对象（属性），”里面的对象“会在原来的对象和它的副本之间共享。
 							- 常用API
+							  collapsed:: true
 								- Spring中的`BeanUtils`是浅拷贝。
 						- 深拷贝
+						  collapsed:: true
 							- 拷贝对象和原始对象的属性的引用类型引用是不同对象
 							- 特点
 							  collapsed:: true
@@ -724,17 +772,23 @@
 								- 深拷贝是一个整个独立的对象拷贝，深拷贝会拷贝所有的属性,并拷贝属性指向的动态分配的内存。当对象和它所引用的对象一起拷贝时即发生深拷贝。深拷贝相比于浅拷贝速度较慢并且花销较大。
 							- 方法
 								- 1. 构造函数
-								  2. 覆写clone方法
-								  3. Serializable序列化
-								  4. Json序列化
+								- 2. 覆写clone方法
+								- 3. Serializable序列化
+								- 4. Json序列化
+							- 参考文章
+								- [Java如何对一个对象进行深拷贝？](https://wudashan.com/2018/10/14/Java-Deep-Copy/)
 					- 引用拷贝
+					  collapsed:: true
 						- 创建一个指向对象的引用变量的拷贝。指两个不同的引用变量指向同一个对象实例，即他们指向的是同一个相同的引用地址，也就是同一个对象。
 						- 特点：
+						  collapsed:: true
 							- 对象的内存地址一样，同一个对象
 					- 最佳实践
+					  collapsed:: true
 						- 最好不要去使用 clone()，可以使用拷贝构造函数或者拷贝工厂来拷贝一个对象
 						- 使用 clone() 方法来拷贝一个对象即复杂又有风险，它会抛出异常，并且还需要类型转换
 					- 参考文章
+					  collapsed:: true
 						- [Java深入理解深拷贝和浅拷贝区别](https://blog.csdn.net/riemann_/article/details/87217229)
 						- [Java对象拷贝原理剖析及最佳实践](https://juejin.cn/post/7169424420191240228#heading-0)
 						- [BeanUtils 如何拷贝 List](https://juejin.cn/post/6844904046956904456)
@@ -743,6 +797,7 @@
 					- 先判断两个对象是否相等，若是返回true，否则false；若两个参数都为null也返回true；
 					- 若第一个参数不为null，则调用他的equals方法进行判断；
 			- 面向对象
+			  collapsed:: true
 				- 类和接口的定义
 				  collapsed:: true
 					- 类：类是用户定义的蓝图或原型，可以从中创建对象。它表示对同一类型的所有对象通用的属性或方法的集合。
@@ -770,7 +825,6 @@
 						- Double：null
 						- Char：null
 				- 访问权限
-				  collapsed:: true
 					- 定义
 					  collapsed:: true
 						- Java中，可以使用访问修饰符来保护对类、变量、方法和构造方法的访问。Java 支持 4 种不同的访问权限。
@@ -779,10 +833,8 @@
 						- 在同一类内可见。使用对象：变量、方法、类（接口）。 注意：不能修饰类（外部类）
 						- 定义private方法的理由是内部方法是可以调用private方法的
 					- default
-					  collapsed:: true
 						- (即缺省）: 在同一包内可见，不使用任何修饰符。使用对象：类（接口）、变量、方法。
 					- protected
-					  collapsed:: true
 						- 对同一包内的类和所有子类可见。使用对象：类（接口）、变量、方法。 注意：不能修饰类（外部类）
 					- public
 					  collapsed:: true
@@ -865,7 +917,6 @@
 						- Method Overloading in Java
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/obj/inherit/polymorphic/overloading
 				- 继承
-				  collapsed:: true
 					- Java只允许一个class继承自一个类，因此，一个类有且仅有一个父类。只有Object特殊，它没有父类。
 					- 里氏替换原则
 					  collapsed:: true
@@ -880,6 +931,10 @@
 					  collapsed:: true
 						- 若父类定义了有参构造方法且没有显示定义无参构造方法，子类需显式的复写父类的构造方法，需要在子类的构造方法中通过super关键字显式的调用父类的构造方法
 						- 若父类定义了无参构造方法，子类的无参构造方法中会默认调用父类的无参构造方法，而且会先调用父类的后调用子类的
+					- this
+					  collapsed:: true
+						- 首先指对象本身
+						- 如果在抽象类和实现类的关系中，this代表真正的实现类或是真正的对象。这个实验：`cn.bravedawn.obj.inherit.this_.abstract_`
 					- 阻止继承
 					  collapsed:: true
 						- final
@@ -887,17 +942,17 @@
 						- permits
 						- non-sealed
 					- 向上转型
+					  collapsed:: true
 						- 把一个子类类型安全地变为父类类型的赋值，被称为向上转型（upcasting）
 					- 向下转型
+					  collapsed:: true
 						- 把一个父类类型强制转型为子类类型，就是向下转型（downcasting）
 						- 可以强制向下转型，最好借助instanceof判断
 						- 这种是可以的：Person p1 = new Student;Student s1 = (Student) p1; // downcasting ok
 					- instanceof
 					  id:: 644252a4-2aa6-4b41-ad86-f99f7cb65ac8
-					  collapsed:: true
 						- 使用：`obj instanceof 类名`
 						- 作用
-						  collapsed:: true
 							- 判断一个变量所指向的实例是否是指定类型，或者这个类型的子类。
 							- 用来测试对象是否属于给定类型的二元运算符。
 							- 它也称为类型比较运算符，因为它将实例与类型进行比较。
@@ -910,8 +965,10 @@
 						- Java 14 带来了新版的 instanceof操作，将参数类型检查和绑局部变量类型合并到了一起：`obj instanceof String str`
 						- 参考文章：https://www.baeldung.com/java-instanceof
 					- 区分继承和组合
+					  collapsed:: true
 						- 继承是is关系，组合是has关系
 				- 多态
+				  collapsed:: true
 					- 多态
 					  collapsed:: true
 						- 多态是指，针对某个类型的方法调用，其真正执行的方法取决于运行时期实际类型的方法
@@ -922,12 +979,16 @@
 						- 实际意义：如果子类覆写了父类的方法，子类的引用在实际调用这个方法的时候，调用的是子类的方法。
 					- 代码块和加载顺序
 					  id:: 650cd83c-47db-4160-a561-8e4f2952788f
+					  collapsed:: true
 						- 代码块
+						  collapsed:: true
 							- 局部代码块
+							  collapsed:: true
 								- 方法代码块，也就是具体方法的声明。
 								- 作用：限定变量的声明周期，尽早释放，节省内存。
 								- 调用：方法中的局部代码块一般进行一次性调用，调用完立刻释放内存空间，避免在接下来的调用过程中占用栈空间。栈空间内存有限，方法的调用会产生很多局部变量导致栈内存不足，使用局部代码块可以避免这个问题。
 							- 实例初始化代码块（普通代码块）
+							  collapsed:: true
 								- 没有关键字，一个花括号包裹的代码。
 								- 作用
 								    collapsed:: true
@@ -939,6 +1000,7 @@
 									- 执行实例类的构造器中的代码
 								- 调用：每new一个对象，就会执行一次。
 							- 静态代码块
+							  collapsed:: true
 								- static修饰的代码块。
 								- 作用
 								  collapsed:: true
@@ -946,10 +1008,12 @@
 									- 它在类加载时在main方法之前执行。
 								- 调用：当new多个对象时，只有在第一次new对象的时候调用一次静态代码块，因为静态代码块和类变量一样，是属于类的，所有对象共享一份。
 						- 加载顺序
+						  collapsed:: true
 							- **无继承关系的调用顺序**：静态代码块 -> 实例初始化代码块 -> 构造函数代码块
 							- **有继承关系的调用顺序**：父类静态静态代码块（静态成员变量） -> 子类静态静态代码块（静态成员变量） -> 父类普通代码块（普通成员变量） -> 子类普通代码块（普通成员变量） -> 父类构造函数代码块 -> 子类构造函数代码块
 							- **值得注意的是**：在调用一个类的【静态方法】的时候只会调用其【静态代码块】有且只有一次，然后是【静态方法】，不会调用【实例初始化代码块】
 						- 参考文章
+						  collapsed:: true
 							- [Instance initializer block](https://www.javatpoint.com/instance-initializer-block)
 						- 实践：javaTrain:src/main/java/cn/bravedawn/obj/inherit/polymorphic/codeblock
 				- 抽象类和接口
@@ -1010,6 +1074,7 @@
 				- 内部类
 				  collapsed:: true
 					- 内部类
+					  collapsed:: true
 						- 可以用Outer.this引用Outer实例
 						- 可以修改Outer Class的private字段
 						- 可以访问Outer Class的private字段和方法
@@ -1042,6 +1107,7 @@
 				  id:: 641475d2-462e-43b7-a273-77ab40289cde
 				  collapsed:: true
 					- serialVersionUID
+					  collapsed:: true
 						- 定义为代表类定义的版本，在反序列化时，jvm会将字节流状态的类中的serialVersionUID与本地类中的serialVersionUID进行比较，如果相同，则进行序列化，不相同就抛InvalidClassException异常。
 						- 在实现序列化接口的时候，我们一般显式的给serialVersionUID设置一个固定值。这样无论类后期增加成员变量还是删除成员变量，都不会发生错误。
 						- 如果在实现Serializable接口的时候，没有显式指定一个固定值，java序列化机制是会自动生成一个serialVersionUID，这个自动值会受类名称、它所实现的接口、以及所有的共有的私有的和受保护的成员变量的影响。如果这些值改变，那么这个自动值也会改变。在反序列化时，便会出错。
@@ -1051,6 +1117,7 @@
 			- 异常体系
 			  collapsed:: true
 				- 分类
+				  collapsed:: true
 					- 检查性异常：需强制捕获
 					- 运行时异常：无需强制捕获
 					- 错误：无需捕获的严重错误
@@ -1064,13 +1131,16 @@
 			- 捕获异常
 			  collapsed:: true
 				- 多catch语句
+				  collapsed:: true
 					- catch的顺序非常重要：子类必须写在前面
 					- 多个catch语句只有一个能被执行
 				- finally语句
+				  collapsed:: true
 					- finally语句不是必须的，可写可不写
 					- finally总是最后执行
 					- finally是用来保证一些代码必须执行的
 				- 捕获多种异常
+				  collapsed:: true
 					- 一个catch语句也可以匹配多个非继承关系的异常
 					- 因为处理异常的逻辑想通过，可以用`|`合并到一起，像这样catch (IOException | NumberFormatException e)
 			- 抛出异常
@@ -1090,6 +1160,7 @@
 			- 自定义异常
 			  collapsed:: true
 				- `Throwable`的四个参数
+				  collapsed:: true
 					- `message` – 错误信息
 					- `cause` – 错误原因，可以为null，标识不存在原因或是未知
 					- `enableSuppression` – 是否开启抑制异常
@@ -1097,6 +1168,7 @@
 				- Java标准库定义的常用异常
 				  collapsed:: true
 					- Exception
+					  collapsed:: true
 						- RuntimeException
 						  collapsed:: true
 							- NullPointerException
@@ -1160,12 +1232,14 @@
 			- 编码算法
 			  collapsed:: true
 				- ASCII码
+				  collapsed:: true
 					- [ASCII对照表](https://tool.oschina.net/commons?type=4)
 					- 美国制定了一套字符编码，对英语字符与二进制位之间的关系，做了统一规定。这被称为 ASCII 码
 					- ASCII 码一共规定了128个字符的编码
 					- Java中ASCII码与字符的互转
 					  collapsed:: true
 						- 参考文章
+						  collapsed:: true
 							- [java 字符与ASCII码互转](https://www.cnblogs.com/ooo0/p/8465237.html)
 				- Unicode码
 				  collapsed:: true
@@ -1210,8 +1284,10 @@
 					  collapsed:: true
 						- 传输效率会降低，因为它把原始数据的长度增加了1/3
 			- 哈希算法
+			  collapsed:: true
 				- 定义：哈希算法（Hash）又称摘要算法（Digest），它的作用是：对任意一组输入数据进行计算，得到一个固定长度的输出摘要。
 				- 特点
+				  collapsed:: true
 					- 无论输入的消息有多长，计算出来的消息摘要的长度总是固定的
 					- 消息摘要是 **伪随机的**
 					- 通常情况下，不同的输入必会产生不同的输出，相同的输入必会产生相同的输出
@@ -1223,6 +1299,7 @@
 					- 两个相同的字符串永远会计算出相同的hashCode
 					- 在覆盖 equals() 方法时应当总是覆盖 hashCode()方法，保证等价的两个对象哈希值也相等。否则基于hashCode定位的HashMap就无法正常工作
 				- 哈希碰撞
+				  collapsed:: true
 					- 定义：两个不同的输入得到了相同的输出。哈希算法的输出长度越长，就越难产生碰撞，也就越安全
 					- 安全的哈希算法满足的条件
 					  collapsed:: true
@@ -1252,7 +1329,6 @@
 							    比如上面第一次按照姓首字母进行哈希，如果产生冲突可以按照姓字母首字母第二位进行哈希，再冲突，第三位，直到不冲突为止
 				- 常见的加密哈希算法
 					- MD(Message Digest)：消息摘要算法
-					  collapsed:: true
 						- MD5
 					- SHA(Secure Hash Algorithm)：安全散列算法
 					  collapsed:: true
@@ -1267,16 +1343,20 @@
 						- md5相对来说比较容易碰撞，安全性没这么高。
 				- Bcrypt算法
 					- 特点
+					  collapsed:: true
 						- 内部自己实现了随机加盐处理，可以抵御彩虹表攻击
 						- 每次加密后的密文是不一样的
 						- 无论物理机的性能如何，可以保证加密的速度在一个特定的范围内
 					- 现有的实现
+					  collapsed:: true
 						- Spring Security的BCryptPasswordEncoder
 						- [jBCrypt](https://www.mindrot.org/projects/jBCrypt/)
 				- 用途
+				  collapsed:: true
 					- 验证软件安装文件是否被人篡改
 					- 数据库用户密码存储
 				- 加盐
+				  collapsed:: true
 					- 目的：使黑客的彩虹表失效，即使用户使用常用口令，也无法从MD5反推原始口令
 					- 彩虹表：提前计算好的密码和其哈希值对照表
 					- 定义：对密码额外添加随机数，这个方法称之为加盐（salt），其算法：digest = md5(salt+inputPassword)
@@ -1285,17 +1365,23 @@
 					- [一文让你轻松了解JAVA开发中的四种加密方法](https://juejin.cn/post/6844903894464593934#heading-6)
 					- [安全的加密算法 Bcrypt，再也不用担心数据泄密了](https://www.51cto.com/article/718648.html)
 			- 非加密哈希算法
+			  collapsed:: true
 				- 与加密哈希算法的区别
+				  collapsed:: true
 					- 从安全性来讲，加密哈希算法的安全性更高。
 					- 从作用来讲，加密哈希算法是用来保证数据安全属性，很难发生碰撞或是找到哈希值的原文。而非加密哈希算法则更多是是为了进行散列，安全性和发生碰撞的问题远高于加密哈希算法。
 					- 从场景来看，加密哈希函数主要用于数字签名、消息认证码等需要保证数据可靠性和安全性的场景。非加密哈希函数则更多地被用于简单数据校验、散列函数、校验和计算等场景。
 				- 常见的非加密哈希算法
+				  collapsed:: true
 					- MurMurHash
+					  collapsed:: true
 						- Apache commons-codec对其有封装。
 					- CRC32
+					  collapsed:: true
 						- Apache commons-codec对其有封装。
 						- Redis Cluster中slot的槽位计算用的就是该算法。
 				- 参考文章
+				  collapsed:: true
 					- [漫谈非加密哈希算法](https://www.obooks.net/post-727.html)
 					- [加密哈希函数和非加密哈希函数的区别](https://worktile.com/kb/p/48530)
 			- BouncyCastle
@@ -1303,14 +1389,11 @@
 				- BouncyCastle就是一个提供了很多哈希算法和加密算法的第三方库。它提供了Java标准库没有的一些算法，例如，RipeMD160哈希算法。
 				- 使用第三方算法前需要通过Security.addProvider()注册
 			- Hmac算法
-			  collapsed:: true
 				- Hmac算法就是一种基于密钥的消息认证码算法，它的全称是Hash-based Message Authentication Code，是一种更安全的消息摘要算法。
-				- HMAC算法包括一个秘密密钥和哈希函数。
-				  collapsed:: true
-					- 秘密密钥是一个唯一的信息或字符串。它是由发件人和消息的接收器所知。
+				- HMAC算法包括一个密钥和哈希函数。
+					- 密钥是一个唯一的信息或字符串。它是由发件人和消息的接收器所知。
 					- 散列函数是一种将一个序列转换为另一个序列的映射算法。
 				- HamcMd5相比于md5+salt的优势
-				  collapsed:: true
 					- HmacMD5使用的key长度是64字节，更安全
 					- Hmac是标准算法，同样适用于SHA-1等其他哈希算法
 					- Hmac输出和原有的哈希算法长度一致
@@ -1322,11 +1405,15 @@
 					- 解密：secret = encrypt(key, message);
 					- 需要指定算法名称、工作模式和填充模式
 				- DES
+				  collapsed:: true
 					- 注意：由于密钥过短，可以在短时间内被暴力破解，所以现在已经不安全了
 				- AES
+				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- 可以加密任意长度的明文
 					- 参考文章
+					  collapsed:: true
 						- [Java AES Encryption and Decryption](https://www.baeldung.com/java-aes-encryption-decryption)
 				- IDEA
 			- 口令加密算法
@@ -1384,7 +1471,6 @@
 					- 防止抵赖
 					- 检测篡改
 				- 常用的数字签名算法
-				  collapsed:: true
 					- MD5withRSA
 					- SHA1withRSA
 					- SHA256withRSA
@@ -1514,25 +1600,20 @@
 			   collapsed:: true
 			  collapsed:: true
 				- 变型分为三种
-				  collapsed:: true
 					- 协变（covariant），Java的数组采用了协变的规则
 					- 逆变（contravariant）
 					- 不变（invariant），其中Java泛型采用了不变的规则
 				- 变型的作用
-				  collapsed:: true
 					- 这些规则规定了类型构造器是如何界定父子类型之间关系的。
 					- 我声明了两个类，一个是`Animal`类，一个是`Dog`类，其中`Dog`是`Animal`类的子类，`f(type)`就是指`type`类型经过`f()`类型构造器的处理转换为一个新的类型。
-					  collapsed:: true
 						- 协变：就是指`f(Dog)`是`f(Animal)`的子类，也就是说`Dog`类经过类型构造器的处理后是`Animal`类经过类型构造器处理后的子类。
 						- 逆变：就是指`f(Animal)`是`f(Dog)`的子类。
 						- 不变：就是指`f(Dog)`和`f(Animal)`之间没有关系。既不是协变也不是逆变。
 					- 类型构造器f(type)可以是
-					  collapsed:: true
 						- 泛型：`List<Animal>`、`List<Dog>`
 						- 数组：`Animal[]`、`Dog[]`
 						- 函数/方法：`method(Animal)`、`method(Dog)`
 				- 泛型为什么需要协变
-				  collapsed:: true
 					- 多态，相同逻辑的方法不能因为参数类型的不同而重复写多遍。
 			- 限定通配符
 			  collapsed:: true
@@ -1563,6 +1644,7 @@
 			- 泛型数组
 			  collapsed:: true
 				- 创建泛型数组的方法
+				  collapsed:: true
 					- 1.通过`Array.newInstance()`方法，但是需要强转。
 					- 2.通过可变参数创建泛型数组。
 			- 参考文章：
@@ -1585,10 +1667,12 @@
 			  collapsed:: true
 				- `@Documented`：注解是否将包含在JavaDoc中
 				- `@Retention`： 什么时候使用该注解，定义注解的生命周期
+				  collapsed:: true
 					- `RetentionPolicy.SOURCE`: 在编译阶段丢弃。这些注解在编译结束之后就不再有任何意义，所以它们不会写入字节码。@Override, @SuppressWarnings都属于这类注解。
 					- `RetentionPolicy.CLASS`: 仅class文件。在类加载的时候丢弃。在字节码文件的处理中有用，它们不会被加载进JVM。注解默认使用这种方式
 					- `RetentionPolicy.RUNTIME` : 始终不会丢弃，运行期也保留该注解，因此可以使用反射机制读取该注解的信息。我们自定义的注解通常使用这种方式。该类型的注解会被加载进JVM，并且在运行期可以被程序读取
 				- `@Target`：注解用于什么地方，默认值为任何元素，表示该注解用于什么地方。可用的ElementType 参数包括：
+				  collapsed:: true
 					- `ElementType.CONSTRUCTOR`：用于描述构造器
 					- `ElementType.FIELD`: 成员变量、对象、属性（包括enum实例）
 					- `ElementType.LOCAL_VARIABLE`: 用于描述局部变量
@@ -1602,6 +1686,7 @@
 				  collapsed:: true
 					- 参考：JavaTrain/src/main/java/cn/bravedawn/annotation/repeatable
 			- 常见标准的Annotation
+			  collapsed:: true
 				- `@Override`，标记类型注解，用作标注方法。它说明了被标注的方法重写了父类的方法，起到了断言的作用。如果我们使用了这种注解在一个没有覆盖父类方法的方法时，java 编译器将以一个编译错误来警示。
 				- `@Deprecated`，标记类型注解，用于废弃代码。
 				- `@SuppressWarnings`，非标记类型注解，它的作用是告诉编译器对被注解的作用域内部警告保持静默。
@@ -1611,29 +1696,36 @@
 					- `@SuppressWarnings("deprecation")`：表示不检测过期的方法，就不会显示使用了不赞成使用的类或方法时的警告。
 			- 定义一个注解
 			  collapsed:: true
-				- 1. 用`@interface`声明一个注解
+				- collapsed:: true
+				  1. 用`@interface`声明一个注解
 					- Annotation 型定义为@interface，所有的Annotation 会自动继承`java.lang.annotation.Annotation`这一接口，并且不能再去继承别的类或是接口
-				- 2. 定义参数成员和默认值
+				- collapsed:: true
+				  2. 定义参数成员和默认值
 					- 参数成员只能用`public` 或默认(`default`) 这两个访问权修饰
 					- 参数成员只能用基本类型`byte`、`short`、`char`、`int`、`long`、`float`、`double`、`boolean`八种基本数据类型和其包装类。
 					- `String`、`enums`、`Class`等数据类型
 					- 以及以上类型的数组
 				- 3. 用元注解配置注解
 			- 处理注解
+			  collapsed:: true
 				- 使用反射API判断是否有Annotation修饰
+				  collapsed:: true
 					- Class.isAnnotationPresent(AnnotationClass)
 					- Field.isAnnotationPresent(AnnotationClass)
 					- Method.isAnnotationPresent(AnnotationClass)
 					- Constructor.isAnnotationPresent(AnnotationClass)
 				- 使用反射API读取Annotation
+				  collapsed:: true
 					- Class.getAnnotation(AnnotationClass)
 					- Field.getAnnotation(AnnotationClass)
 					- Method.getAnnotation(AnnotationClass)
 					- Constructor.getAnnotation(AnnotationClass)
 				- 使用反射API读取Annotation有两种方法（读取Class上面修饰的注解）
+				  collapsed:: true
 					- 方法一是先判断Annotation是否存在，如果存在，就直接读取
 					- 方法二是直接读取Annotation，如果Annotation不存在，将返回null
 				- 读取方法、字段和构造方法的Annotation和Class类似
+				  collapsed:: true
 					- 获取到Annotation之后，将注解进行强转，就可以获取注解的属性了
 					- 参考实现：cn.bravedawn.annotation.fruitexample.FruitInfoUtil
 				- 读取方法参数使用getParameterAnnotations()
@@ -1669,9 +1761,11 @@
 					- 方法二：如果我们有一个实例变量，可以通过该实例变量提供的getClass()方法获取
 					- 方法三：如果知道一个class的完整类名，可以通过静态方法Class.forName()获取
 				- Class实例比较和instanceof的差别
+				  collapsed:: true
 					- 用instanceof不但匹配指定类型，还匹配指定类型的子类。
 					- 用==判断class实例可以精确地判断数据类型，但不能作子类型比较。
 				- 通过反射生产对象的方式
+				  collapsed:: true
 					- 方法一：调用Class提供的`newInstance()`方法，创建无参构造函数的实例
 					- 方法二：先通过Class对象获取指定的`Constructor`对象，再调用Constructor对象的newInstance()方法来创建实例。这种方法可以用指定的构造器构造类的实例
 				- 动态加载
@@ -1679,6 +1773,7 @@
 					- JVM在执行Java程序的时候，并不是一次性把所有用到的类全部加载到内存，而是第一次需要用到类时才加载。
 					- 利用JVM动态加载类的特性，我们才能在运行期根据条件加载不同的实现类。
 				- 重要方法
+				  collapsed:: true
 					- `isInterface()`：该对象是否是一个接口
 					- `isAnonymous()`：是否是匿名类
 					- `class.newInstance()`： 会直接调用该类的无参构造函数进行实例化
@@ -1688,6 +1783,7 @@
 					  collapsed:: true
 						- 表示objectB是否能强转为classA类型
 						- 与 ((644252a4-2aa6-4b41-ad86-f99f7cb65ac8))的区别
+						  collapsed:: true
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
 					- `getType`：获取类型
@@ -1695,12 +1791,14 @@
 			- 访问字段
 			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
+				  collapsed:: true
 					- `Field getField(name)`：根据字段名获取某个public的field（包括父类）
 					- `Field getDeclaredField(name)`：根据字段名获取当前类的某个field（不包括父类）
 					- `Field[] getFields()`：获取所有public的field（包括父类）
 					- `Field[] getDeclaredFields()`：获取当前类的所有field（不包括父类）
 				- 允许访问非public字段：`setAccessible(true)`
 				- 获取字段的信息
+				  collapsed:: true
 					- getName()：返回字段名称，例如，"name"；
 					- getType()：返回字段类型，也是一个Class实例，例如，String.class；
 					- getModifiers()：返回字段的修饰符，它是一个int，不同的bit表示不同的含义
@@ -1770,7 +1868,9 @@
 			  collapsed:: true
 				- `Parameter`
 			- 性能优化
+			  collapsed:: true
 				- 参考文章
+				  collapsed:: true
 					- [Java反射性能分析及优化](https://www.bilibili.com/read/cv13256282/)
 		- 模块（Java Platform Module System，JPMS）
 		  collapsed:: true
@@ -1872,13 +1972,16 @@
 		- SPI机制
 		  collapsed:: true
 			- 定义
+			  collapsed:: true
 				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。
 				- 核心思想是解耦。
 			- 实现
+			  collapsed:: true
 				- 定义一个接口。
 				- 为接口提供不同的实现。
 				- 在`resources`下新建`META-INF/services/`目录，以**接口名**新建一个文件，然后将**接口实现类的全限定名**写在该文件中。
 			- SPI机制的使用
+			  collapsed:: true
 				- JDBC DriverManager
 				  collapsed:: true
 					- 在Java17中可以参考`java.sql.DriverManager#ensureDriversInitialized`这个方法
@@ -1895,7 +1998,9 @@
 					- Spring在做自动装配的时候，会加载`META-INF/spring.factories`文件，而加载的过程是由`SpringFactoriesLoader`加载的。
 					- Spring中具体的代码在`org.springframework.core.io.support.SpringFactoriesLoader#loadFactoryNames`
 			- SPI深入原理
+			  collapsed:: true
 				- 使用流程
+				  collapsed:: true
 					- 定义标准，比如java.sql.Driver
 					- 具体厂商或是开发者实现
 					  collapsed:: true
@@ -1903,16 +2008,20 @@
 						- 编写接口实现
 					- 开发人员使用，这里可以参考JavaTrain项目的cn.bravedawn.spi.example.Test
 				- SPI和API之间的区别
+				  collapsed:: true
 					- API是我们直接调用一个方法，以达到某一个目标，代码逻辑组织在实现者的包中
 					- SPI是我们需要拓展和实现，以达到某一个目标，代码逻辑组织在调用者的包中
 				- SPI机制的实现原理
+				  collapsed:: true
 					- 源码类：java.util.ServiceLoader
 					- 具体阅读笔记参考：cn.bravedawn.spi.example.Test
 				- SPI的缺点
+				  collapsed:: true
 					- 不能按需加载，必须遍历所有实现并实例化，造成浪费
 					- 获取某个实现类的方式不够灵活，只能通过Iterator形式获取
 					- 多线程下使用ServiceLoader类的实例是不安全的
 				- 参考文章
+				  collapsed:: true
 					- [Java SPI机制：ServiceLoader实现原理及应用剖析](https://juejin.cn/post/6844903891746684941)
 		- JNDI机制
 		  collapsed:: true
@@ -1955,11 +2064,13 @@
 					  collapsed:: true
 						- 若舍入位为非零，则对舍入部分的前一位数字加1；若舍入位为零，则直接舍弃。即为向外取整模式。
 					- `ROUND_DOWN`：向接近零的方向舍入
+					  collapsed:: true
 						- 不论舍入位是否为零，都直接舍弃。即为向内取整模式。
 					- `ROUND_CEILING`：向正无穷大的方向舍入
 					  collapsed:: true
 						- 若 BigDecimal 为正，则舍入行为与 ROUNDUP 相同；若为负，则舍入行为与 ROUNDDOWN 相同。即为向上取整模式。
 					- `ROUND_FLOOR`：向负无穷大的方向舍入
+					  collapsed:: true
 						- 若 BigDecimal 为正，则舍入行为与 ROUNDDOWN 相同；若为负，则舍入行为与 ROUNDUP 相同。即为向下取整模式。
 					- `ROUND_HAL_FUP`：向“最接近的”整数舍入
 					  collapsed:: true
@@ -2008,7 +2119,9 @@
 				- 运算
 				  collapsed:: true
 					- 除法运算
+					  collapsed:: true
 						- 报`java.lang.ArithmeticException: Non-terminating decimal expansion; no exact representable decimal result.`
+						  collapsed:: true
 							- 在进行除法运算的时候，我们需要使用下面的方法来进行精度控制。
 							  ```java
 							  public BigDecimal divide(BigDecimal divisor, int scale, int roundingMode)
@@ -2048,18 +2161,26 @@
 				  collapsed:: true
 					- 调用 `System.exit` 方法会终止当前运行的 JVM 并退出程序。
 					- 使用场景
+					  collapsed:: true
 						- **适合脚本程序的异常退出**，可以用于脚本程序的退出。
 						- 不适合web服务器程序和常规的引用程序，这类程序最好使用异常处理或是简单的返回语句来退出程序。
 					- 参考文章
+					  collapsed:: true
 						- [A Guide to System.exit()](https://www.baeldung.com/java-system-exit)
 			-
 		- http
 		  collapsed:: true
 			- 参考文章
-			  collapsed:: true
 				- [Java11 HttpClient小试牛刀](https://juejin.cn/post/6844903685563088903)
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
+		- 安全
+			- `AccessController.doPrivileged`
+				- 功能：是一个安全方法，用于执行需要特权的代码。可以确保即使在较低权限的环境下，这些代码也能以较高的权限执行。
+				- `PrivilegedAction`接口
+					- 功能：编写需要特权的代码
+				- `PrivilegedExceptionAction` 接口
+					- 功能：编写可能抛出异常的需要特权的代码。
 	- Java进阶
 	  collapsed:: true
 		- 集合框架
@@ -2152,11 +2273,13 @@
 					  collapsed:: true
 						- Map是一种支持数据的键值对映射的数据结构。此接口不支持重复键，因为同一个键不能有多个映射。
 						- 实现该接口的类
+						  collapsed:: true
 							- HashMap
 							- TreeMap
 			- Collections
 			  collapsed:: true
 				- 基本操作
+				  collapsed:: true
 					- 获取list，map，set的不变实体
 					- addAll()：方法添加集合到另一个集合
 					- copy()：复制元素
@@ -2164,8 +2287,10 @@
 					- sort()：对集合进行排序
 					- disjoint()：判断两个集合是否不相交
 				- 具体实现
+				  collapsed:: true
 					- JavaTrain/src/main/java/cn/bravedawn/collection/collections
 				- 参考文章
+				  collapsed:: true
 					- [Collections Class in Java](https://www.geeksforgeeks.org/collections-class-in-java/)
 					  id:: 63a8ef52-fbe6-4838-b3e2-620dbb283662
 			- Collection Interface
@@ -2193,29 +2318,36 @@
 				- 操作
 				  collapsed:: true
 					- 创建List
+					  collapsed:: true
 						- 法一：List<Integer> list = new ArrayList();
 						- 法二：List<Integer> list2 = new LinkedList();
 						- 法三：List<Integer> list3 = List.of(1, 2, 4);
 					- 遍历List
+					  collapsed:: true
 						- for循环
 						- for each遍历，Java也是通过Iterator来实现的
 						- Iterator遍历，是最高效的方法
 					- List转Array
+					  collapsed:: true
 						- 法一：是调用toArray()方法直接返回一个Object[]数组
 						  ```java
 						  List list = List.of("apple", "pear", "banana");
 						  Object[] array = list.toArray();
 						  ```
 						- 法二：调用toArray(T[])方法
+						  collapsed:: true
 						  ```java
 						  List list = List.of(12, 34, 56);
 						  Integer[] array = list.toArray(new Integer[3]);
 						  ```
 							- 另外两种写法
+							  collapsed:: true
 								- `Integer[] array = list.toArray(new Integer[list.size()]);`
 								- `Integer[] array = list.toArray(Integer[]::new);`
 					- Array转List
+					  collapsed:: true
 						- 方法一：
+						  collapsed:: true
 						  ```Java
 						  Integer[] array = { 1, 2, 3 };
 						  List<Integer> list = List.of(array);
@@ -2229,14 +2361,17 @@
 						  List<Integer> list = Arrays.asList(array);
 						  ```
 					- 注意
+					  collapsed:: true
 						- 若要调用List的`contains()`、`indexOf()`方法，放入的元素需要实现`equals()`方法，因为这些方法的内部是通过元素的equals进行判断的
 				- LinkedList
+				  collapsed:: true
 					- 介绍
 					  collapsed:: true
 						- 使用双向链表来存储元素
 						- 实现了`List`和`Deque`接口，实现了所有的List可选的列表操作，继承了`AbstractSequentialList`类
 						- 实现了所有可选的列表操作并允许所有元素（包括null）
 					- 特点
+					  collapsed:: true
 						- 可以包含重复的元素
 						- 维护插入的顺序
 						- 非同步的，可以通过调用`Collections.synchronizedList`方法来检索它的同步版本
@@ -2244,6 +2379,7 @@
 						- 它的Iterator和ListIterator迭代器是fail-fast
 						- 它可以用作list，stack，queue
 					- 使用
+					  collapsed:: true
 						- 创建：`LinkedList<Integer> list = new LinkedList<>()`
 						- 添加元素
 						  collapsed:: true
@@ -2263,6 +2399,7 @@
 							- linkedList.pop()，检索第一个元素并从list删除该元素，若list为空，则抛出java.util.NoSuchElementException
 							- linkedList.push(1)，在list头部插入元素
 						- 总结
+						  collapsed:: true
 							- ArrayList 通常是默认的 List 实现，大家常常会使用这个实现
 							- 在恒定时间做插入、删除操作时，采用LinkedList往往是更好的选择。ArrayList更适合恒定的访问时间和有效的内存使用。
 					- 参考文章：
@@ -2272,8 +2409,10 @@
 				- ArrayList
 				  collapsed:: true
 					- 介绍
+					  collapsed:: true
 						- ArrayList是构建在数组之上的List实现之一
 					- 特点
+					  collapsed:: true
 						- 一个值可以重复出现多次
 						- 随机访问的时间复杂度是O(1)
 						- 插入和删除的时间复杂度是O(n)
@@ -2281,7 +2420,9 @@
 						- List中元素的存取是有序的，该数组的输出顺序是跟你存入(add)的顺序是一致的
 						- 不是线程安全的
 					- 使用
+					  collapsed:: true
 						- 创建一个ArrayList
+						  collapsed:: true
 							- 默认无参构造函数
 							- 构造函数接受初始容量
 							- 构造函数接受 Collection
@@ -2327,6 +2468,7 @@
 				- CopyOnWriteArrayList
 				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- 是线程安全的。
 						- CopyOnWriteArrayList适合在迭代遍历场景较多，频繁修改场景较少的情况。读多写少。
 					- CopyOnWriteArrayList的迭代遍历
@@ -2453,6 +2595,7 @@
 					- 复制一个list到另一个list
 					  collapsed:: true
 						- 五种方法
+						  collapsed:: true
 							- 使用ArraysList的结构体参数传入
 							  collapsed:: true
 								- 可变类，复制之后对原列表元素对象属性的修改，会同步体现在复制后的列表上
@@ -2530,9 +2673,12 @@
 					- 两个列表的交集
 					  collapsed:: true
 						- 求两个字符串列表的交集
+						  collapsed:: true
 							- 使用Java8 Stream流操作进行处理
 						- 求两个自定义对象列表的交集
+						  collapsed:: true
 							- 方法
+							  collapsed:: true
 								- 重写自定义类的equals方法，因为列表的contains方法就是基于equals方法实现的
 								- 使用Java8 Stream流进行处理
 						- 参考文章：https://www.baeldung.com/java-lists-intersection
@@ -2550,6 +2696,7 @@
 						- 参考文章：https://www.baeldung.com/java-count-duplicate-elements-arraylist#loop-with-mapmerge
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/countduplicateelements
 					- 查找两个列表的不同
+					  collapsed:: true
 						- 具体实践：JavaTrain/src/main/java/cn/bravedawn/collection/list/judgelistequals
 				- 参考文章
 				  collapsed:: true
@@ -2580,7 +2727,9 @@
 						- 因为性能，在一个未排序的list中查找一个特定值，需要的时间复杂度是O(n)；在一个已排序的list中查找的话需要的时间复杂度是O(logn)，例如使用二分搜索
 						- 使用map的话插入和检索一个元素，需要的时间复杂度是O(1)
 				- HashMap
+				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- Map是一种key-value映射表的数据结构。
 						- Map中不存在重复的key，因为放入相同的key，只会把原有的key-value对应的value给替换掉。
 						- Map中存储的映射关系是**不保证顺序的**。
@@ -2597,6 +2746,7 @@
 							- 方法三：通过循环遍历Map实例的values()方法，直接遍历值。
 						- 具体实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/HashMapExample.java
 					- 关于key需要注意
+					  collapsed:: true
 						- 可以在HashMap中使用任何类作为键。为了使映射正常工作，我们需要为equals()和hashCode()提供一个实现
 						- hashCode()和equals()只需要在我们希望用作映射键的类中重写
 					- Java8新增的方法
@@ -2608,11 +2758,14 @@
 						- compute()
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/java8
 					- HashMap的内部实现
+					  collapsed:: true
 						- 关键变量
+						  collapsed:: true
 							- capacity 即容量，默认16。
 							- loadFactor 加载因子，默认是0.75
 							- threshold 阈值。阈值=容量*加载因子。默认12。当元素数量超过阈值时便会触发扩容。
 						- 存储结构
+						  collapsed:: true
 							- 内部包含了一个 Entry 类型的数组 table。也就是我们说的桶数组。
 							- Entry 存储着键值对。它包含了四个字段，从 next 字段我们可以看出 Entry 是一个链表。
 							- 即数组中的每个位置被当成一个桶，一个桶存放一个链表。
@@ -2644,13 +2797,16 @@
 				- LinkedHashMap
 				  collapsed:: true
 					- 特点（与HashMap的区别）
+					  collapsed:: true
 						- 也接受空键和空值。
 						- LinkedHashMap是通过哈希表和链表实现，增强了哈希映射的功能。
 						- 除了默认大小为 16 的底层数组外，它还维护一个贯穿其所有条目的双向链表，为LinkedHashMap.Entry有两个名为before，after的指针，分别指向上一个和下一个条目。从而保证了**元素的顺序**。
 						- 注意LinkedHashMap的这个链表定义了迭代的顺序，默认是元素的插入顺序（insertion-order）。
 					- Access-Order LinkedHashMap
+					  collapsed:: true
 						- 在LinkedHashMap的构造函数中有一个**accessOrder的参数**，若该参数为true，则就会设置迭代顺序为 LRU(Least Recently Used)，即最近最少使用。
 					- 性能
+					  collapsed:: true
 						- 基本操作：与HashMap相同，**如果没有哈希冲突，map的基本操作（put、get、remove、containsKey）平均时间复杂度是O(1) 。**但是由于维护双向链表的额外开销，LinkedHashMap的这种恒定时间性能可能会比 HashMap的恒定时间差一点。
 						- 迭代：LinkedHashMap 的集合视图的迭代也需要类似于 HashMap的线性时间 O(n) 。但是，LinkedHashMap 在迭代过程中的线性时间性能优于 HashMap的线性时间。这是因为，对于LinkedHashMap，O(n) 中的 n 只是映射中的条目数，而与容量无关。而对于 HashMap，n 是容量和大小的总和，O(size+capacity)。
 						- 负载因子和初始化容量：负载因子和初始容量的定义与 HashMap相同。但是请注意，对于 LinkedHashMap而言，为初始容量选择过高的值的成本没有 HashMap高，因为此类的迭代时间不受容量的影响。
@@ -2671,9 +2827,11 @@
 						- 当TreeMap的键为整数时，默认顺序是按照整数键的升序顺序进行排序的
 						- 当TreeMap的键为字符串时，默认顺序是按照字符串键的首字母的字母顺序进行排序的
 					- 与HashMap和LinkedHashMap的区别
+					  collapsed:: true
 						- 存储不同：与HashMap和LinkedHashMap不同，TreeMap在任何地方都不使用散列原则，因为它不使用数组来存储它的条目。
 						- 排序不同：HashMap映射不能保证存储的键的顺序，特别是不能保证这个顺序随着时间的推移保持不变，但是树映射可以保证键总是按照指定的顺序排序。
 					- TreeMap的内部实现
+					  collapsed:: true
 						- TreeMap继承了AbstractMap类。实现了NavigableMap接口，它的内部工作基于红黑树的原则。
 						- 红黑数是一个平衡二叉树，这个属性保证了像搜索、获取、放置和删除这样的基本操作需要的时间复杂度是O(log n)。
 						- 红黑数的排序规则是由元素的自然顺序或构造时定义的比较器决定的。
@@ -2702,7 +2860,9 @@
 						- 实验一：map中包含一个键值对，当把key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，清空map。
 						- 实验二：map中包含两个键值对，当把其中一个key的弱引用对象置为null后，调用gc后会自动触发垃圾回收，map会移除该key对应的键值对。
 				- ConcurrentHashMap
+				  collapsed:: true
 					- 特点
+					  collapsed:: true
 						- ConcurrentHashMap是线程安全的。
 						- ConcurrentHashMap中key和value是不允许存在null值的。
 						- 在多线程环境下，ConcurrentHashMap的性能较好。
@@ -2791,20 +2951,25 @@
 							- HashMap最多允许存储一个空键和多个空值。
 							- TreeMap不允许空键，但可能包含许多空值。
 					- 性能分析
+					  collapsed:: true
 						- HashMap
+						  collapsed:: true
 							- HashMap为大多数操作(如add()、remove()和contains())提供了预期的恒定时间性能O(1)。因此，它明显比TreeMap快。
 							- 我们大概知道在我们的集合中要维护多少项，不希望以自然顺序提取项。在这种情况下，HashMap是我们的最佳选择，因为它提供恒定的插入、搜索和删除时间。
 						- TreeMap
+						  collapsed:: true
 							- 对于大多数操作，如add()，remove()和contains()， TreeMap提供了O(log(n))的性能。
 							- TreeMap可以节省内存(与HashMap相比)，因为它只使用保存项目所需的内存量，而不像HashMap使用连续的内存区域。
 							- 为了保持预期的性能，树应该保持它的平衡，这需要相当多的努力，因此使实现复杂化。
 							- 我们应该在以下情况使用TreeMap：
+							  collapsed:: true
 								- 必须考虑到内存限制
 								- 我们不知道要在内存中存储多少项
 								- 我们希望以自然顺序提取对象
 								- 如果需要不断进行添加和删除操作
 								- 我们愿意接受O(log n)的搜索时间
 					- 相同点
+					  collapsed:: true
 						- 键唯一性
 						  collapsed:: true
 							- TreeMap和HashMap都不支持重复键。如果添加，它将覆盖前一个元素(没有错误或异常)。
@@ -2814,6 +2979,7 @@
 							- 当多个线程并发访问它们并且其中至少有一个线程修改它们时，两者都必须在外部同步。
 							- 我们必须显式地使用Collections.synchronizedMap(mapName)来获得所提供映射的同步视图。
 						- Fail-Fast Iterators
+						  collapsed:: true
 							- 迭代器创建后，如果Map以任何方式和任何时间被修改，迭代器将抛出ConcurrentModificationException异常。
 							- 此外，我们可以使用迭代器的remove方法在迭代过程中更改Map。
 					- 如何选择
@@ -2881,14 +3047,17 @@
 			- Queue
 			  collapsed:: true
 				- 介绍
+				  collapsed:: true
 					- `Queue`接口在 `java.util` 包中可用，并且确实扩展了`Collection`接口。它用于保留以先进先出 （FIFO） 方式处理的元素。它是对象的有序列表，其中元素的插入发生在列表的末尾，元素的删除发生在列表的开头。
 					- 作为一个接口，队列需要声明的具体类，最常见的类是Java中的`LinkedList`和`PriorityQueue`。这些类完成的实现不是线程安全的。如果需要具有线程安全实现，则 `PriorityBlockingQueue` 是一个可用的选项。
 				- 功能
+				  collapsed:: true
 					- PriorityQueue、ArrayBlockingQueue 和 LinkedList 是使用最频繁的实现。
 					- 如果对 BlockingQueues 执行了任何空操作，则会引发 NullPointerException。
 					- util 包中存在的那些队列称为无限队列。
 					- util.concurrent 包中存在的那些队列称为有界队列。
 				- 关键方法
+				  collapsed:: true
 					- boolean add(object)：它用于将指定的元素插入此队列，并在成功时返回 true。
 					- boolean offer(object)：它用于将指定的元素插入到此队列中。
 					- Object remove()：它用于检索和删除此队列的头部。
@@ -2900,16 +3069,20 @@
 			  collapsed:: true
 				- 允许两头都进，两头都出，这种队列叫双端队列（Double Ended Queue），学名`Deque`。
 				- 实现
+				  collapsed:: true
 					- LinkedList
 					- ArrayDeque
 					- 参考文章
+					  collapsed:: true
 						- [ArrayDeque 与 LinkedList 的区别](https://cloud.tencent.com/developer/article/2348751)
 				- 参考文章
+				  collapsed:: true
 					- [使用Deque](https://www.liaoxuefeng.com/wiki/1252599548343744/1265122668445536)
 					- [Java 高级教程系列 - Deque 接口及其实现](https://zihengcat.github.io/2019/05/06/java-tutorial-for-language-adavanced-deque-interface-and-implementations/)
 			- Stack
 			  collapsed:: true
 				- 在 Java 中，`Stack`和`Deque`都可以作为栈来使用，但它们之间有一些区别：
+				  collapsed:: true
 					- 1.**数据结构**：Stack是基于Vector实现的栈，而Deque是基于ArrayDeque实现的双端队列。双端队列可以在队列的两端进行插入和删除操作，而栈只能在顶部进行插入和删除操作。
 					- 2.	**方法**：Stack类提供了一些专门用于栈操作的方法，如push()、pop()、peek()等。而Deque类提供了更多的方法，包括在队列两端的插入和删除方法，如addFirst()、removeFirst()、peekFirst()、addLast()、removeLast()、peekLast()等。
 					- 3.**性能**：由于Stack是基于Vector实现的，所以在性能上可能会稍微差一些，特别是在处理大量数据时。而Deque是基于ArrayDeque实现的，它在性能上可能会更好一些。
@@ -2918,14 +3091,18 @@
 			- Fail-fast and Fail-safe
 			  collapsed:: true
 				- Fail-fast
+				  collapsed:: true
 					- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 `ConcurrentModificationException`。
 					- 案例
+					  collapsed:: true
 						- HashMap 中的迭代器
 						- ArrayList 中的迭代器
 				- Fail-safe（Non-Fail-fast）
+				  collapsed:: true
 					- 如果线程在迭代集合时从集合中添加或删除元素，不抛出`ConcurrentModificationException`异常，我们称为Non-Fail-fast或者是Fail-safe。
 					- Fail-safe迭代器会创建原始集合或对象数组的副本，并迭代该复制的集合。 在迭代器中所做的任何结构修改都会影响复制的集合，而不是原始集合。 因此，原始集合在结构上保持不变。
 					- 案例
+					  collapsed:: true
 						- ConcurrentHashMap 上的迭代器
 						- CopyOnWriteArrayList 上的迭代器
 				- 具体实践
@@ -2937,10 +3114,12 @@
 		- 并发
 		  collapsed:: true
 			- Thread
+			  collapsed:: true
 				- 线程的创建
 				- 核心方法
 				  collapsed:: true
 					- `getAllStackTraces`：用于获取虚拟机中所有线程的StackTraceElement对象
+					  collapsed:: true
 						- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
 						- 具体实践：jvm-demo:cn.bravedawn.jvm.tool.ThreadGetAllStackTraces
 				- 线程切换
@@ -2949,8 +3128,10 @@
 				- 线程的状态
 				  collapsed:: true
 					- 六种状态
+					  collapsed:: true
 						- New（初始状态）：新创建的线程，尚未执行；
 						- Runnable
+						    collapsed:: true
 							- READY（就绪状态)
 							    collapsed:: true
 								- 就绪状态只是说你资格运行，调度程序没有挑选到你，你就永远是就绪状态。
@@ -2966,10 +3147,13 @@
 						- Timed Waiting（超时等待）：运行中的线程，因为执行`sleep()`方法正在计时等待；
 						- Terminated（终止等待）：线程已终止，因为`run()`方法执行完毕；
 						- 参考文章
+						  collapsed:: true
 							- [Java线程的6种状态及切换(透彻讲解)](https://blog.csdn.net/pange1991/article/details/53860651)
 					- 状态转移图
+					  collapsed:: true
 						- ![线程切换.jpeg](../assets/线程切换_1716441975617_0.jpeg)
 					- 线程终止的原因
+					  collapsed:: true
 						- 线程正常终止：run()方法执行到return语句返回；
 						- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 						- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
@@ -2978,6 +3162,7 @@
 					- `start()`：启动新线程，这里面会调用run()方法
 					- `run()`：补充该线程需要执行的内容
 					- `join()`
+					  collapsed:: true
 						- 通过对另一个线程对象调用`join()`方法可以等待其执行结束。
 						- 可以指定等待时间，超过等待时间线程仍然没有结束就不再等待。
 						- 对已经运行结束的线程调用`join()`方法会立刻返回。
@@ -2986,15 +3171,18 @@
 					- `isInterrupted()`：判断当前线程是否被中断。
 					- `sleep()`：一定是当前线程调用此方法，当前线程进入TIMED_WAITING状态，但不释放对象锁，millis后线程自动苏醒进入就绪状态。作用：给其它线程执行机会的最佳方式。
 					- `yield()`
+					    collapsed:: true
 						- 即 "谦让"，也是 Thread 类的方法。它让掉当前线程 CPU 的时间片，使正在运行中的线程重新变成就绪状态，并重新竞争 CPU 的调度权。它可能会获取到，也有可能被其他线程获取到。
 						- 一定是当前线程调用此方法，当前线程放弃获取的CPU时间片，但不释放锁资源，**由运行状态变为就绪状态**，让OS再次选择线程。作用：让相同优先级的线程轮流执行，但并不保证一定会轮流执行。实际中无法保证`yield()`达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。`Thread.yield()`不会导致阻塞。该方法与`sleep()`类似，只是不能由用户指定暂停多长时间。
 						- 参考文章
 						    collapsed:: true
 							- [多线程 Thread.yield 方法到底有什么用](https://zhuanlan.zhihu.com/p/50374332)
 					- `obj.wait()`，当前线程调用对象的wait()方法，当前线程释放对象锁，进入等待队列。依靠notify()/notifyAll()唤醒或者wait(long timeout) timeout时间到自动唤醒。
+					  collapsed:: true
 						- **wait/notify方法的调用必须处在该对象的锁（Monitor）中，也即，在调用这些方法时首先需要获得该对象的锁。**否则会抛出`IllegalMonitorStateException`异常。
 						- 在执行`wait`操作时，因考虑是否因该将其包裹在`while`循环体中。
 						- 为什么我没有加`synchronized`关键字去包裹`wait()`方法，怎么没报`IllegalMonitorStateException`异常
+						  collapsed:: true
 							- 这里因为`wait()`方法压根没有得到执行，大家来看这段代码，这里我是没有加`synchronized`关键字的，但是在外面调用`getResult()`方法却没有报`IllegalMonitorStateException`异常，原因就是while这里的判断就没有进到代码块的执行里，所以没有报这个异常。综上所述，在使用wait()方法时，外面还是要添加`sycnhronized`关键字
 							  ```java
 							  @Override
@@ -3010,6 +3198,7 @@
 							  }
 							  ```
 						- 参考文章
+						  collapsed:: true
 							- [Wait/Notify通知机制解析](https://juejin.cn/post/6844903520437551111)
 							- [使用wait和notify](https://www.liaoxuefeng.com/wiki/1252599548343744/1306580911915042)
 					- `obj.notify()`唤醒在此对象监视器上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象监视器上等待的所有线程。
@@ -3031,7 +3220,9 @@
 			- 关键字
 			  collapsed:: true
 				- `volatile`
+				  collapsed:: true
 					- 功能
+					  collapsed:: true
 						- 每次访问变量时，总是获取主内存的最新值；
 						- 每次修改变量后，立刻回写到主内存。
 						- `volatile`关键字解决的是可见性问题：当一个线程修改了某个共享变量的值，其他线程能够立刻看到修改后的值。
@@ -3039,19 +3230,23 @@
 			- 锁
 			  collapsed:: true
 				- 公平锁和非公平锁
+				  collapsed:: true
 					- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 					- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
 			- 线程池
 			  collapsed:: true
 				- 在一个应用中时可以创建多个线程池的。
 				- 参考文章：
+				  collapsed:: true
 					- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
 					- [别再纠结线程池大小/线程数量了，没有固定公式的](https://juejin.cn/post/6948034657321484318)
 			- Callable
+			  collapsed:: true
 				- 可以携带返回值
 				- 可以将异常抛出给上一级调用函数去捕获
 				- 配合线程池的`submit()`方法和`Future`接口使用
 			- Runnable
+			  collapsed:: true
 				- 没有返回值
 				- 异常只能在Runnable内部的逻辑中捕获，不能抛出
 				- 配合线程池的`execute()`方法或是`new Thread()`去使用
@@ -3065,6 +3260,7 @@
 						- 异步任务通过新建一个异步线程去执行
 						- 任务的结果获取主要是依赖`wait()`和`notifyAll()`方法去做的。
 				- 继承关系图
+				  collapsed:: true
 					- ![future继承关系.png](../assets/future继承关系_1720663819341_0.png)
 				- 子类
 					- `FutureTask`
@@ -3072,37 +3268,56 @@
 						- 结合Callable来使用。
 						- FutureTask实现了Runnable和Future的接口，它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值。
 					- `CompletableFuture`
-						- 通过使用`get()`进行阻塞，使用`complete()`方法来通知阻塞线程继续执行，从而实现某项任务完成后通知另一个任务继续执行的效果。
-						- `supplyAsync()`方法会新启一个线程去执行任务，这个返回用来执行有返回值的任务，他还有第二个参数可以配置执行任务的线程池。
-						- `runAsync()`方法会新启一个线程去执行任务，这个返回用来执行有返回值的任务，他还有第二个参数可以配置执行任务的线程池。
-						- 通过`thenApply()`、`thenAccept()`方法可以实现流式调用。
-						- 通过`exceptionally()`方法去做异常捕获。
-						- 连续执行多个任务，通过`thenCompose`将上一步的执行结果进一步进行处理。
-						- 连续执行多个任务，通过方法 `thenCombine()`，首先完成当前任务和other任务的执行 。接着将这两者的执行结果传递给 BiFunction （该接口接收两 参数，并有一个返回值），并返回BiFunction实例的 CompletableFutur 对象。
-						- 通过`handle()`方法可以对任务执行的结果进行处理，包括执行结果和异常。
+						- 背景
+							- 使用`Future`获得异步执行结果时，要么调用阻塞方法`get()`，要么轮询看`isDone()`是否为`true`，这两种方法都不是很好，因为主线程也会被迫等待。
+						- 核心方法
+							- 异步任务结束，如果有返回值会回调`thenAccept()`方法
+							- 异步任务执行出现异常，会回调`exceptionally()`方法
+							-
+						- 其他方法
+							- 通过使用`get()`进行阻塞，使用`complete()`方法来通知阻塞线程继续执行，从而实现某项任务完成后通知另一个任务继续执行的效果。
+							- `supplyAsync()`方法会新启一个线程去执行任务，这个返回**用来执行有返回值的任务**，他还有第二个参数可以配置执行任务的线程池。默认使用的是ForkJoin线程池，创建的线程是守护线程，会随着主线程关闭而关闭。
+							- `runAsync()`方法会新启一个线程去执行任务，这个返回用来**执行没有返回值的任务**，他还有第二个参数可以配置执行任务的线程池。
+							- 通过`thenApply()`、`thenAccept()`方法可以实现流式调用。
+							- 通过`exceptionally()`方法去做异常捕获。
+							- 连续执行多个任务，通过`thenCompose`将上一步的执行结果进一步进行处理。
+							- 连续执行多个任务，通过方法 `thenCombine()`，首先完成当前任务和other任务的执行 。接着将这两者的执行结果传递给 BiFunction （该接口接收两 参数，并有一个返回值），并返回BiFunction实例的 `CompletableFuture`对象。
+							- 通过`handle()`方法可以对上一个任务执行的结果进行处理，包括他执行结果和异常。
+							- 通过`orTimeout()`设置任务执行的超时时间。
+							- 多个`CompletableFuture`串行执行，通过`thenApplyAsync()`方法去实现。
+							- 多个`CompletableFuture`并行执行，只要其中一个返回结果就结束操作，通过`anyOf()`方法去实现。
+							- 通过`complete()`或是``completeExceptionally()``指定任务的完成情况，通过`whencomplete()`封装任务执行完成后的逻辑。
+							  id:: 669bc7a6-6910-4947-9ddf-ba17e3be58b9
 						- 参谋文章：
 							- [CompletableFuture 使用详解](https://www.jianshu.com/p/6bac52527ca4)
+							- [使用CompletableFuture](https://www.liaoxuefeng.com/wiki/1252599548343744/1306581182447650)
 		- IO
 		  collapsed:: true
 			- 五种IO模型
+			  collapsed:: true
 				- 同步阻塞-Blocking I/O
+				  collapsed:: true
 					- 阻塞IO模型
 					  collapsed:: true
 						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
 						- 示例图
 						  ![阻塞IO.webp](../assets/阻塞IO_1685864250927_0.webp)
 					- IO复用模型（New IO，也就是Java中说的NIO）
+					  collapsed:: true
 						- 直白定义：为了避免来一个请求就新建一个线程，为了减少线程的数量。可以由一个线程监控多个网络请求（**我们后面将称为fd文件描述符，linux系统把所有网络请求以一个fd来标识**），这样就可以只需要一个或几个线程就可以完成数据状态询问的操作，当有数据准备就绪之后再分配对应的线程去读取数据，这么做就可以节省出大量的线程资源出来，这个就是IO复用模型的思路。
 						- 术语定义：进程通过将一个或多个fd传递给select，阻塞在select操作上，select帮我们侦测多个fd是否准备就绪，当有fd准备就绪时，select返回数据可读状态，应用程序再调用recvfrom读取数据。
 						- 多路复用的主要思想：通过一个线程或进程来管理多个网络连接，而不是为每个连接创建一个单独的线程或进程。
 						- 在Linux有三种实现模式
+						  collapsed:: true
 							- `select`：select线程会**轮训遍历**自己监听的网络请求，如果有一个网络请求的状态发生了变化，就会通知相应的线程过来处理。**能够监听的网络请求最多是1024个**。
 							- `poll`
 							- `epoll`：监听网络连接，为每个连接请求**设置回调函数**。如果有一个发生变化，就会**直接通知对应的线程执行回调函数**，能够监听的网络请求是没有上限的。
 						- 示例图
 						  ![io复用.webp](../assets/io复用_1685864464711_0.webp)
 				- 同步非阻塞-Non-blocking I/O
+				  collapsed:: true
 					- 非阻塞IO模型
+					  collapsed:: true
 						- 非阻塞IO就是当应用发起读取数据申请时，如果内核数据没有准备好会即刻告诉应用，不会让应用在这里等待。
 						- 示例图
 						  ![非阻塞IO.png](../assets/非阻塞IO_1685864787196_0.png)
@@ -3113,6 +3328,7 @@
 						- 示例图
 						  ![信号驱动的io模型.webp](../assets/信号驱动的io模型_1685865059269_0.webp)
 				- 异步非阻塞：异步IO-Async I/O
+				  collapsed:: true
 					- 通过观察我们发现，不管是IO复用还是信号驱动，我们要读取一个数据总是要发起两阶段的请求，第一次发送select请求，询问数据状态是否准备好，第二次发送recevform请求读取数据。
 					- 应用只需要向内核发送一个read 请求，告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
 					- 示例图
@@ -3121,6 +3337,7 @@
 				- 阻塞和非阻塞的区别在于：应用进程在询问内核数据准备情况时，是否需要等待。
 				- 用通俗的话来讲：IO操作就像我们吃饭，首先我们要看饭做好了没有，然后再去吃饭。
 				- 参考文章
+				  collapsed:: true
 					- [100%弄明白5种IO模型](https://zhuanlan.zhihu.com/p/115912936)
 					- [Java NIO浅析](https://tech.meituan.com/2016/11/04/nio.html)
 			- System.out/System.err
@@ -3131,15 +3348,12 @@
 			- 字节流
 			  collapsed:: true
 				- 特点
-				  collapsed:: true
 					- 所有字节流类都继承于 `InputStream` 和 `OutputStream` 。
 					- 不同类型字节流的使用方式差别不大，主要是构造方法有区别。
 					- 字节流应该用于最原始的I/O，其他流都是建立在字节流之上的。
 				- 派生类
-				  collapsed:: true
 					- 专门用于文件I/O的字节流类：*FileInputStream**和**FileOutputStream*
 				- 具体实践
-				  collapsed:: true
 					- JavaTrain/src/main/java/cn/bravedawn/io/bytestreams/CopyBytes.java
 				- 参考文章
 				  collapsed:: true
@@ -3345,32 +3559,42 @@
 						- `FileChannel`：从文件中读取和向文件写入
 						- `DatagramChannel`：可以通过UDP网络读取和写入数据
 						- `SocketChannel`：可以通过TCP网络读取和写入数据
+						  collapsed:: true
 							- 功能：用于将通道与 TCP（传输控制协议）网络套接字连接起来。它等同于网络编程中使用的 Java 网络套接字。
 						- `ServerSocketChannel`：监听TCP连接，对于每个传入的连接都会创建一个ScoketChannel
 				- ByteBuffer 缓冲器
+				  collapsed:: true
 					- 功能
+					  collapsed:: true
 						- Java NIO 缓冲区在与 NIO 通道交互时使用。如您所知，数据从通道读取到缓冲区，并从缓冲区写入通道。
 						- 缓冲区本质上是一个内存块，您可以在其中写入数据，然后可以稍后再次读取这些数据。
 					- 缓冲区的基本用法
+					  collapsed:: true
 						- 将数据写入缓冲区。
 						- 调用`buffer.flip()`方法，进行读写模式转换。
 						- 从缓冲区读取数据。
 						- 调用`buffer.clear()`或是`buffer.compact()`清理缓冲区。
 					- 核心参数（四个指针）
+					  collapsed:: true
 						- mark
+						  collapsed:: true
 							- 缓冲区的标记。
 						- capacity
+						  collapsed:: true
 							- 缓冲区的容量。
 							- 默认指向最后一个元素。
 						- position
+						  collapsed:: true
 							- 写入模式下，指向插入数据的下一个单元格，最大值为capacity-1。
 							- 读取模式下，指向下一个要读取数据的位置。
 							- 默认指向第一个元素。
 						- limit
+						  collapsed:: true
 							- 写入模式下，指的是写入缓冲区数据量的限制，等于capacity。
 							- 读取模式下，指的是从缓冲区可以读取数据量的限制。
 							- 默认指向最后一个元素。
 					- 缓冲区类型（视图缓冲器）
+					  collapsed:: true
 						- `ByteBuffer`：字节缓冲区
 						- `MappedByteBuffer`：MappedByte缓冲区
 						- `CharBuffer`：字符缓冲区
@@ -3380,15 +3604,19 @@
 						- `LongBuffer` ：长整型缓冲区
 						- `ShortBuffer` ：短整型缓冲区
 					- 核心方法
+					  collapsed:: true
 						- `allocate()`：分配缓冲区大小。
 						- 写入缓冲区
+						  collapsed:: true
 							- 通过channel写入数据到缓冲区：`channel.read(buffer)`
 							- 通过缓冲区的`put()`方法
 						- 读取缓冲区
+						  collapsed:: true
 							- 通过读取缓冲区的数据写入到channel中：`channel.write(buffer)`
 							- 通过缓冲区的`get()`方法
 						- `rewind()`：将position置为0，从而可以重新读取缓冲区的所有数据。
 						- `compact()`：
+						  collapsed:: true
 							- 如果缓冲区还有未读取的数据，想稍后再读，但需要先做一些写入操作，需要先调用compact()。
 							- compact() 将所有未读数据复制到 Buffer。然后，它设置为 position 最后一个未读元素之后的右边。该 limit 属性仍设置为 capacity ，就像 一样 clear() 。现在 已 Buffer 准备好写入，但您不会覆盖未读数据。
 						- `mark()`和`reset()`
@@ -3412,9 +3640,11 @@
 				- 分散和聚集
 				  collapsed:: true
 					- 分散读取
+					  collapsed:: true
 						- 概念：将通道中的数据读取到多个缓冲区中的读取操作。
 						- 适用场景：分散读取在移动到下一个缓冲区之前会填满上一个缓冲区，这意味着它适合**固定大小**的消息部分。
 					- 聚集写入
+					  collapsed:: true
 						- 概念：将多个缓冲区的数据写入到单个通道中的写入操作。
 						- 适用场景：如果缓冲区的容量为 128 字节，但仅包含 58 个字节，则只有 58 个字节从该缓冲区写入通道。因此，与分散读取相比，聚集写入适用于**动态调整大小**的消息部分。
 				- 通道间数据传输
@@ -3423,27 +3653,34 @@
 					- `fileChannel.transferFrom()`：将数据从fileChannlel传输到其他通道中
 					- `fileChannel.transferTo()`：将数据从源通道传输到fileChannel
 				- Selector 选择器
+				  collapsed:: true
 					- 功能
+					  collapsed:: true
 						- 一个多路复用器 Selector 可以同时轮询多个 Channel，并确定哪个通道已准备好进行通信，即读取或写入。
 						- 选择器用于使用单个线程处理多个通道。它只需要较少的线程来处理通道，对于操作系统来讲，可以节省线程之间的切换的高额成本。
 					- 运作原理
+					  collapsed:: true
 						- 基于事件驱动的 I/O 多路复用模型
 						- 通过 Selector 注册通道的事件，Selector 会不断地轮询注册在其上的 Channel。当事件发生时，比如：某个 Channel 上面有新的 TCP 连接接入、读和写事件，这个 Channel 若处于就绪状态，会被 Selector 轮询出来。Selector 会将相关的 Channel 加入到就绪集合中。通过 SelectionKey 可以获取就绪 Channel 的集合，然后对这些就绪的 Channel 进行响应的 I/O 操作。
 					- Selector 可以监听以下四种事件类型
+					  collapsed:: true
 						- `SelectionKey.OP_ACCEPT`：表示通道接受连接的事件，这通常用于 `ServerSocketChannel`。
 						- `SelectionKey.OP_CONNECT`：表示通道完成连接的事件，这通常用于 `SocketChannel`。
 						- `SelectionKey.OP_READ`：表示通道准备好进行读取的事件，即有数据可读。
 						- `SelectionKey.OP_WRITE`：表示通道准备好进行写入的事件，即可以写入数据。
 					- 关键方法
+					  collapsed:: true
 						- `int select()`：监控所有注册的 Channel，当它们中间有需要处理的 IO 操作时，该方法返回，并将对应的 SelectionKey 加入被选择的 SelectionKey 集合中，该方法返回这些 Channel 的数量。
 			- yaml文件读取
 			  collapsed:: true
 				- 参考文章：[How to Process YAML with Jackson](https://www.baeldung.com/jackson-yaml)
 			- try-with-resources语法糖
+			  collapsed:: true
 				-
 		- JVM
 		  collapsed:: true
 			- Java的命令行参数
+			  collapsed:: true
 				- `java -XX:+PrintCommandLineFlags -version`：打印默认的JVM参数，包括GC算法和堆空间大小。
 			- GC日志的格式和配置方式
 			  collapsed:: true
@@ -3457,6 +3694,7 @@
 					- Java虚拟机定义了在程序执行期间使用的各种运行时数据区域。其中一些数据区域是在Java虚拟机启动时创建的，只有在Java虚拟机退出时才会销毁。其他数据区域是每个线程。每个线程的数据区域在线程创建时创建，在线程退出时销毁。关于运行时数据区可以用以下图形来表示：
 					  ![JVM运行时数据区.png](../assets/JVM运行时数据区_1680092970600_0.png)
 					- 运行时数据区域
+					  collapsed:: true
 						- 程序计数器
 						  collapsed:: true
 							- 作用
@@ -3477,10 +3715,12 @@
 						  collapsed:: true
 							- 作用：用来存储应用系统创建的对象和数组。
 							- 区域划分
+							  collapsed:: true
 								- 区域图
 								  ![JVM堆的区域划分.webp](../assets/JVM堆的区域划分_1680093136228_0.webp)
 								- 元空间（Metadata Space，JDK1.8之前叫永久代）：像一些方法中的操作临时对象等，JDK1.8之前是占用JVM内存，JDK1.8之后直接使用物理内存
 								- 新生代（年轻代）：新对象和没达到一定年龄的对象都在年轻代
+								  collapsed:: true
 									- Eden Space：也叫伊甸区
 									- ((64375a7f-dd8b-41a8-939d-58a359b6fc4c)) ：两个存活区
 								- 老年代（Tenured Space）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大
@@ -3501,10 +3741,12 @@
 						- `-Xmn`：堆内新生代的大小。通过这个值也可以得到老生代的大小：-Xmx减去-Xmn。
 						- `-XX:SurvivorRatio`：Eden和Survivor区的空间比例
 						- `-XX:PermSize=10m`
+						  collapsed:: true
 							- 配置JVM初始分配的非堆内存，也就是方法区的内存大小
 							- 堆内存是开发人员用的，而非堆内存是虚拟机用的
 							- 在jdk8被废除
 						- `-XX:MaxPermSize=10m`
+						  collapsed:: true
 							- JVM最大允许分配的非堆内存，按需分配
 						- `-verbose:gc`：用于垃圾收集时的信息打印。
 						- `-XX:+PrintGCDetails`：打印垃圾回收详细日志。已废弃，建议使用`-Xlog:gc*`。
@@ -3512,10 +3754,13 @@
 						- `-XX:+UseSerialGC`：虚拟机运行在Clint模式下的默认值，打开此开关后，使用Serial + Serial Old的收集器组合进行内存回收。
 						- `XX:PretenureSizeThreshold=3145728`：意思是说超过**3M**的对象会直接被分配到老年代，这个参数没有单位，必须换算为字节为单位。这个参数只对Serial和ParNew收集器有用。
 					- JVM中如何设置Xmx和Xms的大小
+					  collapsed:: true
 						- 第一个问题：为什么要将Xms和Xmx设置为一样的值
+						  collapsed:: true
 							- JVM会在堆内存不足的时候进行扩容操作，在堆内存过大的时候缩小内存大小，这个过程中是需要开销的，也就是内存抖动。
 							- 具体细节可以参考文章：[jvm调优技巧 - 内存抖动 、Xms和Xmx参数为什么要设置相同的值](https://blog.csdn.net/qq_27184497/article/details/119052930)
 						- 第二个问题：这两个参数最大可以设置成多少
+						  collapsed:: true
 							- Xmx推荐设置为容器内存的50%，不能超过容器内存的80%。
 							- Xmx和Xms建议设置成一样的。
 					- JVM是Client模式还是Server模式，如何判断
@@ -3531,27 +3776,37 @@
 					- 虚拟机对象
 					  collapsed:: true
 						- 对象的创建
+						  collapsed:: true
 							- **类加载检查**：虚拟机遇到一条new指令时，首先将去检查这个指令的参数是否能在常量池中定位到一个类的符号引用，并且检查这个符号引用代表的类是否已被加载、解析和初始化过。如果没有，那必须先执行相应的类加载过程。
 							- **创建时机**：在类加载检查通过后，接下来虚拟机将为新生对象分配内存。对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。
 							- 内存空间分配的方式
+							  collapsed:: true
 								- 分配方式选择的原则：是由Java堆是否规整决定的。
 								- 指针碰撞
+								  collapsed:: true
 									- 适用场景：适用于Java堆的内存是规整的
 									- 具体实现：Java堆的内存已经使用过的放一边，还没用的放另一边，中间则是一个指针，若要为新的对象分配内存，则只需要将指针移动相应的位置即可。
 								- 空闲列表
+								  collapsed:: true
 									- 适用场景：适用于Java对的内存是不规整的
 									- 具体实现：使用一个列表来登记内存的使用情况，如果要为新的内存分配空间，只需要在列表上面找到一块大小合适的内存空间分配给这个对象，并更新列表上的记录。
 							- 内存分配的原子性问题
+							  collapsed:: true
 								- 背景：存在一种情况，要给对象A分配内存时，对象B也同时使用了原来要分给对象A的内存
 								- 解决方法
+								  collapsed:: true
 									- 方式一：虚拟机采用CAS配上重试机制保证内存分配操作的原子性
 									- 方式二：将内存分配的动作按照线程划分到不同的空间去进行，也就是说预先分配内存给线程，让线程自己在自己的内存空间上做分配，与其他线程互不影响。
 									  collapsed:: true
 										- 分配给线程的这块空间我们称之为：本地线程分配缓冲（Thread Local Allocation Buffer，简称TLAB）
 							- 对象的内存布局
+							  collapsed:: true
 								- 对象头
+								  collapsed:: true
 									- 第一部分：存储对象自身的运行时数据
+									  collapsed:: true
 										- 主要数据（Mark Word）
+										  collapsed:: true
 											- 哈希码
 											- GC分代年龄
 											- 锁状态标志
@@ -3561,6 +3816,7 @@
 										- 作用：通过这个指针来确定这个对象是那个类的实例
 									- 第三部分：记录数组长度的数据（还部分是**数组对象**特有的）
 								- 实例数据
+								  collapsed:: true
 									- 作用：该部分存储的是程序代码中所定义的各种类型的字段内容，也就是这个对象的属性字段数据
 								- 对齐填充
 								  collapsed:: true
@@ -3568,12 +3824,15 @@
 							- 对象的访问定位
 							  collapsed:: true
 								- 访问和定位堆中对象具体位置的方法
+								  collapsed:: true
 									- 使用句柄
+									  collapsed:: true
 										- 使用句柄，Java堆中会划分出一块内存来作为句柄池，reference中存储句柄的地址，句柄中存储对象的实例数据和类型数据的具体地址信息
 										  ![通过句柄访问对象.png](../assets/通过句柄访问对象_1677675705329_0.png)
 										- 优点：reference中存储的是稳定的句柄，对象被移动（垃圾回收时会移动对象）时只会改变句柄中的实例数据指针，而reference本身不需要修改。
 										- 缺点：访问对象需要经过两次指针定位，速度慢。
 									- 使用指针（Sun HotSpot虚拟机采用的这种方式）
+									  collapsed:: true
 										- Java堆中会直接存放访问类元数据的地址，reference存储的就直接是对象的地址
 										  ![通过指针访问对象.png](../assets/通过指针访问对象_1677675777115_0.png)
 										- 优点：速度快，节省了一次指针定位的时间开销。
@@ -3585,6 +3844,7 @@
 							- 具体的代码演示：jvm-demo/src/main/java/cn/bravedawn/jvm/memory/HeapOutOfMemoryError.java
 							- 将Xms和Xmx设置的值相同是为了避免堆自动扩展。
 							- 堆内存溢出问题的排查方法
+							  collapsed:: true
 								- 通过MAT工具查看堆转储快照，分析泄露对象到GC Roots的引用链，定位泄露代码的位置。
 								- 检查虚拟机堆参数（-Xmx和-Xms），与机器物理内存比较，看是否能够调大。
 								- 从代码上检查是否存在某些对象生命周期较长，持有状态时间过长的情况。
@@ -3614,11 +3874,13 @@
 				- 第三章 垃圾回收器
 				  collapsed:: true
 					- 相关概念
+					  collapsed:: true
 						- 根据对象的存活周期不同将内存分为新生代、老年代
 						- 新生代
 						  collapsed:: true
 							- 定义：年轻代用来存放新近创建的对象堆内存空间。由Eden区和两个Survivor区组成。
 							- 特点
+							  collapsed:: true
 								- 每次垃圾回收都会有大量的对象死去，只有少量存活
 								- 有老年代为新生代进行内存分配担保
 						- 老年代
@@ -3626,6 +3888,7 @@
 						  collapsed:: true
 							- 定义：老年代用来存放存活时间久的对象的堆内存空间。
 							- 特点
+							  collapsed:: true
 								- 对象存活率高
 								- 没有额外的内存为老年代进行内存分配担保
 						- 永久代
@@ -3638,6 +3901,7 @@
 							- 定义：CPU用于运行用户代码的时间与CPU总消耗时间的比值
 							- 公式：吞吐量 = 运行用户代码的时间 / (运行用户代码的时间 + 垃圾收集的时间)
 						- Ende区
+						  collapsed:: true
 							- **Eden Space**字面意思是伊甸园，对象被创建的时候首先放到这个区域，进行垃圾回收后，不能被回收的对象被放入到空的survivor区域。
 						- Survivor区
 						  id:: 64375a7f-dd8b-41a8-939d-58a359b6fc4c
@@ -3645,14 +3909,19 @@
 							- **Survivor Space**幸存者区，用于保存在eden space内存区域中经过垃圾回收后没有被回收的对象。
 							- Survivor有两个，分别为To Survivor、 From Survivor，这个两个区域的空间大小是一样的。
 							- 为什么要设置两个Survivor区
+							  collapsed:: true
 								- 首先在解释这个问题之前，我们思考一下为什么需要Survivor区？
+								  collapsed:: true
 									- 假设堆结构只有新生代和老年代，发生新生代GC后直接将存活的对象移动到老年代，这样老年代很快就满了，老年代满了就要触发Full GC，Full GC速度是比较慢的，这样做还会导致频繁的进行Full GC，从而影响程序运行的效率和耗时。
 									- 所以我们得到的第一条结论就是：**新生代GC之后存活的对象会先放到Survivor区，Survivor充当了新生代和老年代之间一个缓冲区，减少了被送到老年代的对象，进而减少Full GC的发生。只有当Survivor区的对象存活年龄达到阈值之后才会被移动到老年代。**
 								- 设置两个Survivor区的目的在于解决了Survivor的空间碎片化问题
+								  collapsed:: true
 									- 参考文章： [为什么新生代内存需要有两个Survivor区](https://blog.csdn.net/antony9118/article/details/51425581)
 						- Full GC/Major GC
+						  collapsed:: true
 							- 是指发生在老年代的GC，出现了Major GC，经常伴随着一次Minor GC，回收速度比较慢。
 						- Minor GC
+						  collapsed:: true
 							- 也称为新生代GC，**新生代(新生代分为一个 Eden区和两个Survivor区)的垃圾收集叫做 Minor GC**。Minor GC非常频繁，一般回收速度也很快。
 							- 新生代的GC垃圾回收的对象是Eden区和一个Survivor区
 					- 什么是垃圾回收：简单说就是内存中已经不在被使用到的内存空间就是垃圾。
@@ -3660,13 +3929,16 @@
 					  id:: 640442e6-c01a-4193-a8c4-d43829e17969
 					  collapsed:: true
 						- 引用计数法
+						  collapsed:: true
 							- 原理：给对象添加一个引用计数器，有访问就加1，引用失效就减1。
 							- 优点：实现简单、效率高
 							- 缺点：不能解决对象之间循环引用的问题
 						- 可达性分析算法（根搜索算法/GC Root Tracing）
 						  id:: 64044e66-3742-4a9f-b08c-e25b45d4c214
+						  collapsed:: true
 							- 从根（GC Roots）节点向下搜索对象节点，搜索走过的路径称为引用链（Reference Chain），当一个对象到根之间没有连通的话，则该对象不可用。
 							- Java语言中可作为GC Roots的对象包括：
+							  collapsed:: true
 								- 虚拟机栈（栈帧局部变量）中引用的对象；
 								- 方法区类静态属性引用的对象；
 								- 方法区中常量引用的对象；
@@ -3690,10 +3962,13 @@
 									- 设置虚引用的唯一目的，**是能在这个被虚引用关联的对象被收集器回收时收到一个系统通知**。
 									- jdk1.2之后，提供了PhantomReference类来实现虚引用。
 						- 方法区的回收
+						  collapsed:: true
 							- 方法区回收的主要内容
+							  collapsed:: true
 								- 废弃常量
 								- 废弃无用的类
 							- 要求虚拟机具备类卸载功能的使用场景，来保证 ((64045857-a3d0-48e0-b083-94db4c2e7263)) 不会溢出
+							  collapsed:: true
 								- 在大量使用cglib、反射、动态代理等字节码框架
 								- 动态生成JSP以及OSGi等频繁自定义ClassLoader的场景
 					- 垃圾回收算法
@@ -3790,15 +4065,19 @@
 							- 目的：解决在程序执行时，线程因没有分配到CPU时间，从而无法响应JVM的中断请求，导致无法进行GC。
 							- 定义：安全区域是指在一段代码片段中，引用关系不会再发生改变，这个区域的任何位置开始GC都是安全的。
 					- 垃圾收集器
+					  collapsed:: true
 						- 垃圾收集器是内存回收的具体实现。
 						- 垃圾收集器按照收集内存区域的不同，分为老年代收集器和新生代收集器两种。两种不同的收集器可以组合使用
 						- 垃圾收集器的选择
+						  collapsed:: true
 							- 停顿时间短
+							  collapsed:: true
 								- 这种收集器适合需要和用户交互的程序使用，良好的响应速度能提升用户的体验
 							- 吞吐量大
 							  collapsed:: true
 								- 这种收集器适合高效利用CPU时间，尽快完成运算任务的虚拟机，适合后台运算但不需要太多交互的任务
 						- 新生代收集器
+						  collapsed:: true
 							- Serial收集器
 							  collapsed:: true
 								- 是一个单线程收集器
@@ -3808,12 +4087,14 @@
 								- 使用场景：虚拟机运行在Client模式
 								- 优点：简单高效
 							- ParNew收集器
+							  collapsed:: true
 								- Serial收集器的多线程版本
 								- 是一个并发收集器
 								- 采用**复制算法**
 								- 除Serial收集器外，只有他能与CMS收集器配合使用
 								- 使用场景：虚拟机运行在Server模式
 							- Parallel Scavenge 收集器
+							  collapsed:: true
 								- 该收集器的目标是达到一个可控制的 ((6405ef3b-98b6-4356-bc2e-85a1a75e8dc0))
 								- 使用场景：适合后台运算而不需要太多交互的任务
 								- 采用**复制算法**
@@ -3835,6 +4116,7 @@
 										- 该参数打开之后，就不需要设置新生代大小（-Xmn）、Eden和Survivor区的比例（-XX:SurvivorRatio）、晋升老年代对象大小（-XX:PertenureSizeThreshold）等细节参数
 										- 这个参数用于 GC自适应的调节策略
 						- 老年代收集器
+						  collapsed:: true
 							- Serial Old收集器
 							  collapsed:: true
 								- Serial收集器的老年代版本
@@ -3882,6 +4164,7 @@
 						- G1收集器
 						  collapsed:: true
 							- 特点
+							  collapsed:: true
 								- 并行与并发，以获取最短回收停顿时间为目标的收集器
 								- 分代收集，分代收集的概念在G1收集器中仍然保留
 								- 空间整合，整体上采用**标记-整理**算法，局部使用**复制**算法，意味着G1在运行期间不会产生内存空间碎片
@@ -3913,7 +4196,9 @@
 									- 对各个Region的回收价值和成本进行排序，根据用户期望的停顿时间制定回收计划。
 									- 需要停顿线程，也可以并发执行
 						- GC日志
+						  collapsed:: true
 							- 主要内容
+							  collapsed:: true
 								- GC发生的时间
 								- 垃圾收集的停顿类型
 								- 垃圾收集的区域名称
@@ -3928,39 +4213,49 @@
 						  collapsed:: true
 							- 每一个栈帧的内存分配大小，基本上在类结构确定下来的时候就是已知的，大体上可以认为是编译期可知的。
 						- 对象优先分配到Eden区
+						  collapsed:: true
 							- 大多数情况下，对象在新生代Eden区和中分配。当Eden区没有足够空间进行分配时，虚拟机将会发起一次Minor GC。（针对Serial+Serial Old收集器做的演示）
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.MinorGCDemo
 						- 大对象直接进入老年代
+						  collapsed:: true
 							- 大对象：就是需要大量连续内存空间的Java对象，典型的是长字符串和数组。
 							- 虚拟机提供了一个配置`-XX:PretenureSizeThreshold=3145728`，意思是说超过**3M**的对象会直接被分配到老年代
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.BigObjectGCDemo
 						- 长期存活的对象将进入老年代
+						  collapsed:: true
 							- 虚拟机采用了分代收集的思想来管理内存，对于经过多次垃圾回收还没有被回收的对象我们称为长期存活的对象
 							- 若对象在Eden区经过一次Minor GC就存活下来且能被Survivor的大小容纳，我们将其年龄定为1。此后该对象在Survivor区中每经过一次Minor GC且没有被回收，我们将其年龄加1
 							- 虚拟机提供了一个配置参数用来设置对象晋升到老年代的阈值。`-XX:MaxTenuringThreshold=15`，这个值默认是15，这个配置的意思就是说对象只有年龄经过15岁才能被移动到老年代
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.MaxTenuringGCDemo
 						- 动态对象年龄判定
+						  collapsed:: true
 							- 除了上面提到的“长期存活对象将进入老年代”这种算法外。如果在Survivor空间中相同年龄的所有对象的大小总和大于Survivor空间的一半，则年龄大于或等于这个年龄的对象就可以直接进入老年代，无需等到`MaxTenuringThreshold`设置的阈值。
 							- 具体实践：jvm-demo:cn.bravedawn.jvm.gc.DynamicAgeJudgeDemo
 						- 空间分配担保
+						  collapsed:: true
 							- 在jdk6 uptate 24之后，`-XX:HandlePromotionFailure=false`已经不起作用了，只要老年代的连续空间大于**新生代对象总大小**或者**大于历次晋升的平均大小**就会进行Minor GC，否则将进行Full GC。
 							- 历次晋升的平均大小指的是虚拟机统计的之前每一次垃圾回收晋升到老年代对象容量的平均值大小。
 				- 第四章 虚拟机性能监控、故障处理工具
 				  collapsed:: true
 					- 基础故障处理工具
+					  collapsed:: true
 						- jps：虚拟机进程状况工具
 						  collapsed:: true
 							- 功能：可以列出正在运行的虚拟机进程，并显示虚拟机的执行主类名称以及这些进程的本地虚拟机唯一ID（LVMID，Local Virtual Machine Identifier）
 							- 命令格式：`jps [options] [hostid]`
 							- 主要选项
+							  collapsed:: true
 								- `-q`：只输出LVMID，省略主类的名称
 								- `-m`：输出虚拟机进程启动传递给主类main()函数的参数
 								- `-l`：输出主类的全名，如果进程执行的是JAR包，则输出JAR路径
 								- `-v`：输出虚拟机进程启动时的JVM参数
 							- 值得注意的
+							  collapsed:: true
 								- LVMID与操作系统的进程ID（PID，Process Identifier）是一致的
 						- jstat：虚拟机统计信息监视工具
+						  collapsed:: true
 							- 功能
+							  collapsed:: true
 								- 监视虚拟机各种运行状态信息的命令行工具
 								- 可以显示本地或是远程虚拟机进程中的类加载、内存、垃圾收集、即时编译等运行时数据
 								- 没有GUI，只提供**纯文本控制台的打印输出**
@@ -4011,24 +4306,25 @@
 							- 值得注意的
 							  collapsed:: true
 								- jinfo命令的部分功能在windows上是受限的
-						- jmap：Java内存映像工具
+						- jmap：Java内存映像工具（JVM Memory Map）
 						  collapsed:: true
 							- 功能：用于生成堆转储快照（一般称为heapdump或者dump文件）
 							- 相同功能的工具
-							  collapsed:: true
 								- 一是添加VM参数：`-XX:+HeapDumpOnOutOfMemoryError`参数，在发生OOM的时候会生成dump文件
 								- 二是添加VM参数：`-XX:+HeapDumpOnCtrlBreak参数`，可以使用[Ctrl]+[Break]键让虚拟机生成dump文件或者是在Linux系统中使用`kill -3`，发送进程退出信号让虚拟机生成dump文件
 							- 值得注意的
-							  collapsed:: true
 								- jinfo命令的部分功能在windows上是受限的
 						- jhat：虚拟机堆转储快照分析工具（JVM Heap Analysis Tool）
+						  collapsed:: true
 							- 功能：与jmap搭配使用，来分析堆转储快照文件，也就是dump文件。jhat内置了一个微型的HTTP/Web的服务器，分析结果可以在浏览器中查看。
 							- 不推荐使用这个软件，因为易用性和分析能力有限
 						- jstack：Java堆栈跟踪工具（Stack Trace for Java）
 						  id:: 643e8e8a-fc31-4ad9-a376-abf958152726
+						  collapsed:: true
 							- 功能：用于生成虚拟机当前时刻的线程快照（一般称之为threadump或者javacore文件）。
 							- 线程快照：当前虚拟机每一条线程正在执行的方法堆栈的集合，生成线程快照的目的通常是为了定位线程出现长时间停顿的原因，比如线程间死锁、死循环、请求外部资源导致的长时间挂起等。
 						- java：java运行工具，用于运行Class文件或JAR文件
+						  collapsed:: true
 							- 示例
 							    collapsed:: true
 								- `java -cp .;commons-logging-1.2.jar Main`：注意到传入的classpath有两部分：一个是`.`，一个是commons-logging-1.2.jar，用`;`分割。`.`表示当前目录，如果没有这个`.`，JVM不会在当前目录搜索Main.class，就会报错。
@@ -4037,13 +4333,16 @@
 								- `-cp`：**用于运行带有参数的不可执行的JAR**，`java -cp jar-file-name main-class-name [args...]`。这里我们需要提供主类，主类里面使用了JAR的代码。
 								- `-jar`：**用于运行带参数的可执行JAR**，`java -jar jar-file-name args1 args2...`。在调用可执行 JAR 时，我们不需要在命令行上指定主类名。我们只需在 JAR 文件名后添加参数。
 						- javac：用于Java编程语言的编译器
+						  collapsed:: true
 							- 示例
 							  collapsed:: true
 								- `javac -cp commons-logging-1.2.jar Main.java`：用javac编译Main.java，编译的时候要指定classpath，不然编译器找不到我们引用的org.apache.commons.logging包。
 						- javap：Java字节码分析工具
 						- javadoc：Java的API文档生成工具
 					- 可视化故障处理工具
+					  collapsed:: true
 						- JConsole：Java监控与管理控制平台
+						  collapsed:: true
 							- 全称是：Java Monitoring and Management Console
 							- 在命令行里面输入`jconsole`就可以启动JConsole了
 							- 内存监控
@@ -4053,76 +4352,103 @@
 							- 线程监控
 							  collapsed:: true
 								- 具体实践
+								  collapsed:: true
 									- 线程等待的代码演示：jvm-demo:cn.bravedawn.jvm.tool.JConsoleTestCase2
 									- 死锁的代码演示：jvm-demo:cn.bravedawn.jvm.tool.SynAddRunnable
 				- 第六章 类文件结构
 				- 第七章 虚拟机类的加载机制
 				  collapsed:: true
 					- 类加载的时机
+					  collapsed:: true
 						- 主动使用
+						  collapsed:: true
 							- 主动引用的时机
 						- 被动使用
 					- 类加载的过程
+					  collapsed:: true
 						- 加载
 						- 连接
+						  collapsed:: true
 							- 验证
 							- 准备
 							- 解析
 						- 初始化
 					- 类加载器
+					  collapsed:: true
 						- `ClassLoader`的重要方法
+						  collapsed:: true
 							- `loadClass(String name)`
+							  collapsed:: true
 								- loadClass() 方法是加载目标类的入口，它首先会查找当前 ClassLoader 以及它的双亲里面是否已经加载了目标类，如果没有找到就会让双亲尝试加载，如果双亲都加载不了，就会调用 findClass() 让自定义加载器自己来加载目标类。
 							- `findClass(String name)`
+							  collapsed:: true
 								- `ClassLoader` 的 `findClass()` 方法是需要子类来覆盖的，不同的加载器将使用不同的逻辑来获取目标类的字节码。
 							- `defineClass(String name, byte[] b, int off, int len)`
+							  collapsed:: true
 								- 将字节码文件的字节数组转换为JVM内部的`java.lang.Class`对象。
 						- 类和类加载器的关系
 						- 自定义类加载器
+						  collapsed:: true
 							- 复写`ClassLoader`的`findClass`方法
 							- 具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/classloader/MyClassLoaderTest.java
 						- 双亲委派模型
+						  collapsed:: true
 							- JDK9之后
+							  collapsed:: true
 								- JDK 9中虽然仍然维持着三层类加载器和双亲委派的架构，但类加载的委派关系也发生了变动。当平台及应用程序类加载器收到类加载请求，在委派给父加载器加载前，要先判断该类是否能够归属到某一个系统模块中，如果可以找到这样的归属关系，就要优先委派给负责那个模块的加载器完成加载。
 						- 破坏双亲委派模型
+						  collapsed:: true
 							- 第一次：Java1.2引入双亲委派模型，为兼容Java1.1就存在的ClassLoader抽象类和类加载器，在ClassLoader中新增了findClass()方法。
 							- 第二次：因SPI机制，父的类加载器需要获取子的类加载器，去加载厂商实现的类，提出了线程上下文加载器。
 							- 第三次：实现热部署，OSGi。
 							- 第四次：JDK9修改了双亲委派的规则。
 						- 类加载器的应用
+						  collapsed:: true
 							- 获取一个包下面所有的类
+							  collapsed:: true
 								- 具体实现：cn.bravedawn.jvm.classloader.ClassUtil
 								- 参考文章：[Java获取指定package下所有类](https://blog.csdn.net/yuhentian/article/details/110007378)
 						- 模块化下的类加载器
+						  collapsed:: true
 							- JDK9，扩展类加载器（Extension Class Loader）被平台类加载器（Platform Class Loader）取代
 							- 平台类加载器和应用程序类加载器都不再派生自`java.net.URLClassLoader`
 							- 现在启动类加载器、平台类加载器、应用程序类加载器全都继承于`jdk.internal.loader.BuiltinClassLoader`，在`BuiltinClassLoader`中实现了新的模块化架构下类如何从模块中加载的逻辑，以及模块中资源可访问性的处理。
 							- 启动类加载器现在是在Java虚拟机内部和Java类库共同协作实现的类加载器。
 						- 类加载器的功能
+						  collapsed:: true
 							- 一保障了Java程序的安全稳定运行
+							  collapsed:: true
 								- 基于双亲委派机制，自底向上的类加载模式保证了一个类只能被加载一次，且分层的类加载器设计划分类类加载器的执行范围，避免了程序被恶意篡改
 							- 二可以通过自定义类加载器，实现不同应用程序之间依赖的分隔管理，互不干扰。
 				- 第八章 虚拟机字节码执行引擎
 				  collapsed:: true
 					- 虚拟机执行引擎执行字节码的方式
+					  collapsed:: true
 						- 解释执行：通过解释器执行
 						- 编译执行：通过即时编译器生成本地代码执行
 					- 栈帧
+					  collapsed:: true
 						- 背景
+						  collapsed:: true
 							- Java虚拟机以方法作为最基本的执行单元。
 						- 定义
+						  collapsed:: true
 							- 是用于支持虚拟机进行方法调用和方法执行的数据结构
 							- 是虚拟机运行时数据区的虚拟机栈（Virtual Machine Stack）的栈元素。
 							- 可以理解成Java中的一个方法就是一个栈帧。
 						- 作用
+						  collapsed:: true
 							- 存储方法的局部变量表、操作数栈、动态连接和方法返回地址等信息
 							- 每一个方法从调用开始至执行完成的过程，都对应一个栈帧在虚拟机栈里面从入栈到出栈的过程
 						- 结构
+						  collapsed:: true
 							- 局部变量表
+							  collapsed:: true
 								- 定义：一组变量值存储空间。
 								- 作用：用于存放方法参数和方法内部定义的局部变量。
 								- 大小：Class文件Code属性的`max_locals`数据项确定了该方法局部变量表的最大容量。
 								- Slot-变量槽
+								  collapsed:: true
 									- 每个Slot占用32位长度的内存空间。其实虚拟机规范中并没有明确规定一个变量槽的具体大小，这个变量槽的大小可以根据处理器、操作系统和虚拟机的实现不同而发生变化。
 									- Java中占用32位以内的数据类型有：boolean, byte, char, short, int, float, reference和returnAddress。
 									  collapsed:: true
@@ -4149,42 +4475,55 @@
 											- 索引为0的Slot默认是用来传递方法所属对象实例的引用，也就是`this`。
 									- 对于一个存储64位数据类型的两个相邻Slot，不允许单独访问其中一个。
 								- 使用
+								  collapsed:: true
 									- 通过索引定位的方式访问局部变量表
 									- 索引从0开始，直至局部变量表的最大容量
 									- 对于32位数据类型的变量，索引n就代表了使用第n个变量槽
 									- 对于64位数据类型的变量，则会同时使用索引为n和n+1的变量槽，虚拟机不允许单独访问两个相邻变量槽的某一个。
 									- 在方法调用时，虚拟机将会使用局部变量表中的参数值向方法参数列表传值，即实参到形参的传递。若是实例方法（非static修饰的方法），局部变量变量槽索引为0的位置存储的是对象实例的引用，也就是`this`这个变量
 								- 特点
+								  collapsed:: true
 									- 局部变量表建立在线程的堆栈上，是线程私有的数据，故对Slot的对写并无原子性的要求，并不会引起数据安全问题。
 									- 变量槽slot是可以复用的，如果局部变量表中定义的变量已经离开了他的作用域，那么这个变量的槽位就可以被新的变量所使用。
 									- 方法中的局部变量必须要手动赋予初值，否则代码是无法运行的。
 							- 操作数栈
+							  collapsed:: true
 								- 定义：是一个先进后出的栈，栈的最大深度定义在Code属性的max_stacks数据项中。32位数据类型所占的栈容量是1，64位数据类型所占的栈容量是2。
 								- 作用
+								  collapsed:: true
 									- 用来存放方法运行期间各个指令操作的数据。
 									- 在执行方法调用时通过操作数栈进行方法间参数的传递。
 								- 特点
+								  collapsed:: true
 									- 操作数栈中元素的数据类型必须和字节码指令的顺序严格匹配。
 									- 虚拟机在实现栈帧的时候可能会做一些优化，两个存在调用关系的方法，虚拟机会让两个栈帧的操作数栈出现部分重叠的区域，以存放公用数据，无需进行额外的参数复制传递。
 							- 动态连接
+							  collapsed:: true
 								- 定义：在程序运行期间，将常量池中的符号引用转换为直接引用，这个过程称为动态连接
 								- 作用：每个栈帧持有一个指向运行时常量池中的该栈帧所属方法的引用，通过这个引用以支持方法调用过程的动态连接。
 								- 内容
+								  collapsed:: true
 									- 静态解析：类加载的时候（连接的解析阶段），符号引用就转化为直接引用。
 									- 动态连接：运行期间转换为直接引用。
 							- 方法返回地址
+							  collapsed:: true
 								- 定义：方法执行后返回的地址，方法退出的过程实际上就是当前栈帧出栈。
 								- 退出方式
+								  collapsed:: true
 									- 正常调用完成
+									  collapsed:: true
 										- 执行引擎遇到任意一个方法返回的字节码指令，可能会有返回值传递给方法调用者，这种退出方式称为正常调用完成
 									- 异常调用完成
+									  collapsed:: true
 										- 方法执行过程中遇到了异常，且该异常在方法中没有得到妥善的处理
 										- 无论是虚拟机内部的异常，或者是使用athrow指令抛出的异常，只要是本地方法异常表中没有搜索到匹配的异常处理器，就会导致方法退出
 								- 退出时需要执行的操作
+								  collapsed:: true
 									- 恢复上层方法的局部变量表和操作数栈
 									- 把返回值（如果有的话）压入调用者栈帧的操作数栈
 									- 调整PC计数器的值以指向法调用指令后面的一条指令
 					- 方法调用
+					  collapsed:: true
 						- 背景
 						  collapsed:: true
 							- Class文件的编译过程不包含传统编译过程中的连接步骤，一切方法调用在Class文件里面存储的都只是符号引用，而不是方法在实际运行时内存布局中的**入口地址**（相当于之前说的直接引用）。
@@ -4192,28 +4531,35 @@
 						- 方法调用形式
 						  collapsed:: true
 							- 解析调用
+							  collapsed:: true
 								- 定义
 								  collapsed:: true
 									- 方法在程序运行之前就有一个可确定的调用版本，方法的调用版本在运行期是不可改变的，我们称这类方法的调用过程为**解析**（Resolution）
 									- 解析调用一定是个静态的过程，在编译期间就完全确定，在**类加载**的**解析阶段**就会把涉及的符号引用全部转变为明确的直接引用，不必延迟到运行期再去完成。
 								- JVM提供的方法调用的字节码指令
+								  collapsed:: true
 									- `invokestatic`。用于调用静态方法。
 									- `invokespecial`。用于调用实例构造器<init>()方法、私有方法和父类中的方法。
 									- `invokevirtual`。用于调用所有的虚方法。
 									- `invokeinterface`。用于调用接口方法，会在运行时再确定一个实现该接口的对象。
 									- `invokedynamic`。先在运行时动态解析出调用点限定符所引用的方法，然后再执行该方法。前面4条调用指令，分派逻辑都固化在Java虚拟机内部，而invokedynamic指令的分派逻辑是由用户设定的引导方法来决定的。
 								- 非虚方法
+								  collapsed:: true
 									- 定义：在类加载的时候就会把符号引用解析为直接引用，这些方法称为非虚方法。
 									- 五种非虚方法
+									  collapsed:: true
 										- 使用invokestatic调用的方法
+										  collapsed:: true
 											- 类的静态方法
 										- 使用invokespecial调用的方法
+										  collapsed:: true
 											- 实例方法
 											- 实例构造器方法
 											- 父类方法
 										- 被final修饰的方法（该方法是通过invokevirtual指令调用的）
 								- 虚方法：与非虚方法相反的，就是虚方法
 							- 分派
+							  collapsed:: true
 								- 定义：方法的调用版本确认的过程，我们称之为分派。
 								- 名称解释
 								  collapsed:: true
@@ -4221,6 +4567,7 @@
 									- 实际类型（或者运行时类型）：在代码`Human man = new Man()`中，Man称为动态类型，即运行期才可以确认的类型。
 									- 宗量：方法的接收者与方法的参数统称为方法的宗量。
 								- 静态分派
+								  collapsed:: true
 									- 定义：所有依赖**静态类型**来定位方法执行版本的分派动作称为**静态分派**。
 									- 静态分派发生在**编译阶段**。
 									- 静态方法会在编译期确定、在类加载期就进行解析，而静态方法显然也是可以拥有重载版本的，选择重载版本的过程也是通过静态分派完成的。
@@ -4230,10 +4577,12 @@
 										- 在方法重载时，方法参数的类型会按照char->int->long->float->double->Character->....(相关类型实现的接口或父类)->Object->可变长参数，来进行静态分派。
 										- 在单方法参数中成立的自动转型，在变长参数中是不成立的。
 								- 动态分派
+								  collapsed:: true
 									- 定义：在运行期根据**实际类型**确定方法执行版本的分派过程称为**动态分派**。
 									- 典型应用：重写
 									- 动态分派发生在**虚拟机运行阶段**。
 									- `invokevirtual`指令的执行逻辑
+									  collapsed:: true
 										- 1）找到操作数栈顶的第一个元素所指向的对象的实际类型，记作C。
 										- 2）如果在类型C中找到与常量中的描述符和简单名称都相符的方法，则进行访问权限校验，如果通过则返回这个方法的直接引用，查找过程结束；不通过则返回java.lang.IllegalAccessError异常。
 										- 3）否则，按照继承关系从下往上依次对C的各个父类进行第二步的搜索和验证过程。
@@ -4250,9 +4599,11 @@
 										- 二是方法参数
 									- Java语言的动态分派属于**单分派类型**，只看方法的接受者。
 								- 虚方法表
+								  collapsed:: true
 									- 背景：动态分派比较消耗性能，大部分的代码实现不会有很多的动态分派
 									- 具体内容：使用虚方法表来代替元数据查找，提高性能
 									- 特点
+									  collapsed:: true
 										- 某个方法如果在子类中没有被重写，方法的入口地址与父类方法的是一致的。
 										- 若子类重写了父类方法，那么子类方法表中的地址会替换为子类实现版本的入口地址。
 					- 动态类型语言支持
@@ -4275,34 +4626,42 @@
 							- Java方法的符号引用在编译时产生，而动态类型语言只有在运行期才能确定方法的接收者。
 							- 最严重的性能瓶颈是在于动态类型方法调用时，由于无法确定调用对象的静态类型，而导致的**方法内联**无法有效进行。
 						- MethodHandle机制
+						  collapsed:: true
 							- 背景：Java没有办法单独的把一个函数作为参数进行传递。
 							- 功能：类似于方法指针或者委托的方法别名，从而实现将一个函数作为参数进行传递。
 							- 与Reflection的区别
+							  collapsed:: true
 								- 两者都是在模拟方法调用，Reflection是模拟Java代码层次的方法调用，而MethodHandle是模拟字节码层次的方法调用。
 								- Reflection是重量级的，包含了Java对象的全面映像，也就是说能够获取多全量的对象信息；而MethodHandle只包含执行该方法的相关信息，是轻量级的。
 								- MethodHandle是针对字节码方法执行调用的模拟，可以利用虚拟机实现相关优化
 								- Reflection是站在Java语言角度来看的，而MethodHandle是服务于所有运行在Java虚拟机之上的语言的
 						- invokedynamic指令
+						  collapsed:: true
 							- 动态调用点：包含`invokedynamic`指令的位置。
 							- 功能：该指令的作用与MethodHandle的作用类似。为了解决原有4条”invoke*“指令方法分派规则完全固化在虚拟机中的问题，把如何将查找目标方法的决定权从虚拟机转嫁到具体的用户代码之中，让用户有更高的自由度。
 							- 特点
+							  collapsed:: true
 								- `invokedynamic`与之前四种invoke*方法不同支出在于分派逻辑不是虚拟机决定，而是由程序员决定。
 								- `invokedynamic`指令是服务于运行在Java虚拟机的其他动态类型语言的，不用于Java
 							- INDY工具：将字节码转换为使用invokedynamic的简单工具。
 						- 实战：修改方法的分派规则
+						  collapsed:: true
 							- 通过MethodHandle去修改方法的分派规则，使得子类能够访问其祖父类的方法。
 							- 具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/execution_engine/ChangeAllotTest2.java
 					- 基于栈的字节码解释执行引擎
+					  collapsed:: true
 						- 执行方式
 						  collapsed:: true
 							- 解释执行与编译执行，是计算机编程语言的两种执行方式。
 							- 编译执行（编译器）：将一段程序直接翻译成机器码(对于C/C++这种非跨平台的语言)或者中间码(Java这种跨平台语言，需要JVM再将字节码编译成机器码)。编译执行是直接将所有语句都编译成了机器语言，并且保存成可执行的机器码。执行的时候，是直接进行执行机器语言，不需要再进行解释/编译。
 							- 解释执行（解释器）：在执行程序时，再将中间码（例如Java的字节码通过JVM解释成机器码）一行行的解释成机器码进行执行。这个运行过程是解释一行，执行一行。
 							- 解释执行和编译执行的根本区别
+							  collapsed:: true
 								- 根本区别是运行时，解释型需要将程序解释成机器码来运行，并没有保存机器码，是在运行过程中进行。
 								- 编译型在运行之前就已经让编译器给程序编译成机器码了。
 								- 这也是为什么编译运行会比解释运行快的根本原因。
 							- 参考文章
+							  collapsed:: true
 								- [3分钟搞懂什么是编译执行和解释执行《轻松搞定大厂面试》](https://cloud.tencent.com/developer/article/1894284)
 						- Java是一个半独立的编译器
 						  collapsed:: true
@@ -4311,20 +4670,26 @@
 						- 基于栈的指令集
 						  collapsed:: true
 							- 特点
+							  collapsed:: true
 								- 大部分指令是零地址指令
 								- 依赖操作数栈进行工作
 							- 优点
+							  collapsed:: true
 								- 可移植性强
 								- 代码紧凑，编译器实现简单
 							- 缺点
+							  collapsed:: true
 								- 指令数量多于寄存器指令集和频繁的访问内存，造成了运行较慢
 						- 基于寄存器的指令集
 						  collapsed:: true
 							- 特点
+							  collapsed:: true
 								- 依赖寄存器进行数据的访问和存储
 							- 缺点
+							  collapsed:: true
 								- 因为寄存器由硬件提供，所以他受硬件的约束
 							- 优点
+							  collapsed:: true
 								- 运行快
 						- 基于栈的解释执行过程
 						  collapsed:: true
@@ -4332,25 +4697,33 @@
 				- 第九章 类加载及执行子系统的案例与实战
 				  collapsed:: true
 					- 类加载器在Tomcat中的使用
+					  collapsed:: true
 						- 一个功能健全的web服务器需要解决的4个问题
+						  collapsed:: true
 							- 1.**部署在同一个服务器上的两个Web应用程序所使用的Java类库可以实现相互隔离**。比如A程序依赖了common-lang.3.0的StringUtils类，B程序依赖了Common-lang.3.1的StringUtils类，要保证A程序只能用3.0的StringUtils类，B程序只能使用3.1的StringUtils类。
 							- 2.**部署在同一个服务器上的两个Web应用程序所使用的Java类库可以互相共享**。这句话其实和第一点是相反的，比如A程序使用了Spring4.0，B程序也使用了Spring4.0，为了节省虚拟机方法区的内存占用，要实现A和B程序可以共用一份Spring类库的内存资源。
 							- 3.**服务器需要尽可能地保证自身的安全不受部署的Web应用程序影响**。比如说Tomcat就是纯Java实现的，我们要保证服务器使用的Java类库要和应用程序使用的是分离的，如果同一份类库资源，如果用户程序的类库遭到恶意篡改，势必会导致服务器无法正常运转。
 							- 4.**支持JSP应用的Web服务器，十有八九都需要支持HotSwap功能**。比如你修改了JSP页面的一个展示逻辑，保存文件之后刷新浏览器你就会发现你的展示逻辑生效了，中间并没有重启服务，这里的逻辑是服务器会为每一个JSP文件生成一个类加载器，JSP文件其实就是一个Servlet类，当服务器检测到JSP文件发生了变动，他会为修改后的JSP文件重新生成类加载器，并用这个类加载器去替换原有的类加载器，从而实现了热更新。
 						- Tomcat的架构设计
+						  collapsed:: true
 							- Common ClassLoader
+							  collapsed:: true
 								- 负责加载服务器和web应用程序共同使用的类库
 								- 对应common目录
 							- Catalina ClassLoader
+							  collapsed:: true
 								- 负责加载服务器自己使用的类库
 								- 对应server目录
 							- Shared ClassLoader
+							  collapsed:: true
 								- 负责加载所有web应用程序使用的类库
 								- 对应shared目录
 							- WebApp ClassLoader
+							  collapsed:: true
 								- 负责加载当前web应用程序使用的类库
 								- 对应webApp/WBE-INF目录
 							- JSP ClassLoader
+							  collapsed:: true
 								- 负责加载一个JSP页面的类
 						- Tomcat6之后简化了目录，将common、server、shared合并到了/lib目录，使用Common ClassLoader加载。
 						- 只有指定了`tomcat/conf/catalina.properties`配置文件的`server.loader`和`share.loader`项后才会真正建立Catalina类加载器和Shared类加载器的实例，否则会用到这两个类加载器的地方都会用Common类加载器的实例代替
@@ -4359,27 +4732,35 @@
 						- OSGI是动态模块化的规范，而JDK9引入的JPMS是静态模块化的规范。这里的动态模块化，我的理解就是OSGI不仅实现了JMPS对包的依赖和导出的权限控制，而且基于依赖关系实现了网状的类加载机制。
 						- OSGI中的模块（bundle），也就是Java的类库，可以打包到一个jar文件
 						- OSGI的类加载机制
+						  collapsed:: true
 							- 不同bundle之间类的依赖关系，以bundle作为一个单位去进行加载
 							- 对于某个类的依赖需要通过该类所在bundle的类加载器去加载
 							- 两个bundle之间的类相互依赖，加载是可能会出现死锁
 					- 字节码生成技术与代理类的实现
+					  collapsed:: true
 						- 支持字节码生成技术的第三方类库
+						  collapsed:: true
 							- JDK中的javac命令
 							- Javassist
 							- CGLib
 							- ASM
 						- 动态代理
+						  collapsed:: true
 							- Spring内部是通过动态代理的方式来对Bean进行增强的。
 							- 动态代理所说的“动态”，是针对使用Java代码实际编写了代理类的“静态”代理而言的。动态代理的优势不在于比静态代理少写了一些代理类的代码，而是**实现了在原始类和接口还未知的时候，就可以编写代理类的规则。代理类与原始类脱离了直接联系，使用十分灵活**。
 							- JDK是如何实现动态代理的
+							  collapsed:: true
 								- JDK通过`sun.misc.ProxyGenerator::generateProxyClass()`方法来完成生成字节码的动作，从而完成动态代理增强代码的字节码生成，在具体方法的调用时，其实执行的是`InvocationHandler::invoke()`中的代理逻辑。
 					- Backport工具：Java的时光机器
+					  collapsed:: true
 						- 背景：随着JDK的不断更新迭代，每个版本都会带来新的语言特性，我们如果想使用新的JDK开发的代码部署运行在老的JDK版本上，该怎么做呢？
 						- 这种能够使使用新版JDK开发的代码，正确部署运行在老版JDK上的做法，我们称为：Java的逆向移植（Java Backporting Tool）。
 						- Java逆向移植的杰出工具：
+						  collapsed:: true
 							- Retrotranslator
 							- Retrolambda
 						- JDK每次新增功能主要分为五类
+						  collapsed:: true
 							- 1.**对Java类库API的代码增强**。譬如JDK 1.2时代引入的java.util.Collections等一系列集合类，在JDK 5时代引入的java.util.concurrent并发包、在JDK 7时引入的java.lang.invoke包，等等。
 							- 2.**在前端编译器层面做的改进。这种改进被称作语法糖。**实际上就是Javac编译器在程序中使用到包装对象的地方自动插入了很多Integer.valueOf()、Float.valueOf()之类的代码；变长参数在编译之后就被自动转化成了一个数组来完成参数传递；泛型的信息则在编译阶段就已经被擦除掉了（但是在元数据中还保留着），相应的地方被编译器自动插入了类型转换代码。
 							- 3.**需要在字节码中进行支持的改动**。如JDK 7里面新加入的语法特性——动态语言支持，就需要在虚拟机中新增一条invokedynamic字节码指令来实现相关的调用功能。不过字节码指令集一直处于相对稳定的状态，这种要在字节码层面直接进行的改动是比较少见的。
@@ -4388,6 +4769,7 @@
 							- Java的逆向移植工具其实目前只能实现前三类的功能。
 						-
 					- 项目实战
+					  collapsed:: true
 						- 功能：实现在服务器端执行临时代码的功能
 						- 实现代码：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/codetracer
 				- 第十章 前端编译优化
@@ -4395,25 +4777,32 @@
 					- 三类类编译器
 					  collapsed:: true
 						- 前端编译器
+						  collapsed:: true
 							- 功能：把`*.java`文件转变成`*.class`文件（字节码）。
 							- 代表产品：JDK的Javac、Eclipse JDT中的增量式编译器（ECJ）
 						- 即时编译器
+						  collapsed:: true
 							- 功能：运行期把字节码转变成本地机器码。
 							- 代表产品：HotSpot虚拟机的C1、C2编译器，Graal编译器。
 						- 提前编译器
+						  collapsed:: true
 							- 功能：直接把程序编译成与目标机器指令集相关的二进制代码。
 							- 代表产品：JDK的Jaotc、GNU Compiler for the Java（GCJ）、Excelsior JET。
 					- Javac编译器
 					  collapsed:: true
 						- Javac的源码和调试
+						  collapsed:: true
 							- 这里我们主要参考JDK8的javac程序，它的源码地址是：https://hg.openjdk.org/jdk8/jdk8/langtools/
 							- javac代码编译过程
+							  collapsed:: true
 								- 1.准备过程：初始化插入式注解处理器
 								- 2.解析与填充符号表过程
+								  collapsed:: true
 									- 2.1词法、语法分析。将源代码的字符流转变为标记集合，构造出抽象语法树。
 									- 2.2填充符号表。产生符号地址和符号信息。
 								- 3.插入式注解处理器的注解处理过程：插入式注解处理器的执行阶段
 								- 4.分析与字节码生成过程
+								  collapsed:: true
 									- 标注检查。对语法的静态信息进行检查。
 									- 数据流及控制流分析。对程序动态运行过程进行检查。
 									- 解语法糖。将简化代码编写的语法糖还原为原有的形式。
@@ -4424,36 +4813,50 @@
 							- Javac编译动作的入口是com.sun.tools.javac.main.JavaCompiler类，上述3个过程的代码逻辑集中在这个类的compile()和compile2()方法里，其中主体代码如图所示，整个编译过程主要的处理由图中标注的8个方法来完成。
 							  ![Javac编译的主体代码.png](../assets/Javac编译的主体代码_1684828148881_0.png)
 						- 解析与填充符号表
+						  collapsed:: true
 							- 解析过程由parseFiles()方法来执行，解析过程包括了经典程序编译原理中的词法分析和语法分析两个步骤。
 							- 词法分析
+							  collapsed:: true
 								- 词法分析是将源代码的字符流转变为标记（Token）集合的过程，单个字符是程序编写时的最小元素，但标记才是编译时的最小元素。
 							- 语法分析
+							  collapsed:: true
 								- 语法分析是根据标记序列构造抽象语法树的过程，抽象语法树（Abstract Syntax Tree，AST）是一种用来描述程序代码语法结构的树形表示方式，抽象语法树的每一个节点都代表着程序代码中的一个语法结构（Syntax Construct），例如包、类型、修饰符、运算符、接口、返回值甚至连代码注释等都可以是一种特定的语法结构。
 							- 填充符号表
+							  collapsed:: true
 								- 符号表（Symbol Table）是由一组符号地址和符号信息构成的数据结构，读者可以把它类比想象成哈希表中键值对的存储形式。实际上存储结构可以是多种数据结构。
 								- 填充符号表的过程由com.sun.tools.javac.comp.Enter类实现，该过程的产出物是一个待处理列表，其中包含了每一个编译单元的抽象语法树的顶级节点，以及package-info.java（如果存在的话）的顶级节点。
 							- 注解处理器
+							  collapsed:: true
 								- JDK6中的提案JSR-269，该提案设计了一组被称为“插入式注解处理器”的标准API，可以提前至编译期对代码中的特定注解进行处理，从而影响到前端编译器的工作过程。
 								- 可以把插入式注解处理器看作是一组编译器的插件，当这些插件工作时，允许读取、修改、添加抽象语法树中的任意元素。如果这些插件在处理注解期间对语法树进行过修改，编译器将回到解析及填充符号表的过程重新处理，直到所有插入式注解处理器都没有再对语法树进行修改为止，每一次循环过程称为一个轮次（Round），这也就对应着图”“ ((646c6ad3-96eb-4503-a760-5ec2c5479cb5)) ”的那个回环过程。
 								- 有了插入式处理器，程序员就可以干涉编译器的行为，程序元可以访问到抽象语法树的任意元素。比如Lombok可以通过注解@Getter或是@Setter等注解自动生成相关方法，帮助程序员消除冗余代码。
 							- 语义分析和字节码生成
+							  collapsed:: true
 								- 语义分析
+								  collapsed:: true
 									- 作用：语法分析之后，编译器获得了程序代码的抽象语法树表示，抽象语法树能够表示一个结构正确的源程序，但无法保证源程序的语义是符合逻辑的。而语义分析的主要任务则是对结构上正确的源程序进行上下文相关性质的检查，譬如进行类型检查、控制流检查、数据流检查等等。
 									- 语义分析过程可分为标注检查和数据及控制流分析两个步骤：
+									  collapsed:: true
 										- 标注检查
+										  collapsed:: true
 											- 对应 ((646c6ad3-96eb-4503-a760-5ec2c5479cb5))中的attribute()方法。
 											- 标注检查步骤要检查的内容包括诸如变量使用前是否已被声明、变量与赋值之间的数据类型是否能够匹配，等等
 										- 数据及控制流分析
+										  collapsed:: true
 											- 对应 ((646c6ad3-96eb-4503-a760-5ec2c5479cb5))中的flow()方法。
 											- 数据流分析和控制流分析是对程序上下文逻辑更进一步的验证，它可以检查出诸如程序局部变量在使用前是否有赋值、方法的每条路径是否都有返回值、是否所有的受查异常都被正确处理了等问题。
 											- 编译时期的数据及控制流分析与类加载时的数据及控制流分析的目的基本上可以看作是一致的，但校验范围会有所区别，有一些校验项只有在编译期或运行期才能进行。比如`final`关键字的使用只能在编译期校验，运行期不做校验。
 									- 解语法糖
+									  collapsed:: true
 										- 语法糖
+										  collapsed:: true
 											- 语法糖（Syntactic Sugar），也称糖衣语法，是由英国计算机科学家Peter J.Landin发明的一种编程术语，指的是在计算机语言中添加的某种语法，这种语法对语言的编译结果和功能并没有实际影响，但是却能更方便程序员使用该语言。通常来说使用语法糖能够减少代码量、增加程序的可读性，从而减少程序代码出错的机会。
 										- 解语法糖
+										  collapsed:: true
 											- 对应 ((646c6ad3-96eb-4503-a760-5ec2c5479cb5))中的desugar()方法。
 											- Java虚拟机运行时并不直接支持这些语法，它们在编译阶段被还原回原始的基础语法结构，这个过程就称为解语法糖。比如Java中的泛型，其实是语法糖实现的。
 								- 字节码生成
+								  collapsed:: true
 									- 字节码生成阶段不仅仅是把前面各个步骤所生成的信息（语法树、符号表）转化成字节码指令写到磁盘中，编译器还进行了少量的代码添加和转换工作。比如生成实例构造器<init>和类构造器<cinit>、还有就是字符串的+符号替换成StringBuffer或StringBuilder的append()操作。
 					- Java语法糖的味道
 					  collapsed:: true
@@ -4465,18 +4868,22 @@
 							  ArrayList list; // 与上面相对应，这种就叫做裸类型
 							  ```
 							- 类型擦除
+							  collapsed:: true
 								- 所谓类型擦除，就是在将源码进行编译的时候将泛型声明的类型去掉，将其变为裸类型。在源码中定义的泛型类型变量在访问、修改的地方插入强制类型转换和检查的指令。
 								- 缺陷
+								  collapsed:: true
 									- 使用类型擦除的泛型实现方案，会有较多的性能损耗
 									- 泛型不支持原始数据类型
 									- 运行期无法获取到泛型的类型信息
 								- 优势
+								  collapsed:: true
 									- 在泛型的技术实现方面，几乎只需在Javac编译器上做出修改即可，不需要动字节码，不需要动虚拟机。
 									- 兼容性，Java的泛型之所以选择类型擦除的方案主要是为了先后兼容。也就是老版本编译的java代码在新版本的虚拟机上仍然是可以正常运行的。
 						- 自动装箱、拆箱和循环遍历
 						  collapsed:: true
 							- 要进行循环便利的类需要继承Iterable类，应为for循环在编译之后会被优化为Iterable遍历。
 						- 条件编译
+						  collapsed:: true
 							- 通过条件为常量的if语句，Java会将符合条件判断的子句保留，剔除不符合条件的子句，从而达到条件编译的效果。
 					- 插入式注解处理器实战：检查类名、方法名、属性名和常量等命名是否符合驼峰命名规则。
 		- 三方类库
@@ -4485,14 +4892,18 @@
 			- Apache Commons
 			- Jackson JSON
 			- reflectasm
+			  collapsed:: true
 				- 空笔记
 		- 网络
 		  collapsed:: true
 			- UDP
+			  collapsed:: true
 				- 在Java中，客户端和服务端通过`DatagramSocket`类实现UDP协议的通信。
 			- TCP
+			  collapsed:: true
 				- 在Java中，客户端使用`Socket`，服务端使用`ServerSocket`和`Socket`类实现TCP协议的通信。
 			- IPV4/IPV6
+			  collapsed:: true
 				- 通过 `InetAddress` 类来指定使用 IPv4 或 IPv6 进行 socket 编程。
 	- 新特性
 	  collapsed:: true
@@ -4509,6 +4920,7 @@
 				- java.util.function.BiConsumer
 				- 空笔记
 			- stream操作
+			  collapsed:: true
 				- Stream生命周期
 				  collapsed:: true
 					- 流由三部分构成：数据源，一个或多个中间操作，一个或多个终止操作。
@@ -4542,6 +4954,7 @@
 			  collapsed:: true
 				- [Java 8 Optional 类](https://www.runoob.com/java/java8-optional-class.html)
 			- 函数接口
+			  collapsed:: true
 				- `Supplier`接口
 				  collapsed:: true
 					- 不接收任何参数，但会返回一个结果。
@@ -4556,13 +4969,17 @@
 				  collapsed:: true
 					- 这句话的意思是说lambda 表达式只能引用标记了 final 的外层局部变量，也就是说不能在 lambda 内部修改定义在域外的局部变量，否则会编译错误。
 					- 捕获 Lambda
+					  collapsed:: true
 						- Lambda 表达式可以使用在外部作用域中定义的变量。 我们将这些 lambda 称为捕获 lambda。 它们可以捕获静态变量、实例变量和局部变量，但只有局部变量必须是最终的或实际上是最终的。
 				- 参考文章
+				  collapsed:: true
 					- [Final vs Effectively Final in Java](https://www.baeldung.com/java-effectively-final)
 					- [Why Do Local Variables Used in Lambdas Have to Be Final or Effectively Final?](https://www.baeldung.com/java-lambda-effectively-final-local-variables)
 					-
 			- Lambda异常处理
+			  collapsed:: true
 				- 参考文章
+				  collapsed:: true
 					- [Exceptions in Java 8 Lambda Expressions](https://www.baeldung.com/java-lambda-exceptions)
 	- 命令行工具
 	  collapsed:: true
@@ -4572,8 +4989,10 @@
 		- javap
 		  collapsed:: true
 			- 介绍
+			  collapsed:: true
 				- javap是jdk自带的反解析工具。它的作用就是根据class字节码文件，反解析出当前类对应的code区（汇编指令）、本地变量表、异常表和代码行偏移量映射表、常量池等等信息。
 			- 常用选项
+			  collapsed:: true
 				- `javap -v`：不仅会输出行号、本地变量表信息、反编译汇编代码，还会输出当前类用到的常量池等信息。
 		- javac
 		  collapsed:: true
@@ -5619,4 +6038,525 @@
 		- [commons-pool2的简单使用](https://qiubyte.github.io/2019/10/31/2019/20191031-commons-pool2%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html)
 		- [通用对象池化框架Apache Commons Pool 2简析](https://blog.csdn.net/nazeniwaresakini/article/details/108379725)
 - easyExcel
+  collapsed:: true
 	- [SpringBoot+easyExcel 按照模板导出（动态合并单元格）](https://juejin.cn/post/7101590832339238943)
+- Swagger
+  collapsed:: true
+	- 在Spring Boot项目中的使用
+	    collapsed:: true
+		- 1. 引入依赖
+		  
+		    ```
+		    <dependency>
+		         <groupId>io.springfox</groupId>
+		         <artifactId>springfox-boot-starter</artifactId>
+		         <version>3.0.0</version>
+		     </dependency>
+		    ```
+		- 2.暴露静态资源和接口访问路径，这个参考：https://blog.csdn.net/Yu1441/article/details/110130931
+	- 常用注解
+	    collapsed:: true
+		- 在controller方法上：
+		  
+		    ```java
+		    @ApiOperation(value = "接口名称", notes = "接口描述", httpMethod = "POST")
+		    ```
+		- 在请求或是响应的实体类上：
+		  
+		    ```java
+		    @ApiModel(value = "用户对象BO", description = "从客户端，由用户传入的数据封装在此entity中")
+		    ```
+		- 在请求或是响应的实体类的具体字段上：
+		  
+		    ```java
+		    @ApiModelProperty(value = "用户名", name = "username", example = "imooc", required = true)
+		    ```
+	- 汇总文章
+	  collapsed:: true
+		- [Java Swagger 常用注解说明](https://mazq.cn/java/2020/08/06/Swagger-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%E8%AF%B4%E6%98%8E/)
+		- [swagger多包扫描](https://liac.vip/archives/swagger%E5%A4%9A%E5%8C%85%E6%89%AB%E6%8F%8F)
+	- 替代品SpringDoc
+	  collapsed:: true
+		- 参考文章：[秒懂SpringBoot之如何集成SpringDoc（全网目前最新最系统最全面的springdoc教程）](https://shusheng007.top/2023/06/21/springdoc/)
+- lombok
+  collapsed:: true
+	- 注解
+	  collapsed:: true
+		- `@Data`注解：注在类上，提供类的`get`、`set`、`equals`、`hashCode`、`canEqual`、`toString`方法。
+		- `@AllArgsConstructor` ： 注在类上，提供类的全参构造。
+		- `@NoArgsConstructor` ： 注在类上，提供类的无参构造。
+		- `@Setter` ： 注在属性上，提供 set 方法。
+		- `@Getter` ： 注在属性上，提供 get 方法。
+		- `@EqualsAndHashCode` ：    注在类上，提供对应的 equals 和 hashCode 方法。
+		- `@Log4j/@Slf4j`： 注在类上，提供对应的 Logger 对象，变量名为 log。
+		- `@Builder`：采用构建者模式，链式创建对象。
+	- lombok默认是不会生成无参构造器的
+	  collapsed:: true
+		- 当你使用`@Builder`注解时，他会默认为你生成全参构造器。但是因为好多框架喜欢使用`Class.newInstance()`直接实例化对象，如果这个类没有无参构造器就会报错。
+		- 所以建议使用同时使用`@AllArgsConstructor`和`@NoArgsConstructor`两个构造器。
+	- lombok和Log4j2的结合使用
+	  collapsed:: true
+		- 参考文章：[log4j2+slf4j+lombok整合](https://blog.csdn.net/m0_57099067/article/details/125303294)
+	- 参考文章
+	  collapsed:: true
+		- [Lombok@Builder注解使用和需要注意的坑](https://blog.csdn.net/a648119398/article/details/120513865)
+		- [@Data注解 与 lombok](https://www.jianshu.com/p/c1ee7e4247bf)
+- Netty
+  collapsed:: true
+	- 跟闪电侠学Netty：Netty即时聊天实战与底层原理
+	  collapsed:: true
+		- 第四章 服务端启动流程
+		  collapsed:: true
+			- Netty服务端启动的流程，一句话总结就是：首先创建一个引导类，然后给它指定线程模型、IO模型、连接读写处理逻辑，绑定端口之后，服务端就启动起来了
+			- 端口动态绑定
+			- 其他参数配置
+		- 第五章 客户端启动流程
+		  collapsed:: true
+			- Netty客户端启动流程，首先创建一个引导类，然后为它指定线程模型、IO模型、连接读写处理逻辑，连接上特定主机和端口后，客户端就启动起来了。
+			- 设置重连次数
+			- 其他参数配置
+		- 第八章 客户端和服务端通讯协议编解码
+		  collapsed:: true
+			- 通信协议的设计
+				- 示例图
+				  ![通信协议的设置.png](../assets/通信协议的设置_1718182845050_0.png)
+				- 魔数
+					- 作用
+						- 服务器端接收到报文之后，根据魔数字段确定是否是符合规范的报文。
+						- 出于安全考虑，如果魔数校验不通过，就是无效数据包，可以关闭连接。
+		- 第十一章 Pipeline和ChannelHandler
+		  collapsed:: true
+			- ChannelHandler的分类
+			  collapsed:: true
+				- 接口分类图
+				  ![ChannelHandler的分类.png](../assets/ChannelHandler的分类_1718345430493_0.png)
+			- ChannelInboundHandler
+			  collapsed:: true
+				- **处理读数据的逻辑**。比如在一端读到一段数据，首先要解析这段数据，然后对这段数据做一系列逻辑处理，最终把响应写到对端。在组装响应之前的所有处理逻辑，都可以放置在一系列`ChannelInboundHandler`里处理，它的一个最重要的方法就是`channelRead()`。
+				- **从低到高**，可以将`ChannelInboundHandler`的逻辑处理过程与TCP的七层协议解析过程联系起来，把收到的数据一层层地从物理层上升到应用层。
+				- 默认实现
+					- ChannelInboundHandlerAdapter
+					- SimpleChannelInboundHandler
+			- ChannelOutboundHandler
+			  collapsed:: true
+				- **处理写数据的逻辑**，它是定义一端在组装完响应之后把数据写到对端的逻辑。比如，我们封装好一个response对象后，有可能对这个response做一些其他特殊逻辑处理，然后编码成ByteBuf，最终写到对端。它最核心的方法就是`write()`。
+				- **从高到低**，可以将ChannelOutboundHandler的逻辑处理过程与TCP的七层协议封装过程联系起来。我们在应用层组装响应之后，通过层层协议的封装，直到底层的物理层。
+				- 默认实现
+					- ChannelOutboundHandlerAdapter
+		- 第十二章 构建客户端与服务端的Pipeline
+		  collapsed:: true
+			- 基于`ByteToMessageDecoder`，可以实现自定义解码，而不用关心`ByteBuf`的强转和解码结果的传递。
+			- 基于`SimpleChannelInboundHandler`，可以实现每一种指令的处理，不再需要强转，不再有冗长乏味的`if else`逻辑，不再需要手动传递对象。
+			- 基于`MessageToByteEncoder`，可以实现自定义编码，不用关心`ByteBuf`的创建，不用每次向对端写Java对象都进行一次编码。
+		- 第十三章 拆包/粘包理论与解决方案
+		  collapsed:: true
+			- `FixedLengthFrameDecoder`：定长消息拆包和粘包的处理类。
+				- 关于`lengthAdjustment`字段的使用，参考文章：[【Netty】「优化进阶」（二）浅谈 LengthFieldBasedFrameDecoder：如何实现可靠的消息分割？](https://xie.infoq.cn/article/05b7f6179fa3167d0803080c9)
+		- 第十四章 ChannelHandler的生命周期
+		  collapsed:: true
+			- 这一章主要讲了ChannelHandler的生命周期方法
+				- handlerAdded()：当检测到新连接之后。
+				- channelRegistered()：当前channel的处理逻辑已和NIO线程建立了绑定关系。
+				- `channelActive()`：channel被激活。
+				- channelRead()：客户端向服务端发送数据，服务端每次都会回调此方法，表示有数据可读。
+				- channelReadComplete()：服务端每读完一次完整的数据，都回调该方法，表示数据读取完毕。
+				- channelInactive()：连接已经被关闭了，这个连接在TCP层面已经不再是ESTABLISH状态。
+				- channelUnregistered()：连接对应的NIO线程移除了对这个连接的处理。
+				- handlerRemoved()：连接添加的所有业务逻辑处理器都被移除。
+		- 第十五章 使用ChannelHandler的热插拔实现客户端身份校验
+		  collapsed:: true
+			- 如果有多个业务逻辑的handler要进行相同的操作，我们可以将这部分逻辑单独抽到一个逻辑中进行实现。例如在server端的校验用户是否登录。
+			- 如果某一个独立的逻辑在执行几次之后（这里是一次）不需要再执行，则可以通过`ChannelHandler`的热插拔机制来实现动态删除逻辑，使应用程序的性能处理更为高效。
+		- 第十六章 客户端互聊的原理与实现
+		  collapsed:: true
+			- 使用`SessionUtil`来管理用户`Session`和`Channel`之间的映射关系。
+			- 在服务端处理消息的时候，通过用户id获取到用户的`Channel`，从而实现两个客户端信息的交互。
+		- 第十七章 群聊的发起和通知
+		  collapsed:: true
+			- 重新整合了登录，一对一，群聊，登出控制台操作的逻辑。
+			- 通过`ChannelGroup`，可以很方便地对一组`Channel`进行批量操作。
+		- 第十八章 群聊的成员管理
+		  collapsed:: true
+			- 这里实现了建群，进群，查看群成员，退群的操作。
+		- 第十九章 群聊消息的收发及Netty的性能优化
+		  collapsed:: true
+			- 群聊消息的收发。
+			- 共享Handler
+			- 压缩Handler-合并编解码器
+			- 压缩Handler-合并平行Handler
+			- 更改事假传播源
+			  collapsed:: true
+				- `ctx.channel().writeAndFlush();`：对象会从最后一个Outbound类型的Handler开始，逐个往前传播，路径要比ctx.writeAndFlush()方法长。
+				- `ctx.writeAndFlush()`：可以直接一口气把对象送到codec中编码，然后写出去。
+			- 减少主线程的阻塞
+			  collapsed:: true
+				- 在服务器端的`channelRead0()`方法中如果涉及耗时操作，应放到线程池中进行处理。
+			- 如何准确的统计时长
+			  collapsed:: true
+				- `writeAndFlush()`方法会返回一个`ChannelFuture`对象，我们给这个对象添加一个监听器，然后在回调方法里，可以监听这个方法执行的结果，进而执行其他逻辑，最后统计耗时，这样统计出来的耗时才是最准确的。
+		- 第二十章 心跳与空闲检测
+		  collapsed:: true
+			- 空闲检测
+				- 空闲检测指的是每隔一段时间，检测这段时间内是否有数据读写。简化一下，服务端或客户端只需要检测一段时间内，是否收到过客户端或服务端发来的数据即可，Netty自带的`IdleStateHandler`就可以实现这个功能。
+			- 客户端定时发送心跳数据包
+				- 解决的问题：客户端非假死状态下确实没有发送数据，这样可能会被服务端误以为是连接假死。
+		- 第二十一章 服务端启动流程分析
+			- 创建一个NioServerSocketChannel对象的过程分析
+			- 代码分析的入口
+				- 创建Channel
+					- 第一步：`ServerBootstrap.bind()`方法中
+					- 第二步：`io.netty.bootstrap.AbstractBootstrap#doBind()`方法
+					- 第三步：`io.netty.bootstrap.AbstractBootstrap#initAndRegister()`方法
+					- 第四步：通过`io.netty.channel.ReflectiveChannelFactory#newChannel`创建了Java底层的`Channel`对象，创建的这个`Channel`其实是
+					  `NioServerSocketChannel`，这个channel里面包含了Java底层的`Channel`。
+				- 将Channel注册到Java底层的Selector
+					- 整体调用图
+						- ![将Netty的Channel注册到Selector.png](../assets/将Netty的Channel注册到Selector_1722158499883_0.png)
+					- 第一步：`io.netty.bootstrap.AbstractBootstrap#initAndRegister`：在完成创建和初始化channel的操作之后开始注册工作。
+					- 第二步：`io.netty.channel.nio.AbstractNioChannel#doRegister`：将Netty的Channel注册到底层的Selector选择器上。
+					- 第三步：`io.netty.channel.socket.nio.NioServerSocketChannel#javaChannel`：通过该方法获取之前创建的底层的`ServerSocketChannel`。这一步是将拿到在前面过程中创建的JDK底层的`Channel`，然后调用JDK的`register()`方法，将`this`也即**NioServerSocketChannel对象**当作attachment绑定到JDK的`Selector`上，这样后续从`Selector`拿到对应的事件之后，就可以把Netty领域的`Channel`拿出来。
+				- 调用底层api进行端口绑定，触发active事件
+					- 第一步：`io.netty.bootstrap.AbstractBootstrap#doBind`在完成channel的创建和注册之后，开始绑定
+					- 第二步：`io.netty.bootstrap.AbstractBootstrap#doBind0`开始绑定
+					- 第三步：`io.netty.channel.socket.nio.NioServerSocketChannel#doBind`调用底层api进行绑定
+					- 第四步：`io.netty.channel.DefaultChannelPipeline#fireChannelActive`触发active方法
+		- 第二十二章 Reactor线程模型
+			- bossGroup对应的就是监听端口的线程池，在绑定一个端口的情况下，这个线程池里只有一个线程；
+			- workerGroup对应的是连接的数据读写的线程。
+			- 源码分析：`EventLoopGroup workerGroup = new NioEventLoopGroup();`中的`io.netty.util.concurrent.MultithreadEventExecutorGroup#MultithreadEventExecutorGroup(int, java.util.concurrent.Executor, io.netty.util.concurrent.EventExecutorChooserFactory, java.lang.Object...)`
+			  collapsed:: true
+				- 创建`ThreadPerTaskExecutor`
+					- `ThreadPerTaskExecutor`是负责创建线程和执行任务的线程池。
+					- `NioEventLoop`线程的命名规则是nioEventLoopGroup-xx-yy，xx表示全局第xx个`NioEventLoopGroup`，yy表示这个`NioEventLoop`在`NioEventLoopGroup`中是第yy个。
+				- `NioEventLoop`的创建
+					- `NioEventLoop`对应一个线程，也就是`FastThreadLocalThread`。
+					- 最关键的其实就是两部分：创建一个`Selector`和创建一个MPSC队列（高性能无锁队列，一种并发队列，允许多个生产者（Producer）同时向队列中添加元素，但只有一个消费者（Consumer）从队列中移除元素），这三者均为一对一关系。
+					- 在默认情况下，`NioEventLoopGroup`会创建两倍CPU核数个`NioEventLoop`，一个`NioEventLoop`和一个`Selector`及一个MPSC任务队列一一对应。
+				- 创建线程选择器
+					- 在传统的NIO编程中，一个新连接被创建后，通常需要给这个连接绑定一个`Selector`，之后这个连接的整个生命周期都由这个`Selector`管理。
+					- Netty中一个`Selector`对应一个`NioEventLoop`，线程选择器的作用是为一个连接在一个`EventLoopGroup`中选择一个`NioEventLoop`，从而将这个连接绑定到某个`Selector`上。
+					- `NioEventLoop`对应Netty的一个Reactor线程。
+			- NioEventLoop对应线程的创建和启动
+				- 具体的执行方法是：`io.netty.util.concurrent.SingleThreadEventExecutor#doStartThread`
+				- 执行的流程图
+				  ![代码入口.png](../assets/代码入口_1721273915057_0.png)
+				- 在这个流程中，介绍了一个`NioEventLoop`是如何与一个线程实体绑定的：`NioEventLoop`通过`ThreadPerTaskExecutor`创建一个`FastThreadLocalThread`，然后通过一个成员变量来指向这个线程。
+			- NioEventLoop的执行流程
+				- NioEventLoop的执行总体架构
+					- 执行流程的代码入口：`io.netty.channel.nio.NioEventLoop#run`
+					- 总体架构
+						- 1. 执行一次事件轮询，轮询每一个Reactor线程注册在Selector上的所有Channel的IO事件
+							- 关键代码：`io.netty.channel.nio.NioEventLoop#select`
+							- 主要步骤
+								- 1. 定时任务截止时间快到了，中断本次轮询
+								- 2. 轮询过程中发现有任务加入，中断本次轮询
+								- 3. 阻塞式 select 操作
+									- 执行到这里说明Netty任务队列里的队列为空，并且所有定时任务的延迟时间还未到（大于0.5ms）
+								- 4. 解决 JDK 的 NIO Bug
+									- 如果当前的时间减去下一个定时任务的延迟时间大于select轮训时间，说明这是一次有效的轮询，重置selectCnt标志。
+									- 否则说明这段时间没有检测到io事件，是在空转轮训，可能会导致CPU 100%，此时需要重建selector，将原有的channel转移到新的Selector上
+						- 2. 处理产生的IO事件
+							- 关键代码：`io.netty.channel.nio.NioEventLoop#processSelectedKeys`
+								- Netty针对SelectedKeySet的优化
+									- SelectedKeys是一个SelectedSelectionKeySet类对象，在NioEventLoop的openSelector方法中创建，之后通过反射将SelectedKeys与sun.nio.ch.SelectorImpl中的两个成员变量绑定。
+									- Selector在调用select()方法的时候，如果有IO事件发生，就会往里面的两个成员变量中塞相应的SelectionKey。将原有HashSet的put()方法采用数组就行优化，从而使得put()的时间复杂度为O(1)，并提升了遍历的效率。
+								- 对`io.netty.channel.nio.NioEventLoop#processSelectedKeysOptimized`进行分析
+									- 代码的整体逻辑
+										- 取出IO事件及对应的Channel。拿到当前的SelectionKey之后，将selectedKeys[i]置为null，避免内存溢出。
+										  logseq.order-list-type:: number
+										- 获取attachment，判断是否是AbstractNioChannel
+										  logseq.order-list-type:: number
+											- AbstractNioChannel的实现类在Netty中有两个：
+												- 一个是NioServerSocketChannel，由boss NioEventLoopGroup负责处理：对于boss NioEventLoop来说，轮询到的是连接事件，后续通过NioServerSocketChannel的Pipeline将连接交给一个worker NioEventLoop处理；
+												- 一个是NioSocketChannel，由worker NioEventLoop负责处理：对于worker NioEventLoop来说，轮询到的是读写事件，后续通过NioSocketChannel的Pipeline将读取到的数据传递给每个ChannelHandler来处理。
+						- 3. 添加任务
+							- 用户自定义的普通任务
+							- 非当前Reactor线程调用Channel的各类方法
+							- 用户自定义定时任务
+						- 4. 处理任务队列
+				-
+	- 《Netty实战》阅读笔记
+	  collapsed:: true
+		- 第一章 Netty-异步和事件驱动
+		  collapsed:: true
+			- Netty的核心组件
+				- Chanel
+				  collapsed:: true
+					- Channel 是 Java NIO 的一个基本构造。
+					- 可以把 Channel 看作是传入（入站）或者传出（出站）数据的载体。因此，它可以被打开或者被关闭，连接或者断开连接。
+				- 回调
+				  collapsed:: true
+					- 一个回调其实就是一个方法，一个指向已经被提供给另外一个方法的方法的引用。这使得后者可以在适当的时候调用前者。
+				- Future
+					- `Future`提供了另一种在操作完成时通知应用程序的方式。但是它需要开发程序手动检测操作是否已经完成或者一直阻塞到它完成，使用十分繁琐。
+					- 这个类的实例可以看做代表了一个异步操作。
+					- `ChannelFuture`
+					  collapsed:: true
+						- 是Netty自己的实现，用于在异步操作时使用。
+						- 可以注册多个`ChannelFutureListener`实例。
+						- 每一个Netty出站的IO操作都会返回一个`ChannelFuture`。
+					- `ChannelFutureListener`
+					  collapsed:: true
+						- 是一个监听器
+						- 当ChannelFuture中定义的操作完成的时候，监听器中的`OperationComplete()`方法将会被调用。
+				- 事件和ChannelHandler
+					- 背景：Netty通过不同的事件来通知我们状态的改变或者操作的状态。
+					- 事件
+					  collapsed:: true
+						- 事件按照事件与入栈和出栈数据流的相关性进行分类的。
+						- 每个事件都会被分发给一个`ChannelHandler`中某个用户实现的方法。
+					- `ChannleHandler`
+						- 是一种为了响应特定事件而被执行的回调。
+						- Netty提供了大量的开箱即用的`ChannelHandler`实现。
+		- 第二章 编写Netty应用程序
+		  collapsed:: true
+			- 服务器端
+			  collapsed:: true
+				- 所有Netty服务端都需要以下两部分
+				  collapsed:: true
+					- 至少一个`ChannelHandler`：该组件实现了服务器对从客户端接收的数据的处理，即它的业务逻辑。
+					- 引导：这是配置服务器的启动代码。它会将服务器绑定到它要监听连接请求的端口上。
+				- 具体实现
+				  collapsed:: true
+					- `ChannelHandler`和业务逻辑
+					  collapsed:: true
+						- 因为服务器会响应传入的数据，所以需要实现`ChannelInBoundHandler`接口，来**定义响应入站事件的方法**。这里直接继承了`ChannelInboundHandlerAdapter`类，她是`ChannelInBoundHandler`接口的**默认实现**。
+					- 引导服务器
+					  collapsed:: true
+						- 需要做的工作主要有两步
+						  collapsed:: true
+							- 一将连接请求的端口绑定到服务器上，让服务器对其进行监听。
+							- 二配置`Channel`，通过Channel将入站的消息通知给`ChannelHandler`。
+			- 客户端
+				- 具体实现
+					- 通过ChannelHandler实现客户端逻辑
+						- 扩展`SimpleChannelInboundHandler`类进行消息的处理。这里没有像服务端一样使用ChannelInBoundHandler，主要是因为客户端和服务器端消息处理的方式和资源管理方式不同。
+					- 引导客户端
+					  collapsed:: true
+						- 不同于服务端只需要监听端口，客户端使用主机和端口来连接远程地址。
+		- 第三章 Netty的组件和设计
+		  collapsed:: true
+			- 1.Channel、EventLoop和ChannelFuture
+				- 概述
+					- Channel可以类比Socket。
+					- EventLoop负责控制流，多线程处理、并发。
+					- ChannelFuture负责异步通知。
+				- Channel接口
+				  collapsed:: true
+					- Netty的Channel接口提供的API降低了直接使用Socket类的复杂性。
+					- Channel有很多预定义的实现。
+				- EventLoop接口
+				  collapsed:: true
+					- 定义了Netty的核心抽象，用于处理连接的生命周期中所发生的事件。
+					- 一幅图来说明Channel、EventLoop和EventLoopGroup之间的关系
+						- 关系图
+						  ![Channel-EventLoop-EventLoopGroup.png](../assets/Channel-EventLoop-EventLoopGroup_1687851666756_0.png)
+						- 一个 `EventLoopGroup` 包含一个或者多个`EventLoop`；
+						- 一个 `EventLoop` 在它的生命周期内只和一个 `Thread` 绑定。所有由 `EventLoop` 处理的 I/O 事件都将在它专有的 `Thread` 上被处理；
+						- 一个`Channel`在它的生命周期内只注册于一个 `EventLoop`； 一个 `EventLoop` 可能会被分配给一个或多个 `Channel`。
+						- 注意，在这种设计中，一个给定`Channel` 的 I/O 操作都是由相同的Thread处理的，所以不会有同步的问题。
+				- ChannelFuture接口
+				  collapsed:: true
+					- 可以将 `ChannelFuture` 看作是将来要执行的操作的结果的占位符。
+					- 可以给`ChannelFuture`注册多个`ChannelFutureListener`实例。以便在某个操作完成时（无论是否成功）得到通知
+			- 2.ChannelHandler和ChannelPipeline
+				- ChannelHandler接口
+					- Netty 的主要组件是 `ChannelHandler`，它充当了所有处理入站和出站数据的应用程序逻辑的容器。
+					- 可以处理任何处理动作，比如处理格式换行逻辑或是异常处理逻辑等。
+				- ChannelPipeline接口
+					- `ChannelPipeline`提供了`ChannelHandler`链的容器，提供了在该链上传播入站和出站事件流的API。
+					- 当`Channel`创建时，他会被自动分配到专属的`ChannelPipeline`上。
+					- `ChannelPipeline`就像一个管道，我们可以将`ChannelHandler`添加到这个管道中，当事件到达后，会逐个在管道的`ChannelHandler`链上进行传递。
+					- 入站和出站
+						- 入站操作主要是指**读取数据**的操作；而出站操作主要是指**写入数据**的操作。
+						- 入站会从先读取，再执行入站的Handler；出站会先执行出站的Handler，再写入。
+						- 入站和出站`ChannelHandler`可以安装到同一个`ChannelPipeline`中。
+					- `ChannelHandler`被添加到`ChannelPipeline`中时，将会给他分配一个`ChannelHandlerContext`对象，这个对象代表了`ChannelHander`和`ChannelPipeline`的绑定关系。
+					- 两种发送消息的方式
+					  collapsed:: true
+						- 方式一直接将消息写到`Channel`中。
+						- 方式二将消息写到`ChannelHandlerContext`中。
+				- 深入理解ChannelHandler
+					- Netty以适配器类的形式提供了大量默认的ChannelHandler实现。
+					- 解码器
+						- 入站消息会被解码，会从字节转换为另一种格式。并将解码后的字节传递给`ChannelPipeline`中的下一个`ChannelInBoundHandler`。
+						- Netty提供的解码器实现了`ChannelInBoundHandler`接口
+					- 编码器
+						- 出站消息会被编码，会从一种格式转化为字节。并将编码后的数据传递给`ChannelPipeline`中的下一个`ChannelOutBoundHandler`。
+						- Netty提供的编码器实现了`ChannelOutBoundHandler`接口。
+					- 抽象类`SimpleChannelInboundHandler`
+						- 最常见的情况，你的程序只需要一个ChannelHandler来接收解码消息，我们只需要实现SimpleChannelInboundHandler<T>接口就行，其中T是你要处理消息的Java类型。
+			- 3.引导
+				- 两种类型的引导
+					- 用于客户端的`Bootstrap`
+					  collapsed:: true
+						- 网络编程中的作用：连接到服务端主机和端口。
+						- 引导客户端只需要一个`EventLoopGroup`。
+					- 用于服务器的`ServerBootstrap`
+					  collapsed:: true
+						- 网络编程中的作用：绑定到一个本地端口，监听传入的连接。
+						- 引导服务器端需要两个EventLoopGroup。
+						  collapsed:: true
+							- 第一组将只包含一个 ServerChannel，代表服务器自身的已绑定到某个本地端口的正在监听的套接字。
+							- 第二组将包含所有已创建的用来处理传入客户端连接（对于每个服务器已经接受的连接都有一个）的 Channel。
+							- 上面的叙述如下图所示
+							  ![double-eventLoopGroup.png](../assets/double-eventLoopGroup_1689916787647_0.png)
+		- 第四章 传输
+		  collapsed:: true
+			- 案例研究：传输迁移
+			  collapsed:: true
+				- 使用Java原有的网络编程模型，去实现OIO和NIO。
+				-
+				-
+	- RPC（ Remote Procedure Call ）框架和 HTTP 服务的区别
+	  collapsed:: true
+		- 1.	通信协议：RPC 框架通常使用自定义的协议来进行远程调用，而 HTTP 服务使用的是 HTTP 协议。RPC 框架可以更高效地进行远程方法调用，因为它可以直接传递方法参数和返回值，而不需要进行协议解析和序列化。
+		  	2.	数据格式：RPC 框架通常使用自定义的数据格式来序列化和反序列化参数和返回值，而 HTTP 服务通常使用 JSON 、XML 或其他通用的数据格式。RPC 框架的数据格式可以更高效地进行传输，因为它可以针对特定的编程语言和数据类型进行优化。
+		  	3.	调用方式：RPC 框架通常采用同步调用方式，即客户端发起调用后会阻塞直到服务器返回结果。而 HTTP 服务可以支持同步和异步调用方式，客户端可以通过发送请求后立即返回，然后通过轮询或回调的方式获取结果。
+		  	4.	性能：RPC 框架通常设计为在局域网或高速网络环境下进行高效的远程调用，因此在性能上可能比 HTTP 服务更优。RPC 框架可以通过减少网络开销和数据传输量来提高性能。
+		- 对于调用的客户端来说，使用 RPC 框架和 HTTP 服务的主要区别在于调用方式和数据格式。如果你需要高效地进行远程方法调用，并且客户端和服务器使用相同的编程语言和数据类型，那么使用 RPC 框架可能更适合。如果你需要支持多种编程语言和数据格式，或者需要通过 HTTP 协议进行通信，那么使用 HTTP 服务可能更合适。
+	- ByteBuf
+	  collapsed:: true
+		- 大小端
+			- 对于16进制的数来说，比如十进制的10，十六进制是0x0a，占一个字节，二级制表示为`00001010`，是从左到右是高位字节到低位字节。
+			- 对于字节数组来说，一个4个字节长度的数组，从低地址到高地址，数组下标是从0到3。
+			- 大端，高位字节存储在低地址，也就是存储为`0x00 0x00 0x00 0x0a`
+			- 小端，低位字节存储在低地址，也就是存储为`0x0a 0x00 0x00 0x00`
+			- 参考文章
+				- [小端模式和大端模式——踩坑记录](https://blog.csdn.net/weixin_46111235/article/details/134072302)
+		- 参考文章
+			- [Netty 框架学习 —— ByteBuf](https://www.cnblogs.com/Yee-Q/p/14880801.html)
+	- 参考文章
+	  collapsed:: true
+		- [Netty入门看这一篇就够了](https://juejin.cn/post/6924528182313893896)
+- quartz
+  collapsed:: true
+	- 核心类
+	  collapsed:: true
+		- 三大核心类
+			- `JobDetail`（任务）
+				- 作用：具体要执行的业务逻辑。
+			- `Trigger`（触发器）
+				- 作用：用来定义Job（任务）触发条件、触发时间，触发间隔，终止时间等。
+				- `SimpleTrigger`
+					- 作用：在具体的时间点执行一次，或者在具体的时间点执行，并且以指定的间隔重复执行若干次。
+					- 关键配置
+						- `requestRecovery`
+							- 作用：当任务在执行过程中出现意外，比如服务器down了，那么在重启时候是否恢复任务。
+							- 如果要借助 ((664568cc-130a-4e1c-8246-462679bf3711))对错过的批量进行重跑，需要将该配置设置为`true`。
+				- `CronTrigger`
+					- 作用：可以定义Cron表达式来定义任务执行的规则。
+			- `Scheduler`（调度器）
+				- 作用：Scheduler启动Trigger去执行Job。
+		- 其他类
+		  collapsed:: true
+			- `JobDataMap`
+				- 在`JobDataMap`里面如果存储对象，这个对象一定要实现`Serializable`，否则会报错`JobPersistenceException`。
+	- 关键配置
+		- `org.quatz.jobStore.misfireThreshold`：设置一个批量错过触发时间的最大阈值，如果超过这个时间才认定这个批量错过执行了。接着会根据错过执行的策略判断是否继续执行该批量。
+		- 错过触发的策略
+			- `CornTrigger`使用的策略
+				- `MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY = -1;`：对于错过的批次任务，恢复后所有错过的批次都会执行。
+				- `MISFIRE_INSTRUCTION_SMART_POLICY = 0;`：该策略在`CronTrigger`中为`MISFIRE_INSTRUCTION_FIRE_ONCE_NOW`。
+				- `MISFIRE_INSTRUCTION_FIRE_ONCE_NOW = 1;`：对于错过的批次不理睬，恢复后会立即执行一次，接着执行下一个批次的任务。
+				- `MISFIRE_INSTRUCTION_DO_NOTHING = 2;`：对于错过的批次不理睬，直接执行下一个批次的任务。
+			- `SimpleTrigger`使用的策略
+				- `MISFIRE_INSTRUCTION_SMART_POLICY`
+					- 若Repeat Count=0：会选择`MISFIRE_INSTRUCTION_FIRE_NOW`，系统恢复后立刻执行。对于不会重复执行的任务，这是默认的处理策略。
+					- 若Repeat Count>0：会选择`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，系统恢复后立刻执行并执行指定的次数。
+					- 若Repeat Count=REPEAT_INDEFINITELY;【无限重复】：`MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`，系统恢复后在下一个激活点执行，且超时期内错过的执行机会作废。
+				- `MISFIRE_INSTRUCTION_FIRE_NOW`：无论任务是否misFire，项目重启后都会立刻执行。对于不会重复执行的任务，这是默认的处理策略。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT`：在下一个激活点执行，且超时期内错过的执行机会作废。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_COUNT`：立即执行，且超时期内错过的执行机会作废。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT`：在下一个激活点执行，并重复到指定的次数。
+				- `MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_COUNT`：立即执行，并重复到指定的次数。
+				- `MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY`：忽略所有的超时状态，按照触发器的策略执行。
+			- 参考文章
+				- [Quartz的misfire处理机制分析](https://www.cnblogs.com/pzy4447/p/5201674.html)
+				- [Quartz框架（四）—misfire处理机制](https://www.jianshu.com/p/572322b36383)
+				- [定时任务调度框架Quartz--Misfire处理规则](https://blog.csdn.net/yanluandai1985/article/details/107234115)
+				- [Quartz Scheduler misfireThreshold属性的意义与触发器超时后的处理策略](https://www.cnblogs.com/daxin/p/3919927.html)
+		- 调度器的存储配置
+			- 使用内存作业存储（RAMJobStore）
+				- 默认情况下，Quartz的`org.quartz.jobStore.class`可能配置为`org.quartz.simpl.RAMJobStore`，这种配置将调度信息保存在内存中，轻量级且速度快。但是，当应用重启时，所有信息都会丢失
+			- 使用数据库作业存储（JDBCJobStore）
+				- `JobStoreTX`
+					- 使用`org.quartz.impl.jdbcjobstore.JobStoreTX`作为`org.quartz.jobStore.class`的值。这种配置将Quartz的调度信息保存在数据库中，提供了数据的持久化。它适用于需要数据持久化和集群支持的场景
+					- 它用于管理自己的事务。这意味着调度命令（例如添加和删除触发器）不会与其他事务绑定在一起。
+				- `JobStoreCMT`：适合需要与应用服务器的事务管理集成的场景。
+			- 参考文章
+				- [JobStores](https://xuzongbao.gitbooks.io/quartz/content/JobStores.html)
+	- 表结构
+		- [Quartz中表及其表字段的意义](https://www.cnblogs.com/zyulike/p/13671130.html)
+		-
+	- 问题
+	  collapsed:: true
+		- [【问题解决】This scheduler instance is still active but was recovered by another instance in the cluster.](https://blog.csdn.net/yjn1995/article/details/102560048)
+	- 参考文章
+	  collapsed:: true
+		- [美团 - Quartz应用与集群原理分析](https://tech.meituan.com/2014/08/31/mt-crm-quartz.html)
+		- [Quartz框架系列文章](https://www.jianshu.com/p/2a5d3b6336ba)
+		- [Quartz Tutorials](https://www.javacodegeeks.com/quartz-tutorials)
+		- [Introduction to Quartz](https://www.baeldung.com/quartz)
+		- [Quartz定时任务2.3版本数据库表字段说明](https://juejin.cn/post/7012961939319947300)
+		- [定时任务quartz-动态管理任务&实现思路](https://java.isture.com/arch/manage-system/manage-system-job.html)
+		- [Quartz 分布式定时任务动态添加&删除定时任务](https://blog.csdn.net/K_Men/article/details/122488852)
+		- [Quartz框架（九）— 动态操作Quartz定时任务](https://www.jianshu.com/p/c16a526b7aa6)
+		- [Quartz系列五：SimpleTrigger](https://nkcoder.github.io/posts/quartz/quartz-tutorial-5-simple-trigger/)
+		- [Category: Quartz](https://nkcoder.github.io/categories/quartz/)
+		- [作业调度系统—Quarzt](https://xuzongbao.gitbooks.io/quartz/content/)
+- Mybatis
+	- 一级缓存的问题
+		- 背景：今天我在写代码的时候发现，我在一个for循环里面重复执行一个sql，发现sql返回的实体对象还是之前的那个，多次循环查询都是一个对象，而且日志也没有打印sql，我怀疑Mybatis压根就没有执行这条sql。
+		- 原因
+			- mybatis会默认会开启一级缓存，一级缓存就是同一个`SqlSession`中，执行相同的sql语句，Mybatis会将第一次查询的数据写到缓存中（内存），第二次再次查询的时候就不会从数据库中查询，会直接范湖缓存中的结果。
+			- 一级缓存只是相对于同一个`SqlSession`而言。所以在参数和SQL完全一样的情况下，我们使用同一个`SqlSession`对象调用一个Mapper方法，往往只执行一次SQL，因为使用SelSession第一次查询后，MyBatis会将其放在缓存中，以后再查询的时候，如果没有声明需要刷新，并且缓存没有超时的情况下，`SqlSession`都会取出当前缓存的数据，而不会再次发送SQL到数据库。
+			- 如果要想每次查询都要去数据库查询，不使用Mybatis的一级缓存，只需要在查询sql中添加`flushCache`属性，将其设置为 `true` 后，只要语句被调用，都会导致本地缓存和二级缓存被清空，默认值：`false`。
+			- 我这边还做了一个实验，就是如果在一个`SqlSession`中对先查询了记录A，然后在后续的逻辑中修改了记录A，然后我第二次再次查询记录A的时候发现去数据库查了。也就是说，Mybatis中你对这条记录做了修改，他就会将上一次记录的一级缓存给删除了。
+		- 关闭一级缓存
+		  ```xml
+		  <configuration>
+		      <settings>
+		          <setting name="localCacheScope" value="Statement"/>
+		      </settings>
+		  </configuration>
+		  ```
+		- 参考文章： [mybatis的缓存机制（一级缓存二级缓存和刷新缓存）和mybatis整合ehcache](https://blog.csdn.net/u012373815/article/details/47069223)
+	- 二级缓存
+		- 二级缓存是针对Application级别的。
+	- tinyint类型
+	  collapsed:: true
+		- 在mybatis generator项目中，tinyint类型字段的实体映射逻辑：
+		  collapsed:: true
+			- 若数据库定义字段为`tinyint(1)` ，映射之后的Java类型为`Boolean`
+			- 若数据库定义字段为`tinyint(2)`，映射之后的Java类型为`Byte`
+			- 若数据库定义字段为`tinyint(4)`，映射之后的Java类型也为`Byte`
+	- sum()函数
+	  collapsed:: true
+		- `sum()`函数可能会返回null值，故在MyBatis查询中应该设置resultType为integer类型，不能是int。查询完成之后，还需要判断该值是否为null，从而避免代码出现空指针。
+	- 批量插入
+	  collapsed:: true
+		- [MyBatis 批量插入数据的 3 种方法](https://juejin.cn/post/7016691244973686820)
+	- 拦截器的编写
+	  collapsed:: true
+		- 参考文章
+			- [MyBatis 拦截器使用方法总结](https://blog.csdn.net/wb1046329430/article/details/111501755)
+	- 动态sql
+	  collapsed:: true
+		- `where`
+			- *where* 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，*where* 元素也会将它们去除。
+		- `foreach`
+			- 遍历元素。
+		- `if`
+			- 判断是否为空或者是null，多个条件中间用`and`
+		- `trim`
+		-
+	- typehandler
+	  collapsed:: true
+		- 一般我们在项目中，直接继承`BaseTypeHandler`进行实现，这个接口一共有四个方法：
+			- `void setParameter(PreparedStatement ps, int i, T parameter, JdbcType jdbcType)`：在Mybatis设置参数时该如何把Java类型的参数转换为对应的数据库类型
+			- `T getResult(ResultSet rs, String columnName)`：在Mybatis获取数据结果集时如何把数据库类型转换为对应的Java类型
+			- `T getResult(ResultSet rs, int columnIndex)`：在Mybatis通过字段位置获取字段数据时把数据库类型转换为对应的Java类型
+			- `T getResult(CallableStatement cs, int columnIndex)`：Mybatis在调用存储过程后把数据库类型的数据转换为对应的Java类型
+		- 参考文章
+			- [Mybatis TypeHandler 介绍及使用](https://blog.csdn.net/Crystalqy/article/details/133923124)

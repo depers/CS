@@ -20,6 +20,7 @@
 					- 服务器端接收到报文之后，根据魔数字段确定是否是符合规范的报文。
 					- 出于安全考虑，如果魔数校验不通过，就是无效数据包，可以关闭连接。
 	- 第十一章 Pipeline和ChannelHandler
+	  collapsed:: true
 		- ChannelHandler的分类
 		  collapsed:: true
 			- 接口分类图
@@ -38,10 +39,12 @@
 			- 默认实现
 				- ChannelOutboundHandlerAdapter
 	- 第十二章 构建客户端与服务端的Pipeline
+	  collapsed:: true
 		- 基于`ByteToMessageDecoder`，可以实现自定义解码，而不用关心`ByteBuf`的强转和解码结果的传递。
 		- 基于`SimpleChannelInboundHandler`，可以实现每一种指令的处理，不再需要强转，不再有冗长乏味的`if else`逻辑，不再需要手动传递对象。
 		- 基于`MessageToByteEncoder`，可以实现自定义编码，不用关心`ByteBuf`的创建，不用每次向对端写Java对象都进行一次编码。
 	- 第十三章 拆包/粘包理论与解决方案
+	  collapsed:: true
 		- `FixedLengthFrameDecoder`：定长消息拆包和粘包的处理类。
 			- 关于`lengthAdjustment`字段的使用，参考文章：[【Netty】「优化进阶」（二）浅谈 LengthFieldBasedFrameDecoder：如何实现可靠的消息分割？](https://xie.infoq.cn/article/05b7f6179fa3167d0803080c9)
 	- 第十四章 ChannelHandler的生命周期
@@ -103,21 +106,22 @@
 				- 第四步：通过`io.netty.channel.ReflectiveChannelFactory#newChannel`创建了Java底层的`Channel`对象，创建的这个`Channel`其实是
 				  `NioServerSocketChannel`，这个channel里面包含了Java底层的`Channel`。
 			- 将Channel注册到Java底层的Selector
-				- 第一步：`io.netty.bootstrap.AbstractBootstrap#initAndRegister`在完成创建和初始化channel的操作之后开始注册工作。
-				- 第二步：`io.netty.channel.nio.AbstractNioChannel#doRegister`将Netty的Channel注册到底层的Selector选择器上。
-				- 第三步：`io.netty.channel.socket.nio.NioServerSocketChannel#javaChannel`通过该方法获取之前创建的底层的`ServerSocketChannel`。
+				- 整体调用图
+					- ![将Netty的Channel注册到Selector.png](../assets/将Netty的Channel注册到Selector_1722158499883_0.png)
+				- 第一步：`io.netty.bootstrap.AbstractBootstrap#initAndRegister`：在完成创建和初始化channel的操作之后开始注册工作。
+				- 第二步：`io.netty.channel.nio.AbstractNioChannel#doRegister`：将Netty的Channel注册到底层的Selector选择器上。
+				- 第三步：`io.netty.channel.socket.nio.NioServerSocketChannel#javaChannel`：通过该方法获取之前创建的底层的`ServerSocketChannel`。这一步是将拿到在前面过程中创建的JDK底层的`Channel`，然后调用JDK的`register()`方法，将`this`也即**NioServerSocketChannel对象**当作attachment绑定到JDK的`Selector`上，这样后续从`Selector`拿到对应的事件之后，就可以把Netty领域的`Channel`拿出来。
 			- 调用底层api进行端口绑定，触发active事件
 				- 第一步：`io.netty.bootstrap.AbstractBootstrap#doBind`在完成channel的创建和注册之后，开始绑定
 				- 第二步：`io.netty.bootstrap.AbstractBootstrap#doBind0`开始绑定
 				- 第三步：`io.netty.channel.socket.nio.NioServerSocketChannel#doBind`调用底层api进行绑定
 				- 第四步：`io.netty.channel.DefaultChannelPipeline#fireChannelActive`触发active方法
 	- 第二十二章 Reactor线程模型
-	  collapsed:: true
 		- bossGroup对应的就是监听端口的线程池，在绑定一个端口的情况下，这个线程池里只有一个线程；
 		- workerGroup对应的是连接的数据读写的线程。
 		- 源码分析：`EventLoopGroup workerGroup = new NioEventLoopGroup();`中的`io.netty.util.concurrent.MultithreadEventExecutorGroup#MultithreadEventExecutorGroup(int, java.util.concurrent.Executor, io.netty.util.concurrent.EventExecutorChooserFactory, java.lang.Object...)`
 			- 创建`ThreadPerTaskExecutor`
-				- `ThreadPerTaskExecutor`是负责创建线程和执行任务的。
+				- `ThreadPerTaskExecutor`是负责创建线程和执行任务的线程池。
 				- `NioEventLoop`线程的命名规则是nioEventLoopGroup-xx-yy，xx表示全局第xx个`NioEventLoopGroup`，yy表示这个`NioEventLoop`在`NioEventLoopGroup`中是第yy个。
 			- `NioEventLoop`的创建
 				- `NioEventLoop`对应一个线程，也就是`FastThreadLocalThread`。
@@ -127,12 +131,35 @@
 				- 在传统的NIO编程中，一个新连接被创建后，通常需要给这个连接绑定一个`Selector`，之后这个连接的整个生命周期都由这个`Selector`管理。
 				- Netty中一个`Selector`对应一个`NioEventLoop`，线程选择器的作用是为一个连接在一个`EventLoopGroup`中选择一个`NioEventLoop`，从而将这个连接绑定到某个`Selector`上。
 				- `NioEventLoop`对应Netty的一个Reactor线程。
-				-
+		- NioEventLoop对应线程的创建和启动
+			- 具体的执行方法是：`io.netty.util.concurrent.SingleThreadEventExecutor#doStartThread`
+			- 执行的流程图
+			  ![代码入口.png](../assets/代码入口_1721273915057_0.png)
+			- 在这个流程中，介绍了一个`NioEventLoop`是如何与一个线程实体绑定的：`NioEventLoop`通过`ThreadPerTaskExecutor`创建一个`FastThreadLocalThread`，然后通过一个成员变量来指向这个线程。
+		- NioEventLoop的执行流程
+			- NioEventLoop的执行总体架构
+				- 执行流程的代码入口：`io.netty.channel.nio.NioEventLoop#run`
+				- 总体架构
+					- 1. 执行一次事件轮询，轮询每一个Reactor线程注册在Selector上的所有Channel的IO事件
+						- 关键代码：`io.netty.channel.nio.NioEventLoop#select`
+						- 主要步骤
+							- 1. 定时任务截止时间快到了，中断本次轮询
+							- 2. 轮询过程中发现有任务加入，中断本次轮询
+							- 3. 阻塞式 select 操作
+								- 执行到这里说明Netty任务队列里的队列为空，并且所有定时任务的延迟时间还未到（大于0.5ms）
+							- 4. 解决 JDK 的 NIO Bug
+								- 如果当前的时间减去下一个定时任务的延迟时间大于select轮训时间，说明这是一次有效的轮询，重置selectCnt标志。
+								- 否则说明这段时间没有检测到io事件，是在空转轮训，可能会导致CPU 100%，此时需要重建selector，将原有的channel转移到新的Selector上
+					- 2. 处理产生的IO事件
+						- 关键代码：`io.netty.channel.nio.NioEventLoop#processSelectedKeys`
+						-
+					- 3. 处理任务队列
+			-
 - 《Netty实战》阅读笔记
+  collapsed:: true
 	- 第一章 Netty-异步和事件驱动
 	  collapsed:: true
 		- Netty的核心组件
-		  collapsed:: true
 			- Chanel
 			  collapsed:: true
 				- Channel 是 Java NIO 的一个基本构造。
@@ -141,7 +168,6 @@
 			  collapsed:: true
 				- 一个回调其实就是一个方法，一个指向已经被提供给另外一个方法的方法的引用。这使得后者可以在适当的时候调用前者。
 			- Future
-			  collapsed:: true
 				- `Future`提供了另一种在操作完成时通知应用程序的方式。但是它需要开发程序手动检测操作是否已经完成或者一直阻塞到它完成，使用十分繁琐。
 				- 这个类的实例可以看做代表了一个异步操作。
 				- `ChannelFuture`
@@ -154,14 +180,12 @@
 					- 是一个监听器
 					- 当ChannelFuture中定义的操作完成的时候，监听器中的`OperationComplete()`方法将会被调用。
 			- 事件和ChannelHandler
-			  collapsed:: true
 				- 背景：Netty通过不同的事件来通知我们状态的改变或者操作的状态。
 				- 事件
 				  collapsed:: true
 					- 事件按照事件与入栈和出栈数据流的相关性进行分类的。
 					- 每个事件都会被分发给一个`ChannelHandler`中某个用户实现的方法。
 				- `ChannleHandler`
-				  collapsed:: true
 					- 是一种为了响应特定事件而被执行的回调。
 					- Netty提供了大量的开箱即用的`ChannelHandler`实现。
 	- 第二章 编写Netty应用程序
@@ -191,6 +215,7 @@
 				  collapsed:: true
 					- 不同于服务端只需要监听端口，客户端使用主机和端口来连接远程地址。
 	- 第三章 Netty的组件和设计
+	  collapsed:: true
 		- 1.Channel、EventLoop和ChannelFuture
 			- 概述
 				- Channel可以类比Socket。
@@ -282,4 +307,5 @@
 	- 参考文章
 		- [Netty 框架学习 —— ByteBuf](https://www.cnblogs.com/Yee-Q/p/14880801.html)
 - 参考文章
+  collapsed:: true
 	- [Netty入门看这一篇就够了](https://juejin.cn/post/6924528182313893896)

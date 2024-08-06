@@ -422,13 +422,11 @@
 		- 2.Bean的基本配置
 		  collapsed:: true
 			- Bean的装配
-			  collapsed:: true
 				- xml中bean最基础的配置是`id`和`class`两个属性
 				  ```xml
 				  <bean id="car" class="cn.bravedawn.chapter4.applicationbeanfactorydemo.Car"/>
 				  ```
 			- Bean的命名
-			  collapsed:: true
 				- 在配置Bean的时候，我们建议配置id来作为bean的唯一标识，因为如果出现相同name的bean，后定义的bean会覆盖前面定义的bean
 		- 3.依赖注入
 		  collapsed:: true
@@ -745,34 +743,27 @@
 		- 10.基于注解的配置
 		  collapsed:: true
 			- 使用注解定义Bean
-			  collapsed:: true
 				- Spring容器成功启动的三大要件
-				  collapsed:: true
 					- Bean定义信息，就是xml中bean的定义
 					- Bean实现类，就是java类中对bean进行定义的类
 					- Spring本身
 					- 基于xml的配置中，Bean的定义信息和Bean的实现类是分隔开来的；在基于注解的配置中，这两者都在Bean的实现类中得以体现。
 				- Spring提供的声明Bean的注解
-				  collapsed:: true
 					- `@Component`，下面的三个注解其实和`@Component`是等效的，只是为了标注类的用途更加清晰化，其实可以用`@Component`替换。
 					- `@Respository`
 					- `@Service`
 					- `@Contoller`
 			- 扫描注解定义的Bean
-			  collapsed:: true
 				- 背景：使用了上面的四个注解之后，我们需要在原来的Bean的描述文件中配置需要Spring扫描Bean的类包。
 				- xml中的`component-scan`配置
 				  collapsed:: true
 					- 作用：配置Spring需要扫描Bean定义信息的类包。
 					- 属性
 						- `base-package`
-						  collapsed:: true
 							- 配置需要扫描的类包。
 						- `resource-pattern`
-						  collapsed:: true
 							- 基于base-package的配置，过滤出特定的类，Spring会对这些特定的类进行扫描。
 						- `include-filter`
-						  collapsed:: true
 							- 表示要包含的目标类。
 							- 支持过滤表达式。
 						- `exclude-filter`
@@ -780,13 +771,15 @@
 							- 支持过滤表达式，其中`aspectj`的过滤表达能力是最强的。
 							- 过滤表达式的类别
 								- annotation
-								- assignable
+								- assignable_type，通过配置这个类型可以排除指定的类。
 								- aspectj
 								- regex
 								- custom
-							- 参考文章：[Spring @ComponentScan – Filter Types](https://www.baeldung.com/spring-componentscan-filter-type)
+							- 参考文章
+								- [Spring @ComponentScan – Filter Types](https://www.baeldung.com/spring-componentscan-filter-type)
+								- [排除指定包的类](https://chwwww.github.io/2020/04/19/202004191/)
+								- [Spring注解——使用@ComponentScan自动扫描组件](https://www.jianshu.com/p/64aac6461d5b)
 						- `use-default-filters`
-						  collapsed:: true
 							- 默认值是`true`，表示默认会对`@Component`、`@Service`、`@Controller`和`@Resposity`的Bean进行扫描。
 							- 如果想只对`@Controller`标注的Bean进行扫描，必须将其值设置为`false`。
 						- 关于`include-filter`、`exclude-filter`和`use-default-filters`三者的作用顺序：
@@ -794,21 +787,17 @@
 							- Spring首先会根据exclude-filter的配置列出需要排除的黑名单，然后根据include-filter的配置列出白名单，再根据use-default-filters的配置觉得需要扫描的注解配置。
 						-
 			- 自动装配Bean
-			  collapsed:: true
 				- 使用`@Autowired`进行自动注入
-				  collapsed:: true
 					- `@Autowired`注解默认按类型（byType）匹配的方式在容器中查找匹配的Bean，当有且仅有一个匹配的Bean时，Spring将其注入`@Autowired`标注的变量中。
+					- `@Autowired`注解如果Spring作用于属性时，如果相同类型的Bean有多个话，**属性名如果和Bean名称一致的话**，就会注入名称相同的Bean，也就是说在修饰属性的时候，直接使用`@Autowired`就可以达到使用`@Qualifier`的效果。
 				- 使用`@Autowired`的requested属性
-				  collapsed:: true
 					- 若容器中没有一个和标注变量类型匹配的Bean，那么Spring在启动的时候会报`NoSuchDefinitionException`异常。若希望Spring在匹配不到的时候不要抛异常，则可以使用`@Autowired(required=false)`进行标注。
 				- 使用`@Qualifier`指定注入Bean的名称
-				  collapsed:: true
 					- 如果容器中存在相同类型的Bean的数量超过1个以上，则可以通过`@Qualifier`注解限定Bean的名称。
 				- 对类的方法进行标注
 				  collapsed:: true
 					- @Autowired注解除了可以对类的**属性成员变量**进行注入，还可以对**方法的入参**进行注入。
 					- 若方法只有一个入参
-					  collapsed:: true
 						- 示例代码
 						  ```java
 						  @Autowired
@@ -824,7 +813,6 @@
 						  }
 						  ```
 					- 若方法存在多个入参
-					  collapsed:: true
 						- 示例代理
 						  ```java
 						  // 下面的方法会将名称为userdao的Bean注入给参数userDao，会将类型为LogDao的Bean注入给logDao
@@ -837,7 +825,6 @@
 				- 对集合类进行注入
 				  collapsed:: true
 					- 对于List集合
-					  collapsed:: true
 						- 下面代码中会将所有Plugin类型（包含继承和实现了Plugin类的Bean）的Bean注入到这个list变量中。
 						- 示例代码
 						  ```java
@@ -845,7 +832,6 @@
 						  private List<Plugin> plugins;
 						  ```
 					- 对于Map集合
-					  collapsed:: true
 						- 下面的代码中会将Plugin类型的Bean放入这个Map中，其中key是Bean的名称，value是Bean本身。
 						- 示例代码
 						  ```java
@@ -854,26 +840,19 @@
 						  ```
 					- 值得注意的是：Bean的加载顺序可以使用@Order注解进行声明，其中值越小，越优先被加载。
 				- 对延迟依赖注入的支持
-				  collapsed:: true
 					- Spring容器在启动的时候，对于同时标注了`@Lazy`和`@Autowired`注解的属性不会立刻注入属性值，而是延迟到调用此属性的时候才会注入属性值。
 					- `@Lazy`必须同时标注在目标Bean Java类的声明上和注入属性这两个地方才会生效。
 				- 对标准注解的支持
-				  collapsed:: true
 					- JSR-250定义的`@Resource`注解
-					  collapsed:: true
 						- 作用：对类成员变量和方法入参提供自动注入的功能。
 						- 与@Autowired的区别
-						  collapsed:: true
 							- @Resource是按名称匹配进行Bean的注入的。@Autowired是按类型。
 							- @Resource要求提供一个Bean的名称属性方便其进行查找，如果属性为空，则按照标注处的变量名称或方法名作为Bean的名称去做查找。
 					- JSR-330定义的`@Inject`注解
-					  collapsed:: true
 						- 作用：对类成员变量和方法入参提供自动注入的功能。
 						- 与`@Autowired`的区别
-						  collapsed:: true
 							- `@Inject`注解与`@Autowired`注解一样都是按类型进行注入的，但是`@Inject`没有`required`属性。
 			- Bean的作用范围及生命过程方法
-			  collapsed:: true
 				- 作用范围
 				  collapsed:: true
 					- 我们在通过注解配置一个Bean的时候，除了使用@Component注解外，还可以使用@Scope注解来显示的指定Bean的作用范围或者说是作用域。具体可以参考 8.Bean作用域。
@@ -889,34 +868,24 @@
 		- 11.基于Java类的配置
 		  collapsed:: true
 			- 使用Java类提供Bean的定义信息
-			  collapsed:: true
 				- 实现步骤
-				  collapsed:: true
 					- 一使用`@Configuration`注解声明一个配置类
 					- 二在配置中声明定义类的方法，并使用@Bean注解去标注，默认Bean是以方法名作为Bean的名称。
 				- 注意
-				  collapsed:: true
 					- `@Configuration`注解类本身已经标注了`@Component`注解，所以配置类本身就是一个Bean。
 					- 在方法上标注`@Bean`注解的地方，我们还可以使用`@Scope`注解来控制Bean的作用范围。
 					- 因为采用Java类的配置去声明Bean的方式，在进行Bean的创建时会将Bean的生命周期管理的逻辑植入进来。这里就要用到AOP增强，所以使用基于Java类的配置方式必须保证要将Spirng aop和CGLib的包加载到类路径下。
 			- 使用基于Java类的配置信息启动Spring容器
-			  collapsed:: true
 				- 直接通过`@Configuration`类启动Spring容器
-				  collapsed:: true
 					- 方法一：加载一个`@Configuration`配置类
-					  collapsed:: true
 						- Spring提供了`AnnotationConfigApplicationContext`类，直接通过标注`@Configuration`的Java类启动Spring容器。
 					- 方法二：加载多个`@Configuration`配置类
-					  collapsed:: true
 						- 通过`AnnotationConfigApplicationContext`类的`register()`（注册配置类）和`refresh()`（刷新容器以应用这些注册的配置类）方法去加载多个配置类。
 					- 方法三：通过`@Import`注解将多个配置类组装到一个配置类中
-					  collapsed:: true
 						- 将多个配置类组合到一个配置类中，使用方法一加载配置类。
 				- 通过XML配置文件引用@Configuration的配置
-				  collapsed:: true
 					- 在xml文件中配置Java Bean的配置类，让Spring容器去扫描到相应的配置类。
 				- 通过@Configuration配置类引用XML配置信息
-				  collapsed:: true
 					- 在标注有@Configuration注解的配置类中，引入声明有Bean定义的xml文件，在Java的配置文件中我们可以直接使用xml中配置的Bean。最后使用@Configuration类启动Spring容器即可。
 		- 12.基于Groovy DSL的配置
 		  collapsed:: true
@@ -960,6 +929,7 @@
 				- [SpringBoot动态注入Bean](https://www.jianshu.com/p/faa6ac6f2ce2)
 				- [spring动态创建bean:动态创建方式的时机影响（一）](https://blog.csdn.net/qq_37207266/article/details/120389752)
 		- 14.不同配置方式的比较
+		  collapsed:: true
 			- Bean不同配置方式的比较
 				- 书中总结图片
 				  ![Bean不同配置方式的比较.png](../assets/Bean不同配置方式的比较_1685860855635_0.png)
@@ -1522,7 +1492,6 @@
 			- 可以无缝集成AscpectJ。
 		- 2.Java注解的基础知识
 		- 3.着手使用`@AspectJ`
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 第七章主要使用`Pointcut`和`Advice`接口描述切点和增强，通过`Advisor`整合切点和增强描述切面。
@@ -1535,7 +1504,6 @@
 			- 参考文章
 				- [【Spring AOP】@Aspect结合案例详解（一）: @Pointcut使用@annotation + 五种通知Advice注解](https://juejin.cn/post/7186473207132586044?searchId=20240429110927BE32A8C60B380980D3FD)
 		- 4.`@AspectJ`语法基础
-		  collapsed:: true
 			- 背景
 				- 由于Spring只支持方法的连接点，所以Spring仅支持部分AspectJ的切点语言。
 			- 切点表达式函数
@@ -2663,8 +2631,9 @@
 			  collapsed:: true
 				- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
 		- Spring的OncePreRequestFilter
-		  collapsed:: true
 			- 与Servlet Filter的区别
+				- `Filter`：在每次请求时都可能执行，没有内置机制来防止在请求转发时重复执行。
+				- `OncePerRequestFilter`：确保在整个请求过程中只执行一次，即使请求被转发或重定向。
 			- 参考文章
 				- [What is OncePerRequestFilter](https://www.baeldung.com/spring-onceperrequestfilter)
 		- 拦截器-Intercepter
@@ -2691,11 +2660,11 @@
 				- 全局数据预处理
 		- 切面-aspect
 	- 如何多次读取HttpServletRequest
-	  collapsed:: true
 		- 具体实现
 			- jasper:cn/bravedawn/web/config/cachedrequest
 		- 参考文章
 			- [Reading HttpServletRequest Multiple Times in Spring](https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times)
+			- [在过滤器中多次读取请求体内容](https://www.muedsa.com/posts/servlet-filter-multi-read-input-stream)
 	- 异常处理
 	  collapsed:: true
 		- 方法一：为每一个controller添加一个@ExceptionHandler注解的方法
@@ -2951,7 +2920,6 @@
   collapsed:: true
 	- SpringBoot注解
 		- `@ConditionalOnProperty`
-		  collapsed:: true
 			- 作用：我们需要根据配置属性是否存在、具体的值是什么，来**有条件地创建一些 bean**。
 			- 具体属性
 				- `prefix`：配置前缀
@@ -2965,11 +2933,14 @@
 		  collapsed:: true
 			- 这两个注解用于判断该程序是否web应用程序。
 		- `@ConfigurationProperties`
+		  collapsed:: true
 			- 该注解用来读取自定义的特定配置信息，配合`@Component注解`使用。
 			- 配置文件中的命名建议都使用`-`来连接，不建议使用驼峰。
 			- 注意的点
 				- `prefix`属性应该是以`-`作为分隔符进行区分的，不能是驼峰命名。具体的文章参考：[Spring Boot Properties Prefix Must Be in Canonical Form](https://www.baeldung.com/spring-boot-properties-canonical-form)
 			- 参考文章：[Guide to @ConfigurationProperties in Spring Boot](https://www.baeldung.com/configuration-properties-in-spring-boot)
+		- `@Conditional`注解
+			- 如果现有的条件注解不能满足需求，可以自定义实现`Condition`接口的类，并在`matches`方法中定义自己的条件逻辑。这可以用于实现更复杂的条件判断，比如根据不同的环境或配置来激活不同的Bean。
 	- 依赖管理
 	  collapsed:: true
 		- Spring Boot 的每个版本都提供了它支持的依赖项列表，因此，我们在引入其他的依赖时不需要在配置中指定依赖项的版本，Spring Boot会自行管理。具体可以参考文章：[springboot依赖的一些配置：spring-boot-dependencies、spring-boot-starter-parent、io.spring.platform](https://www.cnblogs.com/leeego-123/p/12665279.html)
@@ -3250,4 +3221,6 @@
 				- [FilterInvocationSecurityMetadataSource 接口](https://blog.csdn.net/qq_60458298/article/details/129771731)
 		- `AntPathRequestMatcher`
 			- 对请求的url和method进行Ant风格的校验。
+	-
+- Spring context
 	-
