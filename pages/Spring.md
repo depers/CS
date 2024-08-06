@@ -2612,7 +2612,6 @@
 			- 作用：用来接收前端传递给后端的`json`字符串中的数据的(请求体中的数据的)，所以只能发送POST请求。
 			- `@RequestBody`中的`required`默认是`true`，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将`required`设置为`false`。
 	- 过滤器
-	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
 			- 如下图
 			  ![10.png](../assets/10_1680702279599_0.png)
@@ -2645,7 +2644,7 @@
 			- 使用场景
 				- 权限检查：在`preHandle`方法中检查用户权限，决定是否允许访问。
 				- 日志记录：在`postHandle`或`afterCompletion`方法中记录请求处理的相关信息。
-				- `preHandle`：在业务处理器处理请求之前被调用。预处理，可以进行编码、安全控制、权限校验等处理；
+				- `preHandle`：在业务处理器处理请求之前被调用。预处理，可以进行编码、安全控制、权限校验等处理；如果要继续执行则返回true，否则返回false表示这个拦截器已经处理了响应本身。
 				- `postHandle`：在业务处理器处理请求执行完成后，生成视图之前执行。后处理（调用了Service并返回ModelAndView，但未进行页面渲染），有机会修改ModelAndView （这个基本不怎么用了）；
 				- `afterCompletion`：在DispatcherServlet完全处理完请求后被调用，可用于清理资源等。返回处理（已经渲染了页面）；
 			- 参考文章
@@ -2660,6 +2659,7 @@
 				- 全局数据预处理
 		- 切面-aspect
 	- 如何多次读取HttpServletRequest
+	  collapsed:: true
 		- 具体实现
 			- jasper:cn/bravedawn/web/config/cachedrequest
 		- 参考文章
