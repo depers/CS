@@ -1,5 +1,4 @@
 - Java语言
-  collapsed:: true
 	- Java基础
 	  collapsed:: true
 		- 语言基础
@@ -109,6 +108,7 @@
 							- 如果修改了char[]，并不会影响s
 					- 返回字符串索引下表字母的ascII十进制码值：codePointAt()
 				- 编码
+				  collapsed:: true
 					- 字符编码笔记：ASCII，Unicode 和 UTF-8
 					- 将字符串转为字节数组：byte[] b2 = "Hello".getBytes("UTF-8"); // 按UTF-8编码转换
 					- 将已知编码的字节数组转为字符串：String s2 = new String(b, StandardCharsets.UTF_8); // 按UTF-8转换
@@ -2175,6 +2175,7 @@
 				- [Java11新特性-效能翻倍的HttpClient](https://www.51cto.com/article/700924.html)
 				- [工具篇：apache-httpClient 和 jdk11-HttpClient的使用](https://juejin.cn/post/7029896031823200286)
 		- 安全
+		  collapsed:: true
 			- `AccessController.doPrivileged`
 				- 功能：是一个安全方法，用于执行需要特权的代码。可以确保即使在较低权限的环境下，这些代码也能以较高的权限执行。
 				- `PrivilegedAction`接口
@@ -3294,9 +3295,7 @@
 		- IO
 		  collapsed:: true
 			- 五种IO模型
-			  collapsed:: true
 				- 同步阻塞-Blocking I/O
-				  collapsed:: true
 					- 阻塞IO模型
 					  collapsed:: true
 						- 阻塞IO就是当应用发起读取数据申请时，在内核数据没有准备好之前，应用B会一直处于等待数据状态，直到内核把数据准备好了交给应用才结束。
@@ -3315,7 +3314,6 @@
 						- 示例图
 						  ![io复用.webp](../assets/io复用_1685864464711_0.webp)
 				- 同步非阻塞-Non-blocking I/O
-				  collapsed:: true
 					- 非阻塞IO模型
 					  collapsed:: true
 						- 非阻塞IO就是当应用发起读取数据申请时，如果内核数据没有准备好会即刻告诉应用，不会让应用在这里等待。
@@ -3333,7 +3331,7 @@
 					- 应用只需要向内核发送一个read 请求，告诉内核它要读取数据后即刻返回；内核收到请求后会建立一个信号联系，当数据准备就绪，内核会主动把数据从内核复制到用户空间，等所有操作都完成之后，内核会发起一个通知告诉应用，我们称这种一劳永逸的模式为异步IO模型。
 					- 示例图
 					  ![异步IO.webp](../assets/异步IO_1685865454338_0.webp){:height 479, :width 840}
-				- 同步和异步的区别在于：是否需要应用进程再去调用recvfrom系统调用。
+				- 同步和异步的区别在于：数据就绪后是否需要应用进程再去调用recvfrom系统调用读取数据。
 				- 阻塞和非阻塞的区别在于：应用进程在询问内核数据准备情况时，是否需要等待。
 				- 用通俗的话来讲：IO操作就像我们吃饭，首先我们要看饭做好了没有，然后再去吃饭。
 				- 参考文章
@@ -4999,7 +4997,6 @@
 			- `-source`：指定使用什么版本的JDK语法编译源代码
 			- `-target`：指定生成特定于某个JDK版本的class文件
 - Java EE
-  collapsed:: true
 	- Servlet
 	  collapsed:: true
 		- Java web application介绍
@@ -5945,7 +5942,6 @@
 						- `Driver getDriver(String url)`：通过jdbcUrl获取底层的驱动。
 						- `Enumeration<Driver> getDrivers()`：获取目前可以检索到的驱动程序枚举。
 			- 建立连接 - java.sql.Connection
-			  collapsed:: true
 				- 建立连接的方式
 				  collapsed:: true
 					- `Connection DriverManager.getContection(String url, String user, String password);`：建立一个数据库连接，返回一个Connection对象
@@ -5998,7 +5994,6 @@
 				- 在使用完一个`Connection`，`Statement`，或者`ResultSet`对象之后，应该使用他们的`close`方法释放资源。
 				- 或者，使用 **try-with-resources** 语句自动关闭 Connection、Statement 和 ResultSet 对象，无论是否抛出 SQLException。
 		- 使用DataSource对象获取数据源
-		  collapsed:: true
 			- 特点
 				- DataSource接口是由驱动程序供应商实现的。
 			- 优点
@@ -6288,7 +6283,7 @@
 								  channel.write(...)
 								  ```
 								- 代码路径：`io.netty.channel.AbstractChannelHandlerContext#write(java.lang.Object, io.netty.channel.ChannelPromise)`
-								- 这个方法最后还是会场景一的方法。
+								- 这个方法最后还是会执行到场景一的方法。
 							- 场景三：用户自定义定时任务
 								- 调用方法：
 								  ```java
@@ -6484,13 +6479,11 @@
 		- `org.quatz.jobStore.misfireThreshold`：设置一个批量错过触发时间的最大阈值，如果超过这个时间才认定这个批量错过执行了。接着会根据错过执行的策略判断是否继续执行该批量。
 		- 错过触发的策略
 			- `CornTrigger`使用的策略
-			  collapsed:: true
 				- `MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY = -1;`：对于错过的批次任务，恢复后所有错过的批次都会执行。
 				- `MISFIRE_INSTRUCTION_SMART_POLICY = 0;`：该策略在`CronTrigger`中为`MISFIRE_INSTRUCTION_FIRE_ONCE_NOW`。
 				- `MISFIRE_INSTRUCTION_FIRE_ONCE_NOW = 1;`：对于错过的批次不理睬，恢复后会立即执行一次，接着执行下一个批次的任务。
 				- `MISFIRE_INSTRUCTION_DO_NOTHING = 2;`：对于错过的批次不理睬，直接执行下一个批次的任务。
 			- `SimpleTrigger`使用的策略
-			  collapsed:: true
 				- `MISFIRE_INSTRUCTION_SMART_POLICY`
 				  collapsed:: true
 					- 若Repeat Count=0：会选择`MISFIRE_INSTRUCTION_FIRE_NOW`，系统恢复后立刻执行。对于不会重复执行的任务，这是默认的处理策略。
@@ -7076,6 +7069,7 @@
 		- 任何日志框架都允许开发人员将调试信息记录到可以用作过滤标准的日志级别，即可以禁用属于特定日志级别的消息。例如，在生产环境中，开发人员更关心WARN消息而不是DEBUG消息。
 		- 日志框架可以产生更好的输出和元数据，这有助于故障排除和调试。例如，Log4j2允许通过指定格式化模式来打印格式化输出，即使用PatternLayout可以包括时间戳、类名等。
 - [transmittable-thread-local](https://github.com/alibaba/transmittable-thread-local)
+  collapsed:: true
 	- 参考文章
 		- [TransmittableThreadLocal原理解析](https://juejin.cn/post/6998552093795549191)
 		- [从ThreadLocal谈到TransmittableThreadLocal，从使用到原理](https://juejin.cn/post/7214901105977671717#heading-16)

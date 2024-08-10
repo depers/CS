@@ -1016,12 +1016,9 @@
 		- 参考文章
 			- [spring-boot-maven-plugin插件的作用](https://www.cnblogs.com/acm-bingzi/p/mavenspringbootplugin.html)
 	- maven-compiler-plugin
-	  collapsed:: true
 		- 背景
-		  collapsed:: true
 			- `maven`是个项目管理工具，如果我们不告诉它我们的代码要使用什么样的`jdk`版本编译的话，它就会用`maven-compiler-plugin`默认的`jdk`版本来进行处理，这样就容易出现版本不匹配，以至于可能导致编译不通过的问题。
 		- 作用
-		  collapsed:: true
 			- 使用`maven-compiler-plugin`插件可以指定项目源码的`jdk`版本，编译后的`jdk`版本，以及`编码`。
 	- flatten-maven-plugin
 	  collapsed:: true

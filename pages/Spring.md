@@ -2907,15 +2907,16 @@
 		- 参考文章
 			- [AntPathMatcher路径匹配器，Ant风格的URL](https://cloud.tencent.com/developer/article/1840091)
 - spring-tx
-  collapsed:: true
 	- Spring对事务管理的支持
-	  collapsed:: true
 		- 事务管理的关键抽象
 		  collapsed:: true
 			-
 	- Spring对异常的整合
 	  collapsed:: true
 		- 针对于唯一键重复的异常：`DuplicateKeyException`
+	- 事务超时的控制
+		- [Spring 事务管理 Timeout 的一点问题研究](https://dongzl.github.io/2020/08/04/33-Spring-Transaction-Timeout/index.html)
+		- [Programmatic Transaction Management in Spring](https://www.baeldung.com/spring-programmatic-transaction-management)
 - Spring Boot
   collapsed:: true
 	- SpringBoot注解
