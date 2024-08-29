@@ -1,6 +1,5 @@
 - Java语言
 	- Java基础
-	  collapsed:: true
 		- 语言基础
 		  collapsed:: true
 			- 数据类型
@@ -500,11 +499,8 @@
 							- 多了做简单的日期和时间运算的功能
 							- 提供了时区转换的功能
 				- Java8新的时间API体系
-				  collapsed:: true
 					- 本地日期和时间
-					  collapsed:: true
 						- LocalDateTime
-						  collapsed:: true
 							- 它表示一个本地日期和时间
 							- 按照ISO 8601格式打印
 							- 可以转换为LocalDate和LocalTime
@@ -516,7 +512,6 @@
 							- 判断时间的先后
 							- LocalDateTime无法与时间戳进行转换，因为LocalDateTime没有时区，无法确定某一时刻
 						- LocalDate
-						  collapsed:: true
 							- 它表示一个本地日期
 						- LocalTime
 						  collapsed:: true
@@ -686,9 +681,7 @@
 				- `@return`：对返回参数进行说明
 				- 参考文章：[Java DOC教程](https://www.cnblogs.com/linj7/p/14339381.html)
 		- 面向对象
-		  collapsed:: true
 			- Object通用方法
-			  collapsed:: true
 				- equals
 				  collapsed:: true
 					- Java SE中针对equals()的原则
@@ -797,7 +790,6 @@
 					- 先判断两个对象是否相等，若是返回true，否则false；若两个参数都为null也返回true；
 					- 若第一个参数不为null，则调用他的equals方法进行判断；
 			- 面向对象
-			  collapsed:: true
 				- 类和接口的定义
 				  collapsed:: true
 					- 类：类是用户定义的蓝图或原型，可以从中创建对象。它表示对同一类型的所有对象通用的属性或方法的集合。
@@ -1749,7 +1741,6 @@
 				- Java的反射是指程序在运行期可以拿到一个对象的所有信息
 				- 反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法
 			- Class类
-			  collapsed:: true
 				- 特点
 				  collapsed:: true
 					- 除基本类型外，Java的其他类型都是Class（包括interface），Class的本质是数据类型
@@ -1773,7 +1764,6 @@
 					- JVM在执行Java程序的时候，并不是一次性把所有用到的类全部加载到内存，而是第一次需要用到类时才加载。
 					- 利用JVM动态加载类的特性，我们才能在运行期根据条件加载不同的实现类。
 				- 重要方法
-				  collapsed:: true
 					- `isInterface()`：该对象是否是一个接口
 					- `isAnonymous()`：是否是匿名类
 					- `class.newInstance()`： 会直接调用该类的无参构造函数进行实例化
@@ -1787,7 +1777,7 @@
 							- instanceof是一个操作符，而isInstance是Class的一个方法
 							- `a instanceof B`表示a 是不是 B 这种类型，而`B.Class.isInstance(a)`表示a 是否能强转为 B 类型
 					- `getType`：获取类型
-					-
+					- `isPrimitive`：判断是否是原始类型
 			- 访问字段
 			  collapsed:: true
 				- 通过Class实例获取字段信息，Class提供了 以下几个方法来获取字段
@@ -1972,18 +1962,14 @@
 		- SPI机制
 		  collapsed:: true
 			- 定义
-			  collapsed:: true
 				- 是JDK内置的一种 服务提供发现机制，可以用来启用框架扩展和替换组件，主要是被框架的开发人员使用。
 				- 核心思想是解耦。
 			- 实现
-			  collapsed:: true
 				- 定义一个接口。
 				- 为接口提供不同的实现。
 				- 在`resources`下新建`META-INF/services/`目录，以**接口名**新建一个文件，然后将**接口实现类的全限定名**写在该文件中。
 			- SPI机制的使用
-			  collapsed:: true
 				- JDBC DriverManager
-				  collapsed:: true
 					- 在Java17中可以参考`java.sql.DriverManager#ensureDriversInitialized`这个方法
 					- 在SPI加载驱动的时候相应jar包对`java.sql.Driver`接口的实现类都会被实例化
 				- Common-Logging
@@ -1998,7 +1984,6 @@
 					- Spring在做自动装配的时候，会加载`META-INF/spring.factories`文件，而加载的过程是由`SpringFactoriesLoader`加载的。
 					- Spring中具体的代码在`org.springframework.core.io.support.SpringFactoriesLoader#loadFactoryNames`
 			- SPI深入原理
-			  collapsed:: true
 				- 使用流程
 				  collapsed:: true
 					- 定义标准，比如java.sql.Driver
@@ -2183,7 +2168,6 @@
 				- `PrivilegedExceptionAction` 接口
 					- 功能：编写可能抛出异常的需要特权的代码。
 	- Java进阶
-	  collapsed:: true
 		- 集合框架
 		  collapsed:: true
 			- Java Collection Framwork
@@ -2299,7 +2283,6 @@
 				- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 				- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 			- List
-			  collapsed:: true
 				- 定义：List是最基础的一种集合：它是一种有序列表
 				- List<E>接口两个实现
 				  collapsed:: true
@@ -2491,7 +2474,6 @@
 						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
 				- List的比较和使用场景
 				- List的应用
-				  collapsed:: true
 					- 多维列表
 					  collapsed:: true
 						- 创建二维数组：ArrayList<ArrayList<Integer>>
@@ -2699,6 +2681,9 @@
 					- 查找两个列表的不同
 					  collapsed:: true
 						- 具体实践：JavaTrain/src/main/java/cn/bravedawn/collection/list/judgelistequals
+					- 针对List中对象的属性进行去重
+					  collapsed:: true
+						- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/deweight
 				- 参考文章
 				  collapsed:: true
 					- [Java Collections](https://www.baeldung.com/java-collections)
@@ -2751,7 +2736,6 @@
 						- 可以在HashMap中使用任何类作为键。为了使映射正常工作，我们需要为equals()和hashCode()提供一个实现
 						- hashCode()和equals()只需要在我们希望用作映射键的类中重写
 					- Java8新增的方法
-					  collapsed:: true
 						- forEach()
 						- getOrDefault()
 						- putIfAbsent()
@@ -2759,24 +2743,20 @@
 						- compute()
 						- 具体的实现参考：JavaTrain/src/main/java/cn/bravedawn/collection/map/hashmap/java8
 					- HashMap的内部实现
-					  collapsed:: true
 						- 关键变量
 						  collapsed:: true
 							- capacity 即容量，默认16。
 							- loadFactor 加载因子，默认是0.75
 							- threshold 阈值。阈值=容量*加载因子。默认12。当元素数量超过阈值时便会触发扩容。
 						- 存储结构
-						  collapsed:: true
 							- 内部包含了一个 Entry 类型的数组 table。也就是我们说的桶数组。
 							- Entry 存储着键值对。它包含了四个字段，从 next 字段我们可以看出 Entry 是一个链表。
 							- 即数组中的每个位置被当成一个桶，一个桶存放一个链表。
 							- HashMap 使用拉链法来解决冲突，同一个链表中存放哈希值和散列桶取模运算结果相同的 Entry。
 						- HashMap中检索一个元素的方法
-						  collapsed:: true
 							- 方法一：遍历所有元素，找到和键匹配的元素返回。这种时间复杂度是O(n)
 							- 方法二：使用HashMap的put()和get()方法，实现平均时间复杂度O(1)和空间复杂度O(n)
 						- HashMap中put和get操作的实现
-						  collapsed:: true
 							- HashMap将元素存储在所谓的桶（bucket）中，桶的数量称为容量。
 							- bucket的内部结构的数据结构可能是链表或是平衡树。
 							- 当我们向映射中添加一个元素时，将使用键的hashCode()方法来确定将存储该值的bucket。如果该桶已经包含一个值，会调用键对象的equals()方法判断桶内是否有相同键，若有则会覆盖原有的键所对应的value值；若没有则该值将被添加到属于该桶的列表(或树)中。如果容量大于阈值，则容量翻倍。
@@ -2790,7 +2770,6 @@
 							- 要使其正确工作，相等的键必须具有相同的散列，然而，不同的键可以具有相同的散列。如果两个不同的键具有相同的散列，则属于它们的两个值将存储在同一个bucket中。在桶内，值存储在一个列表中，并通过遍历所有元素来检索。它的代价是O(n) ，这里的n指的是桶里键值对的大小。
 							- 从Java 8(参见JEP 180)开始，如果一个桶包含8个或更多的值，则存储在一个桶内的值的数据结构将从链表更改为红黑树，这将使性能提高到O(log n)，这里的n指的是桶里键值对的大小。如果某个时刻桶中只剩下2到6个键值对时，则将回退回链表。
 						- 容量和负载因子
-						  collapsed:: true
 							- 为了避免多个桶具有多个值，如果75%(负载系数)的桶变为非空的，则容量将翻倍。
 							- 默认负载系数为75%，初始容量为16。两者都可以在构造函数中设置。
 						- 底层代码解析：Java HashMap的底层实现
@@ -3115,7 +3094,6 @@
 		- 并发
 		  collapsed:: true
 			- Thread
-			  collapsed:: true
 				- 线程的创建
 				- 核心方法
 				  collapsed:: true
@@ -3219,7 +3197,6 @@
 					  collapsed:: true
 						- 方法和普通线程一样，只是在调用`start()`方法前，调用`setDaemon(true)`把该线程标记为守护线程。
 			- 关键字
-			  collapsed:: true
 				- `volatile`
 				  collapsed:: true
 					- 功能
@@ -3229,16 +3206,13 @@
 						- `volatile`关键字解决的是可见性问题：当一个线程修改了某个共享变量的值，其他线程能够立刻看到修改后的值。
 				-
 			- 锁
-			  collapsed:: true
 				- 公平锁和非公平锁
 				  collapsed:: true
 					- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 					- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
 			- 线程池
-			  collapsed:: true
 				- 在一个应用中时可以创建多个线程池的。
 				- 参考文章：
-				  collapsed:: true
 					- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
 					- [别再纠结线程池大小/线程数量了，没有固定公式的](https://juejin.cn/post/6948034657321484318)
 			- Callable
@@ -3252,6 +3226,7 @@
 				- 异常只能在Runnable内部的逻辑中捕获，不能抛出
 				- 配合线程池的`execute()`方法或是`new Thread()`去使用
 			- Future
+			  collapsed:: true
 				- 功能：这是一个借口，表示异步执行的结果。
 				- Future模式
 					- 目的
@@ -4884,6 +4859,9 @@
 						  collapsed:: true
 							- 通过条件为常量的if语句，Java会将符合条件判断的子句保留，剔除不符合条件的子句，从而达到条件编译的效果。
 					- 插入式注解处理器实战：检查类名、方法名、属性名和常量等命名是否符合驼峰命名规则。
+			- hs_err_pidxxx错误
+			  collapsed:: true
+				- 如果遇到这种问题，大概率是服务申请内存过多，但是本机内存不足导致的报错，解决的办法就是设置：`-Xmx1g -Xms1g`，将内存资源放小。
 		- 三方类库
 		  collapsed:: true
 			- Guava
@@ -4906,7 +4884,6 @@
 	- 新特性
 	  collapsed:: true
 		- Java8
-		  collapsed:: true
 			- 我不会的函数
 			  collapsed:: true
 				- java.util.Map#compute
@@ -4975,9 +4952,7 @@
 					- [Why Do Local Variables Used in Lambdas Have to Be Final or Effectively Final?](https://www.baeldung.com/java-lambda-effectively-final-local-variables)
 					-
 			- Lambda异常处理
-			  collapsed:: true
 				- 参考文章
-				  collapsed:: true
 					- [Exceptions in Java 8 Lambda Expressions](https://www.baeldung.com/java-lambda-exceptions)
 	- 命令行工具
 	  collapsed:: true
@@ -6119,26 +6094,21 @@
 						- 服务器端接收到报文之后，根据魔数字段确定是否是符合规范的报文。
 						- 出于安全考虑，如果魔数校验不通过，就是无效数据包，可以关闭连接。
 		- 第十一章 Pipeline和ChannelHandler
-		  collapsed:: true
 			- ChannelHandler的分类
-			  collapsed:: true
 				- 接口分类图
 				  ![ChannelHandler的分类.png](../assets/ChannelHandler的分类_1718345430493_0.png)
 			- ChannelInboundHandler
-			  collapsed:: true
 				- **处理读数据的逻辑**。比如在一端读到一段数据，首先要解析这段数据，然后对这段数据做一系列逻辑处理，最终把响应写到对端。在组装响应之前的所有处理逻辑，都可以放置在一系列`ChannelInboundHandler`里处理，它的一个最重要的方法就是`channelRead()`。
 				- **从低到高**，可以将`ChannelInboundHandler`的逻辑处理过程与TCP的七层协议解析过程联系起来，把收到的数据一层层地从物理层上升到应用层。
 				- 默认实现
 					- ChannelInboundHandlerAdapter
 					- SimpleChannelInboundHandler
 			- ChannelOutboundHandler
-			  collapsed:: true
 				- **处理写数据的逻辑**，它是定义一端在组装完响应之后把数据写到对端的逻辑。比如，我们封装好一个response对象后，有可能对这个response做一些其他特殊逻辑处理，然后编码成ByteBuf，最终写到对端。它最核心的方法就是`write()`。
 				- **从高到低**，可以将ChannelOutboundHandler的逻辑处理过程与TCP的七层协议封装过程联系起来。我们在应用层组装响应之后，通过层层协议的封装，直到底层的物理层。
 				- 默认实现
 					- ChannelOutboundHandlerAdapter
 		- 第十二章 构建客户端与服务端的Pipeline
-		  collapsed:: true
 			- 基于`ByteToMessageDecoder`，可以实现自定义解码，而不用关心`ByteBuf`的强转和解码结果的传递。
 			- 基于`SimpleChannelInboundHandler`，可以实现每一种指令的处理，不再需要强转，不再有冗长乏味的`if else`逻辑，不再需要手动传递对象。
 			- 基于`MessageToByteEncoder`，可以实现自定义编码，不用关心`ByteBuf`的创建，不用每次向对端写Java对象都进行一次编码。
@@ -6189,15 +6159,14 @@
 			  collapsed:: true
 				- `writeAndFlush()`方法会返回一个`ChannelFuture`对象，我们给这个对象添加一个监听器，然后在回调方法里，可以监听这个方法执行的结果，进而执行其他逻辑，最后统计耗时，这样统计出来的耗时才是最准确的。
 		- 第二十章 心跳与空闲检测
-		  collapsed:: true
 			- 空闲检测
 				- 空闲检测指的是每隔一段时间，检测这段时间内是否有数据读写。简化一下，服务端或客户端只需要检测一段时间内，是否收到过客户端或服务端发来的数据即可，Netty自带的`IdleStateHandler`就可以实现这个功能。
 			- 客户端定时发送心跳数据包
 				- 解决的问题：客户端非假死状态下确实没有发送数据，这样可能会被服务端误以为是连接假死。
 		- 第二十一章 服务端启动流程分析
+		  collapsed:: true
 			- 创建一个NioServerSocketChannel对象的过程分析
 			- 代码分析的入口
-			  collapsed:: true
 				- 创建Channel
 					- 第一步：`ServerBootstrap.bind()`方法中
 					- 第二步：`io.netty.bootstrap.AbstractBootstrap#doBind()`方法
@@ -6216,6 +6185,7 @@
 					- 第三步：`io.netty.channel.socket.nio.NioServerSocketChannel#doBind`调用底层api进行绑定
 					- 第四步：`io.netty.channel.DefaultChannelPipeline#fireChannelActive`触发active方法
 		- 第二十二章 Reactor线程模型
+		  collapsed:: true
 			- bossGroup对应的就是监听端口的线程池，在绑定一个端口的情况下，这个线程池里只有一个线程；
 			- workerGroup对应的是连接的数据读写的线程。
 			- 源码分析：`EventLoopGroup workerGroup = new NioEventLoopGroup();`中的`io.netty.util.concurrent.MultithreadEventExecutorGroup#MultithreadEventExecutorGroup(int, java.util.concurrent.Executor, io.netty.util.concurrent.EventExecutorChooserFactory, java.lang.Object...)`
@@ -6539,6 +6509,7 @@
 - Mybatis
   collapsed:: true
 	- 一级缓存的问题
+	  collapsed:: true
 		- 背景：今天我在写代码的时候发现，我在一个for循环里面重复执行一个sql，发现sql返回的实体对象还是之前的那个，多次循环查询都是一个对象，而且日志也没有打印sql，我怀疑Mybatis压根就没有执行这条sql。
 		- 原因
 			- mybatis会默认会开启一级缓存，一级缓存就是同一个`SqlSession`中，执行相同的sql语句，Mybatis会将第一次查询的数据写到缓存中（内存），第二次再次查询的时候就不会从数据库中查询，会直接范湖缓存中的结果。
@@ -6557,24 +6528,19 @@
 	- 二级缓存
 		- 二级缓存是针对Application级别的。
 	- tinyint类型
-	  collapsed:: true
 		- 在mybatis generator项目中，tinyint类型字段的实体映射逻辑：
 		  collapsed:: true
 			- 若数据库定义字段为`tinyint(1)` ，映射之后的Java类型为`Boolean`
 			- 若数据库定义字段为`tinyint(2)`，映射之后的Java类型为`Byte`
 			- 若数据库定义字段为`tinyint(4)`，映射之后的Java类型也为`Byte`
 	- sum()函数
-	  collapsed:: true
 		- `sum()`函数可能会返回null值，故在MyBatis查询中应该设置resultType为integer类型，不能是int。查询完成之后，还需要判断该值是否为null，从而避免代码出现空指针。
 	- 批量插入
-	  collapsed:: true
 		- [MyBatis 批量插入数据的 3 种方法](https://juejin.cn/post/7016691244973686820)
 	- 拦截器的编写
-	  collapsed:: true
 		- 参考文章
 			- [MyBatis 拦截器使用方法总结](https://blog.csdn.net/wb1046329430/article/details/111501755)
 	- 动态sql
-	  collapsed:: true
 		- `where`
 			- *where* 元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，*where* 元素也会将它们去除。
 		- `foreach`

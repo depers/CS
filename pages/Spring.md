@@ -1623,7 +1623,6 @@
 				- this()
 					- this()函数不但具有target()的功能，此外this()函数还可以将生成的代理对象（引介增强）的方法也进行切点匹配。
 		- 6.AspectJ进阶
-		  collapsed:: true
 			- 切点的复合运算
 				- 通过使用切点的 逻辑运算符 ，来实现具有复合切点的切面。
 			- 切点的命名
@@ -1663,7 +1662,6 @@
 			- 绑定抛出的异常
 				- 连接点抛出的异常必须使用 `@AfterThrowing`注解的`throwing`成员进行绑定。
 		- 7.基于Schema配置切面
-		  collapsed:: true
 			- 背景：前6节中，我们讨论的基于@Aspect注解的切面，但是在Java5.0之前，也就是没有注解之前，我们可以使用Spring提供的基于Schema配置的方式去声明切面。
 			- 说白了基于Schema配置切面就是在xml中进行相关配置。
 			- 基于Schema配置的切面也可以通过配置命名切点，实现切点的复用。这里和 切点的命名是一样的。
@@ -1678,7 +1676,6 @@
 				- 我们之前在 切面类型中提到了Spring的`Advisor`接口，它是Spring中切面概念的对应物，它包含一个切点和增强，是切点和增强的复合体。但是在AspectJ中却没有等价物。
 				- 在基于Schema的配置中，我们可以配置一个Advisor的切面。
 		- 8.混合切面类型
-		  collapsed:: true
 			- 四种定义切面的方式
 				- 基于`@AspectJ`注解的方式
 					- **适用场景**：如果JDK是高于等于JDK5的话，推荐使用这种方式。
@@ -1705,6 +1702,7 @@
 		- 1.SpEL诞生的背景
 			- Java语言不支持像动态语言那样表达式语句的动态解析。
 			- 动态语言的显著特征是在运行时可以改变程序结构或变量类型。比如下面这段JavaScript代码：
+			  collapsed:: true
 			  ```JavaScript
 			  function sum(a, b) {
 			      return a + b;
@@ -2604,7 +2602,6 @@
 		  collapsed:: true
 			- 反射工具类
 - spring MVC
-  collapsed:: true
 	- 注解
 	  collapsed:: true
 		- `@RequestBody`
@@ -2908,6 +2905,7 @@
 			- [AntPathMatcher路径匹配器，Ant风格的URL](https://cloud.tencent.com/developer/article/1840091)
 - spring-tx
 	- Spring对事务管理的支持
+	  collapsed:: true
 		- 事务管理的关键抽象
 		  collapsed:: true
 			-
@@ -2915,14 +2913,16 @@
 	  collapsed:: true
 		- 针对于唯一键重复的异常：`DuplicateKeyException`
 	- 事务超时的控制
+	  collapsed:: true
 		- [Spring 事务管理 Timeout 的一点问题研究](https://dongzl.github.io/2020/08/04/33-Spring-Transaction-Timeout/index.html)
 		- [Programmatic Transaction Management in Spring](https://www.baeldung.com/spring-programmatic-transaction-management)
 - Spring Boot
-  collapsed:: true
 	- SpringBoot注解
 		- `@ConditionalOnProperty`
+		  collapsed:: true
 			- 作用：我们需要根据配置属性是否存在、具体的值是什么，来**有条件地创建一些 bean**。
 			- 具体属性
+			  collapsed:: true
 				- `prefix`：配置前缀
 				- `name`：具体的配置项名称
 				- `havingValue`：配置属性的具体的值，只有配置的值和该值是匹配的时候才执行创建bean的逻辑。
@@ -2938,10 +2938,23 @@
 			- 该注解用来读取自定义的特定配置信息，配合`@Component注解`使用。
 			- 配置文件中的命名建议都使用`-`来连接，不建议使用驼峰。
 			- 注意的点
+			  collapsed:: true
 				- `prefix`属性应该是以`-`作为分隔符进行区分的，不能是驼峰命名。具体的文章参考：[Spring Boot Properties Prefix Must Be in Canonical Form](https://www.baeldung.com/spring-boot-properties-canonical-form)
 			- 参考文章：[Guide to @ConfigurationProperties in Spring Boot](https://www.baeldung.com/configuration-properties-in-spring-boot)
 		- `@Conditional`注解
+		  collapsed:: true
 			- 如果现有的条件注解不能满足需求，可以自定义实现`Condition`接口的类，并在`matches`方法中定义自己的条件逻辑。这可以用于实现更复杂的条件判断，比如根据不同的环境或配置来激活不同的Bean。
+		- `@ConditionalOnBean`
+		  collapsed:: true
+			- 这个注解用于条件化Bean的创建。如果容器中有指定的Bean存在，那么带有`@ConditionalOnBean`的Bean才会被创建。
+			- 它可以用来确保某些Bean只有在其他特定Bean存在时才被注册到Spring容器中。
+		- `@DependsOn`
+			- 这个注解用于指定Bean初始化的顺序。它确保在创建当前Bean之前，指定的其他Bean已经被初始化。
+			- 它主要用于控制Bean的初始化顺序，而不是条件化Bean的创建。
+			- 与`@ConditionalOnBean`注解的区别
+				- `@ConditionalOnBean`是基于Bean存在性的条件化注解，而`@DependsOn`是基于初始化顺序的注解。
+		- 参考文章
+			- [Spring系列（六）：@Conditional注解用法介绍](https://developer.aliyun.com/article/1049184)
 	- 依赖管理
 	  collapsed:: true
 		- Spring Boot 的每个版本都提供了它支持的依赖项列表，因此，我们在引入其他的依赖时不需要在配置中指定依赖项的版本，Spring Boot会自行管理。具体可以参考文章：[springboot依赖的一些配置：spring-boot-dependencies、spring-boot-starter-parent、io.spring.platform](https://www.cnblogs.com/leeego-123/p/12665279.html)
@@ -2959,6 +2972,7 @@
 				- https://www.jianshu.com/p/5d4ffe267596
 				- https://www.baeldung.com/running-setup-logic-on-startup-in-spring
 				- [【Spring系列】应用启动后回调机制CommandLineRunner和ApplicationRunner接口](https://blog.csdn.net/chenlixiao007/article/details/113881768)
+				- [CommandLineRunner和ApplicationRunner作用及区别——SpringBoot](https://blog.csdn.net/u010132847/article/details/108044044)
 	- 日志
 	  collapsed:: true
 		- Spring Boot 默认使用 SLF4J+Logback 记录日志，其中SLF4J提供了日志接口，Logback提供的日志实现。
@@ -2977,7 +2991,6 @@
 			- [使用SLF4J和Logback-廖雪峰](https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176)
 			- [Spring Boot日志配置及输出](http://c.biancheng.net/spring_boot/log-config.html)
 	- web相关
-	  collapsed:: true
 		- SpringBoot实现`Filter`过滤器的两种方式
 			- 通过`FilterRegistrationBean`
 			- 通过`@WebFilter`
@@ -3224,4 +3237,6 @@
 			- 对请求的url和method进行Ant风格的校验。
 	-
 - Spring context
-	-
+- Spring retry
+	- 参考文章
+		- [Guide to Spring Retry](https://www.baeldung.com/spring-retry)

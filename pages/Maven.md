@@ -119,7 +119,6 @@
 		    </plugin>
 		    ```
 	- Maven配置
-	  collapsed:: true
 		- 配置maven3的环境变量
 		  collapsed:: true
 			- 直接将bin目录配置到系统变量的`path`中即可，不用配MAVEN_HOME。
@@ -342,7 +341,6 @@
 				  </organization>  
 				  ```
 			- 项目构建环境配置
-			  collapsed:: true
 				- maven配置打包文件的名称，如下：
 				   ```xml
 				   <build>
@@ -917,19 +915,17 @@
 	- Maven命令操作
 	  collapsed:: true
 		- 项目构建命令
-		  collapsed:: true
 			- `mvn --version`：查看maven的版本。
 			- `mvn archetype:generate`：使用项目模板创建项目。
 		- 项目清理/编译/打包
-		  collapsed:: true
 			- `mvn clean`：清理target目录下的编译文件和数据。
 			- `mvn compile`：编译java代码，将编译后的代码放到target目录下。
 			- `mvn package`：将项目打成jar或是war。
 		- 项目运行/测试/发布
-		  collapsed:: true
 			- `mvn tomcat:run`：使用tomcat插件运行web应用程序
 			- `mvn test`：运行test目录下的测试代码，并生成测试报告。
 			- `mvn site`：生成项目的文档。
+			- `mvn verify`：`verify` 阶段的主要目的是验证构建的完整性。它确保所有的构建步骤都已正确执行，并且生成的包是可用的。
 			- `mvn dependency:tree`：查看项目的依赖。
 			- `mvn install`：将项目打包并发布到本地仓库中。
 			- `mvn deploy`：将项目打包并发布到远程仓库中。
@@ -1020,6 +1016,8 @@
 			- `maven`是个项目管理工具，如果我们不告诉它我们的代码要使用什么样的`jdk`版本编译的话，它就会用`maven-compiler-plugin`默认的`jdk`版本来进行处理，这样就容易出现版本不匹配，以至于可能导致编译不通过的问题。
 		- 作用
 			- 使用`maven-compiler-plugin`插件可以指定项目源码的`jdk`版本，编译后的`jdk`版本，以及`编码`。
+		- 参考文章
+			- [Maven 教程（21）— maven-compiler-plugin 插件详解](https://blog.csdn.net/liupeifeng3514/article/details/80236077)
 	- flatten-maven-plugin
 	  collapsed:: true
 		- 使用场景：适合父子项目时使用
@@ -1056,11 +1054,14 @@
 	  collapsed:: true
 		- 功能：用来执行集成测试的。
 	- maven-surefire-plugin
-	  collapsed:: true
 		- 功能：用来执行单元测试的。
+	- maven-install-plugin
+		- 功能：用于将项目安装到本地仓库中，以便其他项目可以依赖它。
+		- 参考文章
 	- maven-jar-plugin
-	  collapsed:: true
-		- 功能：配置mainClass和指定classpath。
+		- 功能：将maven工程打成 jar 包。
+		- 参考文章
+			- [maven-jar-plugin插件](https://blog.csdn.net/qq_40708942/article/details/124579623)
 	- exec-maven-plugin
 	  collapsed:: true
 		- 功能
@@ -1078,7 +1079,8 @@
 	  collapsed:: true
 		- [Maven常用参数说明](https://www.jianshu.com/p/25aff2bf6e56)
 - 常见问题
-  collapsed:: true
 	- 创建Maven项目，挂死在构建项目环境报`Generating project in Batch mode`
 	  collapsed:: true
 		- 原因是：国内防火墙阻止或延缓了访问在国外的Maven仓库。
+	- IDEA maven只有lifecycle，没有Dependencies和Plugins的问题
+		- 解决方法：[IDEA maven只有lifecycle，没有Dependencies和Plugins的问题](https://blog.csdn.net/m0_53570322/article/details/125786255)
