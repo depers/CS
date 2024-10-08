@@ -2602,6 +2602,7 @@
 		  collapsed:: true
 			- 反射工具类
 - spring MVC
+  collapsed:: true
 	- 注解
 	  collapsed:: true
 		- `@RequestBody`
@@ -2913,7 +2914,6 @@
 	  collapsed:: true
 		- 针对于唯一键重复的异常：`DuplicateKeyException`
 	- 事务超时的控制
-	  collapsed:: true
 		- [Spring 事务管理 Timeout 的一点问题研究](https://dongzl.github.io/2020/08/04/33-Spring-Transaction-Timeout/index.html)
 		- [Programmatic Transaction Management in Spring](https://www.baeldung.com/spring-programmatic-transaction-management)
 - Spring Boot
