@@ -25,7 +25,12 @@
 	  collapsed:: true
 		- `-i`：表示打开并保持标准输出。
 		- `-t`：分配一个终端。
+		- `-p`
+		- `-v`
+		- `-u`
+		- `-e`
 	- 后台启动容器：`docker run -dit 镜像名称/镜像tag /bin/bash`
+	  collapsed:: true
 		- `-d`：使这个容器处于后台运行的状态，不会对当前终端产生任何输出，所有的stdout都输出到log，可以使用`docker logs container_name或container_id`查看。
 	- 启动容器命令：`docker start container_name或container_id`
 	- 停止容器命令：`docker stop container_name或container_id`
@@ -35,6 +40,7 @@
 	- 删除镜像：`docker rmi image_name:tag/image_id`
 	- 为镜像image修改tag：`docker tag [IMAGE ID] [REPOSITORY名]:[TAG标识]`
 	- `docker images`
+	  collapsed:: true
 		- 功能：列出本地镜像。
 		- `-a`：列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；
 	- 查看运行中的镜像：`docker ps`
@@ -108,7 +114,6 @@
 				- `ADD`指令还支持通过URL从远程服务器读取资源并复制到镜像中。
 				- Docker开发者推荐：满足同等功能的情况下，推荐使用`COPY`指令。`ADD`指令更擅长读取本地tar文件并解压缩。
 		- `ARG`：构建时指定的一些参数。
-		  collapsed:: true
 			- 作用：用于定义构建参数。它允许在构建镜像时从外部传递参数。
 			- 当我们使用`docker build`命令构建映像时，可以使用`--build-arg`选项来传递该参数的值。例如：`docker build --build-arg VERSION=2.0 .`这里将`VERSION`参数的值设置成了2.0。
 			- 如果要在dockerfile文件中使用`ARG`命令配置的参数，需要使用`$`符号，如下：
@@ -117,7 +122,6 @@
 			   WORKDIR $APP_NAME
 			  ```
 		- `ENV`：设置容器环境变量。
-		  collapsed:: true
 			- 作用：用于定义环境变量。这些变量在容器运行时是可用的，并且可以在容器内部的任何进程中使用。
 			- `ENV`与`ARG`的区别
 			  collapsed:: true
