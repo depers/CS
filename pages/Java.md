@@ -1,5 +1,4 @@
 - Java基础
-  collapsed:: true
 	- 语言基础
 	  collapsed:: true
 		- 数据类型
@@ -686,11 +685,8 @@
 			- `@return`：对返回参数进行说明
 			- 参考文章：[Java DOC教程](https://www.cnblogs.com/linj7/p/14339381.html)
 	- 面向对象
-	  collapsed:: true
 		- Object通用方法
-		  collapsed:: true
 			- equals
-			  collapsed:: true
 				- Java SE中针对equals()的原则
 				  collapsed:: true
 					- 自反性（Reflexive）：对于非null的x来说，x.equals(x)必须返回true；
@@ -698,11 +694,12 @@
 					- 传递性（Transitive）：对于非null的x、y和z来说，如果x.equals(y)为true，y.equals(z)也为true，那么x.equals(z)也必须为true；
 					- 一致性（Consistent）：对于非null的x和y来说，只要x和y状态不变，则x.equals(y)总是一致地返回true或者false；
 					- 对null的比较：x.equals(null)永远返回false
-				- 手动编写equals的步骤（可参考：JavaTrain：cn.bravedawn.obj.object.EqualsExample#equals）
+				- 手动编写equals的步骤
 				  collapsed:: true
 					- 第一步：先确定实例“相等”的逻辑，即哪些字段相等，就认为实例相等；
 					- 第二步：用instanceof判断传入的待比较的Object是不是当前类型，如果是，继续比较，否则，返回false；
 					- 第三步：对引用类型用Objects.equals()比较，对基本类型直接用==比较；
+					- 可参考：JavaTrain：cn.bravedawn.obj.object.EqualsExample
 				- 对于实体类
 				  collapsed:: true
 					- 对于整型包装类型，在-128到127之间的比较都用到了缓存池，这里的equals()和==的作用是一样的。超过这个范围的值比较要使用equals()方法，不能使用==
@@ -2212,7 +2209,6 @@
 - Java进阶
   collapsed:: true
 	- 集合框架
-	  collapsed:: true
 		- Java Collection Framwork
 		  collapsed:: true
 			- 背景
@@ -2326,7 +2322,6 @@
 			- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 			- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 		- List
-		  collapsed:: true
 			- 定义：List是最基础的一种集合：它是一种有序列表
 			- List<E>接口两个实现
 			  collapsed:: true
@@ -2518,7 +2513,6 @@
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
 			- List的比较和使用场景
 			- List的应用
-			  collapsed:: true
 				- 多维列表
 				  collapsed:: true
 					- 创建二维数组：ArrayList<ArrayList<Integer>>
@@ -2721,7 +2715,7 @@
 						- 方法四：通过使用Map.merge()去遍历
 						- 方法五：通过使用Stream API的Collectors.toMap()去遍历
 						- 方法六：通过使用Stream API的Collectors.groupingBy() 和 Collectors.counting()去遍历
-					- 参考文章：https://www.baeldung.com/java-count-duplicate-elements-arraylist#loop-with-mapmerge
+					- 参考文章：[How to Count Duplicate Elements in Arraylist](https://www.baeldung.com/java-count-duplicate-elements-arraylist#loop-with-mapmerge)
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/countduplicateelements
 				- 查找两个列表的不同
 				  collapsed:: true
@@ -4967,16 +4961,14 @@
 - 新特性
   collapsed:: true
 	- Java8
-	  collapsed:: true
 		- 我不会的函数
-		  collapsed:: true
-			- java.util.Map#compute
-			- java.util.Map#merge
-			- java.util.function.BiFunction
-			- java.util.stream.Collectors#toMap()
-			- Collectors.groupingBy()
-			- Collectors.counting()
-			- java.util.function.BiConsumer
+			- `java.util.Map#compute`
+			- `java.util.Map#merge`
+			- `java.util.function.BiFunction`
+			- `java.util.stream.Collectors#toMap()`
+			- `Collectors.groupingBy()`
+			- `Collectors.counting()`
+			- `java.util.function.BiConsumer`
 			- 空笔记
 		- stream操作
 		  collapsed:: true

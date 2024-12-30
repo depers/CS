@@ -2396,7 +2396,7 @@
 					  collapsed:: true
 						- 只有使用了上面两种办法，Spring MVC才会使用注册的`HttpMessageConverter<T>`对请求和响应数据做处理。
 						- 这两种方法都是根据http请求头的Accpet字段判断数据类型的，如果找不到就会报错。
-						- `@RequestBody`和`@ResponseBody`不需要承兑出现，也就是说，这两个使用一个就成，一般我们都用`@RequestBody`就行，因为通过请求参数的格式，我们就可以选择出处理请求和响应的合适的数据转换器来。
+						- `@RequestBody`和`@ResponseBody`不需要成对出现，也就是说，这两个使用一个就成，一般我们都用`@RequestBody`就行，因为通过请求参数的格式，我们就可以选择出处理请求和响应的合适的数据转换器来。
 						- 这两种方法的功能是相似的，不同的是第二种方法是可以获取到报文的头信息的。
 				- 在接收到Http请求时，Spring MVC是如何知道消息的格式的？
 					- 请求数据格式：通过`Accept`
@@ -2606,10 +2606,10 @@
 	- 注解
 	  collapsed:: true
 		- `@RequestBody`
-		  collapsed:: true
-			- 作用：用来接收前端传递给后端的`json`字符串中的数据的(请求体中的数据的)，所以只能发送POST请求。
+			- 作用：用来接收前端传递给后端的`json`字符串中的数据的(请求体中的数据的)，需要在实体对象的参数名前面使用该参数。
 			- `@RequestBody`中的`required`默认是`true`，这个接口必须要传输json格式的数据，假如没有数据，就会报错：`Required request body is missing`。如果我们要自己做数据校验的话，可以将`required`设置为`false`。
 	- 过滤器
+	  collapsed:: true
 		- Filter、Inteceptor、ControllerAdvice、Aspect和Controller的关系
 			- 如下图
 			  ![10.png](../assets/10_1680702279599_0.png)
@@ -2853,7 +2853,7 @@
 			- 相同点
 				- `@Valid`与`@Validated`都是做数据校验的，只不过注解位置与用法有点不同。
 			- 不同点：
-				- `@Valid`是使用Hibernate validation的时候使用。@Validated是只用Spring Validator校验机制使用。
+				- `@Valid`是使用Hibernate validation的时候使用。`@Validated`是只用Spring Validator校验机制使用。
 				- `@Valid` 可以嵌套验证，@Validation 不能进行嵌套验证
 				- `@Valid`：可以用在方法、构造函数、方法参数和成员属性（field）上。
 				- `@Validated`：用在类、方法和方法参数上。但不能用于成员属性（field）。（如果@Validated注解在成员属性上，则会报不适用于field的错误。）
@@ -2864,6 +2864,7 @@
 			- [Spring中的@Valid 和 @Validated注解你用对了吗](https://www.cnblogs.com/xiaoqi/p/spring-valid.html)
 			- [@Valid与@Validated的区别](https://juejin.cn/post/7152324367857713159)
 			- 自定义校验工具类：[Spring Boot 参数校验、校验工具类](https://blog.csdn.net/WEDUEST/article/details/121594610)
+			- [如何优雅的做数据校验-Hibernate Validator详细使用说明](https://juejin.cn/post/6844903976270299149#heading-13)
 	- 获取`HttpServletRequest`的三种方式
 	  collapsed:: true
 		- 一通过`Controller`中增加`request`参数
@@ -2905,6 +2906,7 @@
 		- 参考文章
 			- [AntPathMatcher路径匹配器，Ant风格的URL](https://cloud.tencent.com/developer/article/1840091)
 - spring-tx
+  collapsed:: true
 	- Spring对事务管理的支持
 	  collapsed:: true
 		- 事务管理的关键抽象
@@ -2917,6 +2919,7 @@
 		- [Spring 事务管理 Timeout 的一点问题研究](https://dongzl.github.io/2020/08/04/33-Spring-Transaction-Timeout/index.html)
 		- [Programmatic Transaction Management in Spring](https://www.baeldung.com/spring-programmatic-transaction-management)
 - Spring Boot
+  collapsed:: true
 	- SpringBoot注解
 		- `@ConditionalOnProperty`
 		  collapsed:: true

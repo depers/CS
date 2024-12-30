@@ -917,7 +917,6 @@
 		- 注意
 			- 关于`</welcome-file>`不能指定Servlet的解决办法：https://www.cnblogs.com/taoweiji/p/3248847.html，我这里采用的是`<meta http-equiv="refresh" content="0;URL=/ServletJNDIByServer">`
 - JDBC
-  collapsed:: true
 	- JDBC核心API
 		- 驱动管理器接口：java.sql.DriverManager
 		  collapsed:: true
@@ -953,17 +952,14 @@
 				- `boolean isValid(int timeout)`：在timeout时间内，通过驱动程序的具体实现验证连接**是否没有关闭且有效**，如果超时则返回false。
 				- `boolean isClosed()`：isClosed是判断一个connection是否被关闭，而是否被关闭是停留在java程序层的判断，不会去检测是否与数据库连通。
 		- SQL 命令接口 - java.sql.Statement
-		  collapsed:: true
 			- 普通 SQL 命令 - java.sql.Statement
 				- 功能：用于实现简单的没有参数的SQL语句
 				- DDL语句和DML语句
-				  collapsed:: true
 					- DML 语句 ：CRUD
-						- R（读操作）：ResultSet java.sql.Statement#executeQuery
-						- CUD（增删改）：int java.sql.Statement#executeUpdate(java.lang.String)
+						- R（读操作）：`ResultSet java.sql.Statement#executeQuery`
+						- CUD（增删改）：`int java.sql.Statement#executeUpdate(java.lang.String)`
 					- DDL 语句
-						- 使用boolean java.sql.Statement#execute(java.lang.String)
-						  collapsed:: true
+						- 使用`boolean java.sql.Statement#execute(java.lang.String)`
 							- 成功的话：不需要返回值（返回值 false）
 							- 失败的话：SQLException
 				- 关闭操作
