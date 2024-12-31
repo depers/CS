@@ -22,7 +22,6 @@
 		    ```
 		- 2.暴露静态资源和接口访问路径，这个参考：https://blog.csdn.net/Yu1441/article/details/110130931
 	- 常用注解
-	    collapsed:: true
 		- 在controller方法上：
 		  
 		    ```java
@@ -39,7 +38,6 @@
 		    @ApiModelProperty(value = "用户名", name = "username", example = "imooc", required = true)
 		    ```
 	- 汇总文章
-	  collapsed:: true
 		- [Java Swagger 常用注解说明](https://mazq.cn/java/2020/08/06/Swagger-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3%E8%AF%B4%E6%98%8E/)
 		- [swagger多包扫描](https://liac.vip/archives/swagger%E5%A4%9A%E5%8C%85%E6%89%AB%E6%8F%8F)
 	- 替代品SpringDoc
