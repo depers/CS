@@ -30,7 +30,6 @@
 		- `-u`
 		- `-e`
 	- 后台启动容器：`docker run -dit 镜像名称/镜像tag /bin/bash`
-	  collapsed:: true
 		- `-d`：使这个容器处于后台运行的状态，不会对当前终端产生任何输出，所有的stdout都输出到log，可以使用`docker logs container_name或container_id`查看。
 	- 启动容器命令：`docker start container_name或container_id`
 	- 停止容器命令：`docker stop container_name或container_id`
@@ -40,7 +39,6 @@
 	- 删除镜像：`docker rmi image_name:tag/image_id`
 	- 为镜像image修改tag：`docker tag [IMAGE ID] [REPOSITORY名]:[TAG标识]`
 	- `docker images`
-	  collapsed:: true
 		- 功能：列出本地镜像。
 		- `-a`：列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；
 	- 查看运行中的镜像：`docker ps`
