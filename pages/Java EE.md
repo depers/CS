@@ -566,7 +566,7 @@
 			- web容器如何处理servlet请求
 				- 1.将请求与 web.xml 文件中的 servlet 进行映射
 				- 2.为此请求创建请求和响应对象
-				- 3.调用线程上的service（javax.servlet.http.HttpServlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)）方法
+				- 3.调用线程上的service（`javax.servlet.http.HttpServlet#service(javax.servlet.ServletRequest, javax.servlet.ServletResponse)`）方法
 				- 4.先调用public的service方法，后调用protected的service方法
 				- 5.protected的service方法根据http请求方法调用doxxx()方法
 				- 6.doxxx()方法生成响应并将响应传递给客户端
@@ -917,13 +917,14 @@
 		- 注意
 			- 关于`</welcome-file>`不能指定Servlet的解决办法：https://www.cnblogs.com/taoweiji/p/3248847.html，我这里采用的是`<meta http-equiv="refresh" content="0;URL=/ServletJNDIByServer">`
 - JDBC
+  collapsed:: true
 	- JDBC核心API
-		- 驱动管理器接口：java.sql.DriverManager
+		- 驱动管理器接口：`java.sql.DriverManager`
 		  collapsed:: true
 			- 获取Driver的实现
 				- collapsed:: true
-				  1. 通过Class.forName("com.mysql.jdbc.Driver")，这种方式需要我们显示的在代码中体现
-					- 类加载过程会触发一个静态初始化逻辑，实例化com.mysql.jdbc.Driver类，数据库驱动就会调用java.sql.DriverManager#registerDriver(java.sql.Driver)方法进行驱动注册。
+				  1. 通过`Class.forName("com.mysql.jdbc.Driver")`，这种方式需要我们显示的在代码中体现
+					- 类加载过程会触发一个静态初始化逻辑，实例化`com.mysql.jdbc.Driver`类，数据库驱动就会调用`java.sql.DriverManager#registerDriver(java.sql.Driver)`方法进行驱动注册。
 					- 显示调用Class.forName()方法的背景：在 JDBC 版本 4 和 Java SE 1.6 之前，JVM 中没有可以自动发现和注册服务的通用机制。 因此，需要一个手动步骤来按名称加载 JDBC 驱动程序类。
 				- 2. 通过 “jdbc.drivers” 系统属性，DriverManager会帮我们处理
 					- 使用命令：`java -Djdbc.drivers=oracle.jdbc.driver.OracleDriver`，设置系统属性。在java.sql.DriverManager了的静态代码块中会调用loadInitialDrivers()方法将系统属性中携带的驱动程序参数进行驱动注册。
@@ -933,10 +934,10 @@
 					  ```
 				- 3. 通过 Java SPI ServiceLoader 获取 Driver实现，DriverManager会帮我们处理
 				- 上面的这三种方法其实都在DriverManager的加载逻辑中覆盖了。
-			- 问题：java.sql.DriverManager#loadInitialDrivers 方法中 JavaSPI 迭代器的空遍历的意义（Java8的逻辑）
+			- 问题：`java.sql.DriverManager#loadInitialDrivers` 方法中 JavaSPI 迭代器的空遍历的意义（Java8的逻辑）
 			  collapsed:: true
-				- driversIterator.next()方法会执行ServiceLoader#next()方法，这个方法会主动触发 ClassLoader 加载，将SPI获取的驱动类进行实例化，将驱动注册到JDBC。
-				- 看这个方法：java.util.ServiceLoader.LazyIterator#nextService。
+				- `driversIterator.next()`方法会执行`ServiceLoader#next()`方法，这个方法会主动触发 ClassLoader 加载，将SPI获取的驱动类进行实例化，将驱动注册到JDBC。
+				- 看这个方法：`java.util.ServiceLoader.LazyIterator#nextService`。
 			- 核心方法
 				- 获取Driver对象
 					- `Driver getDriver(String url)`：通过jdbcUrl获取底层的驱动。
@@ -952,14 +953,17 @@
 				- `boolean isValid(int timeout)`：在timeout时间内，通过驱动程序的具体实现验证连接**是否没有关闭且有效**，如果超时则返回false。
 				- `boolean isClosed()`：isClosed是判断一个connection是否被关闭，而是否被关闭是停留在java程序层的判断，不会去检测是否与数据库连通。
 		- SQL 命令接口 - java.sql.Statement
+		  collapsed:: true
 			- 普通 SQL 命令 - java.sql.Statement
 				- 功能：用于实现简单的没有参数的SQL语句
 				- DDL语句和DML语句
+				  collapsed:: true
 					- DML 语句 ：CRUD
 						- R（读操作）：`ResultSet java.sql.Statement#executeQuery`
 						- CUD（增删改）：`int java.sql.Statement#executeUpdate(java.lang.String)`
 					- DDL 语句
 						- 使用`boolean java.sql.Statement#execute(java.lang.String)`
+						  collapsed:: true
 							- 成功的话：不需要返回值（返回值 false）
 							- 失败的话：SQLException
 				- 关闭操作
