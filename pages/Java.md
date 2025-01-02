@@ -3191,7 +3191,6 @@
 					- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 					- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
 			- 线程的方法
-			  collapsed:: true
 				- `start()`：启动新线程，这里面会调用run()方法
 				- `run()`：补充该线程需要执行的内容
 				- `join()`
@@ -3270,7 +3269,6 @@
 		  collapsed:: true
 			- 在一个应用中时可以创建多个线程池的。
 			- 参考文章：
-			  collapsed:: true
 				- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
 				- [别再纠结线程池大小/线程数量了，没有固定公式的](https://juejin.cn/post/6948034657321484318)
 		- Callable
@@ -3284,10 +3282,12 @@
 			- 异常只能在Runnable内部的逻辑中捕获，不能抛出
 			- 配合线程池的`execute()`方法或是`new Thread()`去使用
 		- CompletionStage
+		  collapsed:: true
 			- 这是一个接口，表示异步计算的结果，它提供了一种方式来组合多个异步操作，使得它们可以顺序或者并行执行，并且能够在计算完成时执行回调。
 			- 很多计算可以分成多个阶段或步骤，此时可以通过它将所有步骤组合起来，形成异步计算的流水线。
 			- `CompletionStage` 接口中的方法比较多，`CompletableFuture` 的函数式能力就是这个接口赋予的。
 		- Future
+		  collapsed:: true
 			- 功能：这是一个接口，表示异步执行的结果。
 			- Future模式
 				- 目的

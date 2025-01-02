@@ -839,12 +839,9 @@
 				  collapsed:: true
 					- 设置响应文件的编码
 			- 下载文件
-			  collapsed:: true
-				- response.setHeader("Content-Disposition", "attachment;filename*=utf-8''" + URLEncoder.encode(fileName, "utf-8"));
-				  collapsed:: true
+				- `response.setHeader("Content-Disposition", "attachment;filename*=utf-8''" + URLEncoder.encode(fileName, "utf-8"));`
 					- 保证下载文件的编码正确
 			- 下面这两句代码一定要在进入doxxx方法的第一句代码上写
-			  collapsed:: true
 				- request.setCharacterEncoding("utf-8");
 				- response.setCharacterEncoding("utf-8");
 		- 具体实现参考mall项目下的子项目Servlet/servlet-demo
