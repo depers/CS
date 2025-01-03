@@ -2897,8 +2897,12 @@
 		- 在servlet2.3中，Filter会经过一切请求，包括服务器内部使用的`forward`转发请求和<%@ include file=”/login.jsp”%>的情况。
 		- 在servlet2.4中，Filter默认情况下只过滤外部提交的请求，`forward`和`include`这些内部转发都不会被过滤。
 	- 文件上传
+	  collapsed:: true
 		- 参考文章
 			- [Spring Boot实现文件上传](https://juejin.cn/post/6989115926503227399)
+			- [SpringBoot集成文件 - 基础的文件上传和下载](https://pdai.tech/md/spring/springboot/springboot-x-file-upload-download.html)
+	- 文件下载
+		- 参考文章
 			- [SpringBoot集成文件 - 基础的文件上传和下载](https://pdai.tech/md/spring/springboot/springboot-x-file-upload-download.html)
 	- 对URL进行匹配
 	  collapsed:: true
