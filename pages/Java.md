@@ -666,8 +666,9 @@
 			- 参考文章
 			  collapsed:: true
 				- Generating Random Numbers in Java
+		- XML
+			-
 		- JSON
-		  collapsed:: true
 			- jackson
 			  collapsed:: true
 				- 将一个对象转换为json字符串
@@ -688,6 +689,7 @@
 	- 面向对象
 	  collapsed:: true
 		- Object通用方法
+		  collapsed:: true
 			- equals
 				- Java SE中针对equals()的原则
 				  collapsed:: true
@@ -798,7 +800,6 @@
 				- 先判断两个对象是否相等，若是返回true，否则false；若两个参数都为null也返回true；
 				- 若第一个参数不为null，则调用他的equals方法进行判断；
 		- 面向对象
-		  collapsed:: true
 			- 类和接口的定义
 			  collapsed:: true
 				- 类：类是用户定义的蓝图或原型，可以从中创建对象。它表示对同一类型的所有对象通用的属性或方法的集合。
@@ -883,7 +884,6 @@
 					- 最常用的地方就是构造器的重载。
 					- Java中不允许用户重载运算符。
 				- Java中方法重载的三种方式
-				  collapsed:: true
 					- 更改参数的数量
 					- 更改参数的数据类型
 					- 改变方法参数的顺序
