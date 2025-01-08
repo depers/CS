@@ -464,6 +464,9 @@
 				- 参考文章
 				    collapsed:: true
 					- [Java static keyword](https://www.javatpoint.com/static-keyword-in-java)
+		- 关键字`transient`
+			- `transient`关键字用于标记类的成员变量，表示该成员变量在序列化时不需要被序列化。具体来说，当一个对象被序列化到文件或通过网络传输时，被标记为`transient`的成员变量不会被写入到输出流中，也不会在反序列化时被恢复。
+			- 具体实践：`cn.bravedawn.basic.keyword.transient_.TransientExample`
 		- 日期与时间
 		  collapsed:: true
 			- 基本概念
@@ -667,8 +670,10 @@
 			  collapsed:: true
 				- Generating Random Numbers in Java
 		- XML
+		  collapsed:: true
 			-
 		- JSON
+		  collapsed:: true
 			- jackson
 			  collapsed:: true
 				- 将一个对象转换为json字符串
@@ -3267,12 +3272,12 @@
 				- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 				- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
 		- 线程池
-		  collapsed:: true
 			- 在一个应用中时可以创建多个线程池的。
 			- 参考文章：
-			  collapsed:: true
 				- [Java线程池的实现原理及其在业务中的最佳实践](https://mp.weixin.qq.com/s/icrrxEsbABBvEU0Gym7D5Q)
 				- [别再纠结线程池大小/线程数量了，没有固定公式的](https://juejin.cn/post/6948034657321484318)
+				- [线程池ThreadPoolExecutor 源码分析，面试官也就那么回事，他怎么敢！](https://cloud.tencent.com/developer/article/1692200)
+				- [ThreadPoolExecutor 源码解析(含流程图)](https://juejin.cn/post/6926471351452565512#heading-5)
 		- Callable
 		  collapsed:: true
 			- 可以携带返回值
