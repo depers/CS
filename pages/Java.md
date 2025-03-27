@@ -4,6 +4,7 @@
 	  collapsed:: true
 		- 数据类型
 			- 基本类型
+			  collapsed:: true
 				- 整型
 					- byte，1个字节
 					- short，2个字节
@@ -548,7 +549,6 @@
 		  collapsed:: true
 			- 功能：正则表达式是用字符串描述的一个匹配规则，使用正则表达式可以快速判断给定的字符串是否符合匹配规则。Java标准库java.util.regex内建了正则表达式引擎。
 			- 匹配规则
-			  collapsed:: true
 				- 匹配任意字符：`.`匹配一个字符且仅限一个任意字符
 				- 匹配数字：`\d`仅限单个数字字符
 				- 匹配常用字符：`\w`可以匹配一个字母、数字或下划线
@@ -560,12 +560,10 @@
 					- 修饰符`+`可以匹配至少一个字符
 					- 修饰符`?`可以匹配0个或一个字符
 			- 匹配复杂规则
-			  collapsed:: true
 				- 匹配开头和结尾
 				- 匹配指定范围
 				- 或规则匹配
 				- 使用括号
-				  collapsed:: true
 					- 提取公共部分，括起子规则
 						- 具体实践：JavaTrain:cn.bravedawn.basic.regex.BracketExample
 					- 分组匹配
@@ -575,14 +573,12 @@
 			- 使用Pattern只做一次编译，不建议使用String.matches()
 			- 非贪婪匹配?
 			- 搜索和替换
-			  collapsed:: true
 				- 分割字符串：`String.split()`
 				- 搜索字符串：`Matcher.find()`
 				- 替换字符串：`String.replaceAll()`
 				- 反向引用
 				- `Matcher.appendReplacement()`
 			- 性能优化
-			  collapsed:: true
 				- 推荐将Pattern 缓存下来，避免反复编译Pattern
 					- 代码
 					  ```java
@@ -869,7 +865,6 @@
 					- 在类型升级的过程中，Java会自动将原始数据类型转为包装类型去类型转换匹配图中去寻找。
 					- 类型转换匹配图，例如实参如果是Byte类型，但是形参没有Byte类型，Java就会去找是否有Short、Integer....的重载方法。
 				- 返回值问题
-				  collapsed:: true
 					- 如果两个方法参数的参数类型、个数、顺序都相同。返回值不同，是无法通过编译的。
 					- 如果两个方法参数的参数类型、个数、顺序至少有一个不同，返回值可以相同也可以不同。
 				- 重载main方法
@@ -1014,7 +1009,6 @@
 						- 通过抽象类Person类型去引用具体的子类实例
 						- 具体的业务逻辑由不同的子类实现
 				- 接口
-				  collapsed:: true
 					- 如果一个抽象类没有字段，所有方法全部都是抽象方法，就可以将该抽象类改写为接口
 					- 特点
 					  collapsed:: true
@@ -1036,7 +1030,6 @@
 							- 抽象类是对一种事物的抽象，即对类抽象，继承抽象类的子类和抽象类本身是一种 `is-a` 的关系。而接口是对行为的抽象。
 							- 抽象类是对整个类整体进行抽象，包括属性、行为，但是接口却是对类局部（行为）进行抽象。
 					- default
-					  collapsed:: true
 						- 在接口中可以有自己的方法实现，通过default方法（JDK>=1.8）
 						- default方法的目的是：当我们需要给接口新增一个方法时，会涉及到修改全部子类。如果新增的是default方法，那么子类就不必全部修改，只需要在需要覆写的地方去覆写新增方法。
 						- default方法和抽象类的普通方法的区别：因为interface没有字段，default方法无法访问字段，而抽象类的普通方法可以访问实例字段。
@@ -1431,19 +1424,15 @@
 		  collapsed:: true
 			- 定义：非对称加密就是加密和解密使用的不是相同的密钥，只有同一个公钥-私钥对才能正常加解密。
 			- 特性
-			  collapsed:: true
 				- RSA密钥有256/512/1024/2048/4096等不同的长度。
 			- 优势
-			  collapsed:: true
 				- 对称加密可以安全地公开各自的公钥，在N个人之间通信的时候：使用非对称加密只需要N个密钥对，每个人只管理自己的密钥对。而对称加密则需要N*(N-1)/2个密钥，因此每个人需要管理N-1个密钥，密钥管理难度大，而且非常容易泄漏
 			- 缺点：
-			  collapsed:: true
 				- 运算速度非常慢，比对称加密要慢很多
 				- 长度越长，密码强度越大，当然计算速度也越慢
 				- 特定长度密钥只能加密一定长度的数据，例如使用512bit的RSA加密时，明文长度不能超过53字节，使用1024bit的RSA加密时，明文长度不能超过117字节
 				- 不能防止中间人攻击
 			- 应用案例
-			  collapsed:: true
 				- 小红和小明通信，他俩首先互换自己的RAS公钥给对方
 				- 小红将AES的密钥用小明的RSA公钥加密，小明用自己的RSA私钥解密得到AES密钥
 				- 双方使用这个共享的AES口令用AES加密通信
@@ -3266,9 +3255,9 @@
 			- 很多计算可以分成多个阶段或步骤，此时可以通过它将所有步骤组合起来，形成异步计算的流水线。
 			- `CompletionStage` 接口中的方法比较多，`CompletableFuture` 的函数式能力就是这个接口赋予的。
 		- Future
-		  collapsed:: true
 			- 功能：这是一个接口，表示异步执行的结果。
 			- Future模式
+			  collapsed:: true
 				- 目的
 				  collapsed:: true
 					- 1.	异步执行任务：可以在后台异步地执行任务。
@@ -3294,8 +3283,8 @@
 						- `new`关键字
 						- `completedFuture()` 方法
 						- 静态工厂方法
-							- `supplyAsync()`方法会新启一个线程去执行任务，这个返回**用来执行有返回值的任务**，他还有第二个参数可以配置执行任务的线程池。默认使用的是ForkJoin线程池，创建的线程是守护线程，会随着主线程关闭而关闭。
-							- `runAsync()`方法会新启一个线程去执行任务，这个返回用来**执行没有返回值的任务**，他还有第二个参数可以配置执行任务的线程池。
+							- `supplyAsync()`方法会新启一个线程去执行任务，这个方法**用来执行有返回值的任务**，他还有第二个参数可以配置执行任务的线程池。默认使用的是ForkJoin线程池，创建的线程是守护线程，会随着主线程关闭而关闭。
+							- `runAsync()`方法会新启一个线程去执行任务，这个方法用来**执行没有返回值的任务**，他还有第二个参数可以配置执行任务的线程池。
 					- 处理异步结算的结果
 						- `thenApply()`：接受一个 `Function` 实例，用它来处理结果。
 						- `thenAccept()`：不需要从回调函数中获取返回结果，可以使用 `thenAccept()`。但是可以获取上一次计算的结果。示例代码如下：
@@ -3322,6 +3311,7 @@
 						- `anyOf()`方法不会等待所有的 CompletableFuture 都运行完成之后再返回，只要有一个执行完成即可。
 					- 其他方法
 						- 通过使用`get()`进行阻塞，使用`complete()`方法来通知阻塞线程继续执行，从而实现某项任务完成后通知另一个任务继续执行的效果。
+						- `join()` 方法的作用是等待 `CompletableFuture` 表示的异步任务完成，并返回任务的结果。如果任务已经完成，它会直接返回结果；如果任务尚未完成，它会阻塞当前线程，直到任务完成。
 						- 连续执行多个任务，通过`thenCompose`将上一步的执行结果进一步进行处理。
 						- 连续执行多个任务，通过方法 `thenCombine()`，首先完成当前任务和other任务的执行 。接着将这两者的执行结果传递给 BiFunction （该接口接收两 参数，并有一个返回值），并返回BiFunction实例的 `CompletableFuture`对象。
 						- 通过`handle()`方法可以对上一个任务执行的结果进行处理，包括他执行结果和异常。
@@ -3330,11 +3320,12 @@
 						- 多个`CompletableFuture`并行执行，只要其中一个返回结果就结束操作，通过`anyOf()`方法去实现。
 						- 通过`complete()`或是``completeExceptionally()``指定任务的完成情况，通过`whencomplete()`封装任务执行完成后的逻辑。
 						  id:: 669bc7a6-6910-4947-9ddf-ba17e3be58b9
-					- 参谋文章：
+					- 参考文章：
 						- [CompletableFuture 使用详解](https://www.jianshu.com/p/6bac52527ca4)
 						- [使用CompletableFuture](https://www.liaoxuefeng.com/wiki/1252599548343744/1306581182447650)
 						- [从 5s 到 0.5s！CompletableFuture 异步任务优化技巧，确实优雅](https://juejin.cn/post/7280746526820679732#heading-9)
 		- Condition
+		  collapsed:: true
 			- 参考文章
 				- [【Java 基础篇】Java Condition 接口详解](https://cloud.tencent.com/developer/article/2339289)
 	- IO
@@ -3425,7 +3416,7 @@
 			  collapsed:: true
 				- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyCharacters.java
 				- JavaTrain/src/main/java/cn/bravedawn/io/charaterstreams/CopyLines.java
-		- 缓冲流（buffered streams）          
+		- 缓冲流（buffered streams）
 		  collapsed:: true
 			- 背景
 			  collapsed:: true
@@ -3436,7 +3427,6 @@
 				- 缓冲的输入流从称为缓冲区的内存区域读取数据; 只有当缓冲区为空时才调用本机输入 API。
 				- 缓冲的输出流将数据写入缓冲区，并且只有在缓冲区已满时才调用本机输出 API。
 			- 四个缓冲流类用于包装未缓冲流
-			  collapsed:: true
 				- `BufferedInputStream` 和 `BufferedOutputStream` 创建缓冲字节流。
 				- `BufferedReader` 和 `BufferedWriter` 创建缓冲字符流。
 			- 刷新缓冲区
@@ -3496,7 +3486,6 @@
 		  collapsed:: true
 			- 推荐使用Java 7 nio Files.write 来创建和写入文件，因为它有更简洁的代码并自动关闭打开的资源。
 			- 实现
-			  collapsed:: true
 				- `Files.newBufferedWriter` (Java 8)
 				- `Files.write` (Java 7)
 				- `PrintWriter`
@@ -3507,7 +3496,6 @@
 		  collapsed:: true
 			- 新的 Java 8 `Files.lines` 在读取小型或大型文本文件方面表现良好，返回一个 Stream（灵活类型并支持并行），自动关闭资源，并且有一行干净的代码。
 			- 实现
-			  collapsed:: true
 				- `Files.lines`, return a `Stream` (Java 8)
 				- `Files.readString`, returns a `String` (Java 11), max file size 2G.
 				- `Files.readAllBytes`, returns a `byte[]` (Java 7), max file size 2G.
@@ -3724,7 +3712,6 @@
 		  collapsed:: true
 			- 参考文章：[How to Process YAML with Jackson](https://www.baeldung.com/jackson-yaml)
 		- try-with-resources语法糖
-		  collapsed:: true
 			-
 	- JVM
 	  collapsed:: true
@@ -5029,9 +5016,7 @@
 				- [Why Do Local Variables Used in Lambdas Have to Be Final or Effectively Final?](https://www.baeldung.com/java-lambda-effectively-final-local-variables)
 				-
 		- Lambda异常处理
-		  collapsed:: true
 			- 参考文章
-			  collapsed:: true
 				- [Exceptions in Java 8 Lambda Expressions](https://www.baeldung.com/java-lambda-exceptions)
 - 命令行工具
   collapsed:: true

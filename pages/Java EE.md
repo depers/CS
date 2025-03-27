@@ -119,6 +119,7 @@
 				  collapsed:: true
 					- Web 容器管理资源池、进行内存优化、运行垃圾收集器、提供安全配置、对多个应用程序的支持、热部署以及其他一些幕后任务
 		- Server：Web vs. Application
+		  collapsed:: true
 			- 定义
 				- 服务器是接受并响应其他程序（称为客户端）发出的请求的设备或计算机程序。 它用于管理网络资源和运行提供服务的程序或软件。
 			- 分类
@@ -158,8 +159,10 @@
 				- text/plain
 				- application/json
 		- web应用程序文件结构
+		  collapsed:: true
 			- 目录结构这里可以参考：https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html
 		- Deployment Descriptor
+		  collapsed:: true
 			- web.xml文件是 web 应用程序的部署描述符，包含 servlet (3.0之前)、欢迎页面、安全配置、会话超时设置等的映射。
 	- Servlet简介
 		- 开头
@@ -275,29 +278,22 @@
 		- ServletRequest interface
 		  collapsed:: true
 			- 介绍
-			  collapsed:: true
 				- ServletRequest接口用于向servlet提供客户端请求信息。如内容类型、内容长度、参数名称和值、头信息、属性等。
 				- Servlet容器根据客户端请求创建ServletRequest对象，并将其传递给Servlet service()方法进行处理。
 				- ServletRequest的子接口是HttpServletRequest，它包含一些用于会话管理、cookie和请求授权的其他方法。
 			- 方法
-			  collapsed:: true
 				- Object getAttribute(String name)
-				  collapsed:: true
 					- 此方法将指定属性的值返回为Object，如果不存在则返回null。
 					- 我们可以使用getAttributeNames()方法来获取请求属性名称的枚举。此接口还提供设置和删除属性的方法
 				- getServerName()
-				  collapsed:: true
 					- 返回服务器的主机名。
 				- getServerPort()
-				  collapsed:: true
 					- 返回它正在监听的服务器的端口号。
 				- getParameter(String name)
-				  collapsed:: true
 					- 这个方法以String的形式返回请求参数。
 					- 我们可以使用getParameterNames()方法来获取请求参数名称的枚举。
 					- 返回url中拼接参数的value值，若请求地址为http://www.abc.com/def?a=1&a=2&a=3，此时使用getPatameter("a")，返回的值是getParameterValues("a")的数组的第一个值。
 				- getParameterValues(String name)
-				  collapsed:: true
 					- 若你的请求参数会有多个值时，调用这个方法会返回一个数组。
 		- ServletInputStream class
 		  collapsed:: true
@@ -346,6 +342,7 @@
 				- `include(ServletRequest request, ServletResponse response)`
 					- 在响应中包含资源(servlet、JSP页面、HTML文件)的内容
 		- `HttpServletRequest` interface
+		  collapsed:: true
 			- 关于`httpServletRequest` path API的讨论
 				- 附一张图
 				  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
@@ -363,16 +360,12 @@
 				  }
 				  ```
 		- sendRediret
-		  collapsed:: true
 			- 介绍
-			  collapsed:: true
 				- HttpServletResponse 接口的 sendRedirect() 方法可用于将响应重定向到另一个资源，它可以是 servlet、jsp 或 html 文件。
 				- 它接受相对和绝对 URL。
 				- 它在客户端工作，因为它使用浏览器的 url 栏发出另一个请求。 因此，它可以在服务器内部和外部工作，也就是说我们可以通过这个方法在服务器内部控制客户端的行为。
 			- forward()和sendRedirect()的区别
-			  collapsed:: true
 				- 实验结论，可以参考mall/Servlet/forward-sendRedirect-example项目
-				  collapsed:: true
 					- forward()配置的转发不会进行页面的跳转（或者说浏览器地址栏的地址是不会改变的，因为request和response对象本身就没有变）
 					- sendRedirect()配置的跳转会进行页面的跳转，会跳向一个新的地址，浏览器地址栏的地址会变，浏览器控制台http请求的状态码会变为302
 				- 参考区别：
@@ -560,6 +553,7 @@
 				- 6.doxxx()方法生成响应并将响应传递给客户端
 				- 7.发送响应之后，web容器会删除Request和Response对象
 		- war文件
+		  collapsed:: true
 			- 定义：war(web archive)文件 包含一个web项目的文件。它可能有 servlet、xml、jsp、image、html、css、js 等文件。
 			- 优势
 				- 节省时间：war 文件将所有文件组合成一个单元。因此，将文件从客户端传输到服务器所需的时间更少。

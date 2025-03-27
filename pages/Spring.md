@@ -2626,7 +2626,6 @@
 				- 跨域请求处理：在过滤器中设置响应头，允许跨域请求。
 				- 数据压缩：压缩发送给客户端的响应数据
 			- 不足
-			  collapsed:: true
 				- 使用Filter是不能获取到具体是**那个Controller的那个方法**处理某一个请求
 		- Spring的OncePreRequestFilter
 			- 与Servlet Filter的区别
@@ -2658,7 +2657,6 @@
 				- 全局数据预处理
 		- 切面-aspect
 	- 如何多次读取HttpServletRequest
-	  collapsed:: true
 		- 具体实现
 			- jasper:cn/bravedawn/web/config/cachedrequest
 		- 参考文章
@@ -2888,7 +2886,6 @@
 			  HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
 			  ```
 	- 在处理日志记录的时候，如何缓存请求和响应
-	  collapsed:: true
 		- 在开发web应用的时候，我们经常需要写一个interceptor去记录请求的日志，但是Servlet的`HttpServletRequest`和`HttpServletResponse`的body信息只能被读取一次，所以这里我们需要缓存一次请求和响应的body，使用缓存的request和response去做日志信息的记录。
 		- Spring提供了两个类用于这里这块工作，分别是`ContentCachingRequestWrapper`和`ContentCachingResponseWrapper`。
 	- `OncePerRequestFilter`与`Filter`的区别
@@ -2902,6 +2899,7 @@
 			- [Spring Boot实现文件上传](https://juejin.cn/post/6989115926503227399)
 			- [SpringBoot集成文件 - 基础的文件上传和下载](https://pdai.tech/md/spring/springboot/springboot-x-file-upload-download.html)
 	- 文件下载
+	  collapsed:: true
 		- 参考文章
 			- [SpringBoot集成文件 - 基础的文件上传和下载](https://pdai.tech/md/spring/springboot/springboot-x-file-upload-download.html)
 	- 对URL进行匹配
@@ -2946,7 +2944,6 @@
 			- 该注解用来读取自定义的特定配置信息，配合`@Component注解`使用。
 			- 配置文件中的命名建议都使用`-`来连接，不建议使用驼峰。
 			- 注意的点
-			  collapsed:: true
 				- `prefix`属性应该是以`-`作为分隔符进行区分的，不能是驼峰命名。具体的文章参考：[Spring Boot Properties Prefix Must Be in Canonical Form](https://www.baeldung.com/spring-boot-properties-canonical-form)
 			- 参考文章：[Guide to @ConfigurationProperties in Spring Boot](https://www.baeldung.com/configuration-properties-in-spring-boot)
 		- `@Conditional`注解
