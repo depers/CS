@@ -121,37 +121,28 @@
 		- Server：Web vs. Application
 		  collapsed:: true
 			- 定义
-			  collapsed:: true
 				- 服务器是接受并响应其他程序（称为客户端）发出的请求的设备或计算机程序。 它用于管理网络资源和运行提供服务的程序或软件。
 			- 分类
-			  collapsed:: true
 				- Web Server
-				  collapsed:: true
 					- 图片
 					- Web 服务器只包含 web 或 servlet 容器。 可用于servlet、jsp、struts、jsf等。不能用于EJB。
 					- 它是一台可以存储网络内容的计算机。 一般来说，网络服务器可用于托管网站，但也使用其他一些网络服务器，如 FTP、电子邮件、存储、游戏等。
 					- web server的例子
-					  collapsed:: true
 						- Apache Tomcat
 						- Resin
 					- 有两种方式为客户端提供响应
-					  collapsed:: true
 						- 通过脚本和数据库通信生成响应
 						- 发送与url相关联的文件给客户端
 					- Web Server与Application Server之间的区别
-					  collapsed:: true
 						- Application Server是Web Server的一部分
 						- Web Server可以直接向客户端提供静态资源的响应
 						- 除静态数据等资源外，Web Server可以通过与Application Server连接去处理相应的请求
 				- Application Server
-				  collapsed:: true
 					- 图片
 					- 定义
-					  collapsed:: true
 						- Application Server包括web和EJB容器，只要是使用Servlet、JSP、EJB、JSF等组件实现，它是一个基于组件的产品，位于以服务器为中心的体系结构的中间层。
 						- 提供了会话状态维护、安全、数据访问和持久化等功能
 					- Application Server的例子
-					  collapsed:: true
 						- JBoss: Open-source server from JBoss community.
 						- Glassfish: Provided by Sun Microsystem. Now acquired by Oracle.
 						- Weblogic: Provided by Oracle. It more secured.
@@ -287,29 +278,22 @@
 		- ServletRequest interface
 		  collapsed:: true
 			- 介绍
-			  collapsed:: true
 				- ServletRequest接口用于向servlet提供客户端请求信息。如内容类型、内容长度、参数名称和值、头信息、属性等。
 				- Servlet容器根据客户端请求创建ServletRequest对象，并将其传递给Servlet service()方法进行处理。
 				- ServletRequest的子接口是HttpServletRequest，它包含一些用于会话管理、cookie和请求授权的其他方法。
 			- 方法
-			  collapsed:: true
 				- Object getAttribute(String name)
-				  collapsed:: true
 					- 此方法将指定属性的值返回为Object，如果不存在则返回null。
 					- 我们可以使用getAttributeNames()方法来获取请求属性名称的枚举。此接口还提供设置和删除属性的方法
 				- getServerName()
-				  collapsed:: true
 					- 返回服务器的主机名。
 				- getServerPort()
-				  collapsed:: true
 					- 返回它正在监听的服务器的端口号。
 				- getParameter(String name)
-				  collapsed:: true
 					- 这个方法以String的形式返回请求参数。
 					- 我们可以使用getParameterNames()方法来获取请求参数名称的枚举。
 					- 返回url中拼接参数的value值，若请求地址为http://www.abc.com/def?a=1&a=2&a=3，此时使用getPatameter("a")，返回的值是getParameterValues("a")的数组的第一个值。
 				- getParameterValues(String name)
-				  collapsed:: true
 					- 若你的请求参数会有多个值时，调用这个方法会返回一个数组。
 		- ServletInputStream class
 		  collapsed:: true
@@ -358,6 +342,7 @@
 				- `include(ServletRequest request, ServletResponse response)`
 					- 在响应中包含资源(servlet、JSP页面、HTML文件)的内容
 		- `HttpServletRequest` interface
+		  collapsed:: true
 			- 关于`httpServletRequest` path API的讨论
 				- 附一张图
 				  ![httpservlethelper-768x391.png](../assets/httpservlethelper-768x391_1672322215374_0.png)
@@ -375,16 +360,12 @@
 				  }
 				  ```
 		- sendRediret
-		  collapsed:: true
 			- 介绍
-			  collapsed:: true
 				- HttpServletResponse 接口的 sendRedirect() 方法可用于将响应重定向到另一个资源，它可以是 servlet、jsp 或 html 文件。
 				- 它接受相对和绝对 URL。
 				- 它在客户端工作，因为它使用浏览器的 url 栏发出另一个请求。 因此，它可以在服务器内部和外部工作，也就是说我们可以通过这个方法在服务器内部控制客户端的行为。
 			- forward()和sendRedirect()的区别
-			  collapsed:: true
 				- 实验结论，可以参考mall/Servlet/forward-sendRedirect-example项目
-				  collapsed:: true
 					- forward()配置的转发不会进行页面的跳转（或者说浏览器地址栏的地址是不会改变的，因为request和response对象本身就没有变）
 					- sendRedirect()配置的跳转会进行页面的跳转，会跳向一个新的地址，浏览器地址栏的地址会变，浏览器控制台http请求的状态码会变为302
 				- 参考区别：
@@ -575,18 +556,14 @@
 		  collapsed:: true
 			- 定义：war(web archive)文件 包含一个web项目的文件。它可能有 servlet、xml、jsp、image、html、css、js 等文件。
 			- 优势
-			  collapsed:: true
 				- 节省时间：war 文件将所有文件组合成一个单元。因此，将文件从客户端传输到服务器所需的时间更少。
 			- 创建war文件
-			  collapsed:: true
 				- 进入项目目录（WEB-INF同级目录）执行命令：jar -cvf projectname.war *
 				- 其中配置参数：-c 用于创建文件，-v 用于生成详细输出，-f 用于指定 archive 文件名，*（星号）符号表示该目录（包括子目录）的所有文件
 			- 部署war文件的两种方式
-			  collapsed:: true
 				- 通过服务器的控制面板
 				- 收单将war包放到Tomcat服务器的webapps目录，将war文件粘贴到这里
 			- 提取war包中的文件
-			  collapsed:: true
 				- 使用命令：jar -xvf projectname.war
 				- 其中配置参数：-x从档案中提取指定的 (或所有) 文件，-v 用于生成详细输出，-f 用于指定 archive 文件名
 		- web.xml中的welcome-file-list标签

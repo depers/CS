@@ -61,6 +61,7 @@
 		- 以上面这段配置来做说明，它将 `spring-boot-dependencies`  中 `DependencyManagement` 下的 `Dependencies` 插入到当前工程的 `DependencyManagement` 中，所以不存在依赖传递。
 		- 当没有 `<scope>import</scope>` 时，意思是将 `spring-boot-dependencies`  的 `Dependencies` 全部插入到当前工程的 `Dependencies` 中，并且会依赖传递。
 	- 指定jdk编译版本号
+	  collapsed:: true
 		- 参见如下代码
 		  ```xml
 		  <build>
@@ -1011,6 +1012,7 @@
 		- 参考文章
 			- [spring-boot-maven-plugin插件的作用](https://www.cnblogs.com/acm-bingzi/p/mavenspringbootplugin.html)
 	- maven-compiler-plugin
+	  collapsed:: true
 		- 背景
 			- `maven`是个项目管理工具，如果我们不告诉它我们的代码要使用什么样的`jdk`版本编译的话，它就会用`maven-compiler-plugin`默认的`jdk`版本来进行处理，这样就容易出现版本不匹配，以至于可能导致编译不通过的问题。
 		- 作用
