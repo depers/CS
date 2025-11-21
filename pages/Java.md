@@ -6,6 +6,7 @@
 			- 基本类型
 			  collapsed:: true
 				- 整型
+				  collapsed:: true
 					- byte，1个字节
 					- short，2个字节
 					- int，4个字节
@@ -20,6 +21,7 @@
 			- 包装类型
 			  collapsed:: true
 				- 基本类型都对应一个包装类型
+				  collapsed:: true
 					- Java核心库提供的包装类型可以把基本类型包装为class；
 					- 自动装箱和自动拆箱都是在编译期完成的（JDK>=1.5）；
 					- 装箱和拆箱会影响执行效率，且拆箱时可能发生NullPointerException；
@@ -111,6 +113,7 @@
 			- 不可变
 			  collapsed:: true
 				- 概述
+				  collapsed:: true
 					- 在 Java 8 中，String 内部使用 char 数组存储数据
 					- 在 Java 9 之后，String 类的实现改用 byte 数组存储字符串，同时使用 coder 来标识使用了哪种编码
 					- 不可变特性可以参考：https://www.liaoxuefeng.com/wiki/1252599548343744/1255938912141568
@@ -123,6 +126,7 @@
 			- `Sting`-`StringBuffer`-`StringBuilder`的比较
 			  collapsed:: true
 				- 可变性
+				  collapsed:: true
 					- String不可变
 					- StringBuffer和StringBuilder可变
 				- 线程安全
@@ -184,6 +188,7 @@
 				- 自增/自减
 				  collapsed:: true
 					- `++`
+					  collapsed:: true
 						- `i++`：先用后加
 						- `++i`：先加后用
 					- `--`
@@ -211,6 +216,7 @@
 			- 浮点数运算
 			  collapsed:: true
 				- float与double
+				  collapsed:: true
 					- // float f = 1.1; 是错的，Java 不能隐式执行向下转型，因为这会使得精度降低。
 					- 1.1f 字面量才是 float 类型
 					- 1.1 字面量属于 double 类型
@@ -236,6 +242,7 @@
 			- 运算符
 			  collapsed:: true
 				- 逻辑运算符
+				  collapsed:: true
 					- 与：`&&`
 					- 或：`||`
 					- 非：`!`
@@ -248,6 +255,7 @@
 				- 移位运算符
 				  collapsed:: true
 					- `<<`
+					  collapsed:: true
 						- 运算规则：**左移位会丢弃左边指定位数，右边补0**。
 						- 左移位操作，相当于乘2。
 						- int类型左移位数大于等于32位操作时，会先求余（%）后再进行左移操作。例如左移40位相当于左移8位（40%32=8）。
@@ -272,6 +280,7 @@
 			- 输入和输出
 			  collapsed:: true
 				- 输出
+				  collapsed:: true
 					- System.out.println()，输出并换行
 					- System.out.print()，输出不换行
 					- System.out.printf()，格式化输出
@@ -313,6 +322,7 @@
 			- break和continue
 			  collapsed:: true
 				- 相同点
+				  collapsed:: true
 					- 都用于while循环和for循环
 					- 都通常配合if使用
 				- 不同点
@@ -348,6 +358,7 @@
 			- System.arraycopy()
 			  collapsed:: true
 				- 功能
+				  collapsed:: true
 					- `java.lang.System.arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length)`方法将源数组从特定起始位置复制到目标数组中提到的位置。 要复制的参数数量由参数决定。 将 source_Position 到 source_Position + length – 1 处的组件从 destination_Position 到 destination_Position + length – 1 复制到目标数组。
 				- 特点
 				  collapsed:: true
@@ -363,6 +374,7 @@
 			- final
 			  collapsed:: true
 				- 修饰类
+				  collapsed:: true
 					- 如果一个在声明类时用final关键字来修饰，那这个类是不能够被继承的。也就是说这个类时最终的。例如String类。
 					- 类声明中的 final 关键字并不意味着该类的对象是不可变的。我们可以自由改变类对象的字段：
 				- 修饰方法
@@ -386,10 +398,12 @@
 						- 修饰类字段（类的属性）
 						  collapsed:: true
 							- 声明常量
+							  collapsed:: true
 								- 根据命名约定，类常量应为大写，组件之间用下划线 (“_”) 字符分隔
 							- 必须在构造函数完成之前初始化任何 final 字段
 							  collapsed:: true
 								- static final修饰的类字段的初始化时机
+								  collapsed:: true
 									- 在声明的时候初始化该字段
 									- 在静态代码块中初始化该字段
 								- final修饰的类字段的初始化时机
@@ -401,6 +415,7 @@
 			- static
 			  collapsed:: true
 				- 静态变量
+				  collapsed:: true
 					- 背景
 						- 代码：
 						  
@@ -487,6 +502,7 @@
 			- Java8新的时间API体系
 			  collapsed:: true
 				- 本地日期和时间
+				  collapsed:: true
 					- LocalDateTime
 						- 它表示一个本地日期和时间
 						- 按照ISO 8601格式打印
@@ -507,6 +523,7 @@
 				- 带时区的日期和时间
 				  collapsed:: true
 					- ZonedDateTime
+					  collapsed:: true
 						- 创建
 						- 时区转换
 						- 转换为LocalDateTime
@@ -524,6 +541,7 @@
 				- 时间格式类
 				  collapsed:: true
 					- DateTimeFormatter
+					  collapsed:: true
 						- 线程安全
 						- 创建
 						- 格式化输出
@@ -536,6 +554,7 @@
 				- 事件间隔的计算
 				  collapsed:: true
 					- `CheonoUnit`方法
+					  collapsed:: true
 						- 参考文章：[ChronoUnit用法](https://blog.csdn.net/cfqp123456/article/details/123866478)
 			- 最佳实践
 			  collapsed:: true
@@ -568,6 +587,7 @@
 				- 使用括号
 				  collapsed:: true
 					- 提取公共部分，括起子规则
+					  collapsed:: true
 						- 具体实践：JavaTrain:cn.bravedawn.basic.regex.BracketExample
 					- 分组匹配
 					  collapsed:: true
@@ -585,6 +605,7 @@
 			- 性能优化
 			  collapsed:: true
 				- 推荐将Pattern 缓存下来，避免反复编译Pattern
+				  collapsed:: true
 					- 代码
 					  ```java
 					  static final Pattern HEAVY_REGEX = Pattern.compile("(((X)*Y)*Z)*");
@@ -612,6 +633,7 @@
 			- 使用Java API
 			  collapsed:: true
 				- 使用Math.random()生成随机数
+				  collapsed:: true
 					- Math 类的 random 方法将返回一个范围从 0.0（包括）到 1.0（不包括）的 double 值
 				- 使用Random.next()生成随机数
 				  collapsed:: true
@@ -622,6 +644,7 @@
 				- 使用ThreadLocalRandom生成随机数
 				  collapsed:: true
 					- ThreadLocalRandom类与Random类有三个重要区别
+					  collapsed:: true
 						- 1. 不需要显式地初始化ThreadLocalRandom的一个新实例。这有助于我们避免创建大量无用的实例和浪费垃圾回收器时间的情况。
 						- 2. 不能为ThreadLocalRandom设置种子。
 						- 3. Random类在多线程环境中表现不好。
@@ -635,6 +658,7 @@
 			- 使用三方API
 			  collapsed:: true
 				- 使用Apache Common Math3生成随机数
+				  collapsed:: true
 					- 在Apache commons项目的公共数学库中提供了很多生成器，RandomDataGenerator使用Well19937c算法进行随机数的生成。
 				- 使用XoRoShiRo128PlusRandom生成随机数
 				  collapsed:: true
@@ -650,6 +674,7 @@
 			- jackson
 			  collapsed:: true
 				- 将一个对象转换为json字符串
+				  collapsed:: true
 					- 参考文章
 						- [How to convert Java object to / from JSON (Jackson)](https://mkyong.com/java/how-to-convert-java-object-to-from-json-jackson/)
 		- Java doc
@@ -872,6 +897,7 @@
 					- 在类型升级的过程中，Java会自动将原始数据类型转为包装类型去类型转换匹配图中去寻找。
 					- 类型转换匹配图，例如实参如果是Byte类型，但是形参没有Byte类型，Java就会去找是否有Short、Integer....的重载方法。
 				- 返回值问题
+				  collapsed:: true
 					- 如果两个方法参数的参数类型、个数、顺序都相同。返回值不同，是无法通过编译的。
 					- 如果两个方法参数的参数类型、个数、顺序至少有一个不同，返回值可以相同也可以不同。
 				- 重载main方法
@@ -1016,6 +1042,7 @@
 						- 通过抽象类Person类型去引用具体的子类实例
 						- 具体的业务逻辑由不同的子类实现
 				- 接口
+				  collapsed:: true
 					- 如果一个抽象类没有字段，所有方法全部都是抽象方法，就可以将该抽象类改写为接口
 					- 特点
 					  collapsed:: true
@@ -1037,6 +1064,7 @@
 							- 抽象类是对一种事物的抽象，即对类抽象，继承抽象类的子类和抽象类本身是一种 `is-a` 的关系。而接口是对行为的抽象。
 							- 抽象类是对整个类整体进行抽象，包括属性、行为，但是接口却是对类局部（行为）进行抽象。
 					- default
+					  collapsed:: true
 						- 在接口中可以有自己的方法实现，通过default方法（JDK>=1.8）
 						- default方法的目的是：当我们需要给接口新增一个方法时，会涉及到修改全部子类。如果新增的是default方法，那么子类就不必全部修改，只需要在需要覆写的地方去覆写新增方法。
 						- default方法和抽象类的普通方法的区别：因为interface没有字段，default方法无法访问字段，而抽象类的普通方法可以访问实例字段。
@@ -2180,7 +2208,6 @@
 			  collapsed:: true
 				- 功能：编写可能抛出异常的需要特权的代码。
 - Java进阶
-  collapsed:: true
 	- 集合框架
 	  collapsed:: true
 		- Java Collection Framwork
@@ -3222,8 +3249,11 @@
 				  collapsed:: true
 					- 方法和普通线程一样，只是在调用`start()`方法前，调用`setDaemon(true)`把该线程标记为守护线程。
 		- 关键字
+		  collapsed:: true
 			- `volatile`
+			  collapsed:: true
 				- 功能
+				  collapsed:: true
 					- 每次访问变量时，总是获取主内存的最新值；
 					- 每次修改变量后，立刻回写到主内存。
 					- `volatile`关键字解决的是可见性问题：当一个线程修改了某个共享变量的值，其他线程能够立刻看到修改后的值。
@@ -3231,6 +3261,7 @@
 		- 锁
 		  collapsed:: true
 			- 公平锁和非公平锁
+			  collapsed:: true
 				- **公平锁：** 指多个线程按照申请锁的顺序来获取锁，线程直接进入队列中排队，队列中的第一个线程才能获得锁。
 				- **非公平锁：** 多个线程加锁时直接尝试获取锁，能抢到锁到直接占有锁，抢不到才会到等待队列的队尾等待。
 		- 线程池
@@ -3260,32 +3291,38 @@
 		- Future
 			- 功能：这是一个接口，表示异步执行的结果。
 			- Future模式
-			  collapsed:: true
 				- 目的
-				  collapsed:: true
 					- 1.	异步执行任务：可以在后台异步地执行任务。
 					- 2.	获取任务结果：在后续可以获取任务的执行结果。
 				- Future模式的简单实现
-				  collapsed:: true
 					- 异步任务通过新建一个异步线程去执行
 					- 任务的结果获取主要是依赖`wait()`和`notifyAll()`方法去做的。
+			- 方法
+				- `cancel()`
+				  collapsed:: true
+					- 用于取消异步任务的执行。
+					- 方法签名：
+					  ```
+					  boolean cancel(boolean mayInterruptIfRunning)
+					  ```
+					- **参数：**
+						- `mayInterruptIfRunning`：
+							- `true`：如果任务正在运行，尝试中断执行线程
+							- `false`：允许正在运行的任务完成，但不接受新任务
+					- **返回值：**
+						- `true`：任务被成功取消
+						- `false`：任务已经完成或已经被取消，取消失败
 			- 继承关系图
-			  collapsed:: true
 				- ![future继承关系.png](../assets/future继承关系_1720663819341_0.png)
 			- 子类
-			  collapsed:: true
 				- `FutureTask`
-				  collapsed:: true
 					- **推荐使用**
 					- 结合Callable来使用。
 					- FutureTask实现了Runnable和Future的接口，它既可以作为Runnable被线程执行，又可以作为Future得到Callable的返回值。
 				- `CompletableFuture`
-				  collapsed:: true
 					- 背景
-					  collapsed:: true
 						- 使用`Future`获得异步执行结果时，要么调用阻塞方法`get()`，要么轮询看`isDone()`是否为`true`，这两种方法都不是很好，因为主线程也会被迫等待。
 						- 使用`Future`不支持异步任务的编排组合。
-						  collapsed:: true
 					- 创建CompletableFuture
 						- `new`关键字
 						- `completedFuture()` 方法
@@ -3328,13 +3365,13 @@
 						- 通过`complete()`或是``completeExceptionally()``指定任务的完成情况，通过`whencomplete()`封装任务执行完成后的逻辑。
 						  id:: 669bc7a6-6910-4947-9ddf-ba17e3be58b9
 					- 参谋文章：
-					  collapsed:: true
 						- [CompletableFuture 使用详解](https://www.jianshu.com/p/6bac52527ca4)
 						- [使用CompletableFuture](https://www.liaoxuefeng.com/wiki/1252599548343744/1306581182447650)
 						- [从 5s 到 0.5s！CompletableFuture 异步任务优化技巧，确实优雅](https://juejin.cn/post/7280746526820679732#heading-9)
 		- Condition
 		  collapsed:: true
 			- 参考文章
+			  collapsed:: true
 				- [【Java 基础篇】Java Condition 接口详解](https://cloud.tencent.com/developer/article/2339289)
 	- IO
 	  collapsed:: true
@@ -3798,9 +3835,11 @@
 				- JVM中如何设置Xmx和Xms的大小
 				  collapsed:: true
 					- 第一个问题：为什么要将Xms和Xmx设置为一样的值
+					  collapsed:: true
 						- JVM会在堆内存不足的时候进行扩容操作，在堆内存过大的时候缩小内存大小，这个过程中是需要开销的，也就是内存抖动。
 						- 具体细节可以参考文章：[jvm调优技巧 - 内存抖动 、Xms和Xmx参数为什么要设置相同的值](https://blog.csdn.net/qq_27184497/article/details/119052930)
 					- 第二个问题：这两个参数最大可以设置成多少
+					  collapsed:: true
 						- Xmx推荐设置为容器内存的50%，不能超过容器内存的80%。
 						- Xmx和Xms建议设置成一样的。
 				- JVM是Client模式还是Server模式，如何判断
@@ -3912,6 +3951,7 @@
 					  collapsed:: true
 						- 实验：通过**Unsafe**实例进行内存分配，使用直接内存导致溢出，具体实践：jvm/jvm-demo/src/main/java/cn/bravedawn/jvm/memory/DirectMemoryOOM.java
 			- 第三章 垃圾回收器
+			  collapsed:: true
 				- 相关概念
 				  collapsed:: true
 					- 根据对象的存活周期不同将内存分为新生代、老年代
