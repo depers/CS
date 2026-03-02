@@ -356,18 +356,14 @@
 					- $ javac Main.java
 					- $ java Main -version
 			- System.arraycopy()
-			  collapsed:: true
 				- 功能
-				  collapsed:: true
 					- `java.lang.System.arraycopy(Object src,  int  srcPos, Object dest, int destPos, int length)`方法将源数组从特定起始位置复制到目标数组中提到的位置。 要复制的参数数量由参数决定。 将 source_Position 到 source_Position + length – 1 处的组件从 destination_Position 到 destination_Position + length – 1 复制到目标数组。
 				- 特点
-				  collapsed:: true
 					- **深复制**：当数组为**一维数组**，且元素为**基本类型**或**String**类型（**String**的特殊是因为它的不可变性）时，属于深复制，即原数组与新数组的元素不会相互影响。
 					- **浅复制**：当数组为**多维数组**，或其中一维数组中的元素为**引用类型**时，属于浅复制，原数组与新数组的元素引用指向同一个对象。
 					- 可能会出现的异常
 				- 具体实践：JavaTrain/src/main/java/cn/bravedawn/basic/lang/systemarraycopy
 				- 参考博客：
-				  collapsed:: true
 					- [System.arraycopy() in Java](https://www.geeksforgeeks.org/system-arraycopy-in-java/)
 		- 关键字final和static
 		  collapsed:: true
@@ -2208,6 +2204,7 @@
 			  collapsed:: true
 				- 功能：编写可能抛出异常的需要特权的代码。
 - Java进阶
+  collapsed:: true
 	- 集合框架
 	  collapsed:: true
 		- Java Collection Framwork
@@ -2323,7 +2320,6 @@
 			- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 			- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 		- List
-		  collapsed:: true
 			- 定义：List是最基础的一种集合：它是一种有序列表
 			- List<E>接口两个实现
 			  collapsed:: true
@@ -2493,23 +2489,18 @@
 			- CopyOnWriteArrayList
 			  collapsed:: true
 				- 特点
-				  collapsed:: true
 					- 是线程安全的。
 					- CopyOnWriteArrayList适合在迭代遍历场景较多，频繁修改场景较少的情况。读多写少。
 				- CopyOnWriteArrayList的迭代遍历
 				  collapsed:: true
 					- 介绍
-					  collapsed:: true
 						- CopyOnWriteArrayList允许以线程安全的方式迭代列表而不需要显示进行同步
 					- 迭代的API设计
-					  collapsed:: true
 						- CopyOnWriteArrayList在修改元素时，比如新增add()或是删除remove()操作时，并不直接操作元数据，操作的是副本数据（CopyOnWriteArrayList 的全部内容被复制到新的内部副本中）
 						- 在 CopyOnWriteArrayList 上调用 iterator()方法时，我们会返回一个由 CopyOnWriteArrayList 内容的不可变快照备份的迭代器
 					- 在遍历CopyOnWriteArrayList允许插入元素
-					  collapsed:: true
 						- 在遍历CopyOnWriteArrayList时插入元素，不影响之前创建的迭代器
 					- 在遍历CopyOnwriteArrayList不允许移除元素
-					  collapsed:: true
 						- 由于复制机制，不允许对返回的 Iterator执行 remove() 操作，否则就会报错 UnsupportedOperationException
 					- 参考文章：https://www.baeldung.com/java-copy-on-write-arraylist
 					- 参考实现：JavaTrain/src/main/java/cn/bravedawn/collection/list/copyonwritearraylist
@@ -2730,7 +2721,6 @@
 			  collapsed:: true
 				- [Java Collections](https://www.baeldung.com/java-collections)
 		- Set
-		  collapsed:: true
 			- `Set`用于存储不重复的元素集合。
 			- 关键方法
 			    collapsed:: true
@@ -2746,8 +2736,13 @@
 			    collapsed:: true
 				- `TreeSet`是有序的，因为它实现了`SortedSet`接口。
 				- 使用`TreeSet`和使用`TreeMap`的要求一样，添加的元素必须正确实现`Comparable`接口，如果没有实现`Comparable`接口，那么创建`TreeSet`时必须传入一个`Comparator`对象。
+			- CopyOnWriteArraySet
+			  collapsed:: true
+				- 常见的坑
+					- 迭代不是实时的，遍历过程中可能看不到新增的元素。
+					- 元素必须正确实现 equals()，否则可能出现“逻辑重复但能插入”的问题。
+					- 不要当普通 Set 用，如果写频繁，性能会**急剧下降**。
 		- Map
-		  collapsed:: true
 			- 背景
 			  collapsed:: true
 				- 为什么不用list而要用map呢
@@ -3122,25 +3117,19 @@
 		- Fail-fast and Fail-safe
 		  collapsed:: true
 			- Fail-fast
-			  collapsed:: true
 				- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 `ConcurrentModificationException`。
 				- 案例
-				  collapsed:: true
 					- HashMap 中的迭代器
 					- ArrayList 中的迭代器
 			- Fail-safe（Non-Fail-fast）
-			  collapsed:: true
 				- 如果线程在迭代集合时从集合中添加或删除元素，不抛出`ConcurrentModificationException`异常，我们称为Non-Fail-fast或者是Fail-safe。
 				- Fail-safe迭代器会创建原始集合或对象数组的副本，并迭代该复制的集合。 在迭代器中所做的任何结构修改都会影响复制的集合，而不是原始集合。 因此，原始集合在结构上保持不变。
 				- 案例
-				  collapsed:: true
 					- ConcurrentHashMap 上的迭代器
 					- CopyOnWriteArrayList 上的迭代器
 			- 具体实践
-			  collapsed:: true
 				- JavaTrain/src/main/java/cn/bravedawn/collection/failsafe
 			- 参考文章
-			  collapsed:: true
 				- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 	- 并发
 	  collapsed:: true
