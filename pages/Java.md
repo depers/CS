@@ -2074,71 +2074,52 @@
 				- xxxValueExact()：精准的转换，如果转换超出范围，将直接抛出ArithmeticException异常
 			- 输出字节数组的16进制表示：new BigInteger(1, hash).toString(16)
 		- BigDecimal
-		  collapsed:: true
 			- `RoundingModed`定义了8中舍入规则
 			  collapsed:: true
 				- `ROUND_UP`：向远离零的方向舍入
-				  collapsed:: true
 					- 若舍入位为非零，则对舍入部分的前一位数字加1；若舍入位为零，则直接舍弃。即为向外取整模式。
 				- `ROUND_DOWN`：向接近零的方向舍入
-				  collapsed:: true
 					- 不论舍入位是否为零，都直接舍弃。即为向内取整模式。
 				- `ROUND_CEILING`：向正无穷大的方向舍入
-				  collapsed:: true
 					- 若 BigDecimal 为正，则舍入行为与 ROUNDUP 相同；若为负，则舍入行为与 ROUNDDOWN 相同。即为向上取整模式。
 				- `ROUND_FLOOR`：向负无穷大的方向舍入
-				  collapsed:: true
 					- 若 BigDecimal 为正，则舍入行为与 ROUNDDOWN 相同；若为负，则舍入行为与 ROUNDUP 相同。即为向下取整模式。
 				- `ROUND_HAL_FUP`：向“最接近的”整数舍入
-				  collapsed:: true
 					- 若舍入位大于等于5，则对舍入部分的前一位数字加1；若舍入位小于5，则直接舍弃。即为四舍五入模式。
 				- `ROUND_HALF_DOWN`：向“最接近的”整数舍入
-				  collapsed:: true
 					- 若舍入位大于5，则对舍入部分的前一位数字加1；若舍入位小于等于5，则直接舍弃。即为五舍六入模式。
 				- `ROUND_HALF_EVEN`：向“最接近的”整数舍入
-				  collapsed:: true
 					- 若（舍入位大于5）或者（舍入位等于5且前一位为奇数），则对舍入部分的前一位数字加1；
 					- 若（舍入位小于5）或者（舍入位等于5且前一位为偶数），则直接舍弃。即为银行家舍入模式。
 				- `ROUND_UNNECESSARY`：
-				  collapsed:: true
 					- 断言请求的操作具有精确的结果，因此不需要舍入。
 					- 如果对获得精确结果的操作指定此舍入模式，则抛出ArithmeticException。
 			- BigDecimal的三个toString方法
-			  collapsed:: true
 				- 三个方法
-				  collapsed:: true
 					- `toEngineeringString`：有必要时使用工程计数法。工程记数法是一种工程计算中经常使用的记录数字的方法，与科学技术法类似，但要求10的幂必须是3的倍数
-					- `toPlainString`：不使用任何指数
+					- `toPlainString`：用于 **将 BigDecimal 转换为字符串，但不会使用科学计数法（指数形式）**。
 					- `toString`：有必要时使用科学计数法
 				- 具体实现：JavaTrain/src/main/java/cn/bravedawn/basic/math/bigdecimal/BigDecimalExample2.java
 				- 参考文章：https://www.cnblogs.com/happy520/p/7090199.html
 			- DecimalFormat格式化数据
-			  collapsed:: true
 				- 作用：是 NumberFormat 的一个具体子类，用于格式化十进制数字。
 				- 默认的舍入方式：`DecimalFormat` 提供 `RoundingMode` 中定义的舍入模式进行格式化。默认情况下，它使用 `RoundingMode.HALF_EVEN`。
 				- 占位符的使用
-				  collapsed:: true
 					- *0*占位符的使用
 					- *#*号占位符的使用
 					- 占位符使用总结
-					  collapsed:: true
 						- 格式化数字，保留两位小数，**不足的小数部分用0代替**，这时候，我们就可以使用：**"0.00"**；
 						- 格式化数字，只保留有效数字，最多保留两位小数，这时候，我们就可以使用：**"#.##"**。
 					-
 				- 设置不同的舍入方式：`format.setRoundingMode(RoundingMode.DOWN);`
 				- 参考文章
-				  collapsed:: true
 					- [DecimalFormat - 格式化数据](https://www.jianshu.com/p/c1dec1796062)
 			- BigDecimal的比较
-			  collapsed:: true
 				- 比较两个 `BigDecimal` 大小,请使用`java.math.BigDecimal.compareTo(BigDecimal)`  方法，而不要使用 `java.math.BigDecimal.equals(Object)`方法。
 				- 因为`equals()`方法认为，两个表示同一个数但换算值不同（例如， 100.00 和 100.000 ）的 `BigDecimal` 值是不相等的。 然而， `compareTo()` 方法会认为这两个数是相等的，所以在从数值上比较两个 `BigDecimal` 值时，应该使用 `compareTo()` 而不是 `equals()` 。
 			- 运算
-			  collapsed:: true
 				- 除法运算
-				  collapsed:: true
 					- 报`java.lang.ArithmeticException: Non-terminating decimal expansion; no exact representable decimal result.`
-					  collapsed:: true
 						- 在进行除法运算的时候，我们需要使用下面的方法来进行精度控制。
 						  ```java
 						  public BigDecimal divide(BigDecimal divisor, int scale, int roundingMode)
@@ -2320,6 +2301,7 @@
 			- JDK 不提供此接口的任何直接实现：它提供更具体的子接口（如 Set 和 List）的实现。此接口通常用于传递集合并在需要最大通用性的地方操作它们。
 			- 如果集合实现没有实现特定的操作，它应该定义相应的方法来抛出 UnsupportedOperationException。
 		- List
+		  collapsed:: true
 			- 定义：List是最基础的一种集合：它是一种有序列表
 			- List<E>接口两个实现
 			  collapsed:: true
@@ -2721,6 +2703,7 @@
 			  collapsed:: true
 				- [Java Collections](https://www.baeldung.com/java-collections)
 		- Set
+		  collapsed:: true
 			- `Set`用于存储不重复的元素集合。
 			- 关键方法
 			    collapsed:: true
@@ -3117,19 +3100,25 @@
 		- Fail-fast and Fail-safe
 		  collapsed:: true
 			- Fail-fast
+			  collapsed:: true
 				- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 `ConcurrentModificationException`。
 				- 案例
+				  collapsed:: true
 					- HashMap 中的迭代器
 					- ArrayList 中的迭代器
 			- Fail-safe（Non-Fail-fast）
+			  collapsed:: true
 				- 如果线程在迭代集合时从集合中添加或删除元素，不抛出`ConcurrentModificationException`异常，我们称为Non-Fail-fast或者是Fail-safe。
 				- Fail-safe迭代器会创建原始集合或对象数组的副本，并迭代该复制的集合。 在迭代器中所做的任何结构修改都会影响复制的集合，而不是原始集合。 因此，原始集合在结构上保持不变。
 				- 案例
+				  collapsed:: true
 					- ConcurrentHashMap 上的迭代器
 					- CopyOnWriteArrayList 上的迭代器
 			- 具体实践
+			  collapsed:: true
 				- JavaTrain/src/main/java/cn/bravedawn/collection/failsafe
 			- 参考文章
+			  collapsed:: true
 				- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 	- 并发
 	  collapsed:: true
@@ -3137,43 +3126,32 @@
 		  collapsed:: true
 			- 线程的创建
 			- 核心方法
-			  collapsed:: true
 				- `getAllStackTraces`：用于获取虚拟机中所有线程的StackTraceElement对象
-				  collapsed:: true
 					- 这个方法几行代码就可以完成 ((643e8e8a-fc31-4ad9-a376-abf958152726))的大部分功能。
 					- 具体实践：jvm-demo:cn.bravedawn.jvm.tool.ThreadGetAllStackTraces
 			- 线程切换
-			  collapsed:: true
 				- CPU是以时间片进行线程调度的，一个线程在占有一个分配的时间片之后，CPU就会根据相应的策略进行线程的重新调度。线程切换也就是CPU时间片切换到另一个线程上去执行。
 			- 线程的状态
-			  collapsed:: true
 				- 六种状态
-				  collapsed:: true
 					- New（初始状态）：新创建的线程，尚未执行；
 					- Runnable
-					    collapsed:: true
 						- READY（就绪状态)
-						    collapsed:: true
 							- 就绪状态只是说你资格运行，调度程序没有挑选到你，你就永远是就绪状态。
 							- 调用线程的`start()`方法，此线程进入就绪状态。
 							- 当前线程`sleep()`方法结束、其他线程`join()`结束、等待用户输入完毕、某个线程拿到对象锁。这些线程也将进入就绪状态。
 							- 当前线程时间片用完了，调用当前线程的`yield()`方法，当前线程进入就绪状态。
 							- 锁池里的线程拿到对象锁后，进入就绪状态。
 						- RUNNING（运行中状态）
-						    collapsed:: true
 							- 运行中的线程，正在执行`run()`方法的Java代码；
 					- Blocked（阻塞状态）：运行中的线程，因为某些操作被阻塞而挂起；
 					- Waiting（等待）：运行中的线程，因为某些操作在等待中；
 					- Timed Waiting（超时等待）：运行中的线程，因为执行`sleep()`方法正在计时等待；
 					- Terminated（终止等待）：线程已终止，因为`run()`方法执行完毕；
 					- 参考文章
-					  collapsed:: true
 						- [Java线程的6种状态及切换(透彻讲解)](https://blog.csdn.net/pange1991/article/details/53860651)
 				- 状态转移图
-				  collapsed:: true
 					- ![线程切换.jpeg](../assets/线程切换_1716441975617_0.jpeg)
 				- 线程终止的原因
-				  collapsed:: true
 					- 线程正常终止：run()方法执行到return语句返回；
 					- 线程意外终止：run()方法因为未捕获的异常导致线程终止；
 					- 对某个线程的Thread实例调用stop()方法强制终止（强烈不推荐使用）。
@@ -3182,7 +3160,6 @@
 				- `start()`：启动新线程，这里面会调用run()方法
 				- `run()`：补充该线程需要执行的内容
 				- `join()`
-				  collapsed:: true
 					- 通过对另一个线程对象调用`join()`方法可以等待其执行结束。
 					- 可以指定等待时间，超过等待时间线程仍然没有结束就不再等待。
 					- 对已经运行结束的线程调用`join()`方法会立刻返回。
@@ -3191,18 +3168,14 @@
 				- `isInterrupted()`：判断当前线程是否被中断。
 				- `sleep()`：一定是当前线程调用此方法，当前线程进入TIMED_WAITING状态，但不释放对象锁，millis后线程自动苏醒进入就绪状态。作用：给其它线程执行机会的最佳方式。
 				- `yield()`
-				    collapsed:: true
 					- 即 "谦让"，也是 Thread 类的方法。它让掉当前线程 CPU 的时间片，使正在运行中的线程重新变成就绪状态，并重新竞争 CPU 的调度权。它可能会获取到，也有可能被其他线程获取到。
 					- 一定是当前线程调用此方法，当前线程放弃获取的CPU时间片，但不释放锁资源，**由运行状态变为就绪状态**，让OS再次选择线程。作用：让相同优先级的线程轮流执行，但并不保证一定会轮流执行。实际中无法保证`yield()`达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。`Thread.yield()`不会导致阻塞。该方法与`sleep()`类似，只是不能由用户指定暂停多长时间。
 					- 参考文章
-					    collapsed:: true
 						- [多线程 Thread.yield 方法到底有什么用](https://zhuanlan.zhihu.com/p/50374332)
 				- `obj.wait()`，当前线程调用对象的wait()方法，当前线程释放对象锁，进入等待队列。依靠notify()/notifyAll()唤醒或者wait(long timeout) timeout时间到自动唤醒。
-				  collapsed:: true
 					- **wait/notify方法的调用必须处在该对象的锁（Monitor）中，也即，在调用这些方法时首先需要获得该对象的锁。**否则会抛出`IllegalMonitorStateException`异常。
 					- 在执行`wait`操作时，因考虑是否因该将其包裹在`while`循环体中。
 					- 为什么我没有加`synchronized`关键字去包裹`wait()`方法，怎么没报`IllegalMonitorStateException`异常
-					  collapsed:: true
 						- 这里因为`wait()`方法压根没有得到执行，大家来看这段代码，这里我是没有加`synchronized`关键字的，但是在外面调用`getResult()`方法却没有报`IllegalMonitorStateException`异常，原因就是while这里的判断就没有进到代码块的执行里，所以没有报这个异常。综上所述，在使用wait()方法时，外面还是要添加`sycnhronized`关键字
 						  ```java
 						  @Override
@@ -3218,24 +3191,19 @@
 						  }
 						  ```
 					- 参考文章
-					  collapsed:: true
 						- [Wait/Notify通知机制解析](https://juejin.cn/post/6844903520437551111)
 						- [使用wait和notify](https://www.liaoxuefeng.com/wiki/1252599548343744/1306580911915042)
 				- `obj.notify()`唤醒在此对象监视器上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象监视器上等待的所有线程。
 				- `LockSupport.park()/LockSupport.parkNanos(long nanos)`：LockSupport.parkUntil(long deadlines), 当前线程进入WAITING/TIMED_WAITING状态。对比wait方法,不需要获得锁就可以让线程进入WAITING/TIMED_WAITING状态，需要通过LockSupport.unpark(Thread thread)唤醒。
 			- 中断线程
-			    collapsed:: true
 				- 对目标线程调用`interrupt()`方法可以请求中断一个线程，目标线程通过检测`isInterrupted()`标志获取自身是否已中断。如果目标线程处于等待状态，该线程会捕获到`InterruptedException`；
 				- 目标线程检测到`isInterrupted()`为`true`或者捕获了`InterruptedException`都应该立刻结束自身线程；
 				- 通过标志位判断需要正确使用`volatile`关键字；
 				- `volatile`关键字解决了共享变量在线程间的可见性问题。
 			- 守护线程
-			  collapsed:: true
 				- 功能
-				  collapsed:: true
 					- 守护线程是指为其他线程服务的线程。在JVM中，所有非守护线程都执行完毕后，无论有没有守护线程，虚拟机都会自动退出。
 				- 创建
-				  collapsed:: true
 					- 方法和普通线程一样，只是在调用`start()`方法前，调用`setDaemon(true)`把该线程标记为守护线程。
 		- 关键字
 		  collapsed:: true
@@ -3278,6 +3246,7 @@
 			- 很多计算可以分成多个阶段或步骤，此时可以通过它将所有步骤组合起来，形成异步计算的流水线。
 			- `CompletionStage` 接口中的方法比较多，`CompletableFuture` 的函数式能力就是这个接口赋予的。
 		- Future
+		  collapsed:: true
 			- 功能：这是一个接口，表示异步执行的结果。
 			- Future模式
 				- 目的
