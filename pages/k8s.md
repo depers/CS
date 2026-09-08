@@ -225,9 +225,9 @@
 				- *spec*
 					- 用于定义Pod所运行的容器。
 	- 第五章 Kubernetes Deployment
-	  collapsed:: true
 		- 部署*Deployment*对象
 	- 第六章 Kubernetes Service
+	  collapsed:: true
 		- 背景
 			- Pod的IP地址是不可靠的。在某个Pod失效之后，它会被一个拥有新的IP的Pod代替。Deployment扩容也会引入拥有新IP的Pod；而缩容则会删除Pod。这会导致大量的IP流失，因而Pod的IP地址是不可靠的。
 		- 关于Service

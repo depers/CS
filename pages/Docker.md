@@ -34,7 +34,6 @@
 	- 删除镜像：`docker rmi image_name:tag/image_id`
 	- 为镜像image修改tag：`docker tag [IMAGE ID] [REPOSITORY名]:[TAG标识]`
 	- `docker images`
-	  collapsed:: true
 		- 功能：列出本地镜像。
 		- `-a`：列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；
 	- 查看运行中的镜像：`docker ps`

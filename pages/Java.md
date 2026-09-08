@@ -2074,8 +2074,8 @@
 				- xxxValueExact()：精准的转换，如果转换超出范围，将直接抛出ArithmeticException异常
 			- 输出字节数组的16进制表示：new BigInteger(1, hash).toString(16)
 		- BigDecimal
+		  collapsed:: true
 			- `RoundingModed`定义了8中舍入规则
-			  collapsed:: true
 				- `ROUND_UP`：向远离零的方向舍入
 					- 若舍入位为非零，则对舍入部分的前一位数字加1；若舍入位为零，则直接舍弃。即为向外取整模式。
 				- `ROUND_DOWN`：向接近零的方向舍入
@@ -2095,6 +2095,7 @@
 					- 断言请求的操作具有精确的结果，因此不需要舍入。
 					- 如果对获得精确结果的操作指定此舍入模式，则抛出ArithmeticException。
 			- BigDecimal的三个toString方法
+			  collapsed:: true
 				- 三个方法
 					- `toEngineeringString`：有必要时使用工程计数法。工程记数法是一种工程计算中经常使用的记录数字的方法，与科学技术法类似，但要求10的幂必须是3的倍数
 					- `toPlainString`：用于 **将 BigDecimal 转换为字符串，但不会使用科学计数法（指数形式）**。
@@ -2102,22 +2103,28 @@
 				- 具体实现：JavaTrain/src/main/java/cn/bravedawn/basic/math/bigdecimal/BigDecimalExample2.java
 				- 参考文章：https://www.cnblogs.com/happy520/p/7090199.html
 			- DecimalFormat格式化数据
+			  collapsed:: true
 				- 作用：是 NumberFormat 的一个具体子类，用于格式化十进制数字。
 				- 默认的舍入方式：`DecimalFormat` 提供 `RoundingMode` 中定义的舍入模式进行格式化。默认情况下，它使用 `RoundingMode.HALF_EVEN`。
 				- 占位符的使用
+				  collapsed:: true
 					- *0*占位符的使用
 					- *#*号占位符的使用
 					- 占位符使用总结
+					  collapsed:: true
 						- 格式化数字，保留两位小数，**不足的小数部分用0代替**，这时候，我们就可以使用：**"0.00"**；
 						- 格式化数字，只保留有效数字，最多保留两位小数，这时候，我们就可以使用：**"#.##"**。
 					-
 				- 设置不同的舍入方式：`format.setRoundingMode(RoundingMode.DOWN);`
 				- 参考文章
+				  collapsed:: true
 					- [DecimalFormat - 格式化数据](https://www.jianshu.com/p/c1dec1796062)
 			- BigDecimal的比较
+			  collapsed:: true
 				- 比较两个 `BigDecimal` 大小,请使用`java.math.BigDecimal.compareTo(BigDecimal)`  方法，而不要使用 `java.math.BigDecimal.equals(Object)`方法。
 				- 因为`equals()`方法认为，两个表示同一个数但换算值不同（例如， 100.00 和 100.000 ）的 `BigDecimal` 值是不相等的。 然而， `compareTo()` 方法会认为这两个数是相等的，所以在从数值上比较两个 `BigDecimal` 值时，应该使用 `compareTo()` 而不是 `equals()` 。
 			- 运算
+			  collapsed:: true
 				- 除法运算
 					- 报`java.lang.ArithmeticException: Non-terminating decimal expansion; no exact representable decimal result.`
 						- 在进行除法运算的时候，我们需要使用下面的方法来进行精度控制。
@@ -3098,27 +3105,24 @@
 				- 4.**线程安全性**：Stack类不是线程安全的，而Deque类提供了线程安全的版本ConcurrentLinkedDeque。
 				- 综上所述，如果你只需要**栈的基本操作**，如插入、删除和获取栈顶元素，那么使用**Stack类**会更加方便。如果你需要**在队列的两端进行插入和删除**操作，或者需要**线程安全**的栈，那么使用**Deque类**会更加合适。
 		- Fail-fast and Fail-safe
-		  collapsed:: true
+			- 背景：集合遍历与集合修改之间存在冲突 → Java 需要定义一种处理策略 → 形成了 Fail-fast 和 Fail-safe 两类设计思想。
 			- Fail-fast
-			  collapsed:: true
 				- 当我们使用 Fail-fast 迭代器时，如果在线程迭代集合时从集合中添加或删除元素，它会立即抛出 `ConcurrentModificationException`。
+				- 采用的具体实现方法就是，使用一个count变量记录list被修改的次数，在进行遍历的使用会使用另一个count遍历记录list的修改次数，如果发现这两个count不一致，就报错。
 				- 案例
-				  collapsed:: true
 					- HashMap 中的迭代器
 					- ArrayList 中的迭代器
 			- Fail-safe（Non-Fail-fast）
-			  collapsed:: true
 				- 如果线程在迭代集合时从集合中添加或删除元素，不抛出`ConcurrentModificationException`异常，我们称为Non-Fail-fast或者是Fail-safe。
 				- Fail-safe迭代器会创建原始集合或对象数组的副本，并迭代该复制的集合。 在迭代器中所做的任何结构修改都会影响复制的集合，而不是原始集合。 因此，原始集合在结构上保持不变。
 				- 案例
-				  collapsed:: true
 					- ConcurrentHashMap 上的迭代器
 					- CopyOnWriteArrayList 上的迭代器
 			- 具体实践
-			  collapsed:: true
 				- JavaTrain/src/main/java/cn/bravedawn/collection/failsafe
+			- 注意
+				- Fail-fast和线程安全不是一回事，因为即使是单线程遍历`ArrayList`时修改元素也会导致`ConcurrentModificationException`
 			- 参考文章
-			  collapsed:: true
 				- [Fail-fast and Fail-safe in Java](https://www.javatpoint.com/fail-fast-and-fail-safe-in-java)
 	- 并发
 	  collapsed:: true
